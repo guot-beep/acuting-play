@@ -62,6 +62,7 @@
   .bubble .who{font-size:11.5px;letter-spacing:.2em;color:var(--terra);margin-bottom:5px;text-transform:uppercase;font-family:"Courier New",monospace}
   .bubble .line{font-size:15.5px;line-height:1.75}
   .bubble .zh{display:block;font-size:13px;color:var(--ink-soft);margin-top:6px}
+  body.nozh .zh{display:none}
   .bubble .tap{position:absolute;right:14px;bottom:9px;font-size:11px;color:var(--ink-soft);opacity:.6;animation:blink 1.4s infinite}
   @keyframes blink{50%{opacity:.15}}
 
@@ -184,7 +185,7 @@
     <div class="scene">
       <div class="cast">
         <div class="actor" id="a-master"><canvas width="16" height="18"></canvas><span>Master Shen 參師父</span></div>
-        <div class="actor" id="a-patient"><canvas width="16" height="18"></canvas><span>A-Lian 阿蓮</span></div>
+        <div class="actor" id="a-patient"><canvas width="16" height="18"></canvas><span id="ptName">—</span></div>
       </div>
       <div class="bubble" id="bubble">
         <div class="who" id="who">—</div>
@@ -279,7 +280,7 @@
   <section class="screen" id="s-end">
     <div class="end-wrap">
       <div class="stars" id="stars">★★★</div>
-      <h2 id="endTitle">A-Lian Recovers</h2>
+      <h2 id="endTitle">Outcome</h2>
       <p class="ask" id="endText" style="margin:0"></p>
       <div class="reward">
         <div class="rar">TECHNIQUE CARD · 心法</div>
@@ -297,19 +298,33 @@
 </div>
 
 <script>
+/* ══════════ which chapter am I? (must resolve before anything reads CH) ══════════ */
+const CH_ID=(new URLSearchParams(location.search).get("ch")||"01").padStart(2,"0");
+const CH=(window.AG_CHAPTERS||{})[CH_ID]||(window.AG_CHAPTERS||{})["01"];
+document.title=CH.title.replace(/&#39;/g,"'")+" · Apricot Grove";
+
 /* ══════════ sprites ══════════ */
 const PAL={R:"#C0392B",G:"#6E8B57",D:"#7A5C3A",C:"#EFD9AE",W:"#FFFFFF",K:"#2B241C",P:"#E8A08C",M:"#B0552F",
-           H:"#2E2620",F:"#F2CBA9",B:"#7C8FA0",S:"#A9433A"};
+           H:"#2E2620",F:"#F2CBA9",B:"#7C8FA0",S:"#A9433A",
+           N:"#9A968E",T:"#D9A97B",J:"#8A6A47"};
 const MASTER=[
 "......R.R.......",".....RRRRR......","......G.........","...GG.GG.GG.....","..GGGGGGGGGGG...",
 "...GG.GG.GG.....","...DCCCCCCD.....","..DCCCCCCCCD....","..DCWKCCWKCD....","..DCCCCCCCCD....",
 "..DCPCMMCPCD....","...DCCMMCCD.....","....DCCCCD......","...DCC..CCD.....","...DC....CD.....",
 "....D....D......","................","................"];
-const PATIENT=[
+/* young woman — silk-shop embroiderer (A-Lian) */
+const PATIENT_GIRL=[
 "....HHHHHH......","...HHHHHHHH.....","..HHFFFFFFHH....","..HFFFFFFFFH....","..HFKFFFFKFH....",
 "..HFFFFFFFFH....","..HFFFPPFFFH....","...FFFFFFFF.....",".....FFFF.......","....BBBBBB......",
 "...BBBBBBBB.....","..FBBBBBBBBF....","..FBBBBBBBBF....","...BBBBBBBB.....","....BBBBBB......",
 "....BB..BB......","....FF..FF......","................"];
+/* weathered older man — river boatman (Old Wu): grey topknot, beard, hemp coat */
+const PATIENT_MAN=[
+".......NN.......","......NNNNN.....",".....NNNNNNN....","....NTTTTTTN....","....NTKTTKTN....",
+"....NTTTTTTN....","....NTTPPTTN....",".....NNNNNN.....","......TTTT......","....JJJJJJJJ....",
+"...JJJJJJJJJJ...","..TJJJJJJJJJJT..","..TJJSSSSSSJJT..","...JJJJJJJJJJ...","....JJJJJJJJ....",
+"....JJ....JJ....","....TT....TT....","................"];
+const PATIENT=(CH.patient&&CH.patient.sprite==="man")?PATIENT_MAN:PATIENT_GIRL;
 function paint(cv,grid,bob){const x=cv.getContext("2d");x.clearRect(0,0,16,18);
   grid.forEach((row,y)=>[...row].forEach((c,i)=>{if(PAL[c]){x.fillStyle=PAL[c];x.fillRect(i,Math.min(y+(bob?1:0),17),1,1)}}))}
 const mcv=document.querySelector("#a-master canvas"), pcv=document.querySelector("#a-patient canvas");
@@ -320,9 +335,6 @@ paint(mcv,MASTER,false);paint(pcv,PATIENT,true);
 const $=id=>document.getElementById(id);
 const S=AG.state, save=AG.save;
 /* ── Clinical Encounter Engine: which chapter am I? ── */
-const CH_ID=(new URLSearchParams(location.search).get("ch")||"01").padStart(2,"0");
-const CH=(window.AG_CHAPTERS||{})[CH_ID]||(window.AG_CHAPTERS||{})["01"];
-document.title=CH.title.replace(/&#39;/g,"'")+" · Apricot Grove";
 let clues=[], score=0, maxScore=0;
 const STAGES=["Prologue","Interview 問診","Inspection 望診","Pulse 切診","Pattern 辨證","Points 選穴","Needling 行針","Outcome"];
 let stageIdx=0;
@@ -340,12 +352,18 @@ AG.bindLangButton($("langBtn"));
 /* ══════════ 1 · story ══════════ */
 const SCRIPT=CH.script;
 
+/* patient name comes from chapter data, never hard-coded */
+const PT_FULL=CH.patient.name;                                        // "Old Wu 吳伯"
+const PT_EN=((PT_FULL.match(/^[^一-鿿]+/)||[PT_FULL])[0]).trim();   // "Old Wu"
+const PT_ZH=PT_FULL.slice(PT_EN.length).trim();                       // "吳伯"
+const PT_CAPS=PT_EN.toUpperCase()+(PT_ZH?" "+PT_ZH:"");               // "OLD WU 吳伯"
+
 let sIdx=0;
 function renderLine(){
   const l=SCRIPT[sIdx];
   $("a-master").classList.toggle("speaking",l.w==="master");
   $("a-patient").classList.toggle("speaking",l.w==="patient");
-  $("who").textContent=l.w==="master"?"MASTER SHEN 參師父":"A-LIAN 阿蓮";
+  $("who").textContent=l.w==="master"?"MASTER SHEN 參師父":PT_CAPS;
   $("line").innerHTML=bi(l.en,l.cn);
   
   $("tapHint").textContent=sIdx===SCRIPT.length-1?"begin ▸":"tap ▸";
@@ -366,7 +384,7 @@ function doAsk(i,btn){
   btn.classList.add("used",o.good?"good":"bad");
   if(o.good){score+=10;if(o.clue)addClue(o.clue)}
   $("askFb").className="fb show"+(o.good?"":" wrong");
-  $("askFb").innerHTML=`<b>A-Lian:</b> ${o.a}${S.zh?`<br><span style="font-size:12.5px">${o.ca}</span>`:""}<br><br>${o.note}`;
+  $("askFb").innerHTML=`<b>${PT_EN}:</b> ${o.a}<span class="zh" style="display:block;font-size:12.5px;margin-top:4px">${o.ca}</span><br>${o.note}`;
   if(asked>=3){$("askOpts").querySelectorAll(".opt").forEach(b=>b.classList.add("used"));$("askNext").style.display="block"}
 }
 $("askNext").onclick=()=>{setStage(2);show("s-look")};
@@ -505,14 +523,14 @@ function ending(){
   $("stars").innerHTML="★".repeat(n)+`<span class="off">${"★".repeat(3-n)}</span>`;
   $("endTitle").textContent=CH.endings.titles[3-n];
   const txt=n===3?CH.endings.three:n===2?CH.endings.two:CH.endings.one;
-  $("endText").innerHTML=txt[0]+(S.zh?`<span class="zh" style="display:block;margin-top:8px">${txt[1]}</span>`:"");
+  $("endText").innerHTML=txt[0]+`<span class="zh" style="display:block;margin-top:8px">${txt[1]}</span>`;
   const AXN={needle:"Needle 針道",theory:"Theory 醫理",dx:"Diagnosis 四診",herb:"Herbs 本草",daoyin:"Cultivation 導引"};
   const lv=report.levelUps.map(l=>`${AXN[l.axis]} → ${l.to}/4`).join(" · ");
   $("endText").innerHTML+=
     `<br><span style="font-family:'Courier New',monospace;color:var(--terra);font-size:14px">Score ${score} / ${maxScore} · +${gained} XP</span>`
     +(lv?`<br><span style="font-family:'Courier New',monospace;color:var(--sage-deep);font-size:12.5px">SKILL UP · ${lv}</span>`:"")
     +(report.newBest?`<br><span style="font-family:'Courier New',monospace;color:var(--gold);font-size:12px">NEW BEST \u2605${n}</span>`:"")
-    +(report.newUnlocks.length?`<br><br><b>A new door in town is open to you now.</b><span class="zh">鎮上又有一扇門為你而開。</span>`:"");
+    +(report.newUnlocks.length?`<br><br><b>A new door in town is open to you now.</b><span class="zh" style="display:block;margin-top:4px">鎮上又有一扇門為你而開。</span>`:"");
 }
 $("againBtn").onclick=()=>location.reload();
 $("hubBtn2").onclick=()=>location.href="index.html";
@@ -523,6 +541,7 @@ function paintChapterCopy(){
   $("cardName").innerHTML=CH.reward.cardEn;$("cardTxt").innerHTML=CH.reward.cardTxt;
   $("herbName").innerHTML=CH.reward.herbEn;$("herbTxt").innerHTML=CH.reward.herbTxt;
   $("chapline").textContent="Chapter "+CH_ID+" · "+CH.titleZh;
+  $("ptName").innerHTML=PT_EN+(PT_ZH?` <span class="zh">${PT_ZH}</span>`:"");
 }
 paintChapterCopy();
 setStage(0);
