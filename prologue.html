@@ -135,6 +135,7 @@ body.nozh .zh{display:none}
 .card-reward p{font-size:12.5px;color:var(--ink-soft);line-height:1.65}
 .note{font-size:10.5px;color:var(--ink-faint);line-height:1.7;text-align:center;margin-top:8px}
 </style>
+<script src="state.js"></script>
 </head>
 <body>
 <div id="app">
@@ -252,16 +253,14 @@ const SP={
 function draw(cv,key,bob){const g=SP[key],x=cv.getContext("2d");x.clearRect(0,0,16,18);
   g.forEach((row,y)=>[...row].forEach((c,i)=>{if(P[c]){x.fillStyle=P[c];x.fillRect(i,Math.min(y+(bob?1:0),17),1,1)}}))}
 const $=id=>document.getElementById(id);
-let S=Object.assign({char:"he",zh:true,xp:0,stats:{needle:0,theory:0,dx:0,herb:0}},
-  JSON.parse(localStorage.getItem("apricot-grove")||"{}"));
-const save=()=>localStorage.setItem("apricot-grove",JSON.stringify(S));
+const S=AG.state, save=AG.save;
+if(!S.char)S.char="he";
 const NAMES={yan:"Yàn Sān 燕三",he:"Ā Hé 阿禾",zhu:"Zhú Niáng 竹娘"};
 $("youName").textContent=NAMES[S.char]||"You";
 const youCv=$("a-you").querySelector("canvas"),shenCv=$("a-shen").querySelector("canvas");
 let bob=false;setInterval(()=>{bob=!bob;draw(youCv,S.char,bob);draw(shenCv,"shen",!bob)},580);
 draw(youCv,S.char,false);draw(shenCv,"shen",true);
-function setZh(){document.body.classList.toggle("nozh",!S.zh);$("langBtn").textContent=S.zh?"中文 ON":"中文 OFF"}
-$("langBtn").onclick=()=>{S.zh=!S.zh;setZh();save()};setZh();
+AG.bindLangButton($("langBtn"));
 function go(id){document.querySelectorAll(".screen").forEach(s=>s.classList.remove("on"));$(id).classList.add("on")}
 
 /* rain */
@@ -328,7 +327,7 @@ function verdict(el,cls,txt){el.className="verdict "+cls;el.textContent=txt;void
 /* ═════ TASK ═════ */
 let task=null;
 function startTask(){
-  task={p:TAIYUAN,tries:0,hinted:false,trained:!!S.trainedLandmarks,step:1};
+  task={p:TAIYUAN,tries:0,hinted:false,trained:!!S.flags.trainedLandmarks,step:1};
   $("taskWhat").textContent="Find the point 找出穴位";
   $("taskTarget").innerHTML=`${TAIYUAN.zh} ${TAIYUAN.py}<small>${TAIYUAN.en} · LU9</small>`;
   $("fb").className="fb";$("taskBtns").innerHTML="";$("fx").innerHTML="";
@@ -349,7 +348,7 @@ $("armwrap").addEventListener("pointerdown",ev=>{
     task.done=true;
     $("pts").firstChild.classList.add("reveal");
     verdict($("verdict"),d<=perfect?"v-good":"v-ok",d<=perfect?"De Qi! 得氣":"Close 接近");
-    S.xp+=d<=perfect?30:18;S.stats.needle=Math.min(4,(S.stats.needle||0)+1);save();
+    S.xp+=d<=perfect?30:18;S.skillXp.needle=(S.skillXp.needle||0)+(d<=perfect?25:12);S.stats.needle=Math.max(S.stats.needle,AG.axisLevel(S.skillXp.needle));save();
     $("fb").className="fb on";
     $("fb").innerHTML=`<b>${p.zh} ${p.py} · ${p.id}</b><br>${p.fact}`+(S.zh?`<span class="zh">${p.factZh}</span>`:"");
     if(task.step===1){
@@ -433,7 +432,7 @@ $("trainWrap").addEventListener("pointerdown",ev=>{
   $("trainBtns").innerHTML=`<button class="btn" id="tn">${last?"Return to Master Shen ▸":"Next landmark ▸"}</button>`;
   $("tn").onclick=()=>{
     if(last){
-      S.trainedLandmarks=true;S.xp+=25;S.stats.needle=Math.min(4,(S.stats.needle||0)+1);save();
+      S.flags.trainedLandmarks=true;AG.complete({activity:"train_landmarks",completed:true,score:0,stars:0,xpEarned:25,skillXp:{needle:30}});
       startTask();
       $("fb").className="fb on";
       $("fb").innerHTML='<b>You came back stronger.</b> The wrist crease is marked for you now, and your aim is steadier.'
@@ -444,7 +443,9 @@ $("trainWrap").addEventListener("pointerdown",ev=>{
 
 /* ═════ ENDING ═════ */
 function ending(){
-  S.prologueDone=true;save();
+  const rep=AG.complete({activity:"prologue",completed:true,score:S.xp,stars:3,
+    xpEarned:40,skillXp:{needle:40},unlocks:[]});
+  S.flags.prologueDone=true;save();
   $("endTitle").innerHTML="The First Lesson"+(S.zh?'<span class="zh" style="font-size:15px">第一課</span>':"");
   $("endText").innerHTML=
     '<b>Master Shen:</b> "Good. Now hear the rest of it."<br><br>'+

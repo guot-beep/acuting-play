@@ -161,6 +161,7 @@
   .reward p{font-size:12.5px;color:var(--ink-soft);line-height:1.6}
   .disclaimer{font-size:10.5px;color:var(--ink-soft);opacity:.7;line-height:1.6;margin-top:8px}
 </style>
+<script src="state.js"></script>
 </head>
 <body>
 <div id="app">
@@ -317,7 +318,8 @@ paint(mcv,MASTER,false);paint(pcv,PATIENT,true);
 
 /* ══════════ state ══════════ */
 const $=id=>document.getElementById(id);
-let zh=true, clues=[], score=0, maxScore=0;
+const S=AG.state, save=AG.save;
+let clues=[], score=0, maxScore=0;
 const STAGES=["Prologue","Interview 問診","Inspection 望診","Pulse 切診","Pattern 辨證","Points 選穴","Needling 行針","Outcome"];
 let stageIdx=0;
 $("rail").innerHTML=STAGES.map(()=>"<div></div>").join("");
@@ -328,9 +330,8 @@ function addClue(t){if(!clues.includes(t)){clues.push(t);renderClues()}}
 function renderClues(){
   const html=clues.length?clues.map(c=>`<li>${c}</li>`).join(""):'<li class="empty">Nothing recorded yet 尚無紀錄</li>';
   $("clueList1").innerHTML=html;$("clueList2").innerHTML=html}
-function bi(en,cn){return zh?`${en}<span class="zh">${cn}</span>`:en}
-$("langBtn").onclick=()=>{zh=!zh;$("langBtn").textContent=zh?"中文 ON":"中文 OFF";
-  document.querySelectorAll(".zh").forEach(e=>e.style.display=zh?"block":"none")};
+function bi(en,cn){return `${en}<span class="zh">${cn}</span>`}
+AG.bindLangButton($("langBtn"));
 
 /* ══════════ 1 · story ══════════ */
 const SCRIPT=[
@@ -347,7 +348,7 @@ function renderLine(){
   $("a-patient").classList.toggle("speaking",l.w==="patient");
   $("who").textContent=l.w==="master"?"MASTER SHEN 參師父":"A-LIAN 阿蓮";
   $("line").innerHTML=bi(l.en,l.cn);
-  if(!zh)document.querySelectorAll(".zh").forEach(e=>e.style.display="none");
+  
   $("tapHint").textContent=sIdx===SCRIPT.length-1?"begin ▸":"tap ▸";
 }
 $("s-story").onclick=()=>{sIdx++;if(sIdx>=SCRIPT.length){startAsk()}else renderLine()};
@@ -384,7 +385,7 @@ function doAsk(i,btn){
   btn.classList.add("used",o.good?"good":"bad");
   if(o.good){score+=10;if(o.clue)addClue(o.clue)}
   $("askFb").className="fb show"+(o.good?"":" wrong");
-  $("askFb").innerHTML=`<b>A-Lian:</b> ${o.a}${zh?`<br><span style="font-size:12.5px">${o.ca}</span>`:""}<br><br>${o.note}`;
+  $("askFb").innerHTML=`<b>A-Lian:</b> ${o.a}${S.zh?`<br><span style="font-size:12.5px">${o.ca}</span>`:""}<br><br>${o.note}`;
   if(asked>=3){$("askOpts").querySelectorAll(".opt").forEach(b=>b.classList.add("used"));$("askNext").style.display="block"}
 }
 $("askNext").onclick=()=>{setStage(2);show("s-look")};
@@ -547,6 +548,13 @@ $("needleNext").onclick=()=>{setStage(7);show("s-end");ending()};
 function ending(){
   const pct=score/maxScore;
   const n=pct>=.85?3:pct>=.6?2:1;
+  const gained=Math.round(score*0.9)+(n===3?60:n===2?30:10);
+  const report=AG.complete({
+    activity:"chapter_01", completed:true, score:score, stars:n,
+    xpEarned:gained,
+    skillXp:{diagnosis:30+n*20, needle:15+n*8, theory:10+n*6},
+    unlocks:["dx_school"]
+  });
   $("stars").innerHTML="★".repeat(n)+`<span class="off">${"★".repeat(3-n)}</span>`;
   $("endTitle").textContent=n===3?"A-Lian Picks Up Her Needle":n===2?"A-Lian Rests Easier":"A-Lian Will Need Another Visit";
   const txt=n===3
@@ -557,8 +565,14 @@ function ending(){
        "阿蓮夜裡能睡了，咳嗽還有一點。<br><b>參師父：</b>「不差。回頭把推理再走一遍，有一環鬆了。」"]
     : ["The cough is unchanged.<br><b>Master Shen:</b> \"Do not be discouraged. Go back and look again — the clues were all there.\"",
        "咳嗽沒有起色。<br><b>參師父：</b>「別氣餒。回去再看一次，線索本來都在。」"];
-  $("endText").innerHTML=txt[0]+(zh?`<span class="zh" style="display:block;margin-top:8px">${txt[1]}</span>`:"");
-  $("endText").innerHTML+=`<br><span style="font-family:'Courier New',monospace;color:var(--terra);font-size:14px">Score ${score} / ${maxScore}</span>`;
+  $("endText").innerHTML=txt[0]+(S.zh?`<span class="zh" style="display:block;margin-top:8px">${txt[1]}</span>`:"");
+  const AXN={needle:"Needle 針道",theory:"Theory 醫理",dx:"Diagnosis 四診",herb:"Herbs 本草",daoyin:"Cultivation 導引"};
+  const lv=report.levelUps.map(l=>`${AXN[l.axis]} → ${l.to}/4`).join(" · ");
+  $("endText").innerHTML+=
+    `<br><span style="font-family:'Courier New',monospace;color:var(--terra);font-size:14px">Score ${score} / ${maxScore} · +${gained} XP</span>`
+    +(lv?`<br><span style="font-family:'Courier New',monospace;color:var(--sage-deep);font-size:12.5px">SKILL UP · ${lv}</span>`:"")
+    +(report.newBest?`<br><span style="font-family:'Courier New',monospace;color:var(--gold);font-size:12px">NEW BEST \u2605${n}</span>`:"")
+    +(report.newUnlocks.indexOf("dx")>=0?`<br><br><b>Jing Gu&#39;s door is open to you now.</b><span class="zh">靜姑的門，從今天起為你而開。</span>`:"");
 }
 $("againBtn").onclick=()=>location.reload();
 $("hubBtn2").onclick=()=>location.href="index.html";

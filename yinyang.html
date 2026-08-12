@@ -128,6 +128,7 @@ body.nozh .zh{display:none}
 .missed h4{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.24em;color:var(--terra);margin-bottom:5px}
 .note{font-size:10.5px;color:var(--ink-faint);line-height:1.7;text-align:center;margin-top:8px}
 </style>
+<script src="state.js"></script>
 </head>
 <body>
 <div id="app">
@@ -209,12 +210,8 @@ function paint(cv,bob){const x=cv.getContext("2d");x.clearRect(0,0,16,18);
 let bob=false;setInterval(()=>{bob=!bob;paint($("mc"),bob)},600);paint($("mc"),false);
 
 /* ═════ state ═════ */
-let S=Object.assign({zh:true,xp:0,stats:{needle:0,theory:0,dx:0,herb:0,daoyin:0}},
-  JSON.parse(localStorage.getItem("apricot-grove")||"{}"));
-if(S.stats.theory===undefined)S.stats.theory=0;
-const save=()=>localStorage.setItem("apricot-grove",JSON.stringify(S));
-function setZh(){document.body.classList.toggle("nozh",!S.zh);$("langBtn").textContent=S.zh?"中文 ON":"中文 OFF"}
-$("langBtn").onclick=()=>{S.zh=!S.zh;setZh();save()};setZh();
+const S=AG.state, save=AG.save;
+AG.bindLangButton($("langBtn"));
 function go(id){document.querySelectorAll(".screen").forEach(s=>s.classList.remove("on"));$(id).classList.add("on")}
 
 /* ═════ deck ═════ */
@@ -331,7 +328,8 @@ function result(){
   const n=pct>=.88?3:pct>=.68?2:1;
   $("stars").innerHTML="★".repeat(n)+`<span class="off">${"★".repeat(3-n)}</span>`;
   $("rt").textContent=n===3?"You See the Pair":n===2?"Getting the Feel":"Keep Sorting";
-  S.xp+=g.score;S.stats.theory=Math.min(4,(S.stats.theory||0)+(n>=2?1:0));S.yinyangDone=true;save();
+  AG.complete({activity:"train_yinyang",completed:true,score:g.score,stars:n,
+    xpEarned:g.score, skillXp:{theory:20+n*18}});
   $("rx").innerHTML=(n===3
     ?'<b>Shu Chi:</b> "You did not hesitate. Good — Yin and Yang are not a puzzle, they are a habit of looking."'
     :'<b>Shu Chi:</b> "Look again at the ones you missed. Each mistake is a place your map is still blank."')

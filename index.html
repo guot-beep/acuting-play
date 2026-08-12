@@ -128,6 +128,8 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
 .node{cursor:pointer}
 .node circle.pin{fill:var(--white);stroke:var(--sage-deep);stroke-width:2.5;transition:.2s}
 .node.main circle.pin{stroke:var(--terra)}
+.node.daily circle.pin{stroke:var(--gold)}
+.node.daily .ping{stroke:var(--gold)}
 .node.lock circle.pin{stroke:#BDB39B;fill:#F0E9D6}
 .node:active circle.pin{r:15}
 .node text{font-size:9.5px;fill:var(--ink);font-family:"Courier New",monospace;letter-spacing:.04em;text-anchor:middle}
@@ -173,6 +175,7 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
   transition:.3s var(--ease);z-index:80;pointer-events:none}
 .toast.on{opacity:.95;transform:translate(-50%,0)}
 </style>
+<script src="state.js"></script>
 </head>
 <body>
 <div id="app">
@@ -260,25 +263,30 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
           <path d="M300 40 q-6-11 6-14 q2-10 14-7 q7-7 16-2"/>
         </g>
         <g class="node" id="n-daoyin"><circle class="pin" cx="200" cy="56" r="12"/>
-          <text class="glyph" x="200" y="61">DAOYIN</text><text x="200" y="81">CULTIVATION 導引</text></g>
+          <text class="glyph" x="200" y="61">導</text><text x="200" y="81">CULTIVATION 導引</text></g>
+        <g class="node daily" id="n-daily">
+          <circle class="ping" cx="200" cy="212" r="12"/>
+          <circle class="pin" cx="200" cy="212" r="12"/>
+          <text class="glyph" x="200" y="217" fill="#B08D3E">榜</text>
+          <text x="200" y="237">DAILY CASE 今日診榜</text></g>
         <g class="node main" id="n-main">
-          <circle class="ping" cx="200" cy="150" r="13"/>
-          <circle class="pin" cx="200" cy="150" r="13"/>
-          <text class="glyph" x="200" y="155" fill="#C26D4E">堂</text>
-          <text x="200" y="176">STORY 回春堂</text>
+          <circle class="ping" cx="200" cy="146" r="13"/>
+          <circle class="pin" cx="200" cy="146" r="13"/>
+          <text class="glyph" x="200" y="151" fill="#C26D4E">堂</text>
+          <text x="200" y="172">STORY 回春堂</text>
         </g>
         <g class="node" id="n-needle"><circle class="pin" cx="72" cy="70" r="12"/>
           <text class="glyph" x="72" y="75" fill="#4E5D46">針</text><text x="72" y="95">NEEDLE 針道</text></g>
         <g class="node" id="n-theory"><circle class="pin" cx="326" cy="72" r="12"/>
-          <text class="glyph" x="326" y="77">THEORY</text><text x="326" y="97">THEORY 醫理</text></g>
-        <g class="node" id="n-dx"><circle class="pin" cx="88" cy="212" r="12"/>
-          <text class="glyph" x="88" y="217">診</text><text x="88" y="237">DIAGNOSIS 四診</text></g>
-        <g class="node lock" id="n-herb"><circle class="pin" cx="316" cy="210" r="12"/>
-          <text class="glyph" x="316" y="215">草</text><text x="316" y="235">HERBS 本草</text></g>
+          <text class="glyph" x="326" y="77">理</text><text x="326" y="97">THEORY 醫理</text></g>
+        <g class="node lock" id="n-dx"><circle class="pin" cx="66" cy="206" r="12"/>
+          <text class="glyph" x="66" y="211">診</text><text x="66" y="231">DIAGNOSIS 四診</text></g>
+        <g class="node lock" id="n-herb"><circle class="pin" cx="336" cy="206" r="12"/>
+          <text class="glyph" x="336" y="211">草</text><text x="336" y="231">HERBS 本草</text></g>
       </svg>
     </div>
-    <p class="note" style="margin-bottom:12px">Tap a place to visit. More of the town opens as the story moves.
-      <span class="zh">點地圖上的地點前往。故事推進，小鎮會慢慢展開。</span></p>
+    <p class="note" style="margin-bottom:12px">The Daily Roster is open to everyone. The schools open as the story reaches them.
+      <span class="zh">今日診榜人人可去；各流派則隨故事推進而開啟。</span></p>
     <button class="btn" id="storyBtn"><span id="storyLabel">Prologue ▸</span><span style="display:block;font-size:11.5px;letter-spacing:.1em;opacity:.85;margin-top:2px" id="storySub">The First Lesson · 第一課</span></button>
   </section>
 
@@ -410,7 +418,7 @@ const SCHOOLS={
  dx:{key:"dx",glyph:"診",school:"Four Examinations 望聞問切",mentor:"Jìng Gū · 靜姑",sprite:"jing",
   quote:'"I lost my eyes at thirty. My fingers have been listening ever since."',
   quoteZh:"「我三十歲時瞎的。從那以後，我的手指一直在聽。」",
-  games:[{ic:"📋",t:"Daily Case 今日病例",d:"One case a day, the same for every player worldwide.",go:"PLAY",open:1,file:"dailycase.html"},
+  games:[{ic:"📋",t:"Daily Case 今日病例",d:"Play it any time from the Daily Roster in the town square.",go:"SQUARE",open:0},
          {ic:"👅",t:"Tongue Reader 舌象判讀",d:"Read the body, the coating, the moisture.",go:"SOON",open:0},
          {ic:"💗",t:"Pulse Match 脈象配對",d:"Feel the depth, rate and shape.",go:"SOON",open:0}]},
  daoyin:{key:"daoyin",glyph:"導",school:"Cultivation 導引養生",mentor:"Xióng Shī · 熊師",sprite:"xiong",
@@ -434,12 +442,8 @@ function penta(rad){return ANG.map((a,i)=>[80+Math.cos(a)*rad[i],80+Math.sin(a)*
 
 /* ═════ state ═════ */
 const $=id=>document.getElementById(id);
-let S=Object.assign({char:null,xp:0,day:1,stats:{needle:0,theory:0,dx:0,herb:0,daoyin:0},zh:true},
-  JSON.parse(localStorage.getItem("apricot-grove")||"{}"));
-const save=()=>localStorage.setItem("apricot-grove",JSON.stringify(S));
-function setZh(){document.body.classList.toggle("nozh",!S.zh);$("langBtn").textContent=S.zh?"中文 ON":"中文 OFF"}
-$("langBtn").onclick=()=>{S.zh=!S.zh;setZh();save()};
-setZh();
+const S=AG.state, save=AG.save;
+AG.bindLangButton($("langBtn"));
 let cur=null;
 function go(id){document.querySelectorAll(".screen").forEach(s=>s.classList.remove("on"));$(id).classList.add("on")}
 function toast(t){const e=$("toast");e.textContent=t;e.classList.add("on");setTimeout(()=>e.classList.remove("on"),1900)}
@@ -478,10 +482,13 @@ $("confirmBtn").onclick=()=>{
 function enterHub(){
   const c=CHARS[S.char];
   $("hubName").textContent=c.name;$("hubRole").textContent=c.role.split("·")[1].trim();
-  $("hubXp").textContent=S.xp;$("hubDay").textContent=S.day;
+  $("hubXp").textContent=S.xp;
+  const r=AG.rank();$("hubDay").textContent=S.streak||0;
+  const dl=document.querySelector('.stat:last-child small');if(dl)dl.textContent="STREAK";
+  $("hubRole").textContent=(S.zh?r.en+" "+r.zh:r.en);
   canvases.length=0;reg($("hubCv"),S.char);
-  drawRadar();
-  if(S.prologueDone){$("storyLabel").textContent="Chapter One ▸";$("storySub").textContent="A-Lian's Cough · 阿蓮的咳嗽"}
+  drawRadar();paintLocks();
+  if(S.flags.prologueDone){$("storyLabel").textContent="Chapter One ▸";$("storySub").textContent="A-Lian's Cough · 阿蓮的咳嗽"}
   go("s4");
 }
 function drawRadar(){
@@ -518,9 +525,17 @@ function closeSheet(){$("scrim").classList.remove("on");$("sheet").classList.rem
   canvases.length=0;reg($("hubCv"),S.char)}
 $("scrim").onclick=closeSheet;
 ["needle","theory","dx","herb","daoyin"].forEach(k=>{
-  $("n-"+k).onclick=()=>openSheet(k);
+  $("n-"+k).onclick=()=>{
+    if(!AG.unlocked(k)){toast("The story has not reached this place yet 故事尚未走到這裡");return}
+    openSheet(k);
+  };
 });
-const storyHref=()=>S.prologueDone?"chapter1.html":"prologue.html";
+$("n-daily").onclick=()=>{location.href="dailycase.html"};
+function paintLocks(){
+  ["needle","theory","dx","herb","daoyin"].forEach(k=>
+    $("n-"+k).classList.toggle("lock",!AG.unlocked(k)));
+}
+const storyHref=()=>S.flags.prologueDone?(S.flags.chapter01Done?"chapter1.html":"chapter1.html"):"prologue.html";
 $("n-main").onclick=()=>{location.href=storyHref()};
 $("storyBtn").onclick=()=>{location.href=storyHref()};
 

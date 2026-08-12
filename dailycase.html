@@ -108,6 +108,7 @@ body.nozh .zh{display:none}
   transition:.3s var(--ease);z-index:80;pointer-events:none}
 .toast.on{opacity:.95;transform:translate(-50%,0)}
 </style>
+<script src="state.js"></script>
 </head>
 <body>
 <div id="app">
@@ -433,21 +434,15 @@ const CASES=[
 ];
 
 /* ═════ state ═════ */
-let S=Object.assign({zh:true,xp:0,stats:{needle:0,theory:0,dx:0,herb:0,daoyin:0},dc:{}},
-  JSON.parse(localStorage.getItem("apricot-grove")||"{}"));
-if(!S.dc)S.dc={streak:0,last:"",solved:0,results:{}};
-if(S.stats.dx===undefined)S.stats.dx=0;
-const save=()=>localStorage.setItem("apricot-grove",JSON.stringify(S));
-function setZh(){document.body.classList.toggle("nozh",!S.zh);$("langBtn").textContent=S.zh?"中文 ON":"中文 OFF"}
-$("langBtn").onclick=()=>{S.zh=!S.zh;setZh();save();renderIntro()};setZh();
+const S=AG.state, save=AG.save;
+AG.bindLangButton($("langBtn"));
+$("langBtn").addEventListener("click",()=>renderIntro());
 function go(id){document.querySelectorAll(".screen").forEach(s=>s.classList.remove("on"));$(id).classList.add("on")}
 function toast(t){const e=$("toast");e.textContent=t;e.classList.add("on");setTimeout(()=>e.classList.remove("on"),1900)}
 
 /* deterministic daily index — same case worldwide */
-const EPOCH=Date.UTC(2026,0,1);
-const today=new Date();
-const dayKey=today.toISOString().slice(0,10);
-const dayNum=Math.floor((Date.UTC(today.getFullYear(),today.getMonth(),today.getDate())-EPOCH)/864e5);
+const dayKey=AG.gameDayKey();
+const dayNum=AG.gameDayNumber();
 const caseIdx=((dayNum%CASES.length)+CASES.length)%CASES.length;
 $("caseNo").textContent="CASE #"+(dayNum+1);
 $("dateStr").textContent=dayKey;
@@ -505,12 +500,11 @@ function finish(){
     const right=G.marks.filter(Boolean).length;
     S.dc.results=S.dc.results||{};
     S.dc.results[dayKey]={marks:G.marks,n:right};
-    const yd=new Date(Date.now()-864e5).toISOString().slice(0,10);
+    const yd=AG.gameDayKey(new Date(Date.now()-864e5));
     if(S.dc.last!==dayKey){S.dc.streak=(S.dc.last===yd)?(S.dc.streak||0)+1:1;S.dc.last=dayKey}
     S.dc.solved=(S.dc.solved||0)+1;
-    S.xp+=right*20;
-    if(right===3)S.stats.dx=Math.min(4,(S.stats.dx||0)+1);
-    save();
+    AG.complete({activity:"daily_case",completed:true,score:right,stars:right,
+      xpEarned:right*20, skillXp:{diagnosis:12+right*10}});
   }
   showResult();
 }

@@ -172,6 +172,7 @@
   .btn-row .ghost:active{box-shadow:0 2px 0 rgba(58,55,48,.18)}
   .disclaimer{font-size:10.5px;color:var(--ink-soft);opacity:.7;text-align:center;margin-top:10px;line-height:1.6}
 </style>
+<script src="state.js"></script>
 </head>
 <body>
 <div id="app">
@@ -289,17 +290,14 @@ const HERBS = [
 const ROUNDS = 8, R_PERFECT = 20, R_CLOSE = 44;
 
 /* =============== 狀態 =============== */
-const store = {
-  load(){ try{ return JSON.parse(localStorage.getItem("acuting-play-v1"))||{} }catch(e){ return {} } },
-  save(s){ try{ localStorage.setItem("acuting-play-v1", JSON.stringify(s)) }catch(e){} }
-};
-let S = Object.assign({xp:0,streak:0,lastDay:"",cards:[],mastery:{},lang:"en"}, store.load());
-if(S.lang!=="en"&&S.lang!=="dual")S.lang="en";
+const S = AG.state;
+const store = { save(){ AG.save() } };
+Object.defineProperty(S,"lang",{get(){return S.zh?"dual":"en"},set(v){AG.setZh(v==="dual")},configurable:true});
 let game = null;
 
 /* =============== 小工具 =============== */
 const $ = id => document.getElementById(id);
-const todayStr = () => new Date().toISOString().slice(0,10);
+const todayStr = () => AG.gameDayKey();
 function show(id){ document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active")); $(id).classList.add("active"); }
 function svgEl(tag, attrs){ const e=document.createElementNS("http://www.w3.org/2000/svg",tag); for(const k in attrs)e.setAttribute(k,attrs[k]); return e; }
 
@@ -341,7 +339,7 @@ function fmtHud(){
   document.querySelectorAll(".lang-btn").forEach(b=>b.classList.toggle("on",b.dataset.lang===S.lang));
   if(mastered>=POINTS.length){ $("say").textContent="The Lung meridian is open! I can feel an evolution coming…!"; }
 }
-document.querySelectorAll(".lang-btn").forEach(b=>b.onclick=()=>{S.lang=b.dataset.lang;store.save(S);fmtHud();});
+document.querySelectorAll(".lang-btn").forEach(b=>b.onclick=()=>{S.lang=b.dataset.lang;AG.save();fmtHud();});
 
 /* =============== 遊戲 =============== */
 function newGame(){
@@ -408,12 +406,8 @@ function endGame(){
   $("stars").innerHTML="★".repeat(nStars)+`<span class="off">${"★".repeat(3-nStars)}</span>`;
   $("result-title").textContent=nStars===3?"Qi Is Flowing!":nStars===2?"Well Trained":"Keep Practicing";
   $("final-score").textContent=sc; $("final-perfect").textContent=game.perfect;
-  S.xp+=sc;
-  const t=todayStr();
-  if(S.lastDay!==t){
-    const yd=new Date(Date.now()-864e5).toISOString().slice(0,10);
-    S.streak=(S.lastDay===yd)?S.streak+1:1; S.lastDay=t;
-  }
+  AG.complete({activity:"train_point_tap",completed:true,score:sc,stars:nStars,
+    xpEarned:sc, skillXp:{needle:10+nStars*12}});
   const mastered=Object.values(S.mastery).filter(v=>v>=2).length;
   $("mastery-line").textContent=`Lung meridian: ${mastered}/${POINTS.length} points opened`;
   const drop=$("card-drop");
@@ -424,7 +418,7 @@ function endGame(){
     $("card-rar").textContent=h.rar; $("card-name").textContent=h.name; $("card-fact").textContent=h.fact;
     drop.style.display="block";
   } else drop.style.display="none";
-  store.save(S);
+  AG.save();
   show("scr-result");
 }
 $("btn-again").onclick=newGame;

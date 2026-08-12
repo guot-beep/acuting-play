@@ -127,6 +127,7 @@ body.nozh .zh{display:none}
 .gain p{font-size:12.5px;color:var(--ink-soft);line-height:1.65}
 .note{font-size:10.5px;color:var(--ink-faint);line-height:1.7;text-align:center;margin-top:8px}
 </style>
+<script src="state.js"></script>
 </head>
 <body>
 <div id="app">
@@ -245,12 +246,8 @@ const BEASTS=[
   cue:"Shallow breathing, a tight chest, catching colds easily.",cueZh:"呼吸淺短、胸悶、易感冒。"}
 ];
 const $=id=>document.getElementById(id);
-let S=Object.assign({char:"hu",zh:true,xp:0,stats:{needle:0,theory:0,dx:0,herb:0,daoyin:0}},
-  JSON.parse(localStorage.getItem("apricot-grove")||"{}"));
-if(!S.stats.daoyin&&S.stats.daoyin!==0)S.stats.daoyin=0;
-const save=()=>localStorage.setItem("apricot-grove",JSON.stringify(S));
-function setZh(){document.body.classList.toggle("nozh",!S.zh);$("langBtn").textContent=S.zh?"中文 ON":"中文 OFF"}
-$("langBtn").onclick=()=>{S.zh=!S.zh;setZh();save()};setZh();
+const S=AG.state, save=AG.save;
+AG.bindLangButton($("langBtn"));
 function go(id){document.querySelectorAll(".screen").forEach(s=>s.classList.remove("on"));$(id).classList.add("on")}
 let bob=false;setInterval(()=>{bob=!bob;paintBob($("mc1"),XIONG,bob)},600);paintBob($("mc1"),XIONG,false);
 
@@ -375,8 +372,8 @@ function result(){
   const pct=score/max,n=pct>=.85?3:pct>=.6?2:1;
   $("stars").innerHTML="★".repeat(n)+`<span class="off">${"★".repeat(3-n)}</span>`;
   $("rTitle").textContent=n===3?"The Body Remembers":n===2?"Steady Practice":"Keep Moving";
-  S.xp+=score;S.stats.daoyin=Math.min(4,(S.stats.daoyin||0)+(n>=2?1:0));
-  S.wuqinxiDone=true;save();
+  AG.complete({activity:"train_wuqinxi",completed:true,score:score,stars:n,
+    xpEarned:score, skillXp:{daoyin:20+n*18}});
   $("rText").innerHTML=
     (n===3?'<b>Master Xiong:</b> "You did not think about the order. That is the point — the body learned it, not the head."'
      :'<b>Master Xiong:</b> "Again tomorrow. These animals are patient; so should you be."')
