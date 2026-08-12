@@ -123,6 +123,17 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
 .rax{stroke:#D4C9AE;stroke-width:1}
 .rlab{font-size:9px;fill:var(--ink-soft);font-family:"Courier New",monospace;letter-spacing:.06em}
 
+
+.modepanel .modes{display:flex;gap:9px}
+.modes button{flex:1;background:var(--paper2,#F3EBD7);border:1.5px solid rgba(51,47,40,.12);
+  border-radius:13px;padding:11px 10px;font-family:inherit;cursor:pointer;text-align:left;
+  color:var(--ink-soft);transition:.18s}
+.modes button b{display:block;font-size:14.5px;color:var(--ink)}
+.modes button .zh{display:block;font-size:11.5px;margin-top:1px}
+.modes button small{display:block;font-size:10.5px;line-height:1.5;margin-top:4px;color:var(--ink-faint)}
+.modes button.on{border-color:var(--sage-deep);background:rgba(123,139,111,.14)}
+.modes button.on b{color:var(--sage-deep)}
+
 /* ── map ── */
 .mapbox{position:relative;background:linear-gradient(180deg,#EFE6CE,#E6DABC);border:1.5px solid rgba(51,47,40,.12);
   border-radius:16px;overflow:hidden;box-shadow:var(--sh);margin-bottom:12px}
@@ -249,6 +260,17 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
         </svg>
         <div class="legend" id="legend"></div>
       </div>
+    </div>
+
+    <div class="panel modepanel">
+      <h3>Learning Path<span class="zh"> 學習路線</span></h3>
+      <div class="modes" id="modes">
+        <button data-m="beginner"><b>Beginner</b><span class="zh">入門</span>
+          <small>Fewer options · hints on demand · help arrives sooner</small></button>
+        <button data-m="student"><b>Student</b><span class="zh">學徒</span>
+          <small>Full option set · no hints · board-style depth</small></button>
+      </div>
+      <p class="note" style="margin-top:8px;text-align:left">Same cases, same medicine — only how much scaffolding you get.<span class="zh"> 病案與醫理相同，差別只在提示多寡。</span></p>
     </div>
 
     <div class="mapbox">
@@ -497,6 +519,7 @@ function enterHub(){
   $("hubRole").innerHTML=r.en+`<span class="zh"> ${r.zh}</span>`;
   canvases.length=0;reg($("hubCv"),S.char);
   drawRadar();paintLocks();
+  paintModes();
   const nc=nextChapter();$("storyLabel").textContent=nc.label;$("storySub").innerHTML=nc.sub;
   go("s4");
 }
@@ -543,6 +566,14 @@ $("n-daily").onclick=()=>{location.href="dailycase.html"};
 function paintLocks(){
   ["needle","theory","dx","herb","daoyin"].forEach(k=>
     $("n-"+k).classList.toggle("lock",!AG.unlocked(k)));
+}
+function paintModes(){
+  const cur=AG.mode();
+  document.querySelectorAll("#modes button").forEach(b=>{
+    b.classList.toggle("on", b.dataset.m===cur);
+    b.onclick=()=>{ AG.setMode(b.dataset.m); paintModes(); toast(
+      b.dataset.m==="beginner" ? "Beginner path 入門路線" : "Student path 學徒路線"); };
+  });
 }
 function nextChapter(){ if(!S.flags.prologueDone)return{href:"prologue.html",label:"Prologue ▸",sub:'The First Lesson<span class="zh"> · 第一課</span>'};
   if(!S.flags.chapter01Done)return{href:"chapter.html?ch=01",label:"Chapter One ▸",sub:"A-Lian's Cough<span class='zh'> · 阿蓮的咳嗽</span>"};

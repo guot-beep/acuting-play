@@ -25,6 +25,7 @@
     return {
       v: VERSION,
       char: null,               // yan | he | zhu | hu
+      mode: null,               // "beginner" | "student" — asked once, changeable any time
       zh: true,                 // bilingual helper text on/off (global)
       xp: 0,
       day: 1,
@@ -220,6 +221,9 @@
     state: state, save: save, reload: function () { state = load(); global.AG.state = state; return state; },
     reset: function () { try { global.localStorage.removeItem(KEY); } catch (e) {} },
     setZh: setZh, toggleZh: toggleZh, applyLang: applyLang, bindLangButton: bindLangButton,
+    mode: function(){ return state.mode || "student"; },
+    setMode: function(m){ state.mode = (m==="beginner"?"beginner":"student"); save(); return state.mode; },
+    isBeginner: function(){ return state.mode === "beginner"; },
     gameDayNumber: gameDayNumber, gameDayKey: gameDayKey, bumpPlayStreak: bumpPlayStreak,
     complete: complete, axisLevel: axisLevel, rank: rank,
     unlocked: function (k) { return !!state.unlocks[k]; }

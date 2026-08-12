@@ -73,7 +73,65 @@
   .bubble .who{font-size:11.5px;letter-spacing:.2em;color:var(--terra);margin-bottom:5px;text-transform:uppercase;font-family:"Courier New",monospace}
   .bubble .line{font-size:15.5px;line-height:1.75}
   .bubble .zh{display:block;font-size:13px;color:var(--ink-soft);margin-top:6px}
-  body.nozh .zh{display:none !important}   /* beats inline display:block on generated spans */
+  body.nozh .zh{display:none !important}
+
+
+  /* ── beginner hints ── */
+  .hintbtn{display:block;margin:0 auto 10px;background:none;border:1px dashed rgba(176,141,62,.5);
+    color:var(--gold);border-radius:99px;padding:7px 16px;font-family:inherit;font-size:12.5px;cursor:pointer}
+  .hintbtn:active{transform:scale(.97)}
+  .hintbox{display:none;margin:0 0 12px;padding:11px 14px;border-radius:12px;
+    background:rgba(176,141,62,.08);border-left:3px solid var(--gold);
+    font-size:13.5px;line-height:1.75;color:var(--ink-soft)}
+  .hintbox.show{display:block;animation:reactIn .3s ease}
+  .hintbox b{color:var(--ink)}
+
+  /* ── world reaction on a wrong answer ── */
+  .react{display:none;margin:0 0 10px;padding:10px 13px;border-radius:12px;
+    background:rgba(194,109,78,.07);border-left:3px solid var(--terra);
+    font-size:13.5px;line-height:1.7;color:var(--ink-soft);font-style:italic}
+  .react.show{display:block;animation:reactIn .34s ease}
+  .react b{font-style:normal;color:var(--ink)}
+  @keyframes reactIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+
+  /* ── retreat overlay 閉關 ── */
+  .retreat-scrim{position:absolute;inset:0;z-index:70;background:rgba(58,55,48,.46);
+    opacity:0;pointer-events:none;transition:opacity .3s ease}
+  .retreat-scrim.on{opacity:1;pointer-events:auto}
+  .retreat{position:absolute;left:0;right:0;bottom:0;z-index:80;background:var(--paper);
+    border-radius:22px 22px 0 0;box-shadow:0 -14px 44px rgba(58,55,48,.3);
+    transform:translateY(102%);transition:transform .38s cubic-bezier(.22,1,.36,1);
+    max-height:92%;overflow-y:auto}
+  .retreat.on{transform:none}
+  .rt-inner{padding:20px 20px calc(22px + env(safe-area-inset-bottom))}
+  .rt-head{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+  .rt-sprite{image-rendering:pixelated;width:44px;height:50px;flex:none}
+  .rt-kicker{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.28em;color:var(--gold)}
+  .rt-title{font-size:20px;letter-spacing:.04em;margin-top:2px}
+  .rt-intro{font-size:14px;line-height:1.8;color:var(--ink-soft);margin-bottom:14px}
+  .rt-ask{font-size:15px;line-height:1.8;text-align:center;margin:6px 0 14px}
+  .rt-prog{display:flex;gap:5px;margin-bottom:14px}
+  .rt-prog i{flex:1;height:4px;border-radius:2px;background:rgba(58,55,48,.13)}
+  .rt-prog i.ok{background:var(--sage)}
+  .rt-prog i.no{background:var(--terra)}
+  .rt-card{background:var(--white);border:1.5px solid rgba(58,55,48,.12);border-radius:16px;
+    padding:22px 18px;text-align:center;font-size:17px;line-height:1.7;min-height:96px;
+    display:flex;flex-direction:column;justify-content:center;box-shadow:var(--shadow)}
+  .rt-card .zh{display:block;font-size:13.5px;color:var(--ink-soft);margin-top:7px}
+  .rt-sides{display:flex;gap:10px;margin-top:14px}
+  .rt-sides button{flex:1;min-height:60px;border-radius:14px;border:1.5px solid rgba(58,55,48,.14);
+    background:var(--white);font-family:inherit;font-size:16px;color:var(--ink);cursor:pointer;
+    box-shadow:var(--shadow);transition:transform .14s ease}
+  .rt-sides button:active{transform:scale(.97)}
+  .rt-sides button.good{border-color:var(--sage-deep);background:rgba(123,139,111,.16)}
+  .rt-sides button.bad{border-color:var(--terra);background:rgba(194,109,78,.13)}
+  .rt-sides button .zh{display:block;font-size:12.5px;color:var(--ink-soft);margin-top:2px}
+  .rt-why{margin-top:12px;font-size:13.5px;line-height:1.75;color:var(--ink-soft);
+    min-height:44px;text-align:center;opacity:0;transition:opacity .22s ease}
+  .rt-why.show{opacity:1}
+  .rt-score{text-align:center;font-family:"Courier New",monospace;font-size:15px;
+    color:var(--terra);margin:6px 0 4px}
+   /* beats inline display:block on generated spans */
   .bubble .tap{position:absolute;right:14px;bottom:9px;font-size:11px;color:var(--ink-soft);opacity:.6;animation:blink 1.4s infinite}
   @keyframes blink{50%{opacity:.15}}
 
@@ -178,6 +236,7 @@
 <link rel="stylesheet" href="desktop.css">
 <script src="state.js"></script>
 <script src="data/chapters.js"></script>
+<script src="data/drills.js"></script>
 </head>
 <body data-page="chapter">
 <div id="app">
@@ -210,7 +269,10 @@
   <section class="screen" id="s-ask">
     <div class="clues" id="clues1"><h4>Clue Journal <span class="zh">病歷</span></h4><ul id="clueList1"></ul></div>
     <p class="ask">Ask <b>three</b> questions. Choose what a TCM diagnosis actually needs.<br><small class="zh" style="color:var(--ink-soft)">問診三題 — 想想中醫辨證真正需要什麼</small></p>
+    <button class="hintbtn" id="askHintBtn" style="display:none">Need a nudge?<span class="zh"> 需要提示嗎？</span></button>
+    <div class="hintbox" id="askHint"></div>
     <div class="opts" id="askOpts"></div>
+    <div class="react" id="askReact"></div>
     <div class="fb" id="askFb"></div>
     <button class="cta" id="askNext" style="display:none">Continue ▸</button>
   </section>
@@ -230,7 +292,10 @@
         </svg>
       </div>
     </div>
+    <button class="hintbtn" id="lookHintBtn" style="display:none">Need a nudge?<span class="zh"> 需要提示嗎？</span></button>
+    <div class="hintbox" id="lookHint"></div>
     <div class="opts" id="lookOpts"></div>
+    <div class="react" id="lookReact"></div>
     <div class="fb" id="lookFb"></div>
     <button class="cta" id="lookNext" style="display:none">Continue ▸</button>
   </section>
@@ -254,6 +319,7 @@
     </div>
     <p class="finger-hint" id="pulseHint"></p>
     <div class="opts" id="pulseOpts" style="margin-top:12px"></div>
+    <div class="react" id="pulseReact"></div>
     <div class="fb" id="pulseFb"></div>
     <button class="cta" id="pulseNext" style="display:none">Continue ▸</button>
   </section>
@@ -262,7 +328,10 @@
   <section class="screen" id="s-dx">
     <div class="clues" id="clues2"><h4>Clue Journal <span class="zh">病歷</span></h4><ul id="clueList2"></ul></div>
     <p class="ask" id="dxAsk"></p>
+    <button class="hintbtn" id="dxHintBtn" style="display:none">Need a nudge?<span class="zh"> 需要提示嗎？</span></button>
+    <div class="hintbox" id="dxHint"></div>
     <div class="opts" id="dxOpts"></div>
+    <div class="react" id="dxReact"></div>
     <div class="fb" id="dxFb"></div>
     <button class="cta" id="dxNext" style="display:none">Continue ▸</button>
   </section>
@@ -270,7 +339,10 @@
   <!-- 6 · POINT SELECTION -->
   <section class="screen" id="s-rx">
     <p class="ask" id="rxAsk"></p>
+    <button class="hintbtn" id="rxHintBtn" style="display:none">Need a nudge?<span class="zh"> 需要提示嗎？</span></button>
+    <div class="hintbox" id="rxHint"></div>
     <div class="opts" id="rxOpts"></div>
+    <div class="react" id="rxReact"></div>
     <div class="fb" id="rxFb"></div>
     <button class="cta" id="rxNext" style="display:none" disabled>Confirm prescription ▸</button>
   </section>
@@ -283,9 +355,50 @@
       <div class="verdict" id="verdict"></div>
     </div>
     <div class="opts" id="techOpts" style="display:none"></div>
+    <div class="react" id="needleReact"></div>
     <div class="fb" id="needleFb"></div>
     <button class="cta" id="needleNext" style="display:none">Continue ▸</button>
   </section>
+
+
+  <!-- RETREAT 閉關 · failure becomes a lesson, never a punishment -->
+  <div class="retreat-scrim" id="rtScrim"></div>
+  <aside class="retreat" id="rt" aria-live="polite">
+    <div class="rt-inner">
+      <div class="rt-head">
+        <canvas class="rt-sprite" width="16" height="18"></canvas>
+        <div>
+          <div class="rt-kicker">RETREAT<span class="zh"> · 閉關</span></div>
+          <div class="rt-title" id="rtTitle"></div>
+        </div>
+      </div>
+      <p class="rt-intro" id="rtIntro"></p>
+
+      <!-- offer -->
+      <div id="rtOffer">
+        <p class="rt-ask" id="rtLead">Master Shen closes his book.<br>
+          <b>Would you like to build your skill?</b>
+          <span class="zh">參師父合上書。<b>你想要增加功力嗎？</b></span></p>
+        <button class="cta" id="rtGo">Sit down and train ▸<span class="zh"> 坐下練功</span></button>
+        <button class="cta ghost" id="rtSkip">Stay with the patient<span class="zh"> 繼續看診</span></button>
+      </div>
+
+      <!-- drill -->
+      <div id="rtPlay" style="display:none">
+        <div class="rt-prog" id="rtProg"></div>
+        <div class="rt-card" id="rtCard"></div>
+        <div class="rt-sides" id="rtSides"></div>
+        <div class="rt-why" id="rtWhy"></div>
+      </div>
+
+      <!-- done -->
+      <div id="rtDone" style="display:none">
+        <div class="rt-score" id="rtScore"></div>
+        <p class="rt-ask" id="rtWord"></p>
+        <button class="cta" id="rtBack">Back to the patient ▸<span class="zh"> 回到病人身邊</span></button>
+      </div>
+    </div>
+  </aside>
 
   <!-- 8 · ENDING -->
   <section class="screen" id="s-end">
@@ -467,6 +580,138 @@ function renderClues(){
 function bi(en,cn){return `${en}<span class="zh">${cn}</span>`}
 AG.bindLangButton($("langBtn"));
 
+
+/* ══════════ DIFFICULTY 難度分層 ══════════
+   Same world, different depth (§2).
+   Beginner  — one fewer distractor, a hint on demand, help arrives sooner.
+   Student   — full option set, no hints, help after two slips.
+   Nothing about the medicine changes; only how much scaffolding is shown. */
+const BEGINNER = AG.isBeginner();
+let dxView=[], techView=[];
+const SLIPS_BEFORE_HELP = BEGINNER ? 1 : 2;
+
+/* drop the single weakest distractor for beginners; correct answers never dropped */
+function byLevel(list, keyOk){
+  if(!BEGINNER || !Array.isArray(list) || list.length<3) return list;
+  const ok = list.filter(o=>o[keyOk]);
+  const no = list.filter(o=>!o[keyOk]);
+  if(no.length<2) return list;
+  const trimmed = no.slice(0, no.length-1);
+  return list.filter(o=>o[keyOk] || trimmed.includes(o));
+}
+function showHint(stage){
+  const h=(CH.hints||{})[stage]; const el=$(stage+"Hint"); if(!h||!el) return;
+  el.innerHTML=h.en+`<span class="zh" style="display:block;margin-top:5px">${h.zh}</span>`;
+  el.className="hintbox show";
+  const btn=$(stage+"HintBtn"); if(btn) btn.style.display="none";
+}
+function mountHint(stage){
+  const btn=$(stage+"HintBtn"); if(!btn) return;
+  if(!BEGINNER || !(CH.hints||{})[stage]){ btn.style.display="none"; return; }
+  btn.style.display=""; btn.onclick=()=>showHint(stage);
+}
+
+/* ══════════ FAILURE → LEARNING ══════════
+   Two things happen when the player is wrong:
+   1. the world reacts (§6) — the master, the patient, the herb boy
+   2. after two slips, a Retreat is offered: a 40-second drill on the
+      exact distinction they missed, then straight back to the patient.
+   Nothing is ever deducted. */
+let wrongTotal=0, wrongStreak=0, retreatDone={}, pendingRetreat=null, rtBonus=0;
+
+function reactTo(stage){
+  const pool=CH.reactions||[];
+  const el=$(stage+"React"); if(!el) return;
+  if(!pool.length){el.className="react";return}
+  const r=pool[wrongTotal % pool.length];
+  const who={master:"Master Shen",patient:PT_EN,boy:"The herb boy"}[r.who]||"";
+  el.innerHTML=r.en+`<span class="zh" style="display:block;margin-top:5px">${r.zh}</span>`;
+  el.className="react show";
+  // make sure the reaction is actually seen on a small screen
+  setTimeout(()=>{try{el.scrollIntoView({behavior:"smooth",block:"center"})}catch(e){}},60);
+}
+function clearReact(stage){const el=$(stage+"React"); if(el) el.className="react";}
+
+/* record a wrong answer; returns true if a Retreat should be offered */
+function slipped(stage){
+  wrongTotal++; wrongStreak++;
+  reactTo(stage);
+  const key=(CH.remedy||{})[stage];
+  if(wrongStreak>=SLIPS_BEFORE_HELP && key && !retreatDone[key] && (window.AG_DRILLS||{})[key]){
+    pendingRetreat=key; return true;
+  }
+  return false;
+}
+function scored(stage){ wrongStreak=0; clearReact(stage); }
+
+/* offer the retreat instead of advancing; cb runs once the player returns */
+function maybeRetreat(cb){
+  if(!pendingRetreat){ cb(); return; }
+  const key=pendingRetreat; pendingRetreat=null;
+  openRetreat(key, cb);
+}
+
+/* ── the retreat itself ── */
+const RT={key:null,items:[],i:0,right:0,after:null,drill:null};
+function openRetreat(key, after){
+  const d=(window.AG_DRILLS||{})[key]; if(!d){after&&after();return}
+  RT.key=key; RT.drill=d; RT.items=d.items.slice(0,4); RT.i=0; RT.right=0; RT.after=after||function(){};
+  $("rtTitle").innerHTML=d.title.en+`<span class="zh"> ${d.title.zh}</span>`;
+  $("rtIntro").innerHTML=d.intro.en+`<span class="zh" style="display:block;margin-top:6px">${d.intro.zh}</span>`;
+  $("rtOffer").style.display=""; $("rtPlay").style.display="none"; $("rtDone").style.display="none";
+  paint(document.querySelector(".rt-sprite"),MASTER,false);
+  $("rtScrim").classList.add("on"); $("rt").classList.add("on");
+}
+function closeRetreat(){
+  $("rt").classList.remove("on"); $("rtScrim").classList.remove("on");
+  setTimeout(()=>{ const f=RT.after; RT.after=null; wrongStreak=0; f&&f(); },300);
+}
+$("rtSkip").onclick=()=>{ wrongStreak=0; closeRetreat(); };
+$("rtGo").onclick=()=>{ $("rtOffer").style.display="none"; $("rtPlay").style.display=""; rtStep(); };
+$("rtBack").onclick=closeRetreat;
+
+function rtStep(){
+  $("rtProg").innerHTML=RT.items.map((_,n)=>`<i class="${n<RT.i?(RT.marks&&RT.marks[n]?"ok":"no"):""}"></i>`).join("");
+  const it=RT.items[RT.i];
+  if(!it){ return rtFinish(); }
+  $("rtCard").innerHTML=it.en+`<span class="zh">${it.zh}</span>`;
+  $("rtWhy").className="rt-why"; $("rtWhy").innerHTML="";
+  $("rtSides").innerHTML=RT.drill.sides.map(sd=>
+    `<button data-k="${sd.k}">${sd.en}<span class="zh">${sd.zh}</span></button>`).join("");
+  $("rtSides").querySelectorAll("button").forEach(b=>b.onclick=()=>rtAnswer(b));
+}
+RT.marks=[];
+function rtAnswer(btn){
+  const it=RT.items[RT.i]; if(!it) return;
+  const ok=btn.dataset.k===it.a;
+  RT.marks[RT.i]=ok; if(ok) RT.right++;
+  $("rtSides").querySelectorAll("button").forEach(b=>{
+    b.onclick=null;
+    if(b.dataset.k===it.a) b.classList.add("good");
+    else if(b===btn) b.classList.add("bad");
+  });
+  $("rtWhy").innerHTML=(ok?"":"<b>"+(RT.drill.sides.find(x=>x.k===it.a)||{}).en+".</b> ")+
+    it.why.en+`<span class="zh" style="display:block;margin-top:4px">${it.why.zh}</span>`;
+  $("rtWhy").className="rt-why show";
+  setTimeout(()=>{ RT.i++; rtStep(); }, ok?900:1900);
+}
+function rtFinish(){
+  retreatDone[RT.key]=true;
+  const gain=20+RT.right*10;
+  rtBonus+=gain;
+  const axis=RT.drill.axis||"dx";
+  AG.complete({activity:"drill_"+RT.key, completed:true, score:RT.right, stars:0,
+               xpEarned:gain, skillXp:{[axis]:12+RT.right*6}});
+  $("rtPlay").style.display="none"; $("rtDone").style.display="";
+  $("rtScore").textContent=`${RT.right} / ${RT.items.length} · +${gain} XP`;
+  $("rtWord").innerHTML=(RT.right>=3
+    ? 'Master Shen nods once. "Now go and look at him again."'
+    : 'Master Shen taps the table. "Keep it in your hand. Go on."')
+    +`<span class="zh" style="display:block;margin-top:6px">${RT.right>=3
+    ? "參師父點了一下頭。「現在，再去看他一次。」"
+    : "參師父敲了敲桌子。「握著它。去吧。」"}</span>`;
+}
+
 /* ══════════ 1 · story ══════════ */
 const SCRIPT=CH.script;
 
@@ -500,26 +745,29 @@ function startAsk(){setStage(1);show("s-ask");renderClues();
 function doAsk(i,btn){
   const o=QA[i];asked++;maxScore+=10;
   btn.classList.add("used",o.good?"good":"bad");
-  if(o.good){score+=10;if(o.clue)addClue(o.clue)}
+  if(o.good){score+=10;if(o.clue)addClue(o.clue);scored("ask")}else{slipped("ask")}
   $("askFb").className="fb show"+(o.good?"":" wrong");
   $("askFb").innerHTML=`<b>${PT_EN}:</b> ${o.a}<span class="zh" style="display:block;font-size:12.5px;margin-top:4px">${o.ca}</span><br>${o.note}`;
   if(asked>=3){$("askOpts").querySelectorAll(".opt").forEach(b=>b.classList.add("used"));$("askNext").style.display="block"}
 }
-$("askNext").onclick=()=>{setStage(2);show("s-look")};
+mountHint("ask");
+$("askNext").onclick=()=>maybeRetreat(()=>{setStage(2);show("s-look")});
 
 /* ══════════ 3 · inspection ══════════ */
 const LOOK=CH.look;
 
-$("lookOpts").innerHTML=LOOK.map((o,i)=>`<button class="opt" data-i="${i}">${o.t}<small class="zh">${o.c}</small></button>`).join("");
+const LOOK_V=byLevel(LOOK,"ok");
+$("lookOpts").innerHTML=LOOK_V.map((o,i)=>`<button class="opt" data-i="${i}">${o.t}<small class="zh">${o.c}</small></button>`).join("");
 $("lookOpts").querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
-  const o=LOOK[+b.dataset.i];maxScore+=15;
+  const o=LOOK_V[+b.dataset.i];maxScore+=15;
   $("lookOpts").querySelectorAll(".opt").forEach(x=>x.classList.add("used"));
   b.classList.add(o.ok?"good":"bad");
-  if(o.ok){score+=15;addClue(o.clue)}else addClue((LOOK.find(x=>x.ok)||{}).clue);
+  if(o.ok){score+=15;addClue(o.clue);scored("look")}else{addClue((LOOK_V.find(x=>x.ok)||{}).clue);slipped("look")}
   $("lookFb").className="fb show"+(o.ok?"":" wrong");$("lookFb").innerHTML=o.note;
   $("lookNext").style.display="block";
 });
-$("lookNext").onclick=()=>{setStage(3);show("s-pulse");drawPulse()};
+mountHint("look");
+$("lookNext").onclick=()=>maybeRetreat(()=>{setStage(3);show("s-pulse");drawPulse()});
 
 /* ══════════ 4 · pulse ══════════ */
 function drawPulse(){
@@ -531,16 +779,18 @@ function drawPulse(){
 }
 const PULSE=CH.pulse;
 
-$("pulseOpts").innerHTML=PULSE.map((o,i)=>`<button class="opt" data-i="${i}">${o.t}</button>`).join("");
+const PULSE_V=byLevel(PULSE,"ok");
+$("pulseOpts").innerHTML=PULSE_V.map((o,i)=>`<button class="opt" data-i="${i}">${o.t}</button>`).join("");
 $("pulseOpts").querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
-  const o=PULSE[+b.dataset.i];maxScore+=15;
+  const o=PULSE_V[+b.dataset.i];maxScore+=15;
   $("pulseOpts").querySelectorAll(".opt").forEach(x=>x.classList.add("used"));
   b.classList.add(o.ok?"good":"bad");
-  if(o.ok){score+=15;addClue(o.clue)}else addClue((PULSE.find(x=>x.ok)||{}).clue);
+  if(o.ok){score+=15;addClue(o.clue);scored("pulse")}else{addClue((PULSE_V.find(x=>x.ok)||{}).clue);slipped("pulse")}
   $("pulseFb").className="fb show"+(o.ok?"":" wrong");$("pulseFb").innerHTML=o.note;
   $("pulseNext").style.display="block";
 });
-$("pulseNext").onclick=()=>{setStage(4);show("s-dx");startDx()};
+mountHint("pulse");
+$("pulseNext").onclick=()=>maybeRetreat(()=>{setStage(4);show("s-dx");startDx()});
 
 /* ══════════ 5 · differentiation (2 steps) ══════════ */
 const DX=CH.dx;
@@ -548,21 +798,24 @@ const DX=CH.dx;
 let dxStep=0;
 function startDx(){renderClues();const s=DX[dxStep];
   $("dxAsk").innerHTML=s.ask;$("dxFb").className="fb";$("dxNext").style.display="none";
-  $("dxOpts").innerHTML=s.opts.map((o,i)=>`<button class="opt" data-i="${i}">${o.t}<small class="zh">${o.c}</small></button>`).join("");
+  mountHint("dx");
+  const DX_V=byLevel(s.opts,"ok"); dxView=DX_V;
+  $("dxOpts").innerHTML=DX_V.map((o,i)=>`<button class="opt" data-i="${i}">${o.t}<small class="zh">${o.c}</small></button>`).join("");
   $("dxOpts").querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
-    const o=s.opts[+b.dataset.i];maxScore+=20;
+    const o=dxView[+b.dataset.i];maxScore+=20;
     $("dxOpts").querySelectorAll(".opt").forEach(x=>x.classList.add("used"));
-    b.classList.add(o.ok?"good":"bad");if(o.ok)score+=20;
+    b.classList.add(o.ok?"good":"bad");if(o.ok){score+=20;scored("dx")}else{slipped("dx")}
     $("dxFb").className="fb show"+(o.ok?"":" wrong");$("dxFb").innerHTML=o.note;
     $("dxNext").style.display="block";
   });
 }
-$("dxNext").onclick=()=>{dxStep++;if(dxStep<DX.length)startDx();else{addClue(patternClue());setStage(5);show("s-rx")}};
+$("dxNext").onclick=()=>maybeRetreat(()=>{dxStep++;if(dxStep<DX.length)startDx();else{addClue(patternClue());setStage(5);show("s-rx")}});
 
 /* ══════════ 6 · point prescription ══════════ */
 const RX=CH.rx;
 
 let picked=[];
+mountHint("rx");
 $("rxOpts").innerHTML=RX.map((o,i)=>`<button class="opt" data-i="${i}">${o.t}</button>`).join("");
 $("rxOpts").querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
   const i=+b.dataset.i;
@@ -574,12 +827,13 @@ $("rxNext").onclick=()=>{
   maxScore+=30;const right=picked.filter(i=>RX[i].ok).length;score+=right*10;
   $("rxOpts").querySelectorAll(".opt").forEach((b,i)=>{b.classList.add("used");
     if(RX[i].ok)b.classList.add("good");else if(picked.includes(i))b.classList.add("bad")});
+  if(right===3)scored("rx");else slipped("rx");
   $("rxFb").className="fb show"+(right===3?"":" wrong");
   $("rxFb").innerHTML=`<b>${right}/3 correct.</b><br><br>`+RX.filter(o=>o.ok).map(o=>`<b>${o.t}</b> — ${o.note}`).join("<br><br>")+
     (picked.some(i=>!RX[i].ok)?"<br><br>"+picked.filter(i=>!RX[i].ok).map(i=>`<b>${RX[i].t}</b> — ${RX[i].note}`).join("<br><br>"):"");
   $("rxNext").style.display="none";
   const nb=document.createElement("button");nb.className="cta";nb.textContent="Begin needling ▸";
-  nb.onclick=()=>{setStage(6);show("s-needle")};$("s-rx").appendChild(nb);
+  nb.onclick=()=>maybeRetreat(()=>{setStage(6);show("s-needle")});$("s-rx").appendChild(nb);
 };
 
 /* ══════════ 7 · needling ══════════ */
@@ -616,22 +870,25 @@ const TECH=CH.tech;
 function showTech(){
   $("needleAsk").innerHTML='Now choose the technique.<br><small style="color:var(--ink-soft)">選擇手法</small>';
   $("techOpts").style.display="flex";
-  $("techOpts").innerHTML=TECH.map((o,i)=>`<button class="opt" data-i="${i}">${o.t}</button>`).join("");
+  mountHint("tech");
+  const TECH_V=byLevel(TECH,"ok"); techView=TECH_V;
+  $("techOpts").innerHTML=TECH_V.map((o,i)=>`<button class="opt" data-i="${i}">${o.t}</button>`).join("");
   $("techOpts").querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
-    const o=TECH[+b.dataset.i];maxScore+=20;
+    const o=techView[+b.dataset.i];maxScore+=20;
     $("techOpts").querySelectorAll(".opt").forEach(x=>x.classList.add("used"));
-    b.classList.add(o.ok?"good":"bad");if(o.ok)score+=20;
+    b.classList.add(o.ok?"good":"bad");if(o.ok){score+=20;scored("needle")}else{slipped("needle")}
     $("needleFb").className="fb show"+(o.ok?"":" wrong");$("needleFb").innerHTML=o.note;
     $("needleNext").style.display="block";
   });
 }
-$("needleNext").onclick=()=>{setStage(7);show("s-end");ending()};
+$("needleNext").onclick=()=>maybeRetreat(()=>{setStage(7);show("s-end");ending()});
 
 /* ══════════ 8 · ending ══════════ */
 function ending(){
   const pct=score/maxScore;
   const n=pct>=.85?3:pct>=.6?2:1;
   const gained=Math.round(score*0.9)+(n===3?60:n===2?30:10);
+  const retreats=Object.keys(retreatDone).length;
   const report=AG.complete({
     activity:"chapter_"+CH_ID, completed:true, score:score, stars:n,
     xpEarned:gained,
@@ -650,6 +907,7 @@ function ending(){
     `<br><span style="font-family:'Courier New',monospace;color:var(--terra);font-size:14px">Score ${score} / ${maxScore} · +${gained} XP</span>`
     +(lv?`<br><span style="font-family:'Courier New',monospace;color:var(--sage-deep);font-size:12.5px">SKILL UP · ${lv}</span>`:"")
     +(report.newBest?`<br><span style="font-family:'Courier New',monospace;color:var(--gold);font-size:12px">NEW BEST \u2605${n}</span>`:"")
+    +(retreats?`<br><span style="font-family:'Courier New',monospace;color:var(--sage-deep);font-size:12px">RETREAT \u00b7 ${retreats} lesson${retreats>1?"s":""} taken \u00b7 +${rtBonus} XP</span>`:"")
     +(report.newUnlocks.length?`<br><br><b>A new door in town is open to you now.</b><span class="zh" style="display:block;margin-top:4px">鎮上又有一扇門為你而開。</span>`:"");
 }
 $("againBtn").onclick=()=>location.reload();
@@ -661,7 +919,7 @@ function paintChapterCopy(){
   const zhs=t=>t?`<span class="zh"> ${t}</span>`:"";
   $("cardName").innerHTML=CH.reward.cardEn+zhs(CH.reward.cardZh);$("cardTxt").innerHTML=CH.reward.cardTxt;
   $("herbName").innerHTML=CH.reward.herbEn+zhs(CH.reward.herbZh);$("herbTxt").innerHTML=CH.reward.herbTxt;
-  $("chapline").innerHTML="Chapter "+CH_ID+`<span class="zh"> · ${CH.titleZh}</span>`;
+  $("chapline").innerHTML="Chapter "+CH_ID+`<span class="zh"> · ${CH.titleZh}</span>`+(BEGINNER?' <span style="color:var(--sage-deep)">· BEGINNER</span>':"");
   $("ptName").innerHTML=PT_EN+(PT_ZH?` <span class="zh">${PT_ZH}</span>`:"");
 }
 paintChapterCopy();
