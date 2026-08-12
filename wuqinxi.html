@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#F2EAD8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>五禽戲 Five Animal Frolics · 杏林行</title>
+<style>
+:root{
+  --paper:#F2EAD8;--paper2:#E7DBBE;--ink:#332F28;--ink-soft:#6E675A;--ink-faint:#9A9182;
+  --sage:#7B8B6F;--sage-deep:#4E5D46;--terra:#C26D4E;--terra-deep:#9D5238;
+  --gold:#B08D3E;--seal:#A63B2A;--white:#FDFBF4;--sky:#8A9BB0;
+  --sh-s:0 2px 6px rgba(51,47,40,.1);--sh:0 5px 16px rgba(51,47,40,.14);--sh-l:0 12px 32px rgba(51,47,40,.2);
+  --ease:cubic-bezier(.22,.9,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{font-family:"Songti TC","Noto Serif TC",Georgia,serif;background:#CFC3A8;color:var(--ink);
+  display:flex;justify-content:center;overflow:hidden}
+#app{position:relative;width:100%;max-width:440px;height:100dvh;overflow:hidden;display:flex;flex-direction:column;
+  background:radial-gradient(ellipse 130% 50% at 50% -6%,rgba(255,255,255,.5),transparent 62%),
+    repeating-linear-gradient(0deg,transparent 0 3px,rgba(120,105,80,.028) 3px 4px),
+    repeating-linear-gradient(90deg,transparent 0 3px,rgba(120,105,80,.028) 3px 4px),var(--paper);
+  box-shadow:0 0 44px rgba(51,47,40,.36)}
+.seal{position:absolute;right:13px;top:calc(11px + env(safe-area-inset-top));z-index:40;width:29px;height:29px;
+  background:var(--seal);color:var(--white);display:flex;align-items:center;justify-content:center;font-size:16px;
+  border-radius:4px;transform:rotate(-3deg);opacity:.85;box-shadow:inset 0 0 0 2px rgba(255,255,255,.3);pointer-events:none}
+.langBtn{position:absolute;left:13px;top:calc(11px + env(safe-area-inset-top));z-index:40;background:var(--white);
+  border:1.5px solid rgba(51,47,40,.14);border-radius:99px;padding:4px 11px;font-size:11px;font-family:inherit;
+  color:var(--ink-soft);cursor:pointer}
+.zh{display:block;font-size:.84em;color:var(--ink-soft);margin-top:4px;line-height:1.65}
+body.nozh .zh{display:none}
+.chapline{position:relative;z-index:5;text-align:center;font-family:"Courier New",monospace;font-size:10px;
+  letter-spacing:.36em;color:var(--gold);text-transform:uppercase;padding-top:calc(14px + env(safe-area-inset-top))}
+.screen{position:absolute;inset:0;z-index:3;display:none;flex-direction:column;
+  padding:calc(42px + env(safe-area-inset-top)) 20px calc(16px + env(safe-area-inset-bottom));overflow-y:auto}
+.screen.on{display:flex;animation:fade .42s var(--ease)}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}}
+
+/* mentor */
+.mrow{display:flex;gap:13px;align-items:center;background:var(--white);border:1.5px solid rgba(51,47,40,.11);
+  border-radius:16px;padding:13px 15px;box-shadow:var(--sh);margin-bottom:14px}
+.mrow canvas{image-rendering:pixelated;width:64px;height:72px;flex:none;filter:drop-shadow(0 3px 4px rgba(51,47,40,.26))}
+.mrow .mt{flex:1;font-size:14.5px;line-height:1.75}
+.mrow .mt .nm{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.24em;color:var(--terra);
+  text-transform:uppercase;margin-bottom:5px}
+
+/* learn cards */
+.learn{flex:1;display:flex;flex-direction:column;justify-content:center;gap:10px}
+.acard{display:flex;align-items:center;gap:13px;background:var(--white);border:1.5px solid rgba(51,47,40,.11);
+  border-radius:15px;padding:11px 13px;box-shadow:var(--sh-s);opacity:0;transform:translateY(12px);
+  animation:rise .5s var(--ease) forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+.acard canvas{image-rendering:pixelated;width:52px;height:52px;flex:none}
+.acard .ai{flex:1;min-width:0}
+.acard .ai b{font-size:16px;display:block}
+.acard .ai .py{font-family:"Courier New",monospace;font-size:11px;color:var(--gold);letter-spacing:.1em}
+.acard .ai small{display:block;font-size:12.5px;color:var(--ink-soft);line-height:1.55;margin-top:3px}
+.organ{flex:none;background:var(--paper2);border-radius:9px;padding:6px 9px;text-align:center}
+.organ b{display:block;font-size:15px;color:var(--sage-deep)}
+.organ small{font-size:9.5px;font-family:"Courier New",monospace;color:var(--ink-faint);letter-spacing:.1em}
+
+/* play area */
+.hud{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.hud .rnd{font-family:"Courier New",monospace;font-size:11px;letter-spacing:.2em;color:var(--ink-faint)}
+.hud .sc{font-family:"Courier New",monospace;font-size:15px;color:var(--terra)}
+.callout{text-align:center;font-size:17px;line-height:1.6;min-height:52px;margin-bottom:4px}
+.callout small{display:block;font-size:12.5px;color:var(--ink-soft);margin-top:3px}
+
+/* breath orb */
+.breath{display:flex;flex-direction:column;align-items:center;gap:4px;margin:2px 0 10px}
+.orb{width:54px;height:54px;border-radius:50%;border:2px solid var(--sky);
+  background:radial-gradient(circle at 40% 35%,rgba(255,255,255,.9),rgba(138,155,176,.28));
+  transform:scale(.72);transition:transform 1.6s var(--ease)}
+.orb.in{transform:scale(1.12)}
+.breath span{font-family:"Courier New",monospace;font-size:10.5px;letter-spacing:.28em;color:var(--sky)}
+
+/* animal ring */
+.ring{flex:1;display:flex;align-items:center;justify-content:center;min-height:0}
+.grid5{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;width:100%;max-width:330px}
+.beast{position:relative;background:var(--white);border:2px solid rgba(51,47,40,.1);border-radius:17px;
+  padding:9px 5px 7px;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;
+  box-shadow:var(--sh-s);font-family:inherit;transition:transform .18s var(--ease),box-shadow .18s,border-color .18s}
+.beast canvas{image-rendering:pixelated;width:58px;height:58px;transition:transform .3s var(--ease)}
+.beast b{font-size:14.5px}
+.beast small{font-family:"Courier New",monospace;font-size:9px;letter-spacing:.1em;color:var(--ink-faint)}
+.beast:active{transform:scale(.95)}
+.beast.lit{border-color:var(--gold);box-shadow:0 0 0 4px rgba(176,141,62,.2),var(--sh);transform:translateY(-4px)}
+.beast.lit canvas{transform:scale(1.16)}
+.beast.good{border-color:var(--sage);box-shadow:0 0 0 4px rgba(123,139,111,.22),var(--sh)}
+.beast.bad{border-color:var(--terra);box-shadow:0 0 0 4px rgba(194,109,78,.2),var(--sh)}
+.beast.dim{opacity:.4}
+.beast .num{position:absolute;top:5px;right:7px;font-family:"Courier New",monospace;font-size:11px;
+  color:var(--gold);opacity:0;transition:opacity .2s}
+.beast.numbered .num{opacity:1}
+
+.dots{display:flex;justify-content:center;gap:6px;margin:9px 0 4px}
+.dots i{width:9px;height:9px;border-radius:50%;background:rgba(51,47,40,.13)}
+.dots i.done{background:var(--sage)}
+.dots i.now{background:var(--terra);transform:scale(1.24)}
+.dots i.miss{background:var(--terra);opacity:.35}
+
+.fb{background:var(--white);border-left:4px solid var(--sage);border-radius:11px;padding:11px 13px;font-size:13.5px;
+  line-height:1.7;box-shadow:var(--sh-s);color:var(--ink-soft);display:none;margin-top:8px}
+.fb.on{display:block;animation:pop .35s var(--ease)}
+@keyframes pop{from{transform:scale(.96);opacity:0}}
+.fb b{color:var(--ink)}
+.fb.warn{border-left-color:var(--terra)}
+
+.btn{width:100%;min-height:52px;border:none;border-radius:14px;cursor:pointer;font-family:inherit;font-size:16.5px;
+  letter-spacing:.14em;background:var(--terra);color:var(--white);box-shadow:0 5px 0 var(--terra-deep),var(--sh);
+  transition:transform .12s,box-shadow .12s;margin-top:10px}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 var(--terra-deep)}
+.btn.ghost{background:var(--white);color:var(--ink);box-shadow:0 5px 0 rgba(51,47,40,.13),var(--sh)}
+.btn.ghost:active{box-shadow:0 2px 0 rgba(51,47,40,.13)}
+.btn small{display:block;font-size:11.5px;letter-spacing:.08em;opacity:.85;margin-top:2px}
+
+/* result */
+.res{margin:auto 0;text-align:center;display:flex;flex-direction:column;align-items:center;gap:9px}
+.stars{font-size:40px;color:var(--gold);letter-spacing:.14em}
+.stars .off{opacity:.2}
+.res h2{font-size:26px;letter-spacing:.13em}
+.gain{background:var(--white);border:2px solid var(--sky);border-radius:16px;padding:13px 18px;box-shadow:var(--sh);max-width:320px}
+.gain .rar{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.26em;color:var(--sky)}
+.gain h3{font-size:19px;margin:3px 0 4px}
+.gain p{font-size:12.5px;color:var(--ink-soft);line-height:1.65}
+.note{font-size:10.5px;color:var(--ink-faint);line-height:1.7;text-align:center;margin-top:8px}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="seal">導</div>
+  <button class="langBtn" id="langBtn">中文 ON</button>
+  <div class="chapline">Training Ground · 修煉場</div>
+
+  <!-- 1 · INTRO -->
+  <section class="screen on" id="s1">
+    <div class="mrow">
+      <canvas id="mc1" width="16" height="18"></canvas>
+      <div class="mt"><div class="nm">Xióng Shī · 熊師</div>
+        "Five animals. Hua Tuo watched them and built medicine out of what he saw."
+        <span class="zh">「五種動物。華佗看著牠們，從中造出了一套醫術。」</span></div>
+    </div>
+    <div class="learn" id="learn"></div>
+    <button class="btn" id="go1">Begin the frolics ▸<small>Follow me · 跟著我做</small></button>
+  </section>
+
+  <!-- 2 · SEQUENCE -->
+  <section class="screen" id="s2">
+    <div class="hud"><span class="rnd" id="r2">SEQUENCE 1 / 3</span><span class="sc" id="sc2">0</span></div>
+    <div class="callout" id="call2"></div>
+    <div class="breath"><div class="orb" id="orb"></div><span id="brText">BREATHE</span></div>
+    <div class="dots" id="dots2"></div>
+    <div class="ring"><div class="grid5" id="grid2"></div></div>
+    <div class="fb" id="fb2"></div>
+    <div id="btn2"></div>
+  </section>
+
+  <!-- 3 · MATCH -->
+  <section class="screen" id="s3">
+    <div class="hud"><span class="rnd" id="r3">PAIRING 1 / 5</span><span class="sc" id="sc3">0</span></div>
+    <div class="callout" id="call3"></div>
+    <div class="ring"><div class="grid5" id="grid3"></div></div>
+    <div class="fb" id="fb3"></div>
+    <div id="btn3"></div>
+  </section>
+
+  <!-- 4 · RESULT -->
+  <section class="screen" id="s4">
+    <div class="res">
+      <div class="stars" id="stars">★★★</div>
+      <h2 id="rTitle"></h2>
+      <p style="font-size:14.5px;line-height:1.8" id="rText"></p>
+      <div class="gain">
+        <div class="rar">心法 · TECHNIQUE CARD</div>
+        <h3>導引通經 Movement Opens the Channel</h3>
+        <p>In TCM, gentle repeated movement is one of the oldest ways to move qi and blood — care taken before illness arrives.
+          <span class="zh">中醫認為，柔和而反覆的動作是行氣活血最古老的方法之一——病未至而先養。</span></p>
+      </div>
+      <button class="btn" id="again">Practise again 再練一輪</button>
+      <button class="btn ghost" id="back">Back to town 回小鎮</button>
+      <p class="note">Educational game · gentle exercise information, not medical advice</p>
+    </div>
+  </section>
+</div>
+
+<script>
+/* ═════ palette + sprites ═════ */
+const P={K:"#2B241C",O:"#C77B3E",W:"#FDFBF4",D:"#8B6A45",L:"#C9A87C",Z:"#3C3A36",E:"#E0E0DC",
+         M:"#7A5C3A",N:"#D9B489",R:"#C0392B",Y:"#D6A93C",A:"#8A8F86",B:"#2B241C",G:"#6E8B57",C:"#EFD9AE",Q:"#E8A08C",F:"#F0CDA8",H:"#3A2E24"};
+const A16={
+ tiger:[
+ "................",".O.O........O.O.",".OOO........OOO.",".OOOO......OOOO.","..OOOOOOOOOOOO..",
+ "..OKOOOOOOOOKO..","..OOOOOOOOOOOO..","..OOKOOOOOOKOO..","..OOOWWWWWWOOO..","..OOOWKWWKWOOO..",
+ "...OOWWWWWWOO...","...OOOWKKWOOO...","....OOOWWOOO....",".....OOOOOO.....","......OOOO......","................"],
+ deer:[
+ "..K..........K..","..K.K......K.K..","..KKK......KKK..","...K........K...","....DDDDDDDD....",
+ "...DDDDDDDDDD...","...DKDDDDDDKD...","...DDDDDDDDDD...","...DDDLLLLDDD...","....DDLLLLDD....",
+ "....DDLKKLDD....",".....DDLLDD.....","......DDDD......","......DDDD......","................","................"],
+ bear:[
+ "..ZZ........ZZ..",".ZZZZ......ZZZZ.",".ZZZZ......ZZZZ.","..ZZZZZZZZZZZZ..",".ZZZZZZZZZZZZZZ.",
+ ".ZZZZZZZZZZZZZZ.",".ZZEZZZZZZZZEZZ.",".ZZZZZZZZZZZZZZ.",".ZZZZEEEEEEZZZZ.","..ZZZEEEEEEZZZ..",
+ "..ZZZEKKKKEZZZ..","...ZZZEEEEZZZ...","....ZZZZZZZZ....",".....ZZZZZZ.....","................","................"],
+ ape:[
+ ".M.M........M.M.",".MMM........MMM.",".MMMM......MMMM.","..MMMMMMMMMMMM..","..MMMMMMMMMMMM..",
+ "..MMNNNNNNNNMM..","..MMNKNNNNKNMM..","..MMNNNNNNNNMM..","..MMNNNKKNNNMM..","...MNNNNNNNNM...",
+ "...MMNNNNNNMM...","....MMNNNNMM....",".....MMMMMM.....","......MMMM......","................","................"],
+ crane:[
+ "................",".......RR.......","......RRRR......",".....AWWWWA.....","....AWWKWWA.....",
+ "....AWWWWWAYYY..","....AWWWWWAYY...",".....AWWWWA.....","......ABBA......","......ABBA......",
+ "......ABBA......",".....AWWWWA.....","....AWWWWWWA....","....AWWWWWWA....",".....AWWWWA.....","................"]
+};
+const XIONG=[
+ "..Z..........Z..",".ZZZ........ZZZ.","..EEEEEEEEEE....",".EEEEEEEEEEEE...",".EEZEEEEEEZEE...",
+ ".EEEEEEEEEEEE...",".EEEEZZZZEEEE...","..EEEEEEEEEE....","....EEEEEE......","...ZZZZZZZZ.....",
+ "..ZZZZZZZZZZ....",".EZZZZZZZZZZE...",".EZZZZZZZZZZE...","..ZZZZZZZZZZ....","...ZZZZZZZZ.....",
+ "...ZZZ..ZZZ.....","..EEE....EEE....","................"];
+function paint(cv,grid,size){const x=cv.getContext("2d");x.clearRect(0,0,size,grid.length);
+  grid.forEach((row,y)=>[...row].forEach((c,i)=>{if(P[c]){x.fillStyle=P[c];x.fillRect(i,y,1,1)}}))}
+function paintBob(cv,grid,bob){const x=cv.getContext("2d");x.clearRect(0,0,16,18);
+  grid.forEach((row,y)=>[...row].forEach((c,i)=>{if(P[c]){x.fillStyle=P[c];x.fillRect(i,Math.min(y+(bob?1:0),17),1,1)}}))}
+
+/* ═════ data ═════ */
+const BEASTS=[
+ {k:"tiger",zh:"虎戲",py:"Hǔ Xì",en:"Tiger",organ:"肝",organEn:"LIVER",
+  move:"Tiger Lift · Tiger Pounce 虎舉·虎撲",
+  good:"Strengthens sinew and bone; helps course Liver qi.",goodZh:"強筋壯骨，助疏肝理氣。",
+  cue:"Symptoms of tightness — stiff sinews, a chest that will not loosen, temper rising.",cueZh:"筋緊、胸悶難舒、易怒。"},
+ {k:"deer",zh:"鹿戲",py:"Lù Xì",en:"Deer",organ:"腎",organEn:"KIDNEY",
+  move:"Deer Butt · Deer Run 鹿抵·鹿奔",
+  good:"Loosens the waist and low back; supports Kidney qi.",goodZh:"活腰壯腎，鬆解腰背。",
+  cue:"A weak, cold, aching low back and knees that give way.",cueZh:"腰膝痠軟、畏寒無力。"},
+ {k:"bear",zh:"熊戲",py:"Xióng Xì",en:"Bear",organ:"脾",organEn:"SPLEEN",
+  move:"Bear Sway · Bear Amble 熊運·熊晃",
+  good:"Kneads the middle burner; supports Spleen and Stomach.",goodZh:"運化中焦，健脾和胃。",
+  cue:"Heavy limbs, bloating after meals, poor appetite.",cueZh:"肢體困重、飯後腹脹、納差。"},
+ {k:"ape",zh:"猿戲",py:"Yuán Xì",en:"Ape",organ:"心",organEn:"HEART",
+  move:"Ape Lift · Ape Pick 猿提·猿摘",
+  good:"Quiets a restless mind; supports the Heart and shen.",goodZh:"養心安神，斂躁定志。",
+  cue:"A racing mind at night, palpitations, restless sleep.",cueZh:"心悸、思緒紛亂、睡不安穩。"},
+ {k:"crane",zh:"鳥戲",py:"Niǎo Xì",en:"Crane",organ:"肺",organEn:"LUNG",
+  move:"Bird Stretch · Bird Fly 鳥伸·鳥飛",
+  good:"Opens the chest and deepens the breath; supports Lung qi.",goodZh:"寬胸理氣，補肺深息。",
+  cue:"Shallow breathing, a tight chest, catching colds easily.",cueZh:"呼吸淺短、胸悶、易感冒。"}
+];
+const $=id=>document.getElementById(id);
+let S=Object.assign({char:"hu",zh:true,xp:0,stats:{needle:0,theory:0,dx:0,herb:0,daoyin:0}},
+  JSON.parse(localStorage.getItem("apricot-grove")||"{}"));
+if(!S.stats.daoyin&&S.stats.daoyin!==0)S.stats.daoyin=0;
+const save=()=>localStorage.setItem("apricot-grove",JSON.stringify(S));
+function setZh(){document.body.classList.toggle("nozh",!S.zh);$("langBtn").textContent=S.zh?"中文 ON":"中文 OFF"}
+$("langBtn").onclick=()=>{S.zh=!S.zh;setZh();save()};setZh();
+function go(id){document.querySelectorAll(".screen").forEach(s=>s.classList.remove("on"));$(id).classList.add("on")}
+let bob=false;setInterval(()=>{bob=!bob;paintBob($("mc1"),XIONG,bob)},600);paintBob($("mc1"),XIONG,false);
+
+/* ═════ 1 · learn ═════ */
+$("learn").innerHTML=BEASTS.map((b,i)=>`
+  <div class="acard" style="animation-delay:${.05+i*.08}s">
+    <canvas width="16" height="16"></canvas>
+    <div class="ai"><b>${b.en} ${b.zh}</b><span class="py">${b.py}</span>
+      <small>${b.good}<span class="zh">${b.goodZh}</span></small></div>
+    <div class="organ"><b>${b.organ}</b><small>${b.organEn}</small></div>
+  </div>`).join("");
+$("learn").querySelectorAll("canvas").forEach((cv,i)=>paint(cv,A16[BEASTS[i].k],16));
+$("go1").onclick=()=>startSeq();
+
+/* ═════ shared grid builder ═════ */
+function buildGrid(el,onTap){
+  el.innerHTML=BEASTS.map((b,i)=>`
+    <button class="beast" data-i="${i}"><span class="num"></span>
+      <canvas width="16" height="16"></canvas><b>${b.zh}</b><small>${b.en.toUpperCase()}</small></button>`).join("");
+  el.querySelectorAll("canvas").forEach((cv,i)=>paint(cv,A16[BEASTS[i].k],16));
+  el.querySelectorAll(".beast").forEach(b=>b.onclick=()=>onTap(+b.dataset.i,b));
+  return [...el.querySelectorAll(".beast")];
+}
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+
+/* ═════ 2 · sequence ═════ */
+const LENS=[3,4,5];
+let seq=null,cells2=[],score=0;
+function startSeq(){
+  score=0;$("sc2").textContent="0";
+  seq={round:0};cells2=buildGrid($("grid2"),tapSeq);
+  go("s2");runRound();
+}
+async function runRound(){
+  const n=LENS[seq.round];
+  seq.list=Array.from({length:n},()=>Math.floor(Math.random()*5));
+  seq.at=0;seq.locked=true;seq.miss=false;
+  $("r2").textContent=`SEQUENCE ${seq.round+1} / ${LENS.length}`;
+  $("fb2").className="fb";$("btn2").innerHTML="";
+  $("call2").innerHTML=`Watch Master Xiong.<small>看熊師示範 · ${n} movements</small>`;
+  $("dots2").innerHTML=seq.list.map(()=>"<i></i>").join("");
+  cells2.forEach(c=>c.className="beast dim");
+  await wait(700);
+  for(let i=0;i<seq.list.length;i++){
+    const c=cells2[seq.list[i]];
+    $("orb").classList.add("in");$("brText").textContent="INHALE 吸";
+    c.classList.remove("dim");c.classList.add("lit");
+    await wait(620);
+    c.classList.remove("lit");c.classList.add("dim");
+    $("orb").classList.remove("in");$("brText").textContent="EXHALE 呼";
+    await wait(430);
+  }
+  $("brText").textContent="YOUR TURN";
+  cells2.forEach(c=>c.className="beast");
+  $("call2").innerHTML=`Now you.<small>換你 · repeat the sequence in order</small>`;
+  [...$("dots2").children].forEach((d,i)=>d.className=i===0?"now":"");
+  seq.locked=false;
+}
+function tapSeq(i,btn){
+  if(!seq||seq.locked)return;
+  const want=seq.list[seq.at];
+  const dots=[...$("dots2").children];
+  if(i===want){
+    btn.classList.add("good");setTimeout(()=>btn.classList.remove("good"),320);
+    dots[seq.at].className="done";seq.at++;
+    if(seq.at<seq.list.length)dots[seq.at].className="now";
+    else finishRound(true);
+  }else{
+    btn.classList.add("bad");setTimeout(()=>btn.classList.remove("bad"),380);
+    dots[seq.at].className="miss";seq.miss=true;
+    seq.locked=true;
+    const b=BEASTS[want];
+    $("fb2").className="fb on warn";
+    $("fb2").innerHTML=`The next one was <b>${b.en} ${b.zh}</b> — ${b.move}.<br>${b.good}`+(S.zh?`<span class="zh">${b.goodZh}</span>`:"");
+    setTimeout(()=>finishRound(false),1100);
+  }
+}
+function finishRound(clean){
+  seq.locked=true;
+  const pts=clean?25:10;score+=pts;$("sc2").textContent=score;
+  if(clean){$("fb2").className="fb on";
+    $("fb2").innerHTML=`<b>Whole set, in order.</b> +${pts}`+(S.zh?'<span class="zh"><b>整套順序無誤。</b></span>':"")}
+  seq.round++;
+  const last=seq.round>=LENS.length;
+  $("btn2").innerHTML=`<button class="btn" id="nx2">${last?"Pairing practice ▸":"Next set ▸"}</button>`;
+  $("nx2").onclick=()=>last?startMatch():runRound();
+}
+
+/* ═════ 3 · organ pairing ═════ */
+let mt=null,cells3=[];
+function startMatch(){
+  mt={i:0,order:[...Array(5).keys()].sort(()=>Math.random()-.5),done:false};
+  cells3=buildGrid($("grid3"),tapMatch);
+  $("sc3").textContent=score;go("s3");renderMatch();
+}
+function renderMatch(){
+  const b=BEASTS[mt.order[mt.i]];
+  $("r3").textContent=`PAIRING ${mt.i+1} / 5`;
+  $("call3").innerHTML=`A patient tells you:<br>"${b.cue}"<small>${S.zh?b.cueZh+"　·　":""}Which frolic would you teach?</small>`;
+  $("fb3").className="fb";$("btn3").innerHTML="";
+  cells3.forEach(c=>c.className="beast");mt.done=false;
+}
+function tapMatch(i,btn){
+  if(!mt||mt.done)return;
+  const want=mt.order[mt.i],b=BEASTS[want];
+  mt.done=true;
+  const ok=i===want;
+  if(ok){score+=15;btn.classList.add("good")}
+  else{score+=4;btn.classList.add("bad");cells3[want].classList.add("good")}
+  $("sc3").textContent=score;
+  $("fb3").className="fb on"+(ok?"":" warn");
+  $("fb3").innerHTML=`<b>${b.en} ${b.zh} → ${b.organ} ${b.organEn}</b><br>${b.move}<br>${b.good}`
+    +(S.zh?`<span class="zh">${b.goodZh}</span>`:"");
+  const last=mt.i===4;
+  $("btn3").innerHTML=`<button class="btn" id="nx3">${last?"Finish ▸":"Next ▸"}</button>`;
+  $("nx3").onclick=()=>{if(last)result();else{mt.i++;renderMatch()}};
+}
+
+/* ═════ 4 · result ═════ */
+function result(){
+  const max=25*3+15*5;// 150
+  const pct=score/max,n=pct>=.85?3:pct>=.6?2:1;
+  $("stars").innerHTML="★".repeat(n)+`<span class="off">${"★".repeat(3-n)}</span>`;
+  $("rTitle").textContent=n===3?"The Body Remembers":n===2?"Steady Practice":"Keep Moving";
+  S.xp+=score;S.stats.daoyin=Math.min(4,(S.stats.daoyin||0)+(n>=2?1:0));
+  S.wuqinxiDone=true;save();
+  $("rText").innerHTML=
+    (n===3?'<b>Master Xiong:</b> "You did not think about the order. That is the point — the body learned it, not the head."'
+     :'<b>Master Xiong:</b> "Again tomorrow. These animals are patient; so should you be."')
+    +(S.zh?(n===3?'<span class="zh"><b>熊師：</b>「你沒有去想順序。這就對了——記住的是身體，不是腦袋。」</span>'
+                 :'<span class="zh"><b>熊師：</b>「明天再來一次。這些禽獸有的是耐心，你也該有。」</span>'):"")
+    +`<br><br><span style="font-family:'Courier New',monospace;color:var(--terra);font-size:13.5px">Score ${score} / ${max} · Cultivation 導引 ${S.stats.daoyin}/4</span>`;
+  go("s4");
+}
+$("again").onclick=()=>location.reload();
+$("back").onclick=()=>location.href="index.html";
+</script>
+</body>
+</html>

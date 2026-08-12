@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#F2EAD8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Apricot Grove">
+<title>杏林行 Apricot Grove</title>
+<style>
+:root{
+  --paper:#F2EAD8;--paper2:#E7DBBE;--ink:#332F28;--ink-soft:#6E675A;--ink-faint:#9A9182;
+  --sage:#7B8B6F;--sage-deep:#4E5D46;--terra:#C26D4E;--terra-deep:#9D5238;
+  --gold:#B08D3E;--seal:#A63B2A;--white:#FDFBF4;
+  --sh-s:0 2px 6px rgba(51,47,40,.10);--sh:0 5px 16px rgba(51,47,40,.14);--sh-l:0 12px 32px rgba(51,47,40,.18);
+  --ease:cubic-bezier(.22,.9,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{font-family:"Songti TC","Noto Serif TC",Georgia,serif;background:#CFC3A8;color:var(--ink);
+  display:flex;justify-content:center;overflow:hidden}
+#app{position:relative;width:100%;max-width:440px;height:100dvh;overflow:hidden;display:flex;flex-direction:column;
+  background:radial-gradient(ellipse 130% 50% at 50% -6%,rgba(255,255,255,.55),transparent 62%),
+    repeating-linear-gradient(0deg,transparent 0 3px,rgba(120,105,80,.028) 3px 4px),
+    repeating-linear-gradient(90deg,transparent 0 3px,rgba(120,105,80,.028) 3px 4px),var(--paper);
+  box-shadow:0 0 44px rgba(51,47,40,.36)}
+.seal{position:absolute;right:13px;top:calc(11px + env(safe-area-inset-top));z-index:40;width:29px;height:29px;
+  background:var(--seal);color:var(--white);display:flex;align-items:center;justify-content:center;font-size:16px;
+  border-radius:4px;transform:rotate(-3deg);opacity:.85;box-shadow:inset 0 0 0 2px rgba(255,255,255,.3);pointer-events:none}
+.langBtn{position:absolute;left:13px;top:calc(11px + env(safe-area-inset-top));z-index:40;background:var(--white);
+  border:1.5px solid rgba(51,47,40,.14);border-radius:99px;padding:4px 11px;font-size:11px;font-family:inherit;
+  color:var(--ink-soft);cursor:pointer;letter-spacing:.06em}
+.zh{display:block;font-size:.82em;color:var(--ink-soft);margin-top:3px;line-height:1.6}
+body.nozh .zh{display:none}
+
+/* screens */
+.screen{position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;pointer-events:none;
+  transform:translateY(10px);transition:opacity .42s var(--ease),transform .42s var(--ease);
+  padding:calc(48px + env(safe-area-inset-top)) 20px calc(18px + env(safe-area-inset-bottom));overflow-y:auto}
+.screen.on{opacity:1;pointer-events:auto;transform:none}
+
+/* ── title ── */
+.eyebrow{font-family:"Courier New",monospace;font-size:10.5px;letter-spacing:.42em;color:var(--gold);
+  text-transform:uppercase;text-align:center}
+h1.title{font-size:46px;letter-spacing:.2em;text-align:center;font-weight:700;line-height:1.08;margin:6px 0 2px}
+.subtitle{text-align:center;font-size:12.5px;letter-spacing:.28em;color:var(--ink-soft);text-transform:uppercase;
+  font-family:"Courier New",monospace}
+.rule{width:52px;height:1.5px;background:var(--gold);opacity:.55;margin:18px auto}
+
+.q{text-align:center;font-size:19px;line-height:1.7;margin-bottom:4px}
+.q .zh{font-size:13.5px}
+.hint{text-align:center;font-size:11.5px;color:var(--ink-faint);letter-spacing:.1em;margin-bottom:14px}
+
+/* ── choice cards ── */
+.cards{display:flex;flex-direction:column;gap:11px}
+.card{position:relative;background:var(--white);border:1.5px solid rgba(51,47,40,.12);border-radius:16px;
+  padding:14px 15px;display:flex;gap:14px;align-items:center;cursor:pointer;box-shadow:var(--sh);
+  transition:transform .22s var(--ease),box-shadow .22s var(--ease),border-color .22s;font-family:inherit;text-align:left;
+  opacity:0;transform:translateY(14px);animation:rise .55s var(--ease) forwards}
+.card:nth-child(1){animation-delay:.05s}.card:nth-child(2){animation-delay:.14s}.card:nth-child(3){animation-delay:.23s}
+@keyframes rise{to{opacity:1;transform:none}}
+.card:active{transform:scale(.985);box-shadow:var(--sh-s)}
+.card canvas{image-rendering:pixelated;width:56px;height:63px;flex:none;filter:drop-shadow(0 4px 4px rgba(51,47,40,.2))}
+.card .body{flex:1;min-width:0}
+.card .say{font-size:14.5px;line-height:1.6;color:var(--ink)}
+.card .say .zh{font-size:12.5px}
+.card .who{font-family:"Courier New",monospace;font-size:10.5px;letter-spacing:.2em;color:var(--terra);
+  text-transform:uppercase;margin-top:7px}
+
+/* ── character detail ── */
+.hero{display:flex;flex-direction:column;align-items:center;gap:3px;margin-bottom:2px}
+.hero canvas{image-rendering:pixelated;width:112px;height:126px;filter:drop-shadow(0 8px 8px rgba(51,47,40,.24));
+  animation:float 2.6s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-5px)}}
+.hero h2{font-size:29px;letter-spacing:.13em;margin-top:4px}
+.hero .role{font-family:"Courier New",monospace;font-size:11px;letter-spacing:.26em;color:var(--gold);text-transform:uppercase}
+.bio{background:var(--white);border:1.5px solid rgba(51,47,40,.1);border-radius:15px;padding:14px 16px;
+  font-size:14px;line-height:1.75;box-shadow:var(--sh);margin:14px 0 12px}
+.bio .zh{font-size:12.5px}
+.traits{display:flex;gap:8px;margin-bottom:14px}
+.trait{flex:1;background:rgba(255,255,255,.65);border:1px solid rgba(51,47,40,.1);border-radius:11px;padding:9px 10px;text-align:center}
+.trait b{display:block;font-size:11px;letter-spacing:.14em;color:var(--ink-soft);font-family:"Courier New",monospace}
+.trait span{font-size:13px;color:var(--ink);display:block;margin-top:3px}
+.trait.up span{color:var(--sage-deep)}.trait.down span{color:var(--terra)}
+
+/* ── buttons ── */
+.btn{width:100%;min-height:52px;border:none;border-radius:14px;cursor:pointer;font-family:inherit;font-size:16.5px;
+  letter-spacing:.16em;background:var(--terra);color:var(--white);box-shadow:0 5px 0 var(--terra-deep),var(--sh);
+  transition:transform .12s,box-shadow .12s}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 var(--terra-deep)}
+.btn.ghost{background:var(--white);color:var(--ink);box-shadow:0 5px 0 rgba(51,47,40,.13),var(--sh)}
+.btn.ghost:active{box-shadow:0 2px 0 rgba(51,47,40,.13)}
+.btn.small{min-height:44px;font-size:14px}
+.btnrow{display:flex;gap:10px;margin-top:auto;padding-top:14px}
+
+/* ── hub top bar ── */
+.topbar{display:flex;align-items:center;gap:10px;background:var(--white);border:1.5px solid rgba(51,47,40,.1);
+  border-radius:15px;padding:9px 12px;box-shadow:var(--sh);margin-bottom:12px}
+.topbar canvas{image-rendering:pixelated;width:38px;height:43px;flex:none}
+.topbar .nm{flex:1;min-width:0}
+.topbar .nm b{font-size:15px;display:block}
+.topbar .nm small{font-size:11px;color:var(--ink-soft);font-family:"Courier New",monospace;letter-spacing:.1em}
+.stat{text-align:right;font-family:"Courier New",monospace}
+.stat b{display:block;font-size:16px;color:var(--terra)}
+.stat small{font-size:9.5px;letter-spacing:.16em;color:var(--ink-faint)}
+
+/* ── radar ── */
+.panel{background:var(--white);border:1.5px solid rgba(51,47,40,.1);border-radius:16px;padding:13px;
+  box-shadow:var(--sh);margin-bottom:12px}
+.panel h3{font-family:"Courier New",monospace;font-size:10.5px;letter-spacing:.3em;color:var(--gold);
+  text-transform:uppercase;margin-bottom:2px}
+.radar-wrap{display:flex;align-items:center;gap:10px}
+.radar-wrap svg{width:150px;height:150px;flex:none}
+.legend{flex:1;display:flex;flex-direction:column;gap:6px;min-width:0}
+.legend div{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink-soft)}
+.legend i{width:8px;height:8px;border-radius:2px;flex:none}
+.legend b{color:var(--ink);font-family:"Courier New",monospace;margin-left:auto}
+.rpoly{fill:rgba(123,139,111,.3);stroke:var(--sage-deep);stroke-width:2;stroke-linejoin:round;
+  transition:all .9s var(--ease)}
+.rgrid{fill:none;stroke:#D4C9AE;stroke-width:1}
+.rax{stroke:#D4C9AE;stroke-width:1}
+.rlab{font-size:9px;fill:var(--ink-soft);font-family:"Courier New",monospace;letter-spacing:.06em}
+
+/* ── map ── */
+.mapbox{position:relative;background:linear-gradient(180deg,#EFE6CE,#E6DABC);border:1.5px solid rgba(51,47,40,.12);
+  border-radius:16px;overflow:hidden;box-shadow:var(--sh);margin-bottom:12px}
+.mapbox svg.scene{display:block;width:100%;height:auto}
+.node{cursor:pointer}
+.node circle.pin{fill:var(--white);stroke:var(--sage-deep);stroke-width:2.5;transition:.2s}
+.node.main circle.pin{stroke:var(--terra)}
+.node.lock circle.pin{stroke:#BDB39B;fill:#F0E9D6}
+.node:active circle.pin{r:15}
+.node text{font-size:9.5px;fill:var(--ink);font-family:"Courier New",monospace;letter-spacing:.04em;text-anchor:middle}
+.node .glyph{font-size:14px;text-anchor:middle;font-family:"Songti TC",serif}
+.node.lock text,.node.lock .glyph{fill:var(--ink-faint)}
+.ping{fill:none;stroke:var(--terra);stroke-width:2;opacity:0;animation:ping 2.2s ease-out infinite}
+@keyframes ping{0%{r:13;opacity:.85}70%{r:26;opacity:0}100%{opacity:0}}
+
+/* ── sheet ── */
+.scrim{position:absolute;inset:0;background:rgba(51,47,40,.42);opacity:0;pointer-events:none;
+  transition:opacity .32s var(--ease);z-index:50}
+.scrim.on{opacity:1;pointer-events:auto}
+.sheet{position:absolute;left:0;right:0;bottom:0;z-index:60;background:var(--paper);border-radius:22px 22px 0 0;
+  box-shadow:var(--sh-l);padding:8px 20px calc(20px + env(safe-area-inset-bottom));transform:translateY(102%);
+  transition:transform .4s var(--ease);max-height:88dvh;overflow-y:auto}
+.sheet.on{transform:none}
+.grab{width:38px;height:4px;border-radius:2px;background:rgba(51,47,40,.18);margin:6px auto 12px}
+.mentor{display:flex;gap:13px;align-items:center;margin-bottom:12px}
+.mentor canvas{image-rendering:pixelated;width:62px;height:70px;flex:none;filter:drop-shadow(0 3px 4px rgba(51,47,40,.28))}
+.mentor .mi{flex:1}
+.mentor .school{font-size:22px;letter-spacing:.1em}
+.mentor .mname{font-family:"Courier New",monospace;font-size:10.5px;letter-spacing:.2em;color:var(--terra);
+  text-transform:uppercase;margin-top:3px}
+.quote{font-size:14px;line-height:1.75;background:var(--white);border-left:3px solid var(--sage);border-radius:10px;
+  padding:11px 13px;box-shadow:var(--sh-s);margin-bottom:13px}
+.quote .zh{font-size:12.5px}
+.glist{display:flex;flex-direction:column;gap:9px;margin-bottom:6px}
+.gitem{display:flex;align-items:center;gap:11px;background:var(--white);border:1.5px solid rgba(51,47,40,.1);
+  border-radius:13px;padding:12px 13px;box-shadow:var(--sh-s);font-family:inherit;text-align:left;cursor:pointer;
+  transition:transform .15s}
+.gitem:active{transform:scale(.985)}
+.gitem .ic{width:34px;height:34px;border-radius:9px;background:var(--paper2);display:flex;align-items:center;
+  justify-content:center;font-size:17px;flex:none}
+.gitem .gt{flex:1;min-width:0}
+.gitem .gt b{font-size:14.5px;display:block}
+.gitem .gt small{font-size:11.5px;color:var(--ink-soft);display:block;margin-top:2px;line-height:1.5}
+.gitem .go{font-size:12px;color:var(--terra);font-family:"Courier New",monospace;letter-spacing:.1em}
+.gitem.locked{opacity:.5;pointer-events:none}
+.gitem.locked .go{color:var(--ink-faint)}
+.note{font-size:11px;color:var(--ink-faint);text-align:center;line-height:1.7;margin-top:10px}
+.toast{position:absolute;left:50%;bottom:calc(26px + env(safe-area-inset-bottom));transform:translate(-50%,12px);
+  background:var(--ink);color:var(--white);font-size:13px;padding:10px 18px;border-radius:99px;opacity:0;
+  transition:.3s var(--ease);z-index:80;pointer-events:none}
+.toast.on{opacity:.95;transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="seal">杏</div>
+  <button class="langBtn" id="langBtn">中文 ON</button>
+
+  <!-- ═══ 1 · TITLE ═══ -->
+  <section class="screen on" id="s1">
+    <div style="margin:auto 0">
+      <div class="eyebrow">Apricot Grove</div>
+      <h1 class="title">杏林行</h1>
+      <div class="subtitle">A Chinese Medicine RPG</div>
+      <div class="rule"></div>
+      <p class="q" style="font-size:15px;color:var(--ink-soft);line-height:1.9">
+        A river town. An old physician who no longer takes patients.<br>And you, arriving with nothing.
+        <span class="zh">一座水鄉小鎮，一位不再看診的老大夫，<br>和什麼都沒有的你。</span>
+      </p>
+    </div>
+    <button class="btn" id="beginBtn">Begin 啟程</button>
+    <p class="note">Educational game · not medical advice</p>
+  </section>
+
+  <!-- ═══ 2 · CHOOSE ═══ -->
+  <section class="screen" id="s2">
+    <p class="q">Master Shen looks up.<br>"So. Why do you want to learn medicine?"
+      <span class="zh">參老抬起頭。「說吧，你為什麼想學醫？」</span></p>
+    <p class="hint">— YOUR ANSWER DECIDES WHO YOU ARE —</p>
+    <div class="cards" id="cards"></div>
+  </section>
+
+  <!-- ═══ 3 · CONFIRM ═══ -->
+  <section class="screen" id="s3">
+    <div class="hero">
+      <canvas id="heroCv" width="16" height="18"></canvas>
+      <h2 id="heroName"></h2>
+      <div class="role" id="heroRole"></div>
+    </div>
+    <div class="bio" id="heroBio"></div>
+    <div class="traits" id="heroTraits"></div>
+    <div class="btnrow">
+      <button class="btn ghost" id="backBtn">Back</button>
+      <button class="btn" id="confirmBtn">This is me ▸</button>
+    </div>
+  </section>
+
+  <!-- ═══ 4 · HUB ═══ -->
+  <section class="screen" id="s4">
+    <div class="topbar">
+      <canvas id="hubCv" width="16" height="18"></canvas>
+      <div class="nm"><b id="hubName"></b><small id="hubRole"></small></div>
+      <div class="stat"><b id="hubXp">0</b><small>XP</small></div>
+      <div class="stat"><b id="hubDay">1</b><small>DAY</small></div>
+    </div>
+
+    <div class="panel">
+      <h3>Physician's Compass 醫者五軸</h3>
+      <div class="radar-wrap">
+        <svg viewBox="0 0 160 160" id="radar">
+          <polygon class="rgrid" id="g1"/><polygon class="rgrid" id="g2"/>
+          <g id="raxes"></g>
+          <polygon class="rpoly" id="rpoly"/>
+          <text class="rlab" x="80" y="11" text-anchor="middle">針 NEEDLE</text>
+          <text class="rlab" x="149" y="60" text-anchor="middle">理</text>
+          <text class="rlab" x="130" y="146" text-anchor="middle">診 DX</text>
+          <text class="rlab" x="34" y="146" text-anchor="middle">草 HERB</text>
+          <text class="rlab" x="11" y="60" text-anchor="middle">導</text>
+        </svg>
+        <div class="legend" id="legend"></div>
+      </div>
+    </div>
+
+    <div class="mapbox">
+      <svg class="scene" viewBox="0 0 400 250">
+        <defs>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#F3EBD5"/><stop offset="1" stop-color="#E6DABC"/></linearGradient>
+        </defs>
+        <rect width="400" height="250" fill="url(#sky)"/>
+        <path d="M0 92 Q46 44 88 84 Q108 40 140 26 Q178 62 196 96 Q236 34 268 68 Q300 92 318 122 Q346 62 380 86 Q396 96 400 88 L400 0 L0 0 Z" fill="#B9C0AC" opacity=".42"/>
+        <path d="M0 118 Q58 84 106 110 Q156 76 206 120 Q258 88 306 124 Q360 92 400 116 L400 0 L0 0 Z" fill="#98A78C" opacity=".3"/>
+        <path d="M0 176 Q100 160 200 176 Q300 192 400 172 L400 250 L0 250 Z" fill="#AFC0C4" opacity=".45"/>
+        <path d="M0 184 Q100 170 200 184 Q300 198 400 180" fill="none" stroke="#8FA5AB" stroke-width="1.4" opacity=".6"/>
+        <g opacity=".5" fill="none" stroke="#B3A88C" stroke-width="1.4">
+          <path d="M22 44 q-6-12 6-15 q2-11 15-8 q7-8 17-2"/>
+          <path d="M300 40 q-6-11 6-14 q2-10 14-7 q7-7 16-2"/>
+        </g>
+        <g class="node" id="n-daoyin"><circle class="pin" cx="200" cy="56" r="12"/>
+          <text class="glyph" x="200" y="61">導</text><text x="200" y="81">導引 CULTIVATION</text></g>
+        <g class="node main" id="n-main">
+          <circle class="ping" cx="200" cy="150" r="13"/>
+          <circle class="pin" cx="200" cy="150" r="13"/>
+          <text class="glyph" x="200" y="155" fill="#C26D4E">堂</text>
+          <text x="200" y="176">回春堂 STORY</text>
+        </g>
+        <g class="node" id="n-needle"><circle class="pin" cx="72" cy="70" r="12"/>
+          <text class="glyph" x="72" y="75" fill="#4E5D46">針</text><text x="72" y="95">針道 NEEDLE</text></g>
+        <g class="node" id="n-theory"><circle class="pin" cx="326" cy="72" r="12"/>
+          <text class="glyph" x="326" y="77">理</text><text x="326" y="97">醫理 THEORY</text></g>
+        <g class="node lock" id="n-dx"><circle class="pin" cx="88" cy="212" r="12"/>
+          <text class="glyph" x="88" y="217">診</text><text x="88" y="237">四診 DIAGNOSIS</text></g>
+        <g class="node lock" id="n-herb"><circle class="pin" cx="316" cy="210" r="12"/>
+          <text class="glyph" x="316" y="215">草</text><text x="316" y="235">本草 HERBS</text></g>
+      </svg>
+    </div>
+    <p class="note" style="margin-bottom:12px">Tap a place to visit. More of the town opens as the story moves.
+      <span class="zh">點地圖上的地點前往。故事推進，小鎮會慢慢展開。</span></p>
+    <button class="btn" id="storyBtn"><span id="storyLabel">Prologue ▸</span><span style="display:block;font-size:11.5px;letter-spacing:.1em;opacity:.85;margin-top:2px" id="storySub">The First Lesson · 第一課</span></button>
+  </section>
+
+  <div class="scrim" id="scrim"></div>
+  <div class="sheet" id="sheet">
+    <div class="grab"></div>
+    <div class="mentor"><canvas id="mCv" width="16" height="18"></canvas>
+      <div class="mi"><div class="school" id="mSchool"></div><div class="mname" id="mName"></div></div></div>
+    <div class="quote" id="mQuote"></div>
+    <div class="glist" id="mGames"></div>
+    <p class="note" id="mNote"></p>
+  </div>
+  <div class="toast" id="toast"></div>
+</div>
+
+<script>
+/* ═════ pixel sprites ═════ */
+const P={K:"#2B241C",H:"#3A2E24",F:"#F0CDA8",R:"#B23A2E",D:"#7A5C3A",C:"#EFD9AE",G:"#6E8B57",B:"#5B6E86",
+         W:"#FDFBF4",Y:"#C8A44B",S:"#8E9E82",T:"#C26D4E",P2:"#E8A08C",M:"#9C4A2F",N:"#4A5560",X:"#A63B2A",
+         O:"#C77B3E",E:"#E0E0DC",Z:"#3C3A36"};
+const SP={
+ yan:[ // 俠盜 燕三 — red headband, dark tunic
+ "................","....RRRRRR......","...RRRRRRRR.....","...HHHHHHHH.....","..HFFFFFFFFH....",
+ "..HFKFFFFKFH....","..HFFFFFFFFH....","..HFFFP2P2FFH...","...FFFFFFFF.....","....FFFFFF......",
+ "...NNNNNNNN.....","..NNNNNNNNNN....",".FNNNNNNNNNNF...",".FNNNNNNNNNNF...","...NNNNNNNN.....",
+ "....NN..NN......","....KK..KK......","................"],
+ he:[ // 學童 阿禾 — topknot, blue robe, book
+ ".......K........","......KKK.......",".....HHHHHH.....","....HHHHHHHH....","...HFFFFFFFFH...",
+ "...HFKFFFFKFH...","...HFFFFFFFFH...","...HFFFP2FFFH...","....FFFFFFFF....","......FFFF......",
+ "....BBBBBBBB....","...BBBBBBBBBB...","..FBBWWWWBBBF...","..FBBWWWWBBBF...","...BBBBBBBBBB...",
+ "....BB....BB....","....FF....FF....","................"],
+ zhu:[ // 山中弟子 竹娘 — straw hat, green, basket
+ "................","...YYYYYYYYYY...","..YYYYYYYYYYYY..","....HHHHHHHH....","...HFFFFFFFFH...",
+ "...HFKFFFFKFH...","...HFFFFFFFFH...","...HFFFP2FFFH...","....FFFFFFFF....","......FFFF......",
+ "....GGGGGGGG....","...GGGGGGGGGG...","..FGGGGGGGGGGF..","..FGGGDDDDGGGF..","...GGGDDDDGGG...",
+ "....GG....GG....","....FF....FF....","................"],
+ hu:[ // 阿虎 — tiger-stripe headband, martial vest, sash
+ "................","....OKOKOKO.....","...OOOOOOOO.....","...HHHHHHHH.....","..HFFFFFFFFH....",
+ "..HFKFFFFKFH....","..HFFFFFFFFH....","..HFFFP2P2FFH...","...FFFFFFFF.....","....FFFFFF......",
+ "...OOOFFOOO.....","..OOOOFFOOOO....",".FOOOOFFOOOOF...",".FRRRRRRRRRRF...","...OOOOOOOO.....",
+ "....OO..OO......","....KK..KK......","................"],
+ xiong:[ // 熊師 — bear/panda daoyin master, wide stance
+ "..Z..........Z..",".ZZZ........ZZZ.","..EEEEEEEEEE....",".EEEEEEEEEEEE...",".EEZEEEEEEZEE...",
+ ".EEEEEEEEEEEE...",".EEEEZZZZEEEE...","..EEEEEEEEEE....","....EEEEEE......","...ZZZZZZZZ.....",
+ "..ZZZZZZZZZZ....",".EZZZZZZZZZZE...",".EZZZZZZZZZZE...","..ZZZZZZZZZZ....","...ZZZZZZZZ.....",
+ "...ZZZ..ZZZ.....","..EEE....EEE....","................"],
+ shen:[ // 參老 ginseng master
+ "......R.R.......",".....RRRRR......","......G.........","...GG.GG.GG.....","..GGGGGGGGGGG...",
+ "...GG.GG.GG.....","...DCCCCCCD.....","..DCCCCCCCCD....","..DCWKCCWKCD....","..DCCCCCCCCD....",
+ "..DCP2CMMCP2CD..","...DCCMMCCD.....","....DCCCCD......","...DCC..CCD.....","...DC....CD.....",
+ "....D....D......","................","................"],
+ zhen:[ // 針隱 one-armed needle master
+ "................","....SSSSSSSS....","...SSSSSSSSSS...","...HHHHHHHH.....","..HFFFFFFFFH....",
+ "..HFKFFFFKFH....","..HFFFFFFFFH....","..HFWWWWWWFH....","...FFFFFFFF.....","....FFFFFF......",
+ "...SSSSSSSS.....","..SSSSSSSSSS....","..WSSSSSSSSS....","...SSSSSSSSS....","...SSSSSSSS.....",
+ "....SS..SS......","....KK..KK......","................"],
+ shu:[ // 書癡 scholar with scrolls
+ ".......KK.......","......KKKK......",".....HHHHHH.....","....HHHHHHHH....","...HFFFFFFFFH...",
+ "...HFWKFFKWFH...","...HFFFFFFFFH...","...HFFFMMFFFH...","....FFFFFFFF....","......FFFF......",
+ "....BBBBBBBB....","...BBBBBBBBBB...","..YYBBBBBBBBYY..","..YYBBBBBBBBYY..","...BBBBBBBBBB...",
+ "....BB....BB....","....FF....FF....","................"],
+ jing:[ // 靜姑 blind pulse grandmother
+ "................","....WWWWWWWW....","...WWWWWWWWWW...","...HHHHHHHH.....","..HFFFFFFFFH....",
+ "..HF----FF-FH...","..HFFFFFFFFH....","..HFFFP2FFFFH...","...FFFFFFFF.....","....FFFFFF......",
+ "...MMMMMMMM.....","..MMMMMMMMMM....",".FMMMMMMMMMMF...",".FMMMMMMMMMMF...","...MMMMMMMM.....",
+ "....MM..MM......","....KK..KK......","................"],
+ yao:[ // 藥翁 tipsy herb gatherer
+ "................","....DDDDDDDD....","...DDDDDDDDDD...","...HHHHHHHH.....","..HFFFFFFFFH....",
+ "..HFKFFFFKFH....","..HFFFFFFFFH....","..HFFP2MMP2FH...","...FFFFFFFF.....","....FFFFFF......",
+ "...DDDDDDDD.....","..DDDGGGGDDD....",".FDDDGGGGDDDF...",".FDDDGGGGDDDF...","...DDDDDDDD.....",
+ "....DD..DD......","....KK..KK......","................"]
+};
+function draw(cv,key,bob){
+  const g=SP[key],x=cv.getContext("2d");x.clearRect(0,0,16,18);
+  g.forEach((row,y)=>{
+    let i=0,cx=0;
+    while(i<row.length){
+      let ch=row[i], len=1;
+      if(row[i]==='P'&&row[i+1]==='2'){ch='P2';len=2}
+      if(P[ch]){x.fillStyle=P[ch];x.fillRect(cx,Math.min(y+(bob?1:0),17),1,1)}
+      cx++;i+=len;
+    }
+  });
+}
+let bob=false;const canvases=[];
+function reg(cv,key){canvases.push([cv,key]);draw(cv,key,false)}
+setInterval(()=>{bob=!bob;canvases.forEach(([c,k])=>draw(c,k,bob))},580);
+
+/* ═════ data ═════ */
+const CHARS={
+ yan:{name:"Yàn Sān 燕三",role:"The Reformed Thief · 俠盜",
+   say:'"I have watched people die in the street because no one knew what to do."',
+   sayZh:"「我看過太多人死在路邊，因為沒人知道該怎麼辦。」",
+   bio:"You grew up on rooftops and back alleys, quick hands and quicker eyes. You never feared a knife — but you froze the night a stranger collapsed in front of you and you had nothing to give.",
+   bioZh:"你在屋頂和小巷長大，手快、眼更快。你不怕刀子——但那晚有人倒在你面前，而你什麼也給不了，你僵住了。",
+   stats:{needle:2,theory:0,dx:1,herb:0,daoyin:0},up:"Needle 針道",down:"Theory 醫理"},
+ he:{name:"Ā Hé 阿禾",role:"The Apothecary's Child · 醫館學童",
+   say:'"I have memorised every rhyme in the book. I have never met a single patient."',
+   sayZh:"「書上的口訣我背得滾瓜爛熟。我一個病人都沒見過。」",
+   bio:"Raised between drawers of dried herbs, you can recite the classics in your sleep. Yet when a real person coughs in front of you, every word leaves your head at once.",
+   bioZh:"你在藥櫃之間長大，經典倒背如流。可是當一個活生生的人在你面前咳嗽，所有句子瞬間全忘了。",
+   stats:{needle:0,theory:2,dx:1,herb:1,daoyin:0},up:"Theory 醫理",down:"Diagnosis 四診"},
+ hu:{name:"Ā Hǔ 阿虎",role:"The Temple Fighter · 拳館弟子",
+   say:'"I can feel my qi move when I practise. Nobody ever told me it had a name."',
+   sayZh:"「我練功的時候感覺得到氣在走。從來沒人告訴我那東西有名字。」",
+   bio:"You have practised the Five Animal Frolics since you were six — tiger, deer, bear, ape, crane. Your body knows things your mouth cannot explain. Master Shen says that is either a great advantage or a great problem.",
+   bioZh:"你六歲起練五禽戲——虎、鹿、熊、猿、鳥。你的身體知道很多事，嘴巴卻說不出來。參老說，這要嘛是天大的優勢，要嘛是天大的麻煩。",
+   stats:{needle:1,theory:0,dx:0,herb:0,daoyin:2},up:"Cultivation 導引",down:"Naming what you feel 說不出所以然"},
+ zhu:{name:"Zhú Niáng 竹娘",role:"The Mountain Disciple · 山中弟子",
+   say:'"The mountain taught me which plants heal. It never taught me people."',
+   sayZh:"「山裡教會我哪些草能救人。它沒教我人心。」",
+   bio:"You came down from the ridge with a basket on your back, knowing every root by its season. Down here the illnesses are tangled with worry, money and family — nothing like the mountain.",
+   bioZh:"你揹著藥簍從山上下來，認得每一味藥的節氣。山下的病卻纏著憂慮、生計和家人——和山裡完全不同。",
+   stats:{needle:0,theory:1,dx:0,herb:2,daoyin:1},up:"Herbs 本草",down:"City patterns 城中複雜病證"}
+};
+const SCHOOLS={
+ needle:{key:"needle",glyph:"針",school:"Needle Way 經絡針道",mentor:"Zhēn Yǐn · 針隱",sprite:"zhen",
+  quote:'"One arm is enough. You only need one hand to hold a needle — and a lifetime to know where to put it."',
+  quoteZh:"「一隻手就夠了。拿針只要一隻手——知道扎在哪，卻要一輩子。」",
+  games:[{ic:"🎯",t:"Point Tap 點穴",d:"Find each point on the body. Accuracy beats speed.",go:"PLAY",open:1,file:"acuting-play.html"},
+         {ic:"〰️",t:"Meridian Flow 經絡流",d:"Trace a channel in the correct order.",go:"SOON",open:0},
+         {ic:"⚡",t:"Point Sprint 特定穴快答",d:"Five-Shu, Yuan, Luo, Xi — 60 seconds.",go:"SOON",open:0}]},
+ theory:{key:"theory",glyph:"理",school:"Foundations 醫理根基",mentor:"Shū Chī · 書癡",sprite:"shu",
+  quote:'"Everyone wants to needle. Nobody wants to know why it works. Sit down."',
+  quoteZh:"「人人都想扎針，沒人想知道為什麼有效。坐下。」",
+  games:[{ic:"☯️",t:"Yin or Yang 陰陽滑卡",d:"Swipe left for Yin, right for Yang. 24 cards.",go:"PLAY",open:1,file:"yinyang.html"},
+         {ic:"🌿",t:"Five Elements 五行陣",d:"Sort the world into Wood, Fire, Earth, Metal, Water.",go:"SOON",open:0},
+         {ic:"🫀",t:"Zang-Fu Match 臟腑配對",d:"Pair each organ with what it governs.",go:"SOON",open:0}]},
+ dx:{key:"dx",glyph:"診",school:"Four Examinations 望聞問切",mentor:"Jìng Gū · 靜姑",sprite:"jing",
+  quote:'"I lost my eyes at thirty. My fingers have been listening ever since."',
+  quoteZh:"「我三十歲時瞎的。從那以後，我的手指一直在聽。」",
+  games:[{ic:"📋",t:"Daily Case 今日病例",d:"One case a day. Same case for every player.",go:"SOON",open:0},
+         {ic:"👅",t:"Tongue Reader 舌象判讀",d:"Read the body, the coating, the moisture.",go:"SOON",open:0},
+         {ic:"💗",t:"Pulse Match 脈象配對",d:"Feel the depth, rate and shape.",go:"SOON",open:0}]},
+ daoyin:{key:"daoyin",glyph:"導",school:"Cultivation 導引養生",mentor:"Xióng Shī · 熊師",sprite:"xiong",
+  quote:'"Hua Tuo was a physician, and he invented the Five Animal Frolics. Movement is medicine you can take before you are ill."',
+  quoteZh:"「華佗是醫家，五禽戲是他創的。動作是一種藥——在你還沒生病之前就能吃的藥。」",
+  games:[{ic:"🐯",t:"Five Animal Frolics 五禽戲",d:"Follow tiger, deer, bear, ape and crane in sequence.",go:"PLAY",open:1,file:"wuqinxi.html"},
+         {ic:"🌬️",t:"Breath Rhythm 吐納",d:"Match the breathing rhythm. Slower is harder.",go:"SOON",open:0},
+         {ic:"🧘",t:"Eight Brocades 八段錦",d:"Each movement opens a channel. Learn which.",go:"SOON",open:0}]},
+ herb:{key:"herb",glyph:"草",school:"Materia Medica 本草方藥",mentor:"Yào Wēng · 藥翁",sprite:"yao",
+  quote:'"Every plant on that hill wants to tell you something. Most students are too busy talking."',
+  quoteZh:"「那座山上每一株草都想告訴你些什麼。多數學生忙著說話。」",
+  games:[{ic:"🍵",t:"Herb Codex 本草圖鑑",d:"Collect herb cards and learn their nature.",go:"SOON",open:0},
+         {ic:"⚖️",t:"Formula Build 君臣佐使",d:"Assemble a formula by role.",go:"SOON",open:0},
+         {ic:"🍲",t:"Seasonal Kitchen 節氣食療",d:"Cook for the season and the pattern.",go:"SOON",open:0}]}
+};
+const AXES=[["needle","Needle 針道","#7B8B6F"],["theory","Theory 醫理","#B08D3E"],
+            ["dx","Diagnosis 四診","#C26D4E"],["herb","Herbs 本草","#8E9E82"],
+            ["daoyin","Cultivation 導引","#8A9BB0"]];
+const ANG=[-90,-18,54,126,198].map(d=>d*Math.PI/180);
+function penta(rad){return ANG.map((a,i)=>[80+Math.cos(a)*rad[i],80+Math.sin(a)*rad[i]].map(n=>n.toFixed(1)).join(",")).join(" ")}
+
+/* ═════ state ═════ */
+const $=id=>document.getElementById(id);
+let S=Object.assign({char:null,xp:0,day:1,stats:{needle:0,theory:0,dx:0,herb:0,daoyin:0},zh:true},
+  JSON.parse(localStorage.getItem("apricot-grove")||"{}"));
+const save=()=>localStorage.setItem("apricot-grove",JSON.stringify(S));
+function setZh(){document.body.classList.toggle("nozh",!S.zh);$("langBtn").textContent=S.zh?"中文 ON":"中文 OFF"}
+$("langBtn").onclick=()=>{S.zh=!S.zh;setZh();save()};
+setZh();
+let cur=null;
+function go(id){document.querySelectorAll(".screen").forEach(s=>s.classList.remove("on"));$(id).classList.add("on")}
+function toast(t){const e=$("toast");e.textContent=t;e.classList.add("on");setTimeout(()=>e.classList.remove("on"),1900)}
+
+/* ═════ 1 → 2 ═════ */
+$("beginBtn").onclick=()=>{go("s2");buildCards()};
+function buildCards(){
+  const w=$("cards");w.innerHTML="";
+  Object.entries(CHARS).forEach(([k,c])=>{
+    const b=document.createElement("button");b.className="card";
+    b.innerHTML=`<canvas width="16" height="18"></canvas>
+      <div class="body"><div class="say">${c.say}<span class="zh">${c.sayZh}</span></div>
+      <div class="who">${c.role}</div></div>`;
+    w.appendChild(b);reg(b.querySelector("canvas"),k);
+    b.onclick=()=>{cur=k;showChar()};
+  });
+}
+/* ═════ 3 ═════ */
+function showChar(){
+  const c=CHARS[cur];
+  $("heroName").textContent=c.name;$("heroRole").textContent=c.role;
+  $("heroBio").innerHTML=`${c.bio}<span class="zh">${c.bioZh}</span>`;
+  $("heroTraits").innerHTML=
+    `<div class="trait up"><b>STRENGTH</b><span>${c.up}</span></div>
+     <div class="trait down"><b>WEAKNESS</b><span>${c.down}</span></div>`;
+  const cv=$("heroCv");cv.getContext("2d").clearRect(0,0,16,18);
+  canvases.length=0;draw(cv,cur,false);canvases.push([cv,cur]);
+  go("s3");
+}
+$("backBtn").onclick=()=>{go("s2");buildCards()};
+$("confirmBtn").onclick=()=>{
+  S.char=cur;S.stats=Object.assign({},CHARS[cur].stats);save();enterHub();
+  toast("Master Shen nods. 參老點了點頭。");
+};
+/* ═════ 4 · hub ═════ */
+function enterHub(){
+  const c=CHARS[S.char];
+  $("hubName").textContent=c.name;$("hubRole").textContent=c.role.split("·")[1].trim();
+  $("hubXp").textContent=S.xp;$("hubDay").textContent=S.day;
+  canvases.length=0;reg($("hubCv"),S.char);
+  drawRadar();
+  if(S.prologueDone){$("storyLabel").textContent="Chapter One ▸";$("storySub").textContent="A-Lian's Cough · 阿蓮的咳嗽"}
+  go("s4");
+}
+function drawRadar(){
+  $("g1").setAttribute("points",penta([62,62,62,62,62]));
+  $("g2").setAttribute("points",penta([34,34,34,34,34]));
+  $("raxes").innerHTML=ANG.map(a=>
+    `<line class="rax" x1="80" y1="80" x2="${(80+Math.cos(a)*62).toFixed(1)}" y2="${(80+Math.sin(a)*62).toFixed(1)}"/>`).join("");
+  const cap=Math.max(4,...Object.values(S.stats));
+  const R=k=>12+((S.stats[k]||0)/cap)*50;
+  $("rpoly").setAttribute("points",penta(AXES.map(a=>R(a[0]))));
+  $("legend").innerHTML=AXES.map(([k,label,col])=>
+    `<div><i style="background:${col}"></i>${label}<b>${S.stats[k]}</b></div>`).join("");
+}
+/* ═════ sheet ═════ */
+function openSheet(key){
+  const s=SCHOOLS[key];
+  $("mSchool").textContent=s.school;$("mName").textContent=s.mentor;
+  $("mQuote").innerHTML=`${s.quote}<span class="zh">${s.quoteZh}</span>`;
+  canvases.length=0;reg($("hubCv"),S.char);reg($("mCv"),s.sprite);
+  $("mGames").innerHTML=s.games.map((g,i)=>
+    `<button class="gitem${g.open?"":" locked"}" data-i="${i}">
+      <div class="ic">${g.ic}</div><div class="gt"><b>${g.t}</b><small>${g.d}</small></div>
+      <div class="go">${g.go} ▸</div></button>`).join("");
+  $("mGames").querySelectorAll(".gitem").forEach(b=>b.onclick=()=>{
+    const g=s.games[+b.dataset.i];
+    if(g.file){location.href=g.file}else toast("Coming soon 敬請期待");
+  });
+  $("mNote").innerHTML=(key==="needle"||key==="daoyin"||key==="theory")
+    ? 'Training here raises this axis — and unlocks hints in the main story.<span class="zh">在此修煉可提升該軸，並解鎖主線提示。</span>'
+    : 'This mentor opens up as the story reaches them.<span class="zh">故事推進到這位導師時，這裡就會開啟。</span>';
+  $("scrim").classList.add("on");$("sheet").classList.add("on");
+}
+function closeSheet(){$("scrim").classList.remove("on");$("sheet").classList.remove("on");
+  canvases.length=0;reg($("hubCv"),S.char)}
+$("scrim").onclick=closeSheet;
+["needle","theory","dx","herb","daoyin"].forEach(k=>{
+  $("n-"+k).onclick=()=>openSheet(k);
+});
+const storyHref=()=>S.prologueDone?"chapter1.html":"prologue.html";
+$("n-main").onclick=()=>{location.href=storyHref()};
+$("storyBtn").onclick=()=>{location.href=storyHref()};
+
+/* resume */
+if(S.char){cur=S.char;enterHub()}
+</script>
+</body>
+</html>
