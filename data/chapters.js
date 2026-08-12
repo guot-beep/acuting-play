@@ -15,6 +15,23 @@ window.AG_CHAPTERS = {
     needleAsk:{en:"Needle <b>Lièquē LU7</b>. Tap its exact location.",zh:"行針 — 點出穴位精確位置"},
     target:{id:"LU7",zh:"列缺",py:"Lièquē",x:262,y:497,
       note:"<b>列缺 Lièquē LU7</b> — 1.5 cun above the wrist crease, superior to the radial styloid. Luo-Connecting point of the Lung; confluent point opening the Ren mai.<br>腕橫紋上1.5寸，橈骨莖突上方。肺經絡穴，八脈交會通任脈。"},
+    hints:{
+ ask:{en:"A three-day illness on the surface asks: <b>chills or fever?</b> <b>sweating?</b> <b>what does the phlegm look like?</b>",zh:"新病三日在表，當問：惡寒發熱孰重？有汗無汗？痰之色質？"},
+ look:{en:"On the tongue, a <b>thin white</b> coat means the pathogen is still outside. Yellow would mean it has turned to heat.",zh:"舌苔薄白，邪尚在表；轉黃則化熱。"},
+ pulse:{en:"An exterior pattern floats. Cold makes it tight, heat makes it fast. She was caught in cold rain.",zh:"表證脈浮。寒則兼緊，熱則兼數。她淋的是冷雨。"},
+ dx:{en:"Ask in order: <b>exterior or interior</b> → <b>cold or heat</b> → <b>which organ</b>. Three days is not long.",zh:"依序問：表裡 → 寒熱 → 病在何臟。三天，不算久。"},
+ rx:{en:"Release the exterior and open the Lung. Think <b>distal</b> points that reach the surface and the head.",zh:"解表宣肺。想能達表、達頭項的遠端穴。"},
+ tech:{en:"An exterior excess pattern is <b>drained</b>, not tonified — and it is not deep.",zh:"表實當瀉不當補，且不宜深刺。"}
+},
+    reactions:[
+ {who:"master",en:"Master Shen does not look up. \"Go on.\"",zh:"參師父沒有抬頭。「繼續。」"},
+ {who:"patient",en:"A-Lian coughs into her sleeve and waits politely.",zh:"阿蓮往袖子裡咳了一聲，客氣地等著。"},
+ {who:"boy",en:"The herb boy quietly puts back the jar he had already reached for.",zh:"藥童把剛拿下的藥罐悄悄放了回去。"},
+ {who:"master",en:"\"Hm.\" Master Shen sets down his brush.",zh:"「唔。」參師父擱下筆。"},
+ {who:"patient",en:"\"Should I... come back another day?\" A-Lian asks.",zh:"「我⋯⋯要不要改天再來？」阿蓮問。"},
+ {who:"master",en:"\"The illness is three days old,\" he says. \"It is not hiding.\"",zh:"「病才三天，」他說，「它沒有躲。」"}
+],
+    remedy:{ask:"cold_heat",look:"cold_heat",pulse:"cold_heat",dx:"excess_def",rx:"channel_organ",tech:"cold_heat"},
     reward:{cardEn:"Diffuse &amp; Release",cardZh:"宣肺解表",cardTxt:"For an exterior Wind-Cold pattern, open the Lung&#39;s dispersing function and push the pathogen back out through the surface.",herbEn:"Fresh Ginger",herbZh:"生薑",herbTxt:"Acrid and warm — in TCM food therapy it is the everyday kitchen ally for early wind-cold, taken as a warm tea."},
     endings:{
       three:["Two days later A-Lian is back at the silk shop. \"The stiffness in my neck went first,\" she says, \"then the cough.\"<br><b>Master Shen:</b> \"You read the surface correctly. Most students rush inward and miss what is right in front of them.\"","兩天後，阿蓮回到絲行。「先是脖子鬆了，然後咳嗽就好了。」<br><b>參師父：</b>「你把表證看準了。多數學生急著往裡鑽，反而錯過眼前的東西。」"],
@@ -105,6 +122,23 @@ window.AG_CHAPTERS = {
     needleAsk:{en:"The Four Command Points say: <b>for the head and neck, seek Lièquē</b>. Tap LU7.",zh:"四總穴歌云：頭項尋列缺。點出 LU7。"},
     target:{id:"LU7",zh:"列缺",py:"Lièquē",x:262,y:497,
       note:"<b>列缺 Lièquē LU7</b> — one of the Four Command Points: <i>for disorders of the head and nape, seek Lièquē</i>. A distal point for neck and upper-back stiffness.<br>四總穴之一：「頭項尋列缺」。項背強痛之遠端要穴。"},
+    hints:{
+ ask:{en:"A painful body asks three things: <b>where</b>, <b>what makes it better or worse</b>, and <b>how long</b>. Chase those, not the whole body.",zh:"痛症問三事：部位、緩解與加重、病程。抓這三條，別漫問全身。"},
+ look:{en:"You are looking for <b>heat</b>. If it were heat, the skin would tell you before he did.",zh:"你在找熱。若真有熱，皮膚會比他先開口。"},
+ pulse:{en:"Cold and pain make a pulse <b>tight</b>. Heat makes it <b>fast</b>. Emptiness makes it <b>weak</b>. Which did he describe?",zh:"寒與痛則脈緊，熱則脈數，虛則脈弱。他描述的是哪一個？"},
+ dx:{en:"Ask in order: <b>hot or cold</b> → <b>channels or organ</b> → <b>which pathogen leads</b>. Do not skip a step.",zh:"依序問：寒熱 → 經絡或臟腑 → 何邪為主。不要跳。"},
+ rx:{en:"A cold bi-syndrome takes <b>local</b> points where it hurts plus <b>one distal</b> point on a channel that reaches there.",zh:"寒痹取局部阿是，再配一個能達病所的遠端穴。"},
+ tech:{en:"Cold and damp scatter with <b>warmth</b>. Ask which technique brings warmth.",zh:"寒濕得溫則散。想想哪一種手法帶來溫。"}
+},
+    reactions:[
+ {who:"master",en:"Master Shen says nothing. He turns a page he has already read.",zh:"參師父沒說話。他翻了一頁早就讀過的書。"},
+ {who:"patient",en:"Old Wu looks at his own hands. \"...is that what it is, then?\"",zh:"吳伯低頭看自己的手。「⋯⋯原來是這樣啊？」"},
+ {who:"master",en:"\"Mm.\" Master Shen refills his tea very slowly.",zh:"「嗯。」參師父很慢地把茶添滿。"},
+ {who:"boy",en:"The herb boy stops grinding. The pestle hangs in the air.",zh:"藥童停下手裡的杵。杵就那樣懸在半空。"},
+ {who:"patient",en:"Old Wu shifts on the stool. \"You are the doctor,\" he says, kindly.",zh:"吳伯在凳上挪了挪。「您是大夫嘛。」他好意地說。"},
+ {who:"master",en:"\"Read it again,\" Master Shen says. \"The river is not going anywhere.\"",zh:"「再讀一次。」參師父說，「河又不會跑。」"}
+],
+    remedy:{ask:"pain_quality",look:"cold_heat",pulse:"cold_heat",dx:"channel_organ",rx:"channel_organ",tech:"cold_heat"},
     reward:{cardEn:"The Four Command Points",cardZh:"四總穴歌",cardTxt:"For the belly, keep Zusanli. For the low back, seek Weizhong. For the head and nape, seek Lieque. For the face and mouth, Hegu will do.",herbEn:"Dried Ginger",herbZh:"乾薑",herbTxt:"Acrid and hot — in TCM it is used to warm the interior and disperse cold. Old Wu takes it as a warm tea before the dawn crossing."},
     endings:{
       three:["A week later Old Wu is poling the ferry again at dawn. \"It still aches when the rain comes,\" he says, \"but I can lift the pole.\"<br><b>Master Shen:</b> \"You did not chase an organ that was not ill. This one lived in the channels — and you found it there.\"","一週後，吳伯又在天亮時撐篙。「下雨還是會痠，」他說，「但篙我撐得起來了。」<br><b>參師父：</b>「你沒有去追一個根本沒病的臟。這病住在經絡裡——你就在那裡找到它。」"],
