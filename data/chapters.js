@@ -7,6 +7,7 @@ window.AG_CHAPTERS = {
   "01": {
     id:"01", title:"A-Lian&#39;s Cough", titleZh:"阿蓮的咳嗽",
     patient:{name:"A-Lian 阿蓮", sprite:"girl"},
+    scene:{key:"rain"},   // swap to {img:"art/ch01.jpg"} when the artwork is ready
     pattern:"Wind-Cold invading the Lung 風寒襲肺",
     principle:"release the exterior, diffuse the Lung",
     tongue:"pale-red, thin white coating",
@@ -14,7 +15,7 @@ window.AG_CHAPTERS = {
     needleAsk:{en:"Needle <b>Lièquē LU7</b>. Tap its exact location.",zh:"行針 — 點出穴位精確位置"},
     target:{id:"LU7",zh:"列缺",py:"Lièquē",x:262,y:497,
       note:"<b>列缺 Lièquē LU7</b> — 1.5 cun above the wrist crease, superior to the radial styloid. Luo-Connecting point of the Lung; confluent point opening the Ren mai.<br>腕橫紋上1.5寸，橈骨莖突上方。肺經絡穴，八脈交會通任脈。"},
-    reward:{cardEn:"Diffuse &amp; Release 宣肺解表",cardTxt:"For an exterior Wind-Cold pattern, open the Lung&#39;s dispersing function and push the pathogen back out through the surface.",herbEn:"Fresh Ginger 生薑",herbTxt:"Acrid and warm — in TCM food therapy it is the everyday kitchen ally for early wind-cold, taken as a warm tea."},
+    reward:{cardEn:"Diffuse &amp; Release",cardZh:"宣肺解表",cardTxt:"For an exterior Wind-Cold pattern, open the Lung&#39;s dispersing function and push the pathogen back out through the surface.",herbEn:"Fresh Ginger",herbZh:"生薑",herbTxt:"Acrid and warm — in TCM food therapy it is the everyday kitchen ally for early wind-cold, taken as a warm tea."},
     endings:{
       three:["Two days later A-Lian is back at the silk shop. \"The stiffness in my neck went first,\" she says, \"then the cough.\"<br><b>Master Shen:</b> \"You read the surface correctly. Most students rush inward and miss what is right in front of them.\"","兩天後，阿蓮回到絲行。「先是脖子鬆了，然後咳嗽就好了。」<br><b>參師父：</b>「你把表證看準了。多數學生急著往裡鑽，反而錯過眼前的東西。」"],
       two:["A-Lian sleeps through the night, though the cough lingers a little.<br><b>Master Shen:</b> \"Not bad. Go back over your reasoning — one link was loose.\"","阿蓮夜裡能睡了，咳嗽還有一點。<br><b>參師父：</b>「不差。回頭把推理再走一遍，有一環鬆了。」"],
@@ -31,16 +32,16 @@ window.AG_CHAPTERS = {
     qa: [
  {q:"Do you feel cold, or feverish?",cq:"你怕冷還是發熱？",good:1,
   a:"Chills much worse than fever. I keep wanting another blanket.",ca:"惡寒重、發熱輕，一直想再蓋條被子。",
-  clue:"惡寒重發熱輕",note:"Chills > fever points to an <b>exterior cold</b> pattern. 惡寒重發熱輕＝表寒。"},
+  clue:{en:"Chills stronger than fever",zh:"惡寒重發熱輕"},note:"Chills > fever points to an <b>exterior cold</b> pattern. 惡寒重發熱輕＝表寒。"},
  {q:"Are you sweating?",cq:"有沒有出汗？",good:1,
   a:"No sweat at all, even under the blanket.",ca:"完全沒汗，蓋著被子也不出汗。",
-  clue:"無汗",note:"No sweating with chills = <b>Wind-Cold</b> rather than Wind-Heat. 無汗屬風寒表實。"},
+  clue:{en:"No sweating",zh:"無汗"},note:"No sweating with chills = <b>Wind-Cold</b> rather than Wind-Heat. 無汗屬風寒表實。"},
  {q:"What does the phlegm look like?",cq:"痰是什麼樣子？",good:1,
   a:"Thin and white, easy to spit out.",ca:"痰稀白，容易咳出來。",
-  clue:"痰稀白",note:"Thin white phlegm = <b>cold</b>. Thick yellow would mean heat. 痰稀白屬寒，黃稠屬熱。"},
+  clue:{en:"Thin white phlegm",zh:"痰稀白"},note:"Thin white phlegm = <b>cold</b>. Thick yellow would mean heat. 痰稀白屬寒，黃稠屬熱。"},
  {q:"Does your head or neck ache?",cq:"頭項痛不痛？",good:1,
   a:"Yes — the back of my head and my neck feel stiff and sore.",ca:"後腦和脖子又緊又痛。",
-  clue:"頭項強痛",note:"Stiff occiput and neck = the <b>Taiyang</b> exterior. 頭項強痛為太陽表證。"},
+  clue:{en:"Stiff head and neck",zh:"頭項強痛"},note:"Stiff occiput and neck = the <b>Taiyang</b> exterior. 頭項強痛為太陽表證。"},
  {q:"How is your appetite lately?",cq:"最近胃口如何？",good:0,
   a:"About the same as usual, I suppose.",ca:"跟平常差不多吧。",
   clue:"",note:"Reasonable to ask, but it adds nothing here — the illness is only three days old and on the surface. 問得合理，但此時無助辨證。"},
@@ -49,7 +50,7 @@ window.AG_CHAPTERS = {
   clue:"",note:"These probe <b>Yin deficiency</b> — a chronic interior pattern, not a three-day exterior one. 此問屬陰虛內傷，與新病表證不符。"}
 ],
     look: [
- {t:"Pale-red body, thin white coating",c:"舌淡紅，苔薄白",ok:1,clue:"舌淡紅苔薄白",
+ {t:"Pale-red body, thin white coating",c:"舌淡紅，苔薄白",ok:1,clue:{en:"Pale-red tongue, thin white coat",zh:"舌淡紅苔薄白"},
   note:"Correct. A near-normal body with a <b>thin white coat</b> = the pathogen is still on the <b>exterior</b> and has not turned to heat. 苔薄白＝病邪在表，未化熱。"},
  {t:"Red body, yellow greasy coating",c:"舌紅，苔黃膩",ok:0,
   note:"That would indicate <b>damp-heat</b> in the interior — the coating here is clearly thin and white. 黃膩苔主濕熱，與本案不符。"},
@@ -57,7 +58,7 @@ window.AG_CHAPTERS = {
   note:"That suggests <b>Spleen Qi / Yang deficiency</b> with dampness — a chronic interior pattern. 齒痕舌主脾虛濕盛，屬內傷久病。"}
 ],
     pulse: [
- {t:"Floating and tight 浮緊",ok:1,clue:"脈浮緊",
+ {t:"Floating and tight 浮緊",ok:1,clue:{en:"Floating, tight pulse",zh:"脈浮緊"},
   note:"Correct. <b>Floating</b> = the pathogen is on the exterior; <b>tight</b> = cold constricting the vessels. Floating-tight is the signature pulse of Wind-Cold. 浮主表，緊主寒，浮緊為風寒表實之脈。"},
  {t:"Floating and rapid 浮數",ok:0,
   note:"Floating-rapid would mean Wind-<b>Heat</b>. Nothing here is hot — no thirst, no sore throat, no yellow phlegm. 浮數主風熱，本案無熱象。"},
@@ -96,6 +97,7 @@ window.AG_CHAPTERS = {
   ,"02": {
     id:"02", title:"The Boatman&#39;s Shoulder", titleZh:"船夫的肩背",
     patient:{name:"Old Wu 吳伯", sprite:"man"},
+    scene:{key:"river"},  // swap to {img:"art/ch02.jpg"} when the artwork is ready
     pattern:"Cold-Damp obstructing the channels 寒濕痹阻經絡",
     principle:"warm the channels, dispel cold and damp, free the collaterals",
     tongue:"pale with a white moist coating",
@@ -103,7 +105,7 @@ window.AG_CHAPTERS = {
     needleAsk:{en:"The Four Command Points say: <b>for the head and neck, seek Lièquē</b>. Tap LU7.",zh:"四總穴歌云：頭項尋列缺。點出 LU7。"},
     target:{id:"LU7",zh:"列缺",py:"Lièquē",x:262,y:497,
       note:"<b>列缺 Lièquē LU7</b> — one of the Four Command Points: <i>for disorders of the head and nape, seek Lièquē</i>. A distal point for neck and upper-back stiffness.<br>四總穴之一：「頭項尋列缺」。項背強痛之遠端要穴。"},
-    reward:{cardEn:"The Four Command Points 四總穴歌",cardTxt:"For the belly, keep Zusanli. For the low back, seek Weizhong. For the head and nape, seek Lieque. For the face and mouth, Hegu will do.",herbEn:"Dried Ginger 乾薑",herbTxt:"Acrid and hot — in TCM it is used to warm the interior and disperse cold. Old Wu takes it as a warm tea before the dawn crossing."},
+    reward:{cardEn:"The Four Command Points",cardZh:"四總穴歌",cardTxt:"For the belly, keep Zusanli. For the low back, seek Weizhong. For the head and nape, seek Lieque. For the face and mouth, Hegu will do.",herbEn:"Dried Ginger",herbZh:"乾薑",herbTxt:"Acrid and hot — in TCM it is used to warm the interior and disperse cold. Old Wu takes it as a warm tea before the dawn crossing."},
     endings:{
       three:["A week later Old Wu is poling the ferry again at dawn. \"It still aches when the rain comes,\" he says, \"but I can lift the pole.\"<br><b>Master Shen:</b> \"You did not chase an organ that was not ill. This one lived in the channels — and you found it there.\"","一週後，吳伯又在天亮時撐篙。「下雨還是會痠，」他說，「但篙我撐得起來了。」<br><b>參師父：</b>「你沒有去追一個根本沒病的臟。這病住在經絡裡——你就在那裡找到它。」"],
       two:["Old Wu moves more freely, though the cold mornings still catch him.<br><b>Master Shen:</b> \"Better. But you hesitated between the channel and the organ. Learn to tell them apart.\"","吳伯活動鬆了些，清晨受寒仍會犯。<br><b>參師父：</b>「好些了。可你在經絡與臟腑之間猶豫。要學會分清這兩者。」"],
@@ -120,13 +122,13 @@ window.AG_CHAPTERS = {
     qa:[
  {q:"Is the pain in one fixed place, or does it move?",cq:"痛處固定還是遊走？",good:1,
   a:"Fixed. Right here, across the shoulder blade and up the neck.",ca:"固定的。就在肩胛這一片，往上到脖子。",
-  clue:"痛處固定",note:"Fixed pain suggests <b>cold</b> or <b>stasis</b>; wandering pain suggests <b>wind</b>. 痛處固定多屬寒或瘀；遊走不定多屬風。"},
+  clue:{en:"Pain fixed in one place",zh:"痛處固定"},note:"Fixed pain suggests <b>cold</b> or <b>stasis</b>; wandering pain suggests <b>wind</b>. 痛處固定多屬寒或瘀；遊走不定多屬風。"},
  {q:"Is it better or worse with cold and with heat?",cq:"遇冷遇熱如何？",good:1,
   a:"Cold makes it much worse. A hot towel eases it every time.",ca:"遇冷重得多。熱毛巾一敷就鬆。",
-  clue:"得溫則減",note:"Relief from warmth is the single clearest sign of a <b>cold</b> pattern. 得溫則減，是辨寒證最直接的一條。"},
+  clue:{en:"Better with warmth",zh:"得溫則減"},note:"Relief from warmth is the single clearest sign of a <b>cold</b> pattern. 得溫則減，是辨寒證最直接的一條。"},
  {q:"Does the weather change it?",cq:"天氣會影響嗎？",good:1,
   a:"Before rain it aches deep and heavy, like the arm is full of water.",ca:"下雨前痠脹沉重，像手臂灌了水。",
-  clue:"陰雨加重、沉重感",note:"Heaviness that tracks the weather is <b>damp</b>. 隨天氣加重且覺沉重者屬濕。"},
+  clue:{en:"Worse in wet weather, heavy feeling",zh:"陰雨加重、沉重感"},note:"Heaviness that tracks the weather is <b>damp</b>. 隨天氣加重且覺沉重者屬濕。"},
  {q:"Is there any fever or aversion to cold over the whole body?",cq:"有無發熱、全身惡寒？",good:0,
   a:"No fever. I feel fine otherwise — it is just the shoulder.",ca:"沒發燒。其他都好，就是肩膀。",
   clue:"",note:"Worth excluding an exterior pattern, but three months of local pain without fever is not a new invasion of the whole body. 排除表證合理；然局部痛三月而無發熱，非新感表證。"},
@@ -138,7 +140,7 @@ window.AG_CHAPTERS = {
   clue:"",note:"These probe <b>Yin deficiency</b> — a very different picture from a cold, damp, painful shoulder. 此問屬陰虛，與寒濕痹痛之象不合。"}
 ],
     look:[
- {t:"Skin over the area is normal in colour, not red or swollen",c:"局部膚色如常，無紅腫",ok:1,clue:"局部無紅腫",
+ {t:"Skin over the area is normal in colour, not red or swollen",c:"局部膚色如常，無紅腫",ok:1,clue:{en:"No local redness or swelling",zh:"局部無紅腫"},
   note:"Correct. No redness or swelling argues against <b>heat</b>. In a cold bi-syndrome the area looks unremarkable but feels cold and stiff. 無紅腫則非熱痹。寒痹外觀如常，然按之冷而僵。"},
  {t:"Skin is red, hot and visibly swollen",c:"局部紅腫灼熱",ok:0,
   note:"That would be a <b>heat</b> bi-syndrome — and this patient improves with a hot towel, which heat patterns do not. 此為熱痹；然本案得熱則減，熱痹不然。"},
@@ -146,7 +148,7 @@ window.AG_CHAPTERS = {
   note:"Long-standing deficiency would waste the muscles; three months of work-related pain has not. 久虛可見肌肉萎縮；本案病三月且仍勞作，未至於此。"}
 ],
     pulse:[
- {t:"Tight (wiry and tense) 弦緊",ok:1,clue:"脈弦緊",
+ {t:"Tight (wiry and tense) 弦緊",ok:1,clue:{en:"Wiry, tight pulse",zh:"脈弦緊"},
   note:"Correct. <b>Tight</b> is the pulse of cold and of pain; wiry adds tension in the channels. 緊主寒、主痛；弦主經脈拘急。"},
  {t:"Slippery and rapid 滑數",ok:0,
   note:"That would be damp-<b>heat</b>. Nothing here is hot. 此為濕熱之脈，本案無熱象。"},
