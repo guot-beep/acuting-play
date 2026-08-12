@@ -19,7 +19,7 @@
 html,body{height:100%}
 body{font-family:"Songti TC","Noto Serif TC",Georgia,serif;background:#CFC3A8;color:var(--ink);
   display:flex;justify-content:center;overflow:hidden}
-#app{position:relative;width:100%;max-width:440px;height:100dvh;overflow:hidden;display:flex;flex-direction:column;
+#app{position:relative;width:100%;max-width:440px;height:100svh;overflow:hidden;display:flex;flex-direction:column;
   background:radial-gradient(ellipse 130% 50% at 50% -6%,rgba(255,255,255,.5),transparent 62%),
     repeating-linear-gradient(0deg,transparent 0 3px,rgba(120,105,80,.028) 3px 4px),
     repeating-linear-gradient(90deg,transparent 0 3px,rgba(120,105,80,.028) 3px 4px),var(--paper);
@@ -35,7 +35,7 @@ body.nozh .zh{display:none !important}
 .chapline{position:relative;z-index:5;text-align:center;font-family:"Courier New",monospace;font-size:10px;
   letter-spacing:.36em;color:var(--gold);text-transform:uppercase;padding-top:calc(14px + env(safe-area-inset-top))}
 .screen{position:absolute;inset:0;z-index:3;display:none;flex-direction:column;
-  padding:calc(42px + env(safe-area-inset-top)) 20px calc(16px + env(safe-area-inset-bottom));overflow-y:auto}
+  padding:calc(42px + env(safe-area-inset-top)) 20px calc(16px + env(safe-area-inset-bottom));overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
 .screen.on{display:flex;animation:fade .42s var(--ease)}
 @keyframes fade{from{opacity:0;transform:translateY(8px)}}
 
@@ -130,6 +130,7 @@ body.nozh .zh{display:none !important}
 </style>
 <link rel="stylesheet" href="desktop.css">
 <script src="state.js"></script>
+<script src="hud.js"></script>
 </head>
 <body data-page="yinyang">
 <div id="app">

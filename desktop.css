@@ -29,7 +29,7 @@
   }
   #app {
     max-width: 1120px;
-    height: min(calc(100dvh - 52px), 720px);   /* landscape cabinet, not a tall tower */
+    height: min(calc(100svh - 52px), 720px);   /* landscape cabinet, not a tall tower */
     border-radius: 22px;
     border: 1px solid rgba(58, 55, 48, .16);
     box-shadow: 0 26px 78px rgba(58, 55, 48, .34), 0 2px 0 rgba(255, 255, 255, .5) inset;
@@ -159,7 +159,7 @@
   [data-page="chapter"] .actor span   { font-size: 12.5px; }
 
   /* the pulse / point-location stages get the height back */
-  .arm-stage svg { max-height: 62dvh; }
+  .arm-stage svg { max-height: 62svh; }
   #pulseWrap, .pulse-figure { max-width: 720px; margin-left: auto; margin-right: auto; }
 
   /* ending: the two reward cards sit side by side, everything else full width */
@@ -195,7 +195,7 @@
    3 · WIDE DESKTOP (≥ 1400px) — a touch more air, nothing more.
    ───────────────────────────────────────────────────────────── */
 @media (min-width: 1400px) {
-  #app { max-width: 1240px; height: min(calc(100dvh - 52px), 760px); }
+  #app { max-width: 1240px; height: min(calc(100svh - 52px), 760px); }
 }
 
 /* ─────────────────────────────────────────────────────────────

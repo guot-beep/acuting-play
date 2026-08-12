@@ -19,7 +19,7 @@
 html,body{height:100%}
 body{font-family:"Songti TC","Noto Serif TC",Georgia,serif;background:#CFC3A8;color:var(--ink);
   display:flex;justify-content:center;overflow:hidden}
-#app{position:relative;width:100%;max-width:440px;height:100dvh;overflow:hidden;display:flex;flex-direction:column;
+#app{position:relative;width:100%;max-width:440px;height:100svh;overflow:hidden;display:flex;flex-direction:column;
   background:radial-gradient(ellipse 130% 50% at 50% -6%,rgba(255,255,255,.55),transparent 62%),
     repeating-linear-gradient(0deg,transparent 0 3px,rgba(120,105,80,.028) 3px 4px),
     repeating-linear-gradient(90deg,transparent 0 3px,rgba(120,105,80,.028) 3px 4px),var(--paper);
@@ -38,7 +38,7 @@ body.nozh .node .glyph{display:none}     /* map: Chinese node glyphs */
 /* screens */
 .screen{position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;pointer-events:none;
   transform:translateY(10px);transition:opacity .42s var(--ease),transform .42s var(--ease);
-  padding:calc(48px + env(safe-area-inset-top)) 20px calc(18px + env(safe-area-inset-bottom));overflow-y:auto}
+  padding:calc(48px + env(safe-area-inset-top)) 20px calc(18px + env(safe-area-inset-bottom));overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
 .screen.on{opacity:1;pointer-events:auto;transform:none}
 
 /* ── title ── */
@@ -191,6 +191,7 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
 </style>
 <link rel="stylesheet" href="desktop.css">
 <script src="state.js"></script>
+<script src="hud.js"></script>
 </head>
 <body data-page="hub">
 <div id="app">

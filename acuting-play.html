@@ -26,7 +26,7 @@
     overflow:hidden;
   }
   #app{
-    position:relative;width:100%;max-width:440px;height:100dvh;
+    position:relative;width:100%;max-width:440px;height:100svh;
     background:
       radial-gradient(ellipse 120% 60% at 50% -10%, rgba(255,255,255,.55), transparent 60%),
       repeating-linear-gradient(0deg, transparent 0 3px, rgba(120,105,80,.028) 3px 4px),
@@ -53,7 +53,7 @@
     opacity:.9;pointer-events:none;
   }
   /* ---------- 畫面切換 ---------- */
-  .screen{position:relative;z-index:2;flex:1;display:none;flex-direction:column;overflow-y:auto;padding:calc(14px + env(safe-area-inset-top)) 18px calc(20px + env(safe-area-inset-bottom))}
+  .screen{position:relative;z-index:2;flex:1;display:none;flex-direction:column;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:calc(14px + env(safe-area-inset-top)) 18px calc(20px + env(safe-area-inset-bottom))}
   .screen.active{display:flex}
   /* ---------- HUD ---------- */
   .hud{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:6px}
@@ -175,6 +175,7 @@
 </style>
 <link rel="stylesheet" href="desktop.css">
 <script src="state.js"></script>
+<script src="hud.js"></script>
 </head>
 <body data-page="points">
 <div id="app">
