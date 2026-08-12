@@ -271,7 +271,7 @@ h1.title{font-size:46px;letter-spacing:.2em;text-align:center;font-weight:700;li
           <text class="glyph" x="72" y="75" fill="#4E5D46">針</text><text x="72" y="95">針道 NEEDLE</text></g>
         <g class="node" id="n-theory"><circle class="pin" cx="326" cy="72" r="12"/>
           <text class="glyph" x="326" y="77">理</text><text x="326" y="97">醫理 THEORY</text></g>
-        <g class="node lock" id="n-dx"><circle class="pin" cx="88" cy="212" r="12"/>
+        <g class="node" id="n-dx"><circle class="pin" cx="88" cy="212" r="12"/>
           <text class="glyph" x="88" y="217">診</text><text x="88" y="237">四診 DIAGNOSIS</text></g>
         <g class="node lock" id="n-herb"><circle class="pin" cx="316" cy="210" r="12"/>
           <text class="glyph" x="316" y="215">草</text><text x="316" y="235">本草 HERBS</text></g>
@@ -410,7 +410,7 @@ const SCHOOLS={
  dx:{key:"dx",glyph:"診",school:"Four Examinations 望聞問切",mentor:"Jìng Gū · 靜姑",sprite:"jing",
   quote:'"I lost my eyes at thirty. My fingers have been listening ever since."',
   quoteZh:"「我三十歲時瞎的。從那以後，我的手指一直在聽。」",
-  games:[{ic:"📋",t:"Daily Case 今日病例",d:"One case a day. Same case for every player.",go:"SOON",open:0},
+  games:[{ic:"📋",t:"Daily Case 今日病例",d:"One case a day, the same for every player worldwide.",go:"PLAY",open:1,file:"dailycase.html"},
          {ic:"👅",t:"Tongue Reader 舌象判讀",d:"Read the body, the coating, the moisture.",go:"SOON",open:0},
          {ic:"💗",t:"Pulse Match 脈象配對",d:"Feel the depth, rate and shape.",go:"SOON",open:0}]},
  daoyin:{key:"daoyin",glyph:"導",school:"Cultivation 導引養生",mentor:"Xióng Shī · 熊師",sprite:"xiong",
@@ -509,7 +509,7 @@ function openSheet(key){
     const g=s.games[+b.dataset.i];
     if(g.file){location.href=g.file}else toast("Coming soon 敬請期待");
   });
-  $("mNote").innerHTML=(key==="needle"||key==="daoyin"||key==="theory")
+  $("mNote").innerHTML=(key==="needle"||key==="daoyin"||key==="theory"||key==="dx")
     ? 'Training here raises this axis — and unlocks hints in the main story.<span class="zh">在此修煉可提升該軸，並解鎖主線提示。</span>'
     : 'This mentor opens up as the story reaches them.<span class="zh">故事推進到這位導師時，這裡就會開啟。</span>';
   $("scrim").classList.add("on");$("sheet").classList.add("on");

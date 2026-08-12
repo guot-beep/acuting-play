@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#F2EAD8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>今日病例 Daily Case · 杏林行</title>
+<style>
+:root{
+  --paper:#F2EAD8;--paper2:#E7DBBE;--ink:#332F28;--ink-soft:#6E675A;--ink-faint:#9A9182;
+  --sage:#7B8B6F;--sage-deep:#4E5D46;--terra:#C26D4E;--terra-deep:#9D5238;
+  --gold:#B08D3E;--seal:#A63B2A;--white:#FDFBF4;
+  --sh-s:0 2px 6px rgba(51,47,40,.1);--sh:0 5px 16px rgba(51,47,40,.14);--sh-l:0 12px 32px rgba(51,47,40,.2);
+  --ease:cubic-bezier(.22,.9,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{font-family:"Songti TC","Noto Serif TC",Georgia,serif;background:#CFC3A8;color:var(--ink);
+  display:flex;justify-content:center;overflow:hidden}
+#app{position:relative;width:100%;max-width:440px;height:100dvh;overflow:hidden;display:flex;flex-direction:column;
+  background:radial-gradient(ellipse 130% 50% at 50% -6%,rgba(255,255,255,.5),transparent 62%),
+    repeating-linear-gradient(0deg,transparent 0 3px,rgba(120,105,80,.028) 3px 4px),
+    repeating-linear-gradient(90deg,transparent 0 3px,rgba(120,105,80,.028) 3px 4px),var(--paper);
+  box-shadow:0 0 44px rgba(51,47,40,.36)}
+.seal{position:absolute;right:13px;top:calc(11px + env(safe-area-inset-top));z-index:40;width:29px;height:29px;
+  background:var(--seal);color:var(--white);display:flex;align-items:center;justify-content:center;font-size:16px;
+  border-radius:4px;transform:rotate(-3deg);opacity:.85;box-shadow:inset 0 0 0 2px rgba(255,255,255,.3);pointer-events:none}
+.langBtn{position:absolute;left:13px;top:calc(11px + env(safe-area-inset-top));z-index:40;background:var(--white);
+  border:1.5px solid rgba(51,47,40,.14);border-radius:99px;padding:4px 11px;font-size:11px;font-family:inherit;
+  color:var(--ink-soft);cursor:pointer}
+.zh{display:block;font-size:.84em;color:var(--ink-soft);margin-top:4px;line-height:1.65}
+body.nozh .zh{display:none}
+.chapline{position:relative;z-index:5;text-align:center;font-family:"Courier New",monospace;font-size:10px;
+  letter-spacing:.34em;color:var(--gold);text-transform:uppercase;padding-top:calc(14px + env(safe-area-inset-top))}
+.screen{position:absolute;inset:0;z-index:3;display:none;flex-direction:column;
+  padding:calc(42px + env(safe-area-inset-top)) 20px calc(16px + env(safe-area-inset-bottom));overflow-y:auto}
+.screen.on{display:flex;animation:fade .42s var(--ease)}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}}
+
+.mrow{display:flex;gap:13px;align-items:center;background:var(--white);border:1.5px solid rgba(51,47,40,.11);
+  border-radius:16px;padding:13px 15px;box-shadow:var(--sh);margin-bottom:12px}
+.mrow canvas{image-rendering:pixelated;width:62px;height:70px;flex:none;filter:drop-shadow(0 3px 4px rgba(51,47,40,.24))}
+.mrow .mt{flex:1;font-size:14.5px;line-height:1.75}
+.mrow .mt .nm{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.22em;color:var(--terra);
+  text-transform:uppercase;margin-bottom:5px}
+
+.daycard{background:var(--white);border:2px solid var(--gold);border-radius:18px;padding:16px;box-shadow:var(--sh-l);
+  text-align:center;margin-bottom:12px}
+.daycard .no{font-family:"Courier New",monospace;font-size:11px;letter-spacing:.3em;color:var(--gold)}
+.daycard h1{font-size:30px;letter-spacing:.1em;margin:3px 0 2px}
+.daycard .sub{font-size:12.5px;color:var(--ink-soft);letter-spacing:.06em}
+.streakRow{display:flex;justify-content:center;gap:9px;margin-top:11px}
+.pill{background:var(--paper2);border-radius:99px;padding:5px 13px;font-size:12.5px;color:var(--ink-soft)}
+.pill b{color:var(--ink);font-family:"Courier New",monospace}
+
+.steps{display:flex;justify-content:center;gap:8px;margin-bottom:10px}
+.steps i{width:34px;height:5px;border-radius:3px;background:rgba(51,47,40,.13)}
+.steps i.done{background:var(--sage)}
+.steps i.miss{background:var(--terra)}
+.steps i.now{background:var(--gold)}
+
+.vig{background:var(--white);border-left:4px solid var(--sage);border-radius:12px;padding:13px 15px;
+  font-size:14.5px;line-height:1.8;box-shadow:var(--sh-s);margin-bottom:12px}
+.vig .who{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.22em;color:var(--gold);
+  text-transform:uppercase;margin-bottom:6px}
+.vig .zh{font-size:13px}
+.qtitle{text-align:center;font-size:16px;line-height:1.6;margin-bottom:10px}
+.qtitle small{display:block;font-size:12px;color:var(--ink-soft);margin-top:3px;letter-spacing:.06em}
+.opts{display:flex;flex-direction:column;gap:9px}
+.opt{background:var(--white);border:1.5px solid rgba(51,47,40,.13);border-radius:13px;padding:13px 15px;
+  font-family:inherit;font-size:15px;text-align:left;cursor:pointer;box-shadow:var(--sh-s);color:var(--ink);
+  line-height:1.5;min-height:50px;transition:transform .15s}
+.opt small{display:block;color:var(--ink-soft);font-size:12px;margin-top:3px}
+.opt:active{transform:scale(.985)}
+.opt.used{opacity:.4;pointer-events:none}
+.opt.good{border-color:var(--sage);background:#EEF4E9;opacity:1;box-shadow:0 0 0 1.5px var(--sage),var(--sh)}
+.opt.bad{border-color:#C9776A;background:#FBEFEC;opacity:1}
+.opt.good::after{content:"✓";float:right;color:var(--sage-deep);font-weight:700;margin-left:8px}
+.opt.bad::after{content:"✕";float:right;color:#B4594A;font-weight:700;margin-left:8px}
+.fb{background:var(--white);border-left:4px solid var(--sage);border-radius:11px;padding:11px 13px;font-size:13.5px;
+  line-height:1.7;box-shadow:var(--sh-s);color:var(--ink-soft);margin-top:10px;display:none}
+.fb.on{display:block;animation:pop .35s var(--ease)}
+@keyframes pop{from{transform:scale(.97);opacity:0}}
+.fb b{color:var(--ink)}
+.fb.warn{border-left-color:var(--terra)}
+
+.btn{width:100%;min-height:52px;border:none;border-radius:14px;cursor:pointer;font-family:inherit;font-size:16.5px;
+  letter-spacing:.14em;background:var(--terra);color:var(--white);box-shadow:0 5px 0 var(--terra-deep),var(--sh);
+  transition:transform .12s,box-shadow .12s;margin-top:11px}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 var(--terra-deep)}
+.btn.ghost{background:var(--white);color:var(--ink);box-shadow:0 5px 0 rgba(51,47,40,.13),var(--sh)}
+.btn.ghost:active{box-shadow:0 2px 0 rgba(51,47,40,.13)}
+.btn small{display:block;font-size:11.5px;letter-spacing:.08em;opacity:.85;margin-top:2px}
+
+.res{margin:auto 0;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px}
+.grid{font-size:34px;letter-spacing:.14em;line-height:1.2}
+.res h2{font-size:25px;letter-spacing:.12em}
+.answer{background:var(--white);border:2px solid var(--gold);border-radius:16px;padding:14px 18px;box-shadow:var(--sh);max-width:330px}
+.answer .rar{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.26em;color:var(--gold)}
+.answer h3{font-size:21px;margin:3px 0 5px}
+.answer p{font-size:13px;color:var(--ink-soft);line-height:1.7;text-align:left}
+.sharebox{background:rgba(255,255,255,.65);border:1px dashed rgba(51,47,40,.25);border-radius:12px;padding:11px 14px;
+  font-family:"Courier New",monospace;font-size:12.5px;line-height:1.9;color:var(--ink);max-width:330px;white-space:pre-line}
+.note{font-size:10.5px;color:var(--ink-faint);line-height:1.7;text-align:center;margin-top:8px}
+.toast{position:absolute;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translate(-50%,12px);
+  background:var(--ink);color:var(--white);font-size:13px;padding:10px 18px;border-radius:99px;opacity:0;
+  transition:.3s var(--ease);z-index:80;pointer-events:none}
+.toast.on{opacity:.95;transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="seal">診</div>
+  <button class="langBtn" id="langBtn">中文 ON</button>
+  <div class="chapline">Four Examinations · 望聞問切</div>
+
+  <!-- 1 · INTRO -->
+  <section class="screen on" id="s1">
+    <div class="mrow">
+      <canvas id="mc" width="16" height="18"></canvas>
+      <div class="mt"><div class="nm">Jìng Gū · 靜姑</div>
+        "One patient a day. The same patient for every student in the world today. Tell me what you see."
+        <span class="zh">「一天一個病人。今天全天下的學生，看的都是同一個人。說說你看見了什麼。」</span></div>
+    </div>
+    <div class="daycard">
+      <div class="no" id="caseNo">CASE #1</div>
+      <h1>今日病例</h1>
+      <div class="sub">Daily Case · <span id="dateStr"></span></div>
+      <div class="streakRow">
+        <span class="pill">🔥 <b id="streakN">0</b> day streak</span>
+        <span class="pill">✓ <b id="solvedN">0</b> solved</span>
+      </div>
+    </div>
+    <div id="introBody"></div>
+  </section>
+
+  <!-- 2 · PLAY -->
+  <section class="screen" id="s2">
+    <div class="steps" id="steps"></div>
+    <div class="vig" id="vig"></div>
+    <div class="qtitle" id="qtitle"></div>
+    <div class="opts" id="opts"></div>
+    <div class="fb" id="fb"></div>
+    <div id="btnwrap"></div>
+  </section>
+
+  <!-- 3 · RESULT -->
+  <section class="screen" id="s3">
+    <div class="res">
+      <div class="grid" id="grid"></div>
+      <h2 id="rt"></h2>
+      <div class="answer">
+        <div class="rar">今日答案 · TODAY'S PATTERN</div>
+        <h3 id="ansName"></h3>
+        <p id="ansText"></p>
+      </div>
+      <div class="sharebox" id="sharebox"></div>
+      <button class="btn" id="shareBtn">Copy &amp; share 複製分享</button>
+      <button class="btn ghost" id="practiceBtn">Practise an old case 練習舊題<small>doesn't affect your streak · 不影響連續天數</small></button>
+      <button class="btn ghost" id="backBtn">Back to town 回小鎮</button>
+      <p class="note">Educational game · fictional teaching cases · not medical advice</p>
+    </div>
+  </section>
+  <div class="toast" id="toast"></div>
+</div>
+
+<script>
+/* ═════ mentor sprite: 靜姑 ═════ */
+const P={K:"#2B241C",H:"#3A2E24",F:"#F0CDA8",W:"#FDFBF4",M:"#9C4A2F",Q:"#E8A08C",D:"#7A5C3A"};
+const JING=[
+ "................","....WWWWWWWW....","...WWWWWWWWWW...","...HHHHHHHH.....","..HFFFFFFFFH....",
+ "..HFKKFFKKFH....","..HFFFFFFFFH....","..HFFFQFFFFH....","...FFFFFFFF.....","....FFFFFF......",
+ "...MMMMMMMM.....","..MMMMMMMMMM....",".FMMMMMMMMMMF...",".FMMMMMMMMMMF...","...MMMMMMMM.....",
+ "....MM..MM......","....KK..KK......","................"];
+const $=id=>document.getElementById(id);
+function paint(cv,bob){const x=cv.getContext("2d");x.clearRect(0,0,16,18);
+  JING.forEach((r,y)=>[...r].forEach((c,i)=>{if(P[c]){x.fillStyle=P[c];x.fillRect(i,Math.min(y+(bob?1:0),17),1,1)}}))}
+let bob=false;setInterval(()=>{bob=!bob;paint($("mc"),bob)},620);paint($("mc"),false);
+
+/* ═════ case bank ═════ */
+const CASES=[
+{p:"風熱犯肺 Wind-Heat invading the Lung",
+ v:"A 22-year-old student, ill two days. Sore, swollen throat; fever with only slight aversion to cold; cough with thick yellow phlegm; thirst for cold drinks. Tongue: red at the tip, thin yellow coating. Pulse: floating and rapid.",
+ vz:"22歲學生，病起兩日。咽喉腫痛，發熱重而惡寒輕，咳吐黃稠痰，口渴喜冷飲。舌尖紅、苔薄黃，脈浮數。",
+ q:[{t:"Eight Principles — where and what nature?",z:"八綱：病位？病性？",
+   o:[{a:"Exterior · Heat · Excess 表 · 熱 · 實",ok:1,n:"Two days old with a floating pulse = still <b>exterior</b>; fever>chills, thirst, yellow phlegm = <b>heat</b>. 新病脈浮屬表；發熱重、口渴、痰黃屬熱。"},
+      {a:"Exterior · Cold · Excess 表 · 寒 · 實",ok:0,n:"Wind-cold gives chills>fever, clear thin phlegm, no thirst, a <b>tight</b> pulse. 風寒則惡寒重、痰稀白、不渴、脈緊。"},
+      {a:"Interior · Heat · Excess 裡 · 熱 · 實",ok:0,n:"An interior heat pattern would have lost the floating pulse and the aversion to cold. 裡熱則脈不浮、不惡寒。"}]},
+  {t:"Which organ is disturbed?",z:"病位在何臟腑？",
+   o:[{a:"Lung 肺",ok:1,n:"Cough, phlegm, sore throat — the Lung governs qi and opens to the throat. 肺主氣司呼吸，其門戶在咽喉。"},
+      {a:"Stomach 胃",ok:0,n:"No epigastric or digestive signs here. 無脘腹納食之症。"},
+      {a:"Liver 肝",ok:0,n:"No wiry pulse, no hypochondriac or emotional signs. 無脈弦、無脅肋情志之症。"}]},
+  {t:"Name the pattern.",z:"證型為何？",
+   o:[{a:"風熱犯肺 Wind-Heat invading the Lung",ok:1,n:"Correct — the classic early wind-heat presentation."},
+      {a:"痰熱壅肺 Phlegm-Heat obstructing the Lung",ok:0,n:"That is deeper and heavier: high fever, copious thick phlegm, rapid slippery pulse, often chest pain. 痰熱壅肺熱勢更重、痰多黏稠、脈滑數。"},
+      {a:"肺陰虛 Lung Yin deficiency",ok:0,n:"That is chronic: dry cough, little phlegm, red tongue with little coat, thready rapid pulse. 肺陰虛乾咳少痰、舌紅少苔、脈細數。"}]}],
+ teach:"Wind-cold and wind-heat both start on the exterior. The deciding signs are the balance of fever and chills, thirst, the colour of the phlegm and whether the pulse is tight or rapid.",
+ teachZ:"風寒與風熱皆屬表證。分辨關鍵在寒熱孰重、口渴與否、痰之色質、脈之緊數。"},
+
+{p:"肝陽上亢 Liver Yang Rising",
+ v:"A 45-year-old manager. Distending headache at both temples, dizziness, ringing ears. Flushed face, bitter taste in the mouth, irritable, sleeps badly. Everything worsens after arguments. Tongue: red, thin yellow coating. Pulse: wiry and rapid.",
+ vz:"45歲主管。兩側太陽穴脹痛、頭暈耳鳴，面紅、口苦、急躁易怒、夜寐不安，爭執後加重。舌紅苔薄黃，脈弦數。",
+ q:[{t:"Eight Principles — where and what nature?",z:"八綱：病位？病性？",
+   o:[{a:"Interior · Heat 裡 · 熱",ok:1,n:"No chills, no floating pulse — this is <b>interior</b>; red face, bitter taste, red tongue, rapid pulse — <b>heat</b>. 無惡寒、脈不浮，屬裡；面紅口苦舌紅脈數，屬熱。"},
+      {a:"Exterior · Heat 表 · 熱",ok:0,n:"Nothing here suggests an external pathogen on the surface. 無表證見症。"},
+      {a:"Interior · Cold 裡 · 寒",ok:0,n:"Cold would bring pallor, aversion to cold, a slow pulse. 寒證見面白畏寒、脈遲。"}]},
+  {t:"Which organ?",z:"病在何臟？",
+   o:[{a:"Liver 肝",ok:1,n:"Temporal headache, wiry pulse, bitter taste, anger — the Liver's own signature. 頭側屬少陽肝膽，脈弦口苦易怒皆屬肝。"},
+      {a:"Heart 心",ok:0,n:"Heart heat centres on palpitations, mouth ulcers, tongue-tip redness. 心火見心悸、口舌生瘡、舌尖紅。"},
+      {a:"Lung 肺",ok:0,n:"No respiratory signs. 無肺系見症。"}]},
+  {t:"Name the pattern.",z:"證型為何？",
+   o:[{a:"肝陽上亢 Liver Yang rising",ok:1,n:"Correct — upper excess over lower deficiency, stirred by emotion. 上實下虛，因情志而動。"},
+      {a:"肝血虛 Liver Blood deficiency",ok:0,n:"That gives pale tongue, blurred vision, numbness, a thready pulse — no heat. 肝血虛舌淡、視物昏花、肢麻、脈細，無熱象。"},
+      {a:"肝鬱氣滯 Liver Qi stagnation",ok:0,n:"Stagnation alone brings distension and sighing without this much heat or rising. 氣滯以脹悶太息為主，熱象與上亢不著。"}]}],
+ teach:"Wiry pulse + temporal headache + anger is the Liver triad. Then ask: is it merely stuck (stagnation), empty (blood deficiency), or rising (yang)?",
+ teachZ:"脈弦＋頭側痛＋易怒為肝三聯。再問：是鬱（氣滯）、是虛（血虛）、還是亢（陽亢）。"},
+
+{p:"脾氣虛 Spleen Qi Deficiency",
+ v:"A 38-year-old teacher, tired for months. Heaviest fatigue right after eating; bloating; loose unformed stools; poor appetite; speaks softly and dislikes talking. Tongue: pale, swollen with teeth marks, thin white coating. Pulse: weak and moderate.",
+ vz:"38歲教師，倦怠數月。食後尤倦，脘腹脹滿，大便溏薄，納呆，語聲低微懶言。舌淡胖有齒痕、苔薄白，脈緩弱。",
+ q:[{t:"Eight Principles.",z:"八綱辨證",
+   o:[{a:"Interior · Deficiency 裡 · 虛",ok:1,n:"Months of illness, soft voice, weak pulse, teeth-marked tongue — <b>deficiency</b>, and <b>interior</b>. 久病、聲低、脈弱、齒痕舌，屬裡虛。"},
+      {a:"Interior · Excess 裡 · 實",ok:0,n:"Excess would show a forceful pulse, a thick coating, distension that resists pressure. 實證脈有力、苔厚、拒按。"},
+      {a:"Exterior · Deficiency 表 · 虛",ok:0,n:"Exterior deficiency (表虛) means spontaneous sweating with wind aversion — a surface pattern. 表虛指自汗惡風，屬表證。"}]},
+  {t:"Which organ?",z:"病在何臟？",
+   o:[{a:"Spleen 脾",ok:1,n:"The Spleen governs transformation and transportation and rules the four limbs; fatigue after eating is its calling card. 脾主運化、主四肢，食後倦甚為其特徵。"},
+      {a:"Kidney 腎",ok:0,n:"Kidney deficiency centres on the low back, knees, urination and reproduction. 腎虛以腰膝、二便、生殖為主。"},
+      {a:"Heart 心",ok:0,n:"No palpitations or sleep disturbance. 無心悸失眠。"}]},
+  {t:"Name the pattern.",z:"證型為何？",
+   o:[{a:"脾氣虛 Spleen Qi deficiency",ok:1,n:"Correct — the foundation pattern of Spleen weakness."},
+      {a:"脾陽虛 Spleen Yang deficiency",ok:0,n:"That adds clear <b>cold</b>: cold limbs, cold abdominal pain relieved by warmth, watery stools. 脾陽虛更見畏寒肢冷、腹痛喜溫、便稀清冷。"},
+      {a:"食積 Food stagnation",ok:0,n:"That is acute and excess: foul belching, thick greasy coat, aversion to food. 食積屬實，噯腐吞酸、苔厚膩、惡食。"}]}],
+ teach:"Qi deficiency and Yang deficiency sit on the same line — Yang deficiency is Qi deficiency plus cold signs.",
+ teachZ:"氣虛與陽虛在同一條線上——陽虛即氣虛再加寒象。"},
+
+{p:"心脾兩虛 Heart and Spleen Deficiency",
+ v:"A 32-year-old accountant. Palpitations, difficulty falling asleep with many dreams, poor memory. Also tired, poor appetite, loose stools. Pale complexion and lips; periods scanty and pale. Tongue: pale, thin white coating. Pulse: thready and weak.",
+ vz:"32歲會計。心悸、入睡難而多夢、健忘；兼倦怠納差便溏。面色與唇色淡白，月經量少色淡。舌淡苔薄白，脈細弱。",
+ q:[{t:"Eight Principles.",z:"八綱辨證",
+   o:[{a:"Interior · Deficiency 裡 · 虛",ok:1,n:"Pale everything, thready weak pulse, chronic course — <b>interior deficiency</b>. 面唇舌俱淡、脈細弱、病程久，屬裡虛。"},
+      {a:"Interior · Heat · Excess 裡 · 熱 · 實",ok:0,n:"Nothing here is hot or forceful. 無熱象、無實象。"},
+      {a:"Exterior · Cold 表 · 寒",ok:0,n:"No fever, chills or floating pulse. 無發熱惡寒、脈不浮。"}]},
+  {t:"Which organs — note there may be two.",z:"病在何臟？（可能不只一個）",
+   o:[{a:"Heart and Spleen 心與脾",ok:1,n:"Palpitations, dream-disturbed sleep and poor memory = <b>Heart</b> (blood fails to house the shen); fatigue, poor appetite, loose stools = <b>Spleen</b>. 心悸多夢健忘屬心（血不養神）；倦怠納差便溏屬脾。"},
+      {a:"Heart and Kidney 心與腎",ok:0,n:"That pattern brings night sweats, five-centre heat, tinnitus and a red tongue — heat from Yin deficiency. 心腎不交見盜汗、五心煩熱、耳鳴、舌紅，屬陰虛內熱。"},
+      {a:"Liver and Spleen 肝與脾",ok:0,n:"That would show distension, sighing, mood swings and a wiry pulse. 肝脾不和見脹滿太息、情志起伏、脈弦。"}]},
+  {t:"Name the pattern.",z:"證型為何？",
+   o:[{a:"心脾兩虛 Heart-Spleen deficiency",ok:1,n:"Correct. The Spleen is the source of blood production; when it is weak, the Heart is not nourished. 脾為氣血生化之源，脾虛則心失所養。"},
+      {a:"心血虛 Heart Blood deficiency alone",ok:0,n:"That alone would not bring the appetite and stool signs. 單純心血虛無納差便溏。"},
+      {a:"心陰虛 Heart Yin deficiency",ok:0,n:"That brings heat signs — night sweats, five-centre heat, red tongue. 心陰虛見盜汗、五心煩熱、舌紅。"}]}],
+ teach:"When two organs appear together, look for the causal chain — here the Spleen fails to make blood, so the Heart loses its nourishment.",
+ teachZ:"兩臟並見時，找出因果——此案為脾不生血，心失所養。"},
+
+{p:"腎陽虛 Kidney Yang Deficiency",
+ v:"A 60-year-old man. Cold, sore, weak low back and knees; strongly averse to cold with cold limbs; passes urine three or four times a night, clear and copious; loose stools just before dawn. Tongue: pale and swollen, white coating. Pulse: deep, slow and weak, especially at the proximal position.",
+ vz:"60歲男性。腰膝冷痛痠軟，畏寒肢冷，夜尿三四次、清長，黎明前泄瀉。舌淡胖苔白，脈沉遲無力，尺脈尤弱。",
+ q:[{t:"Eight Principles.",z:"八綱辨證",
+   o:[{a:"Interior · Cold · Deficiency 裡 · 寒 · 虛",ok:1,n:"Deep slow weak pulse, aversion to cold, clear copious urine — <b>interior cold deficiency</b>. 脈沉遲無力、畏寒、小便清長，屬裡寒虛。"},
+      {a:"Interior · Cold · Excess 裡 · 寒 · 實",ok:0,n:"Cold excess brings sudden severe pain that resists pressure, with a tight forceful pulse. 實寒暴痛拒按、脈緊有力。"},
+      {a:"Exterior · Cold 表 · 寒",ok:0,n:"No fever, no floating pulse, and this is chronic. 無發熱、脈不浮、病程久。"}]},
+  {t:"Which organ?",z:"病在何臟？",
+   o:[{a:"Kidney 腎",ok:1,n:"Low back is the house of the Kidney; nocturia and dawn diarrhoea point to Kidney Yang failing to warm. 腰為腎之府；夜尿、五更瀉為腎陽不溫。"},
+      {a:"Spleen 脾",ok:0,n:"The Spleen is involved in the loose stools, but the low back, cold limbs and nocturia point deeper — to the root. 便溏雖關乎脾，然腰膝冷、夜尿多者，病本在腎。"},
+      {a:"Bladder 膀胱",ok:0,n:"A Bladder pattern would be hot and urgent — burning, scanty, dark urine. 膀胱濕熱見尿頻急痛、色黃短少。"}]},
+  {t:"Name the pattern.",z:"證型為何？",
+   o:[{a:"腎陽虛 Kidney Yang deficiency",ok:1,n:"Correct — dawn diarrhoea (五更瀉) is its classic sign, because Kidney Yang fails to warm the Spleen. 五更瀉為典型，緣腎陽不能溫煦脾土。"},
+      {a:"腎陰虛 Kidney Yin deficiency",ok:0,n:"That is hot and dry: night sweats, five-centre heat, red tongue with little coat, thready rapid pulse. 腎陰虛見盜汗、五心煩熱、舌紅少苔、脈細數。"},
+      {a:"脾陽虛 Spleen Yang deficiency",ok:0,n:"Closer — but the low back, knees and nocturia mark the Kidney as the root. 近似，然腰膝與夜尿標示病本在腎。"}]}],
+ teach:"Yin deficiency and Yang deficiency are both deficiency — the difference is whether heat or cold appears alongside.",
+ teachZ:"陰虛陽虛皆屬虛，分別在於兼熱象或兼寒象。"},
+
+{p:"肝鬱氣滯 Liver Qi Stagnation",
+ v:"A 28-year-old designer. Fullness and distension in the chest and under the ribs, frequent sighing, a lump-in-the-throat sensation. Mood swings; breasts distend before periods; symptoms come and go with her mood rather than with meals or weather. Tongue: normal, thin white coating. Pulse: wiry.",
+ vz:"28歲設計師。胸脅脹滿、時時太息、咽中如有物梗。情緒起伏，經前乳脹；症狀隨情志而增減，與飲食天氣無關。舌淡紅苔薄白，脈弦。",
+ q:[{t:"Eight Principles.",z:"八綱辨證",
+   o:[{a:"Interior · Excess 裡 · 實",ok:1,n:"A wiry pulse with distension that shifts is <b>qi stagnation</b> — an excess pattern, interior. 脈弦、脹滿走竄，屬氣滯實證，病在裡。"},
+      {a:"Interior · Deficiency 裡 · 虛",ok:0,n:"Deficiency brings a weak pulse and constant, dull, better-with-pressure discomfort. 虛證脈弱、隱痛喜按。"},
+      {a:"Exterior · Excess 表 · 實",ok:0,n:"No exterior signs at all. 無表證。"}]},
+  {t:"Which organ?",z:"病在何臟？",
+   o:[{a:"Liver 肝",ok:1,n:"The Liver governs the free flow of qi and its channel passes the chest and ribs; emotion is its trigger. 肝主疏泄，其經布脅肋，情志為誘因。"},
+      {a:"Lung 肺",ok:0,n:"The Lung governs qi too, but would present with cough and breathing changes. 肺雖主氣，然當見咳喘。"},
+      {a:"Spleen 脾",ok:0,n:"Spleen distension follows meals, not moods. 脾脹隨飲食，不隨情志。"}]},
+  {t:"Name the pattern.",z:"證型為何？",
+   o:[{a:"肝鬱氣滯 Liver Qi stagnation",ok:1,n:"Correct — the globus sensation (梅核氣) belongs to this family too."},
+      {a:"肝火上炎 Liver Fire flaring",ok:0,n:"Fire would add red eyes, bitter taste, a rapid pulse and a yellow coat. 肝火見目赤口苦、脈數、苔黃。"},
+      {a:"肝血虛 Liver Blood deficiency",ok:0,n:"That gives pale tongue, blurred vision, thready pulse. 肝血虛舌淡、視昏、脈細。"}]}],
+ teach:"Ask what makes it better or worse. Emotion-linked distension is Liver; meal-linked is Spleen or Stomach; weather-linked often points to an external factor.",
+ teachZ:"問其加重緩解之由：隨情志者在肝，隨飲食者在脾胃，隨天氣者多關外邪。"},
+
+{p:"膀胱濕熱 Damp-Heat in the Bladder",
+ v:"A 26-year-old woman, ill three days. Urination frequent, urgent and burning; urine scanty, dark and turbid; discomfort low in the abdomen; slight fever. Tongue: red with a yellow greasy coating. Pulse: slippery and rapid.",
+ vz:"26歲女性，病起三日。小便頻急灼痛，尿短赤混濁，小腹不適，微發熱。舌紅苔黃膩，脈滑數。",
+ q:[{t:"Eight Principles.",z:"八綱辨證",
+   o:[{a:"Interior · Heat · Excess 裡 · 熱 · 實",ok:1,n:"Burning, dark scanty urine, yellow greasy coat, slippery rapid pulse — <b>interior damp-heat, excess</b>. 灼痛尿赤、苔黃膩、脈滑數，屬裡濕熱實證。"},
+      {a:"Interior · Cold · Deficiency 裡 · 寒 · 虛",ok:0,n:"Cold deficiency gives clear copious urine and a deep slow pulse. 虛寒者小便清長、脈沉遲。"},
+      {a:"Exterior · Heat 表 · 熱",ok:0,n:"The pulse is not floating and the problem is clearly in the lower burner. 脈不浮，病位在下焦。"}]},
+  {t:"Where is it?",z:"病位何在？",
+   o:[{a:"Bladder 膀胱",ok:1,n:"The Bladder stores and discharges urine; damp-heat pouring down disturbs its qi transformation. 膀胱貯尿排尿，濕熱下注則氣化不利。"},
+      {a:"Kidney 腎",ok:0,n:"Kidney patterns are chronic and deficient — low back, nocturia, weak pulse. 腎病多虛多久，見腰膝、夜尿、脈弱。"},
+      {a:"Large Intestine 大腸",ok:0,n:"That would present with stool changes, not urination. 大腸病當見大便異常。"}]},
+  {t:"Name the pattern.",z:"證型為何？",
+   o:[{a:"膀胱濕熱 Damp-Heat in the Bladder",ok:1,n:"Correct — the greasy coating is what marks the <b>damp</b> alongside the heat. 苔膩正是濕之標誌。"},
+      {a:"心火下移小腸 Heart Fire shifting to the Small Intestine",ok:0,n:"That version adds mouth ulcers, irritability and a red tongue tip. 此證兼口舌生瘡、心煩、舌尖紅。"},
+      {a:"腎陰虛 Kidney Yin deficiency",ok:0,n:"Chronic, with night sweats and a thready rapid pulse — not an acute burning. 腎陰虛久病盜汗脈細數，非急性灼痛。"}]}],
+ teach:"A greasy coating is the single most reliable sign of dampness. Heat plus greasy coat plus a slippery pulse = damp-heat.",
+ teachZ:"苔膩是辨濕最可靠之徵。熱象＋膩苔＋脈滑＝濕熱。"},
+
+{p:"心腎不交 Heart and Kidney Not Communicating",
+ v:"A 50-year-old woman. Cannot fall asleep, mind racing at night; palpitations; night sweats; heat in the palms, soles and chest; ringing ears and sore weak low back. Tongue: red with little coating. Pulse: thready and rapid.",
+ vz:"50歲女性。難以入睡、夜間心煩思緒紛擾，心悸、盜汗，五心煩熱，耳鳴、腰膝痠軟。舌紅少苔，脈細數。",
+ q:[{t:"Eight Principles.",z:"八綱辨證",
+   o:[{a:"Interior · Heat · Deficiency 裡 · 熱 · 虛",ok:1,n:"Heat signs on a thready pulse with little tongue coating = <b>deficiency heat</b> from Yin deficiency. 熱象而脈細舌少苔，屬陰虛內熱。"},
+      {a:"Interior · Heat · Excess 裡 · 熱 · 實",ok:0,n:"Excess heat gives a forceful rapid pulse, thick yellow coat, high fever or strong thirst. 實熱脈數有力、苔黃厚、壯熱口渴。"},
+      {a:"Interior · Cold · Deficiency 裡 · 寒 · 虛",ok:0,n:"No cold signs are present. 無寒象。"}]},
+  {t:"Which organs?",z:"病在何臟？",
+   o:[{a:"Heart and Kidney 心與腎",ok:1,n:"Insomnia and palpitations = <b>Heart</b>; tinnitus, sore low back and night sweats = <b>Kidney</b> Yin. 失眠心悸屬心；耳鳴腰痠盜汗屬腎陰。"},
+      {a:"Heart and Spleen 心與脾",ok:0,n:"That pattern is pale and tired without heat — appetite and stool signs dominate. 心脾兩虛面淡無熱，以納差便溏為主。"},
+      {a:"Liver and Gallbladder 肝與膽",ok:0,n:"That would bring a wiry pulse, bitter taste and hypochondriac signs. 肝膽證見脈弦、口苦、脅痛。"}]},
+  {t:"Name the pattern.",z:"證型為何？",
+   o:[{a:"心腎不交 Heart and Kidney not communicating",ok:1,n:"Correct — Kidney water fails to rise and restrain Heart fire, so the shen will not settle at night. 腎水不能上濟心火，心神不安於夜。"},
+      {a:"心脾兩虛 Heart-Spleen deficiency",ok:0,n:"No heat, no tinnitus, no back soreness in that pattern. 心脾兩虛無熱象、無耳鳴腰痠。"},
+      {a:"痰熱擾心 Phlegm-Heat harassing the Heart",ok:0,n:"That brings a greasy yellow coat, a slippery rapid pulse, heavy chest and agitation. 痰熱擾心苔黃膩、脈滑數、胸悶煩躁。"}]}],
+ teach:"Deficiency heat and excess heat both look hot. The pulse (thready vs forceful) and the tongue coating (scanty vs thick) separate them.",
+ teachZ:"虛熱實熱皆見熱象，分辨在脈之細與有力、苔之少與厚。"}
+];
+
+/* ═════ state ═════ */
+let S=Object.assign({zh:true,xp:0,stats:{needle:0,theory:0,dx:0,herb:0,daoyin:0},dc:{}},
+  JSON.parse(localStorage.getItem("apricot-grove")||"{}"));
+if(!S.dc)S.dc={streak:0,last:"",solved:0,results:{}};
+if(S.stats.dx===undefined)S.stats.dx=0;
+const save=()=>localStorage.setItem("apricot-grove",JSON.stringify(S));
+function setZh(){document.body.classList.toggle("nozh",!S.zh);$("langBtn").textContent=S.zh?"中文 ON":"中文 OFF"}
+$("langBtn").onclick=()=>{S.zh=!S.zh;setZh();save();renderIntro()};setZh();
+function go(id){document.querySelectorAll(".screen").forEach(s=>s.classList.remove("on"));$(id).classList.add("on")}
+function toast(t){const e=$("toast");e.textContent=t;e.classList.add("on");setTimeout(()=>e.classList.remove("on"),1900)}
+
+/* deterministic daily index — same case worldwide */
+const EPOCH=Date.UTC(2026,0,1);
+const today=new Date();
+const dayKey=today.toISOString().slice(0,10);
+const dayNum=Math.floor((Date.UTC(today.getFullYear(),today.getMonth(),today.getDate())-EPOCH)/864e5);
+const caseIdx=((dayNum%CASES.length)+CASES.length)%CASES.length;
+$("caseNo").textContent="CASE #"+(dayNum+1);
+$("dateStr").textContent=dayKey;
+
+/* ═════ intro ═════ */
+function renderIntro(){
+  $("streakN").textContent=S.dc.streak||0;
+  $("solvedN").textContent=S.dc.solved||0;
+  const done=S.dc.results&&S.dc.results[dayKey];
+  $("introBody").innerHTML=done
+    ? `<div class="fb on" style="text-align:center">You have already solved today's case.<span class="zh">今天的病例你已經看過了。</span></div>
+       <button class="btn" id="seeRes">See today's result 看今日結果</button>
+       <button class="btn ghost" id="pr1">Practise an old case 練習舊題</button>
+       <button class="btn ghost" id="bk1">Back to town 回小鎮</button>`
+    : `<button class="btn" id="startBtn">See the patient ▸<small>3 steps · about 2 minutes</small></button>
+       <button class="btn ghost" id="bk1">Back to town 回小鎮</button>`;
+  const s=$("startBtn");if(s)s.onclick=()=>startCase(caseIdx,true);
+  const r=$("seeRes");if(r)r.onclick=()=>{G={marks:S.dc.results[dayKey].marks,ci:caseIdx,daily:true};showResult()};
+  const p=$("pr1");if(p)p.onclick=practice;
+  $("bk1").onclick=()=>location.href="index.html";
+}
+renderIntro();
+$("backBtn").onclick=()=>location.href="index.html";
+
+/* ═════ play ═════ */
+let G=null;
+function startCase(idx,daily){
+  G={ci:idx,step:0,marks:[],daily:daily,locked:false};
+  renderStep();go("s2");
+}
+function renderStep(){
+  const c=CASES[G.ci],q=c.q[G.step];
+  $("steps").innerHTML=c.q.map((_,i)=>
+    `<i class="${i<G.step?(G.marks[i]?'done':'miss'):i===G.step?'now':''}"></i>`).join("");
+  $("vig").innerHTML=`<div class="who">The patient 病人</div>${c.v}`+(S.zh?`<span class="zh">${c.vz}</span>`:"");
+  $("qtitle").innerHTML=`Step ${G.step+1} — ${q.t}<small>${q.z}</small>`;
+  $("opts").innerHTML=q.o.map((o,i)=>`<button class="opt" data-i="${i}">${o.a}</button>`).join("");
+  $("opts").querySelectorAll(".opt").forEach(b=>b.onclick=()=>answer(+b.dataset.i,b));
+  $("fb").className="fb";$("btnwrap").innerHTML="";G.locked=false;
+}
+function answer(i,btn){
+  if(G.locked)return;G.locked=true;
+  const c=CASES[G.ci],q=c.q[G.step],o=q.o[i];
+  G.marks.push(o.ok?1:0);
+  $("opts").querySelectorAll(".opt").forEach((b,n)=>{b.classList.add("used");
+    if(q.o[n].ok)b.classList.add("good");else if(n===i)b.classList.add("bad")});
+  $("fb").className="fb on"+(o.ok?"":" warn");
+  $("fb").innerHTML=o.ok?o.n:`${o.n}<br><br><b>The answer:</b> ${q.o.find(x=>x.ok).a} — ${q.o.find(x=>x.ok).n}`;
+  const last=G.step===c.q.length-1;
+  $("btnwrap").innerHTML=`<button class="btn" id="nx">${last?"See result ▸":"Next step ▸"}</button>`;
+  $("nx").onclick=()=>{if(last)finish();else{G.step++;renderStep()}};
+}
+function finish(){
+  if(G.daily){
+    const right=G.marks.filter(Boolean).length;
+    S.dc.results=S.dc.results||{};
+    S.dc.results[dayKey]={marks:G.marks,n:right};
+    const yd=new Date(Date.now()-864e5).toISOString().slice(0,10);
+    if(S.dc.last!==dayKey){S.dc.streak=(S.dc.last===yd)?(S.dc.streak||0)+1:1;S.dc.last=dayKey}
+    S.dc.solved=(S.dc.solved||0)+1;
+    S.xp+=right*20;
+    if(right===3)S.stats.dx=Math.min(4,(S.stats.dx||0)+1);
+    save();
+  }
+  showResult();
+}
+function showResult(){
+  const c=CASES[G.ci],right=G.marks.filter(Boolean).length;
+  const grid=G.marks.map(m=>m?"🟩":"🟥").join("");
+  $("grid").textContent=grid;
+  $("rt").textContent=right===3?"Clean Diagnosis":right===2?"Nearly There":"Study Again";
+  $("ansName").textContent=c.p;
+  $("ansText").innerHTML=c.teach+(S.zh?`<span class="zh">${c.teachZ}</span>`:"");
+  const share=`杏林行 Apricot Grove · Daily Case #${dayNum+1}\n${grid}  ${right}/3\n🔥 streak ${S.dc.streak||0}\nguot-beep.github.io/acuting-play`;
+  $("sharebox").textContent=share;
+  $("shareBtn").onclick=async()=>{
+    try{
+      if(navigator.share){await navigator.share({text:share});return}
+      await navigator.clipboard.writeText(share);toast("Copied 已複製，可以貼上分享了");
+    }catch(e){toast("Select the text above to copy 請長按上方文字複製")}
+  };
+  go("s3");
+}
+function practice(){
+  const pool=[...Array(CASES.length).keys()].filter(i=>i!==caseIdx);
+  startCase(pool[Math.floor(Math.random()*pool.length)],false);
+  toast("Practice case — streak not affected 練習題，不計連續天數");
+}
+$("practiceBtn").onclick=practice;
+</script>
+</body>
+</html>
