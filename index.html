@@ -493,7 +493,7 @@ function enterHub(){
   $("hubRole").textContent=(S.zh?r.en+" "+r.zh:r.en);
   canvases.length=0;reg($("hubCv"),S.char);
   drawRadar();paintLocks();
-  if(S.flags.prologueDone){$("storyLabel").textContent="Chapter One ▸";$("storySub").textContent="A-Lian's Cough · 阿蓮的咳嗽"}
+  const nc=nextChapter();$("storyLabel").textContent=nc.label;$("storySub").textContent=nc.sub;
   go("s4");
 }
 function drawRadar(){
@@ -540,7 +540,11 @@ function paintLocks(){
   ["needle","theory","dx","herb","daoyin"].forEach(k=>
     $("n-"+k).classList.toggle("lock",!AG.unlocked(k)));
 }
-const storyHref=()=>S.flags.prologueDone?(S.flags.chapter01Done?"chapter1.html":"chapter1.html"):"prologue.html";
+function nextChapter(){ if(!S.flags.prologueDone)return{href:"prologue.html",label:"Prologue ▸",sub:"The First Lesson · 第一課"};
+  if(!S.flags.chapter01Done)return{href:"chapter.html?ch=01",label:"Chapter One ▸",sub:"A-Lian's Cough · 阿蓮的咳嗽"};
+  if(!S.flags.chapter02Done)return{href:"chapter.html?ch=02",label:"Chapter Two ▸",sub:"The Boatman's Shoulder · 船夫的肩背"};
+  return{href:"chapter.html?ch=02",label:"Replay Chapter Two ▸",sub:"More chapters are being written · 後續章節撰寫中"}; }
+const storyHref=()=>nextChapter().href;
 $("n-main").onclick=()=>{location.href=storyHref()};
 $("storyBtn").onclick=()=>{location.href=storyHref()};
 
