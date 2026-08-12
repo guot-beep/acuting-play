@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover,user-scalable=no">
 <meta name="theme-color" content="#F2EAD8">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<title>陰陽滑卡 Yin or Yang · 杏林行</title>
+<title>Yin or Yang 陰陽滑卡 · Apricot Grove</title>
 <style>
 :root{
   --paper:#F2EAD8;--paper2:#E7DBBE;--ink:#332F28;--ink-soft:#6E675A;--ink-faint:#9A9182;
@@ -73,7 +73,7 @@ body.nozh .zh{display:none}
 .side{position:absolute;top:50%;transform:translateY(-50%);font-family:"Courier New",monospace;font-size:12px;
   letter-spacing:.22em;color:var(--ink-faint);opacity:.55;pointer-events:none;text-align:center;line-height:1.8}
 .side.l{left:-2px}.side.r{right:-2px}
-.side b{display:block;font-family:"Songti TC",serif;font-size:26px;letter-spacing:0}
+.side b{display:block;font-family:"Courier New",monospace;font-size:15px;letter-spacing:.16em}
 .side.l b{color:var(--yin)}.side.r b{color:var(--yang)}
 
 .card{position:absolute;width:min(74%,250px);min-height:216px;background:var(--white);border-radius:22px;
@@ -95,7 +95,7 @@ body.nozh .zh{display:none}
 .btnsrow{display:flex;gap:11px;margin-top:12px}
 .swipeBtn{flex:1;min-height:56px;border:none;border-radius:15px;cursor:pointer;font-family:inherit;font-size:19px;
   color:var(--white);letter-spacing:.14em;transition:transform .12s}
-.swipeBtn small{display:block;font-family:"Courier New",monospace;font-size:9.5px;letter-spacing:.2em;opacity:.85;margin-top:1px}
+.swipeBtn small{display:block;font-family:"Songti TC",serif;font-size:14px;letter-spacing:.1em;opacity:.9;margin-top:1px}
 .swipeBtn.yin{background:var(--yin);box-shadow:0 5px 0 #333c45}
 .swipeBtn.yang{background:var(--yang);box-shadow:0 5px 0 #a06d21}
 .swipeBtn:active{transform:translateY(3px)}
@@ -152,8 +152,8 @@ body.nozh .zh{display:none}
     <div class="howto">
       Swipe the card — or tap a button.<span class="zh">滑動卡片，或直接按下方按鈕。</span>
       <div class="pair">
-        <div class="half y"><b>陰 Yīn</b><small>◂ SWIPE LEFT</small></div>
-        <div class="half g"><b>陽 Yáng</b><small>SWIPE RIGHT ▸</small></div>
+        <div class="half y"><b>Yīn 陰</b><small>◂ SWIPE LEFT</small></div>
+        <div class="half g"><b>Yáng 陽</b><small>SWIPE RIGHT ▸</small></div>
       </div>
     </div>
     <button class="btn" id="go">Begin sorting ▸<small>4 sets · 24 cards</small></button>
@@ -165,13 +165,13 @@ body.nozh .zh{display:none}
     <div class="setname" id="setname"></div>
     <div class="bar"><i id="barfill"></i></div>
     <div class="stage" id="stage">
-      <div class="side l">YIN<b>陰</b>◂</div>
-      <div class="side r">YANG<b>陽</b>▸</div>
+      <div class="side l"><b>YIN</b>陰 ◂</div>
+      <div class="side r"><b>YANG</b>▸ 陽</div>
     </div>
     <div class="fb idle" id="fb">Sort by nature, not by value — neither half is better.</div>
     <div class="btnsrow">
-      <button class="swipeBtn yin" id="bYin">陰<small>YIN</small></button>
-      <button class="swipeBtn yang" id="bYang">陽<small>YANG</small></button>
+      <button class="swipeBtn yin" id="bYin">Yin<small>陰</small></button>
+      <button class="swipeBtn yang" id="bYang">Yang<small>陽</small></button>
     </div>
   </section>
 
@@ -183,8 +183,8 @@ body.nozh .zh{display:none}
       <p style="font-size:14.5px;line-height:1.8" id="rx"></p>
       <div class="missed" id="missed" style="display:none"><h4>REVIEW 待複習</h4><div id="missedList"></div></div>
       <div class="gain">
-        <div class="rar">心法 · TECHNIQUE CARD</div>
-        <h3>陰陽總綱 Yin-Yang, the Great Guideline</h3>
+        <div class="rar">TECHNIQUE CARD · 心法</div>
+        <h3>Yin-Yang, the Great Guideline 陰陽總綱</h3>
         <p>In TCM theory every pattern is first placed on this axis. Exterior, heat and excess lean Yang; interior, cold and deficiency lean Yin.
           <span class="zh">中醫辨證，先落在這一軸上。表、熱、實屬陽；裡、寒、虛屬陰。</span></p>
       </div>
@@ -277,7 +277,7 @@ function render(){
 function mkCard(c,back){
   const el=document.createElement("div");
   el.className="card "+(back?"back":"front");
-  el.innerHTML=`<span class="stamp l">陰 YIN</span><span class="stamp r">陽 YANG</span>
+  el.innerHTML=`<span class="stamp l">YIN 陰</span><span class="stamp r">YANG 陽</span>
     <div class="cat">${SETS[g.si].name.split("·")[1].trim()}</div>
     <div class="zhbig">${c.zh}</div><div class="py">${c.py}</div><div class="enb">${c.en}</div>`;
   el._c=c;return el;

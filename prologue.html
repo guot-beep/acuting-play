@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover,user-scalable=no">
 <meta name="theme-color" content="#F2EAD8">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<title>杏林行 · 序章 The First Lesson</title>
+<title>The First Lesson · Apricot Grove Prologue</title>
 <style>
 :root{
   --paper:#F2EAD8;--paper2:#E7DBBE;--ink:#332F28;--ink-soft:#6E675A;--ink-faint:#9A9182;
@@ -216,8 +216,8 @@ body.nozh .zh{display:none}
       <h2 id="endTitle"></h2>
       <p style="font-size:14.5px;line-height:1.85" id="endText"></p>
       <div class="card-reward">
-        <div class="rar">心法 · TECHNIQUE CARD</div>
-        <h3>骨度分寸 Proportional Cun</h3>
+        <div class="rar">TECHNIQUE CARD · 心法</div>
+        <h3>Proportional Cun 骨度分寸</h3>
         <p>Measure the body by the body. Elbow crease to wrist crease is 12 cun on every patient, tall or small.
           <span class="zh">以身度身。肘橫紋到腕橫紋，人人皆為十二寸。</span></p>
       </div>
@@ -348,7 +348,7 @@ $("armwrap").addEventListener("pointerdown",ev=>{
   if(d<=perfect||d<=close){
     task.done=true;
     $("pts").firstChild.classList.add("reveal");
-    verdict($("verdict"),d<=perfect?"v-good":"v-ok",d<=perfect?"Perfect 得氣":"Close 接近");
+    verdict($("verdict"),d<=perfect?"v-good":"v-ok",d<=perfect?"De Qi! 得氣":"Close 接近");
     S.xp+=d<=perfect?30:18;S.stats.needle=Math.min(4,(S.stats.needle||0)+1);save();
     $("fb").className="fb on";
     $("fb").innerHTML=`<b>${p.zh} ${p.py} · ${p.id}</b><br>${p.fact}`+(S.zh?`<span class="zh">${p.factZh}</span>`:"");

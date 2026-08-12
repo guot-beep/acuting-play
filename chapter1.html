@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#F2EAD8">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Apricot Grove">
-<title>杏林行 Apricot Grove · Chapter One</title>
+<title>Chapter One · Apricot Grove 杏林行</title>
 <style>
   :root{
     --paper:#F2EAD8; --paper2:#E7DBBE; --ink:#3A3730; --ink-soft:#6E675A;
@@ -95,13 +95,24 @@
   .exam-stage{display:flex;justify-content:center;align-items:center;padding:6px 0 12px}
   .tongue-wrap{filter:drop-shadow(0 5px 8px rgba(58,55,48,.2))}
   .pulse-box{width:100%;background:var(--white);border:1.5px solid rgba(58,55,48,.14);border-radius:13px;
-    padding:10px;box-shadow:var(--shadow)}
-  .pulse-box svg{width:100%;height:76px;display:block}
-  .pulse-line{fill:none;stroke:var(--terra);stroke-width:2.5;stroke-linecap:round;
-    stroke-dasharray:1200;stroke-dashoffset:1200;animation:trace 2.6s linear infinite}
-  @keyframes trace{to{stroke-dashoffset:0}}
-  .pulse-depth{display:flex;justify-content:space-between;font-size:10.5px;color:var(--ink-soft);
-    font-family:"Courier New",monospace;margin-top:2px}
+    padding:12px 12px 8px;box-shadow:var(--shadow)}
+  .pulse-box svg{width:100%;height:88px;display:block;overflow:hidden}
+  .depthrow{font-family:"Courier New",monospace;font-size:9.5px;letter-spacing:.16em;color:var(--ink-faint);
+    display:flex;gap:7px;align-items:baseline}
+  .depthrow i{font-style:normal;font-size:9px;opacity:.75;letter-spacing:.04em}
+  .depthrow.top{margin-bottom:2px}
+  .depthrow.bot{margin-top:2px;justify-content:flex-end}
+  .band-f{fill:#C26D4E;opacity:.07}
+  .band-d{fill:#4A5560;opacity:.07}
+  .mid{stroke:#CBBFA2;stroke-width:1;stroke-dasharray:3 5}
+  .blab{font-family:"Courier New",monospace;font-size:8.5px;letter-spacing:.16em;fill:var(--ink-faint)}
+  .wave{fill:none;stroke:var(--terra);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+  #waveG{animation:scroll 2.4s linear infinite}
+  @keyframes scroll{to{transform:translateX(-170px)}}
+  @media (prefers-reduced-motion:reduce){#waveG{animation:none}}
+  .fingers{display:flex;justify-content:space-around;margin-top:4px}
+  .fingers span{font-family:"Courier New",monospace;font-size:9.5px;letter-spacing:.14em;color:var(--ink-faint)}
+  .fingers b{display:block;font-family:"Songti TC",serif;font-size:12px;color:var(--ink-soft);letter-spacing:0}
   .finger-hint{text-align:center;font-size:12px;color:var(--ink-soft);margin-top:6px}
 
   /* ---- needling ---- */
@@ -211,12 +222,18 @@
   <section class="screen" id="s-pulse">
     <p class="ask">Take her pulse. Feel the depth and the tension.<br><small style="color:var(--ink-soft)">切脈 — 感受浮沉與緊張度</small></p>
     <div class="pulse-box">
-      <svg viewBox="0 0 340 76" preserveAspectRatio="none">
-        <line x1="0" y1="26" x2="340" y2="26" stroke="#CBBFA2" stroke-width="1" stroke-dasharray="4 5"/>
-        <line x1="0" y1="58" x2="340" y2="58" stroke="#CBBFA2" stroke-width="1" stroke-dasharray="4 5"/>
-        <path class="pulse-line" id="pulsePath" d=""/>
+      <div class="depthrow top">FLOATING 浮 <i>light touch</i></div>
+      <svg viewBox="0 0 340 82">
+        <rect class="band-f" x="0" y="2" width="340" height="34" rx="5"/>
+        <rect class="band-d" x="0" y="52" width="340" height="28" rx="5"/>
+        <line class="mid" x1="0" y1="44" x2="340" y2="44"/>
+        <clipPath id="clip"><rect x="0" y="0" width="340" height="82"/></clipPath>
+        <g clip-path="url(#clip)"><g id="waveG"><path class="wave" id="pulsePath" d=""/></g></g>
       </svg>
-      <div class="pulse-depth"><span>◂ FLOATING 浮</span><span>DEEP 沉 ▸</span></div>
+      <div class="depthrow bot">DEEP 沉 <i>press to the bone</i></div>
+      <div class="fingers">
+        <span>CUN<b>寸</b></span><span>GUAN<b>關</b></span><span>CHI<b>尺</b></span>
+      </div>
     </div>
     <p class="finger-hint">The beat rises to meet your finger the moment you touch — and feels taut, like a stretched cord.<br>輕取即得，脈來繃緊如按琴弦</p>
     <div class="opts" id="pulseOpts" style="margin-top:12px"></div>
@@ -262,13 +279,13 @@
       <h2 id="endTitle">A-Lian Recovers</h2>
       <p class="ask" id="endText" style="margin:0"></p>
       <div class="reward">
-        <div class="rar">心法 · TECHNIQUE CARD</div>
-        <h3>宣肺解表 Diffuse &amp; Release</h3>
+        <div class="rar">TECHNIQUE CARD · 心法</div>
+        <h3>Diffuse &amp; Release 宣肺解表</h3>
         <p>For an exterior Wind-Cold pattern, open the Lung's dispersing function and push the pathogen back out through the surface.</p>
       </div>
       <div class="reward" style="border-color:var(--sage)">
-        <div class="rar" style="color:var(--sage)">藥草 · HERB CARD</div>
-        <h3>生薑 Fresh Ginger</h3>
+        <div class="rar" style="color:var(--sage)">HERB CARD · 藥草</div>
+        <h3>Fresh Ginger 生薑</h3>
         <p>Acrid and warm — in TCM food therapy it is the everyday kitchen ally for early wind-cold, taken as a warm tea.</p>
       </div>
       <button class="cta" id="againBtn">Play chapter again</button>
@@ -394,8 +411,10 @@ $("lookNext").onclick=()=>{setStage(3);show("s-pulse");drawPulse()};
 
 /* ══════════ 4 · pulse ══════════ */
 function drawPulse(){
-  let d="M0 30";for(let i=0;i<8;i++){const x=i*42;
-    d+=` L${x+8} 30 Q${x+14} 8 ${x+20} 30 L${x+24} 30 Q${x+28} 22 ${x+32} 30 L${x+42} 30`}
+  /* floating + tight: sharp narrow peaks riding high in the FLOATING band */
+  const beat=(x)=>` L${x+9} 30 C${x+13} 30 ${x+14} 12 ${x+17} 12 C${x+20} 12 ${x+21} 30 ${x+25} 30 L${x+34} 30`;
+  let d="M0 30";
+  for(let i=0;i<12;i++) d+=beat(i*34);   /* 5 beats = 170px, drawn twice for seamless scroll */
   $("pulsePath").setAttribute("d",d);
 }
 const PULSE=[
@@ -494,7 +513,7 @@ $("armStage").addEventListener("pointerdown",ev=>{
   c.setAttribute("class","tap-ripple");c.setAttribute("cx",x);c.setAttribute("cy",y);c.setAttribute("r",5);fx.appendChild(c);
   $("tgt").classList.add("reveal");
   let cls,txt;
-  if(dist<=20){score+=25;cls="v-good";txt="Perfect! 得氣"}
+  if(dist<=20){score+=25;cls="v-good";txt="De Qi! 得氣"}
   else if(dist<=44){score+=12;cls="v-ok";txt="Close 接近"}
   else{cls="v-bad";txt="Off 偏了"}
   const v=$("verdict");v.className="verdict "+cls;v.textContent=txt;void v.offsetWidth;v.classList.add("pop");

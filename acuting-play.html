@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-title" content="AcuTing Play">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="description" content="AcuTing Play — learn acupuncture points through play. Bilingual TCM learning game.">
-<title>AcuTing Play · 點穴 Point Tap</title>
+<title>Point Tap 點穴 · Apricot Grove</title>
 <style>
   :root{
     --paper:#F2EAD8; --paper2:#EAE0C8; --ink:#3A3730; --ink-soft:#6B655A;
@@ -196,7 +196,7 @@
     <div class="brand">
       <div class="eyebrow">ACUTING PLAY</div>
       <h1>Point Tap</h1>
-      <div class="sub">點穴 · Learn acupuncture through play</div>
+      <div class="sub">Learn acupuncture through play · 點穴</div>
     </div>
     <div class="companion-box">
       <canvas id="sprite" width="16" height="18" aria-label="Ginseng Baby"></canvas>
@@ -209,7 +209,7 @@
     <div class="meridian-card">
       <div class="row1">
         <h2>Lung Meridian</h2>
-        <span class="en">手太陰肺經 · LU</span>
+        <span class="en">LU · 手太陰肺經</span>
       </div>
       <div class="prog-track"><div class="prog-fill" id="prog-fill"></div></div>
       <div class="prog-label" id="prog-label">Opened 0/7 points</div>
@@ -255,7 +255,7 @@
       <div class="score-line" id="mastery-line"></div>
       <div class="card-drop" id="card-drop">
         <div class="rar" id="card-rar">RARE DROP</div>
-        <h3 id="card-name">枸杞 Goji Berry</h3>
+        <h3 id="card-name">Goji Berry 枸杞</h3>
         <p id="card-fact"></p>
       </div>
       <div class="btn-row">
@@ -279,12 +279,12 @@ const POINTS = [
   {id:"LU11", zh:"少商", py:"Shàoshāng", en:"Lesser Shang", x:170, y:748, fact:"拇指橈側指甲角旁約0.1寸。肺經井穴。", factEn:"About 0.1 cun from the radial corner of the thumbnail. Jing-Well point — classic for sore throat."},
 ];
 const HERBS = [
-  {name:"枸杞 Goji Berry", rar:"COMMON", fact:"In TCM theory, goji berries are often used to nourish the Liver and Kidney and brighten the eyes."},
-  {name:"紅棗 Red Date", rar:"COMMON", fact:"Sweet and warm — a daily favorite for tonifying Qi and nourishing Blood in TCM food therapy."},
-  {name:"甘草 Licorice Root", rar:"COMMON", fact:"The 'peacemaker' herb — it harmonizes other herbs in a formula. Nicknamed the Elder Statesman."},
-  {name:"黃芪 Astragalus", rar:"UNCOMMON", fact:"Known in TCM as the chief of Qi tonics — supports Qi and consolidates the exterior."},
-  {name:"當歸 Angelica Root", rar:"UNCOMMON", fact:"A key Blood-nourishing herb, widely used in TCM gynecology."},
-  {name:"野山參 Wild Ginseng", rar:"★ RARE", fact:"Powerfully tonifies Yuan Qi. Congratulations — a rare card!"},
+  {name:"Goji Berry 枸杞", rar:"COMMON", fact:"In TCM theory, goji berries are often used to nourish the Liver and Kidney and brighten the eyes."},
+  {name:"Red Date 紅棗", rar:"COMMON", fact:"Sweet and warm — a daily favorite for tonifying Qi and nourishing Blood in TCM food therapy."},
+  {name:"Licorice Root 甘草", rar:"COMMON", fact:"The 'peacemaker' herb — it harmonizes other herbs in a formula. Nicknamed the Elder Statesman."},
+  {name:"Astragalus 黃芪", rar:"UNCOMMON", fact:"Known in TCM as the chief of Qi tonics — supports Qi and consolidates the exterior."},
+  {name:"Angelica Root 當歸", rar:"UNCOMMON", fact:"A key Blood-nourishing herb, widely used in TCM gynecology."},
+  {name:"Wild Ginseng 野山參", rar:"★ RARE", fact:"Powerfully tonifies Yuan Qi. Congratulations — a rare card!"},
 ];
 const ROUNDS = 8, R_PERFECT = 20, R_CLOSE = 44;
 
@@ -363,7 +363,7 @@ function buildPoints(){
 }
 function promptFor(p){
   if(S.lang==="en") return {main:`${p.en}`, sub:p.id, ask:"Tap this point"};
-  return {main:`${p.zh} ${p.py}`, sub:`${p.en} · ${p.id}`, ask:"請點出 · Tap this point"};
+  return {main:`${p.en}`, sub:`${p.zh} ${p.py} · ${p.id}`, ask:"Tap this point 請點出"};
 }
 function nextRound(){
   const arm=$("arm"); arm.classList.remove("show-line");

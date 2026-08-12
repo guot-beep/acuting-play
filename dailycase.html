@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover,user-scalable=no">
 <meta name="theme-color" content="#F2EAD8">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<title>今日病例 Daily Case · 杏林行</title>
+<title>Daily Case 今日病例 · Apricot Grove</title>
 <style>
 :root{
   --paper:#F2EAD8;--paper2:#E7DBBE;--ink:#332F28;--ink-soft:#6E675A;--ink-faint:#9A9182;
@@ -113,7 +113,7 @@ body.nozh .zh{display:none}
 <div id="app">
   <div class="seal">診</div>
   <button class="langBtn" id="langBtn">中文 ON</button>
-  <div class="chapline">Four Examinations · 望聞問切</div>
+  <div class="chapline">Four Examinations 望聞問切</div>
 
   <!-- 1 · INTRO -->
   <section class="screen on" id="s1">
@@ -125,8 +125,8 @@ body.nozh .zh{display:none}
     </div>
     <div class="daycard">
       <div class="no" id="caseNo">CASE #1</div>
-      <h1>今日病例</h1>
-      <div class="sub">Daily Case · <span id="dateStr"></span></div>
+      <h1>Daily Case</h1>
+      <div class="sub">今日病例 · <span id="dateStr"></span></div>
       <div class="streakRow">
         <span class="pill">🔥 <b id="streakN">0</b> day streak</span>
         <span class="pill">✓ <b id="solvedN">0</b> solved</span>
@@ -151,7 +151,7 @@ body.nozh .zh{display:none}
       <div class="grid" id="grid"></div>
       <h2 id="rt"></h2>
       <div class="answer">
-        <div class="rar">今日答案 · TODAY'S PATTERN</div>
+        <div class="rar">TODAY'S PATTERN · 今日答案</div>
         <h3 id="ansName"></h3>
         <p id="ansText"></p>
       </div>
@@ -322,7 +322,114 @@ const CASES=[
       {a:"心脾兩虛 Heart-Spleen deficiency",ok:0,n:"No heat, no tinnitus, no back soreness in that pattern. 心脾兩虛無熱象、無耳鳴腰痠。"},
       {a:"痰熱擾心 Phlegm-Heat harassing the Heart",ok:0,n:"That brings a greasy yellow coat, a slippery rapid pulse, heavy chest and agitation. 痰熱擾心苔黃膩、脈滑數、胸悶煩躁。"}]}],
  teach:"Deficiency heat and excess heat both look hot. The pulse (thready vs forceful) and the tongue coating (scanty vs thick) separate them.",
- teachZ:"虛熱實熱皆見熱象，分辨在脈之細與有力、苔之少與厚。"}
+ teachZ:"虛熱實熱皆見熱象，分辨在脈之細與有力、苔之少與厚。"},
+{p:"胃陰虛 Stomach Yin Deficiency",
+ v:"A 54-year-old man, months of trouble. Hungry but cannot eat much; dry mouth and throat, worse in the afternoon; dull burning discomfort in the upper abdomen; dry stools. Tongue: red, cracked, almost no coating. Pulse: thready and rapid.",
+ vz:"54歲男性，病延數月。飢而不欲食，口乾咽燥午後尤甚，胃脘隱隱灼痛，大便乾結。舌紅有裂紋、幾無苔，脈細數。",
+ q:[{t:"Eight Principles.",z:"八綱辨證",
+   o:[{a:"Interior · Heat · Deficiency 裡 · 熱 · 虛",ok:1,n:"Heat signs on a <b>thready</b> pulse with a <b>peeled</b> tongue = deficiency heat. 熱象而脈細、舌少苔，屬虛熱。"},
+      {a:"Interior · Heat · Excess 裡 · 熱 · 實",ok:0,n:"Excess stomach heat brings strong hunger, foul breath, a thick yellow coat and a forceful pulse. 胃實熱消穀善飢、口臭、苔黃厚、脈有力。"},
+      {a:"Interior · Cold · Deficiency 裡 · 寒 · 虛",ok:0,n:"No cold signs; the tongue is red, not pale. 無寒象，舌紅非淡。"}]},
+  {t:"Which organ?",z:"病在何臟腑？",
+   o:[{a:"Stomach 胃",ok:1,n:"Hunger without appetite and epigastric burning point to the Stomach; the Stomach likes moisture. 飢不欲食、胃脘灼痛在胃；胃喜潤惡燥。"},
+      {a:"Spleen 脾",ok:0,n:"Spleen deficiency gives a pale swollen tongue, loose stools and fatigue — not dryness. 脾虛舌淡胖、便溏、倦怠，非燥象。"},
+      {a:"Liver 肝",ok:0,n:"No wiry pulse or hypochondriac signs. 無脈弦脅痛。"}]},
+  {t:"Name the pattern.",z:"證型為何？",
+   o:[{a:"胃陰虛 Stomach Yin deficiency",ok:1,n:"Correct — the cracked, peeled tongue is the giveaway. 舌紅裂少苔為其標誌。"},
+      {a:"胃火熾盛 Blazing Stomach Fire",ok:0,n:"That is excess: burning pain, foul breath, bleeding gums, thick yellow coat. 胃火屬實：灼痛、口臭、齒衄、苔黃厚。"},
+      {a:"食滯胃脘 Food stagnation",ok:0,n:"Acute, with belching of sour food and a greasy coat. 食滯噯腐吞酸、苔厚膩，屬新病。"}]}],
+ teach:"A peeled or cracked tongue with little coating is the most reliable sign that Yin — and the fluids — have been consumed.",
+ teachZ:"舌少苔、有裂紋，是陰液耗傷最可靠的徵象。"},
+
+{p:"痰濕阻肺 Phlegm-Damp obstructing the Lung",
+ v:"A 58-year-old smoker. Cough for years, worse in the morning; copious white sticky phlegm, easy to expectorate; chest feels heavy and full; body feels heavy; appetite poor. Tongue: pale with a white greasy coating. Pulse: slippery.",
+ vz:"58歲吸菸者。咳嗽多年，晨起尤甚，痰多白黏易咳出，胸悶身重，納呆。舌淡苔白膩，脈滑。",
+ q:[{t:"Eight Principles.",z:"八綱辨證",
+   o:[{a:"Interior · Excess (with deficiency) 裡 · 實（本虛標實）",ok:1,n:"The greasy coat and slippery pulse mark a substantial pathogen — phlegm — sitting on a weak Spleen. 苔膩脈滑為有形之邪（痰），本於脾虛。"},
+      {a:"Exterior · Cold 表 · 寒",ok:0,n:"Years of illness with no fever or floating pulse is not exterior. 病久無發熱、脈不浮，非表證。"},
+      {a:"Interior · Heat · Excess 裡 · 熱 · 實",ok:0,n:"Heat would give yellow sticky phlegm, thirst and a rapid pulse. 熱則痰黃稠、口渴、脈數。"}]},
+  {t:"Which organs?",z:"病在何臟？",
+   o:[{a:"Lung and Spleen 肺與脾",ok:1,n:"\"The Spleen is the source of phlegm, the Lung is the container that stores it.\" 「脾為生痰之源，肺為貯痰之器。」"},
+      {a:"Lung and Kidney 肺與腎",ok:0,n:"That combination shows in chronic wheezing with low-back weakness — failure to grasp qi. 肺腎同病見久喘、腰膝無力，屬腎不納氣。"},
+      {a:"Heart and Lung 心與肺",ok:0,n:"That would bring palpitations and blue lips. 心肺同病見心悸唇紫。"}]},
+  {t:"Name the pattern.",z:"證型為何？",
+   o:[{a:"痰濕阻肺 Phlegm-Damp obstructing the Lung",ok:1,n:"Correct — treat the Lung for the branch, the Spleen for the root. 治肺為標，治脾為本。"},
+      {a:"風寒犯肺 Wind-Cold invading the Lung",ok:0,n:"That is acute with chills, no sweating and a tight pulse. 風寒新病惡寒無汗、脈緊。"},
+      {a:"肺陰虛 Lung Yin deficiency",ok:0,n:"That is a dry cough with scanty phlegm and a peeled red tongue. 肺陰虛乾咳少痰、舌紅少苔。"}]}],
+ teach:"Whenever you see a greasy coating and a slippery pulse together, think substance: phlegm or damp, not merely qi.",
+ teachZ:"見膩苔配滑脈，即當想到有形之邪——痰或濕，而非單純氣分之病。"},
+
+{p:"血瘀 Blood Stasis",
+ v:"A 47-year-old woman. Fixed, stabbing pain in the lower abdomen that is worse at night and worse with pressure; periods come with dark clots, and the pain eases once the clots pass. Complexion dull and dark; lips purple. Tongue: purple with stasis spots, veins beneath it distended. Pulse: choppy.",
+ vz:"47歲女性。少腹刺痛固定不移，夜間及按壓加重；經行血塊色暗，塊下痛減。面色晦暗，唇紫。舌紫暗有瘀點、舌下絡脈怒張，脈澀。",
+ q:[{t:"Eight Principles.",z:"八綱辨證",
+   o:[{a:"Interior · Excess 裡 · 實",ok:1,n:"Pain that <b>resists pressure</b> and a fixed location = an excess, substantial obstruction. 痛而拒按、固定不移，屬實、屬有形之阻。"},
+      {a:"Interior · Deficiency 裡 · 虛",ok:0,n:"Deficiency pain is dull and <b>likes</b> pressure and warmth. 虛痛隱隱喜按喜溫。"},
+      {a:"Exterior · Excess 表 · 實",ok:0,n:"No exterior signs. 無表證。"}]},
+  {t:"What is the pathogen?",z:"病邪為何？",
+   o:[{a:"Blood stasis 瘀血",ok:1,n:"Stabbing, fixed, night-worse pain with a purple tongue and choppy pulse — the four classic marks. 刺痛、固定、夜甚，舌紫脈澀，四大特徵俱全。"},
+      {a:"Qi stagnation 氣滯",ok:0,n:"Qi pain wanders and distends and shifts with mood; the tongue is not purple. 氣滯痛脹走竄、隨情志變化，舌不紫。"},
+      {a:"Cold accumulation 寒凝",ok:0,n:"Cold pain is relieved by warmth and comes with a tight pulse — though cold often causes stasis. 寒痛得溫則減、脈緊；然寒凝常致血瘀。"}]},
+  {t:"Name the pattern.",z:"證型為何？",
+   o:[{a:"血瘀 Blood stasis",ok:1,n:"Correct. Ask always what caused it — qi stagnation, cold, heat, trauma or deficiency. 正確。再問其因：氣滯、寒、熱、外傷或虛。"},
+      {a:"氣血兩虛 Qi and Blood deficiency",ok:0,n:"That is pale and weak, with pain that likes pressure. 氣血兩虛面淡體弱、痛而喜按。"},
+      {a:"濕熱下注 Damp-Heat pouring down",ok:0,n:"That brings burning, discharge, a yellow greasy coat and a slippery rapid pulse. 濕熱見灼熱、帶下、苔黃膩、脈滑數。"}]}],
+ teach:"Four signs name blood stasis: stabbing pain, fixed location, worse at night, purple tongue with a choppy pulse.",
+ teachZ:"辨瘀血四徵：刺痛、固定、夜甚、舌紫脈澀。"},
+
+{p:"氣血兩虛 Qi and Blood Deficiency",
+ v:"A 35-year-old new mother. Constant tiredness, breathless on slight exertion, sweats without effort; dizzy when standing up, blurred vision, numb fingertips; pale face and lips, brittle nails. Tongue: pale, thin white coating. Pulse: thready and weak.",
+ vz:"35歲產後婦女。倦怠乏力，動則氣促自汗；起身頭暈、視物昏花、指尖發麻；面唇色淡，爪甲不榮。舌淡苔薄白，脈細弱。",
+ q:[{t:"Eight Principles.",z:"八綱辨證",
+   o:[{a:"Interior · Deficiency 裡 · 虛",ok:1,n:"Everything is pale, weak and worse with exertion — classic deficiency. 面舌俱淡、脈弱、動則加重，屬虛。"},
+      {a:"Interior · Excess 裡 · 實",ok:0,n:"Nothing forceful or obstructing here. 無實象。"},
+      {a:"Exterior · Deficiency 表 · 虛",ok:0,n:"Exterior deficiency means sweating with aversion to wind, an exterior pattern. 表虛指自汗惡風，屬表證。"}]},
+  {t:"Which is deficient — qi, blood, or both?",z:"氣虛？血虛？抑或兩虛？",
+   o:[{a:"Both qi and blood 氣血兩虛",ok:1,n:"Breathlessness and spontaneous sweat = <b>qi</b>; dizziness, blurred vision, numbness, pale lips and nails = <b>blood</b>. 氣促自汗屬氣虛；眩暈視昏、肢麻、唇甲不榮屬血虛。"},
+      {a:"Qi only 單純氣虛",ok:0,n:"Qi deficiency alone does not bring numbness, blurred vision or pale lips and nails. 單純氣虛無肢麻、視昏、唇甲不榮。"},
+      {a:"Blood only 單純血虛",ok:0,n:"Blood deficiency alone does not bring breathlessness and spontaneous sweating. 單純血虛無氣促自汗。"}]},
+  {t:"Name the pattern.",z:"證型為何？",
+   o:[{a:"氣血兩虛 Qi and Blood deficiency",ok:1,n:"Correct — very common after childbirth, prolonged illness or blood loss. 產後、久病、失血後最為常見。"},
+      {a:"心脾兩虛 Heart-Spleen deficiency",ok:0,n:"Close family — but that pattern leads with palpitations, insomnia and poor appetite. 近似，然心脾兩虛以心悸失眠納差為主。"},
+      {a:"腎陰虛 Kidney Yin deficiency",ok:0,n:"That brings heat: night sweats, five-centre heat, red tongue. 腎陰虛見盜汗、五心煩熱、舌紅。"}]}],
+ teach:"Qi and blood support each other — qi moves blood, blood carries qi. After blood loss, expect both to be short.",
+ teachZ:"氣血相依：氣為血帥，血為氣母。失血之後，兩者多同時虧虛。"},
+
+{p:"寒濕困脾 Cold-Damp encumbering the Spleen",
+ v:"A 30-year-old chef, worse in the rainy season. Heavy fullness in the upper abdomen with no appetite; head feels wrapped in cloth; limbs heavy; sticky loose stools; no thirst, mouth feels bland and sticky. Tongue: pale swollen, white greasy coating. Pulse: soft and moderate.",
+ vz:"30歲廚師，梅雨季加重。脘腹痞悶納呆，頭重如裹，肢體困重，大便黏溏，口淡不渴、口中黏膩。舌淡胖苔白膩，脈濡緩。",
+ q:[{t:"Eight Principles.",z:"八綱辨證",
+   o:[{a:"Interior · Cold · Excess 裡 · 寒 · 實",ok:1,n:"A white <b>greasy</b> coating with no thirst = cold damp, a substantial pathogen. 苔白膩、口淡不渴，為寒濕有形之邪。"},
+      {a:"Interior · Heat · Excess 裡 · 熱 · 實",ok:0,n:"Heat would give a yellow greasy coat, thirst and a rapid pulse. 熱則苔黃膩、口渴、脈數。"},
+      {a:"Interior · Deficiency 裡 · 虛",ok:0,n:"Pure deficiency would not show a greasy coating. 純虛證不見膩苔。"}]},
+  {t:"Which organ is encumbered?",z:"何臟被困？",
+   o:[{a:"Spleen 脾",ok:1,n:"The Spleen dislikes damp; when damp encumbers it, transformation stops — hence fullness, heaviness and sticky stools. 脾惡濕，濕困則運化失司，故痞悶、身重、便黏。"},
+      {a:"Kidney 腎",ok:0,n:"No low-back, urinary or cold-limb signs of the root. 無腰膝、二便、肢冷等腎候。"},
+      {a:"Lung 肺",ok:0,n:"No cough or breathing signs. 無咳喘。"}]},
+  {t:"Name the pattern.",z:"證型為何？",
+   o:[{a:"寒濕困脾 Cold-Damp encumbering the Spleen",ok:1,n:"Correct — an excess pattern, unlike Spleen qi deficiency which is empty. 屬實證，與脾氣虛之虛證不同。"},
+      {a:"脾氣虛 Spleen Qi deficiency",ok:0,n:"That is empty and thin-coated, worse after eating rather than with the weather. 脾氣虛苔薄、食後加重，非隨天氣。"},
+      {a:"濕熱蘊脾 Damp-Heat in the Spleen",ok:0,n:"That version is thirsty-but-not-drinking, bitter mouth, yellow greasy coat. 濕熱蘊脾見口渴不欲飲、口苦、苔黃膩。"}]}],
+ teach:"Damp is heavy, sticky, lingering and worse in wet weather. Cold damp has a white coat; damp-heat a yellow one.",
+ teachZ:"濕性重濁黏滯，逢陰雨加重。寒濕苔白，濕熱苔黃。"},
+
+{p:"肝火上炎 Liver Fire Flaring Upward",
+ v:"A 41-year-old man after a week of conflict at work. Splitting headache, red painful eyes, ringing ears that came on suddenly and loudly; bitter taste, dry mouth; furious temper; constipation, dark urine. Tongue: red at the edges, yellow coating. Pulse: wiry and rapid, forceful.",
+ vz:"41歲男性，職場衝突一週後。頭痛劇烈、目赤腫痛、耳鳴暴響，口苦咽乾，暴躁易怒，便秘尿黃。舌邊紅苔黃，脈弦數有力。",
+ q:[{t:"Eight Principles.",z:"八綱辨證",
+   o:[{a:"Interior · Heat · Excess 裡 · 熱 · 實",ok:1,n:"A <b>forceful</b> rapid pulse with a yellow coat and constipation = excess heat. 脈數有力、苔黃、便秘，屬實熱。"},
+      {a:"Interior · Heat · Deficiency 裡 · 熱 · 虛",ok:0,n:"Deficiency heat is thready, with night sweats and a peeled tongue. 虛熱脈細、盜汗、舌少苔。"},
+      {a:"Exterior · Heat 表 · 熱",ok:0,n:"No fever, chills or floating pulse. 無發熱惡寒、脈不浮。"}]},
+  {t:"Which organ?",z:"病在何臟？",
+   o:[{a:"Liver 肝",ok:1,n:"The Liver opens to the eyes; its channel reaches the ear and the vertex. Red eyes, sudden loud tinnitus, bitter taste, rage. 肝開竅於目，其經上耳達巔。目赤、暴鳴、口苦、暴怒。"},
+      {a:"Heart 心",ok:0,n:"Heart fire centres on the tongue tip, mouth ulcers and palpitations. 心火見舌尖紅、口舌生瘡、心悸。"},
+      {a:"Stomach 胃",ok:0,n:"Stomach fire brings bleeding gums, foul breath and strong hunger. 胃火見齒衄、口臭、消穀善飢。"}]},
+  {t:"Fire or rising Yang? Name the pattern.",z:"是火還是陽亢？證型為何？",
+   o:[{a:"肝火上炎 Liver Fire flaring",ok:1,n:"Correct — pure <b>excess</b>: sudden, loud, forceful pulse, constipation. 純實證：起病急、聲響大、脈有力、便秘。"},
+      {a:"肝陽上亢 Liver Yang rising",ok:0,n:"That is excess above on deficiency below: dizziness, weak low back and knees, a wiry but not forceful pulse. 肝陽上亢上實下虛，見眩暈、腰膝痠軟、脈弦而不甚有力。"},
+      {a:"肝鬱氣滯 Liver Qi stagnation",ok:0,n:"Stagnation alone has no heat and no forceful pulse. 氣滯無熱象、脈不數不有力。"}]}],
+ teach:"Liver Fire and rising Liver Yang share the Liver's route. Fire is loud, sudden, forceful and excess; rising Yang stands on an empty foundation below.",
+ teachZ:"肝火與肝陽同循肝經。火者急、響、有力，屬實；陽亢者下有虛本。"}
 ];
 
 /* ═════ state ═════ */
