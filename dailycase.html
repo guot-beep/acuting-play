@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
 <meta name="theme-color" content="#F2EAD8">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Daily Case 今日病例 · Apricot Grove</title>
@@ -108,10 +108,11 @@ body.nozh .zh{display:none}
   transition:.3s var(--ease);z-index:80;pointer-events:none}
 .toast.on{opacity:.95;transform:translate(-50%,0)}
 </style>
+<link rel="stylesheet" href="desktop.css">
 <script src="state.js"></script>
 <script src="data/daily-cases.js"></script>
 </head>
-<body>
+<body data-page="daily">
 <div id="app">
   <div class="seal">診</div>
   <button class="langBtn" id="langBtn">中文 ON</button>

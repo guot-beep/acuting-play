@@ -1,0 +1,211 @@
+/* ═══════════════════════════════════════════════════════════════
+   Apricot Grove 杏林行 · desktop.css
+   Adaptive layer ONLY. Everything below 900px is untouched —
+   the phone layout each page already ships stays exactly as-is.
+   Load AFTER the page's own <style>:
+       <link rel="stylesheet" href="desktop.css">
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────────────────────────
+   1 · TABLET  (720–899px)
+   Still one column, just a roomier one. Portrait iPad, split-view.
+   ───────────────────────────────────────────────────────────── */
+@media (min-width: 720px) and (max-width: 899.98px) {
+  #app { max-width: 620px; }
+  .opt, .card, .bubble, .panel, .mapbox, .bio, .answer { font-size: 1.02em; }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   2 · DESKTOP  (≥ 900px)
+   The phone column becomes a framed "cabinet" on the desk.
+   ───────────────────────────────────────────────────────────── */
+@media (min-width: 900px) {
+
+  /* ── the frame ── */
+  body {
+    align-items: center;
+    padding: 26px 0;
+    overflow: hidden;
+  }
+  #app {
+    max-width: 1120px;
+    height: min(calc(100dvh - 52px), 720px);   /* landscape cabinet, not a tall tower */
+    border-radius: 22px;
+    border: 1px solid rgba(58, 55, 48, .16);
+    box-shadow: 0 26px 78px rgba(58, 55, 48, .34), 0 2px 0 rgba(255, 255, 255, .5) inset;
+  }
+
+  /* chrome sits inside the rounded frame, not against the window edge */
+  .seal    { right: 20px; top: 18px; width: 34px; height: 34px; font-size: 19px; }
+  .langBtn,
+  .lang-toggle { left: 20px; top: 18px; padding: 6px 14px; font-size: 12px; }
+
+  /* ── generous gutters ── */
+  .screen { padding-left: 40px; padding-right: 40px; }
+
+  /* ── reading measure: prose never runs the full 1120px ──
+     English at 17px stays around 60–70 characters per line. */
+  .q, .note, .hint, .bio, .ask, .fb, .teach, .answer, .end-wrap p {
+    max-width: 660px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ── answer choices become two columns ──
+     6 options fit on one screen instead of scrolling. */
+  .opts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    max-width: 880px;
+    margin-left: auto;
+    margin-right: auto;
+    align-content: start;
+  }
+  .opt { min-height: 62px; }
+
+  /* a lone call-to-action shouldn't stretch across the whole cabinet.
+     display:block matters — buttons are inline-block by default, so once
+     they stop filling the row they would sit side by side and collide. */
+  .btn, .cta {
+    display: block;
+    max-width: 460px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .btn + .btn, .cta + .cta { margin-top: 10px; }
+  .btn-row .btn, .btn-row .cta { margin-top: 0; }
+  .btn-row { max-width: 460px; margin-left: auto; margin-right: auto; }
+
+  /* pointer devices get hover states; touch devices never did */
+  .opt:hover:not(.used),
+  .card:hover,
+  .node:hover circle.pin { filter: brightness(1.03); }
+  .opt:not(.used):hover { border-color: var(--sage-deep, #6E8B57); transform: translateY(-1px); }
+  .card:hover { transform: translateY(-2px); }
+  .opt, .card { transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease; }
+
+  /* ═══ HUB (index.html) ═══
+     Map on the left as the hero; identity, compass and the story
+     button stacked on the right. */
+  [data-page="hub"] #s4 {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, .85fr);
+    grid-template-rows: auto auto auto 1fr;
+    column-gap: 26px;
+    align-content: start;
+  }
+  [data-page="hub"] #s4 .mapbox {
+    grid-column: 1;
+    grid-row: 1 / -1;
+    align-self: center;      /* the map floats in its column instead of leaving a hole below */
+    margin-bottom: 0;
+  }
+  [data-page="hub"] #s4 .topbar   { grid-column: 2; grid-row: 1; }
+  [data-page="hub"] #s4 .panel    { grid-column: 2; grid-row: 2; }
+  [data-page="hub"] #s4 .note     { grid-column: 2; grid-row: 3; max-width: none; }
+  [data-page="hub"] #s4 #storyBtn { grid-column: 2; grid-row: 4; align-self: end; max-width: none; }
+
+  [data-page="hub"] .topbar canvas { width: 48px; height: 54px; }
+  [data-page="hub"] .topbar .stat  { min-width: 58px; }
+  [data-page="hub"] .radar-wrap svg { width: 190px; height: 190px; }
+  [data-page="hub"] .radar-wrap { gap: 18px; }
+
+  /* character select: 2 × 2 instead of a tall stack */
+  [data-page="hub"] .cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    max-width: 880px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  [data-page="hub"] .card canvas { width: 66px; height: 74px; }
+
+  /* the mentor sheet is a centred dialog, not a phone bottom-sheet */
+  [data-page="hub"] .sheet {
+    left: 50%;
+    right: auto;
+    bottom: 50%;
+    transform: translate(-50%, 50%) scale(.97);
+    width: min(560px, 90%);
+    border-radius: 20px;
+    opacity: 0;
+  }
+  [data-page="hub"] .sheet.on { transform: translate(-50%, 50%) scale(1); opacity: 1; }
+
+  /* ═══ CHAPTER ENGINE (chapter.html) ═══
+     The dialogue screen splits: cast left, speech right.
+     This is what kills the empty band in the middle. */
+  [data-page="chapter"] #s-story .scene {
+    flex-direction: row;
+    align-items: flex-end;   /* characters stand on the ground, not float mid-air */
+    justify-content: center;
+    gap: 46px;
+    padding-bottom: 54px;
+  }
+  [data-page="chapter"] #s-story .cast {
+    flex: 0 1 440px;
+    min-height: 0;
+    align-items: flex-end;
+    gap: 44px;
+  }
+  [data-page="chapter"] #s-story .bubble {
+    flex: 0 1 540px;
+    min-height: 190px;
+    max-width: 540px;
+  }
+  [data-page="chapter"] .actor canvas { width: 128px; height: 144px; }
+  [data-page="chapter"] .actor span   { font-size: 12.5px; }
+
+  /* the pulse / point-location stages get the height back */
+  .arm-stage svg { max-height: 62dvh; }
+  #pulseWrap, .pulse-figure { max-width: 720px; margin-left: auto; margin-right: auto; }
+
+  /* ending: the two reward cards sit side by side, everything else full width */
+  [data-page="chapter"] #s-end .end-wrap {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 16px;
+    justify-items: center;
+    align-content: center;
+    width: 100%;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  [data-page="chapter"] #s-end .end-wrap > *          { grid-column: 1 / -1; width: 100%; max-width: 680px; }
+  [data-page="chapter"] #s-end .end-wrap > .reward    { grid-column: auto; max-width: none; align-self: stretch; }
+  [data-page="chapter"] #s-end .end-wrap > .cta       { max-width: 420px; }
+
+  /* ═══ DAILY CASE ═══ */
+  .sharegrid, .share { max-width: 660px; margin-left: auto; margin-right: auto; }
+
+  /* ═══ DAOYIN / YIN-YANG mini-games ═══ */
+  .grid5 {
+    max-width: 620px;
+    margin-left: auto;
+    margin-right: auto;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .gain, .taiji-wrap { max-width: 620px; margin-left: auto; margin-right: auto; }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   3 · WIDE DESKTOP (≥ 1400px) — a touch more air, nothing more.
+   ───────────────────────────────────────────────────────────── */
+@media (min-width: 1400px) {
+  #app { max-width: 1240px; height: min(calc(100dvh - 52px), 760px); }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   4 · SHORT LANDSCAPE (phone held sideways, ≤ 520px tall)
+   Shrink the big decorative elements so the button stays reachable.
+   ───────────────────────────────────────────────────────────── */
+@media (max-height: 520px) and (orientation: landscape) {
+  .actor canvas { width: 54px; height: 61px; }
+  .hero canvas  { width: 72px; height: 81px; }
+  .title        { font-size: 30px; }
+  .cast         { min-height: 70px; }
+  .bubble       { min-height: 76px; }
+}

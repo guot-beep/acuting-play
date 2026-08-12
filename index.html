@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
 <meta name="theme-color" content="#F2EAD8">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Apricot Grove">
@@ -176,9 +176,10 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
   transition:.3s var(--ease);z-index:80;pointer-events:none}
 .toast.on{opacity:.95;transform:translate(-50%,0)}
 </style>
+<link rel="stylesheet" href="desktop.css">
 <script src="state.js"></script>
 </head>
-<body>
+<body data-page="hub">
 <div id="app">
   <div class="seal">杏</div>
   <button class="langBtn" id="langBtn">中文 ON</button>
@@ -234,7 +235,7 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
     <div class="panel">
       <h3>Physician's Compass 醫者五軸</h3>
       <div class="radar-wrap">
-        <svg viewBox="0 0 160 160" id="radar">
+        <svg viewBox="-9 -4 178 168" id="radar">
           <polygon class="rgrid" id="g1"/><polygon class="rgrid" id="g2"/>
           <g id="raxes"></g>
           <polygon class="rpoly" id="rpoly"/>
