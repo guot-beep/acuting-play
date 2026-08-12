@@ -31,7 +31,9 @@ body{font-family:"Songti TC","Noto Serif TC",Georgia,serif;background:#CFC3A8;co
   border:1.5px solid rgba(51,47,40,.14);border-radius:99px;padding:4px 11px;font-size:11px;font-family:inherit;
   color:var(--ink-soft);cursor:pointer;letter-spacing:.06em}
 .zh{display:block;font-size:.82em;color:var(--ink-soft);margin-top:3px;line-height:1.6}
-body.nozh .zh{display:none}
+body.nozh .zh{display:none !important}
+body.nozh .node text.sub{display:none}   /* map: Chinese sub-labels */
+body.nozh .node .glyph{display:none}     /* map: Chinese node glyphs */
 
 /* screens */
 .screen{position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;pointer-events:none;
@@ -189,14 +191,14 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
     <div style="margin:auto 0">
       <div class="eyebrow">A Chinese Medicine RPG</div>
       <h1 class="title">Apricot Grove</h1>
-      <div class="subtitle">杏林行</div>
+      <div class="subtitle zh">杏林行</div>
       <div class="rule"></div>
       <p class="q" style="font-size:15px;color:var(--ink-soft);line-height:1.9">
         A river town. An old physician who no longer takes patients.<br>And you, arriving with nothing.
         <span class="zh">一座水鄉小鎮，一位不再看診的老大夫，<br>和什麼都沒有的你。</span>
       </p>
     </div>
-    <button class="btn" id="beginBtn">Begin 啟程</button>
+    <button class="btn" id="beginBtn">Begin <span class="zh">啟程</span></button>
     <p class="note">Educational game · not medical advice</p>
   </section>
 
@@ -233,7 +235,7 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
     </div>
 
     <div class="panel">
-      <h3>Physician's Compass 醫者五軸</h3>
+      <h3>Physician's Compass<span class="zh"> 醫者五軸</span></h3>
       <div class="radar-wrap">
         <svg viewBox="-9 -4 178 168" id="radar">
           <polygon class="rgrid" id="g1"/><polygon class="rgrid" id="g2"/>
@@ -293,7 +295,7 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
     </div>
     <p class="note" style="margin-bottom:12px">The Daily Roster is open to everyone. The schools open as the story reaches them.
       <span class="zh">今日診榜人人可去；各流派則隨故事推進而開啟。</span></p>
-    <button class="btn" id="storyBtn"><span id="storyLabel">Prologue ▸</span><span style="display:block;font-size:11.5px;letter-spacing:.1em;opacity:.85;margin-top:2px" id="storySub">The First Lesson · 第一課</span></button>
+    <button class="btn" id="storyBtn"><span id="storyLabel">Prologue ▸</span><span style="display:block;font-size:11.5px;letter-spacing:.1em;opacity:.85;margin-top:2px" id="storySub">The First Lesson<span class="zh"> · 第一課</span></span></button>
   </section>
 
   <div class="scrim" id="scrim"></div>
@@ -383,25 +385,25 @@ setInterval(()=>{bob=!bob;canvases.forEach(([c,k])=>draw(c,k,bob))},580);
 
 /* ═════ data ═════ */
 const CHARS={
- yan:{name:"Yàn Sān 燕三",role:"The Reformed Thief · 俠盜",
+ yan:{name:"Yàn Sān",nameZh:"燕三",role:"The Reformed Thief",roleZh:"俠盜",
    say:'"I have watched people die in the street because no one knew what to do."',
    sayZh:"「我看過太多人死在路邊，因為沒人知道該怎麼辦。」",
    bio:"You grew up on rooftops and back alleys, quick hands and quicker eyes. You never feared a knife — but you froze the night a stranger collapsed in front of you and you had nothing to give.",
    bioZh:"你在屋頂和小巷長大，手快、眼更快。你不怕刀子——但那晚有人倒在你面前，而你什麼也給不了，你僵住了。",
-   stats:{needle:2,theory:0,dx:1,herb:0,daoyin:0},up:"Needle 針道",down:"Theory 醫理"},
- he:{name:"Ā Hé 阿禾",role:"The Apothecary's Child · 醫館學童",
+   stats:{needle:2,theory:0,dx:1,herb:0,daoyin:0},up:"Needle<span class=\"zh\"> 針道</span>",down:"Theory<span class=\"zh\"> 醫理</span>"},
+ he:{name:"Ā Hé",nameZh:"阿禾",role:"The Apothecary's Child",roleZh:"醫館學童",
    say:'"I have memorised every rhyme in the book. I have never met a single patient."',
    sayZh:"「書上的口訣我背得滾瓜爛熟。我一個病人都沒見過。」",
    bio:"Raised between drawers of dried herbs, you can recite the classics in your sleep. Yet when a real person coughs in front of you, every word leaves your head at once.",
    bioZh:"你在藥櫃之間長大，經典倒背如流。可是當一個活生生的人在你面前咳嗽，所有句子瞬間全忘了。",
    stats:{needle:0,theory:2,dx:1,herb:1,daoyin:0},up:"Theory 醫理",down:"Diagnosis 四診"},
- hu:{name:"Ā Hǔ 阿虎",role:"The Temple Fighter · 拳館弟子",
+ hu:{name:"Ā Hǔ",nameZh:"阿虎",role:"The Temple Fighter",roleZh:"拳館弟子",
    say:'"I can feel my qi move when I practise. Nobody ever told me it had a name."',
    sayZh:"「我練功的時候感覺得到氣在走。從來沒人告訴我那東西有名字。」",
    bio:"You have practised the Five Animal Frolics since you were six — tiger, deer, bear, ape, crane. Your body knows things your mouth cannot explain. Master Shen says that is either a great advantage or a great problem.",
    bioZh:"你六歲起練五禽戲——虎、鹿、熊、猿、鳥。你的身體知道很多事，嘴巴卻說不出來。參老說，這要嘛是天大的優勢，要嘛是天大的麻煩。",
    stats:{needle:1,theory:0,dx:0,herb:0,daoyin:2},up:"Cultivation 導引",down:"Naming what you feel 說不出所以然"},
- zhu:{name:"Zhú Niáng 竹娘",role:"The Mountain Disciple · 山中弟子",
+ zhu:{name:"Zhú Niáng",nameZh:"竹娘",role:"The Mountain Disciple",roleZh:"山中弟子",
    say:'"The mountain taught me which plants heal. It never taught me people."',
    sayZh:"「山裡教會我哪些草能救人。它沒教我人心。」",
    bio:"You came down from the ridge with a basket on your back, knowing every root by its season. Down here the illnesses are tangled with worry, money and family — nothing like the mountain.",
@@ -440,9 +442,9 @@ const SCHOOLS={
          {ic:"⚖️",t:"Formula Build 君臣佐使",d:"Assemble a formula by role.",go:"SOON",open:0},
          {ic:"🍲",t:"Seasonal Kitchen 節氣食療",d:"Cook for the season and the pattern.",go:"SOON",open:0}]}
 };
-const AXES=[["needle","Needle 針道","#7B8B6F"],["theory","Theory 醫理","#B08D3E"],
-            ["dx","Diagnosis 四診","#C26D4E"],["herb","Herbs 本草","#8E9E82"],
-            ["daoyin","Cultivation 導引","#8A9BB0"]];
+const AXES=[["needle","Needle<span class=\"zh\"> 針道</span>","#7B8B6F"],["theory","Theory<span class=\"zh\"> 醫理</span>","#B08D3E"],
+            ["dx","Diagnosis<span class=\"zh\"> 四診</span>","#C26D4E"],["herb","Herbs<span class=\"zh\"> 本草</span>","#8E9E82"],
+            ["daoyin","Cultivation<span class=\"zh\"> 導引</span>","#8A9BB0"]];
 const ANG=[-90,-18,54,126,198].map(d=>d*Math.PI/180);
 function penta(rad){return ANG.map((a,i)=>[80+Math.cos(a)*rad[i],80+Math.sin(a)*rad[i]].map(n=>n.toFixed(1)).join(",")).join(" ")}
 
@@ -462,7 +464,7 @@ function buildCards(){
     const b=document.createElement("button");b.className="card";
     b.innerHTML=`<canvas width="16" height="18"></canvas>
       <div class="body"><div class="say">${c.say}<span class="zh">${c.sayZh}</span></div>
-      <div class="who">${c.role}</div></div>`;
+      <div class="who">${c.role}<span class="zh"> · ${c.roleZh}</span></div></div>`;
     w.appendChild(b);reg(b.querySelector("canvas"),k);
     b.onclick=()=>{cur=k;showChar()};
   });
@@ -470,7 +472,8 @@ function buildCards(){
 /* ═════ 3 ═════ */
 function showChar(){
   const c=CHARS[cur];
-  $("heroName").textContent=c.name;$("heroRole").textContent=c.role;
+  $("heroName").innerHTML=c.name+`<span class="zh"> ${c.nameZh}</span>`;
+  $("heroRole").innerHTML=c.role+`<span class="zh"> · ${c.roleZh}</span>`;
   $("heroBio").innerHTML=`${c.bio}<span class="zh">${c.bioZh}</span>`;
   $("heroTraits").innerHTML=
     `<div class="trait up"><b>STRENGTH</b><span>${c.up}</span></div>
@@ -487,14 +490,14 @@ $("confirmBtn").onclick=()=>{
 /* ═════ 4 · hub ═════ */
 function enterHub(){
   const c=CHARS[S.char];
-  $("hubName").textContent=c.name;$("hubRole").textContent=c.role.split("·")[1].trim();
+  $("hubName").innerHTML=c.name+`<span class="zh"> ${c.nameZh}</span>`;
   $("hubXp").textContent=S.xp;
   const r=AG.rank();$("hubDay").textContent=S.streak||0;
   const dl=document.querySelector('.stat:last-child small');if(dl)dl.textContent="STREAK";
-  $("hubRole").textContent=(S.zh?r.en+" "+r.zh:r.en);
+  $("hubRole").innerHTML=r.en+`<span class="zh"> ${r.zh}</span>`;
   canvases.length=0;reg($("hubCv"),S.char);
   drawRadar();paintLocks();
-  const nc=nextChapter();$("storyLabel").textContent=nc.label;$("storySub").textContent=nc.sub;
+  const nc=nextChapter();$("storyLabel").textContent=nc.label;$("storySub").innerHTML=nc.sub;
   go("s4");
 }
 function drawRadar(){
@@ -541,10 +544,10 @@ function paintLocks(){
   ["needle","theory","dx","herb","daoyin"].forEach(k=>
     $("n-"+k).classList.toggle("lock",!AG.unlocked(k)));
 }
-function nextChapter(){ if(!S.flags.prologueDone)return{href:"prologue.html",label:"Prologue ▸",sub:"The First Lesson · 第一課"};
-  if(!S.flags.chapter01Done)return{href:"chapter.html?ch=01",label:"Chapter One ▸",sub:"A-Lian's Cough · 阿蓮的咳嗽"};
-  if(!S.flags.chapter02Done)return{href:"chapter.html?ch=02",label:"Chapter Two ▸",sub:"The Boatman's Shoulder · 船夫的肩背"};
-  return{href:"chapter.html?ch=02",label:"Replay Chapter Two ▸",sub:"More chapters are being written · 後續章節撰寫中"}; }
+function nextChapter(){ if(!S.flags.prologueDone)return{href:"prologue.html",label:"Prologue ▸",sub:'The First Lesson<span class="zh"> · 第一課</span>'};
+  if(!S.flags.chapter01Done)return{href:"chapter.html?ch=01",label:"Chapter One ▸",sub:"A-Lian's Cough<span class='zh'> · 阿蓮的咳嗽</span>"};
+  if(!S.flags.chapter02Done)return{href:"chapter.html?ch=02",label:"Chapter Two ▸",sub:"The Boatman's Shoulder<span class='zh'> · 船夫的肩背</span>"};
+  return{href:"chapter.html?ch=02",label:"Replay Chapter Two ▸",sub:'More chapters are being written<span class="zh"> · 後續章節撰寫中</span>'}; }
 const storyHref=()=>nextChapter().href;
 $("n-main").onclick=()=>{location.href=storyHref()};
 $("storyBtn").onclick=()=>{location.href=storyHref()};

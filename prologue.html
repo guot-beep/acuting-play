@@ -30,7 +30,7 @@ body{font-family:"Songti TC","Noto Serif TC",Georgia,serif;background:#CFC3A8;co
   border:1.5px solid rgba(51,47,40,.14);border-radius:99px;padding:4px 11px;font-size:11px;font-family:inherit;
   color:var(--ink-soft);cursor:pointer;letter-spacing:.06em}
 .zh{display:block;font-size:.84em;color:var(--ink-soft);margin-top:5px;line-height:1.65}
-body.nozh .zh{display:none}
+body.nozh .zh{display:none !important}
 
 /* rain */
 .rain{position:absolute;inset:0;pointer-events:none;z-index:1;opacity:0;transition:opacity 1.4s}
@@ -143,14 +143,14 @@ body.nozh .zh{display:none}
   <div class="rain" id="rain"></div>
   <div class="seal">杏</div>
   <button class="langBtn" id="langBtn">中文 ON</button>
-  <div class="chapline" id="chapline">Prologue · 序章</div>
+  <div class="chapline" id="chapline">Prologue<span class="zh"> · 序章</span></div>
 
   <!-- 1 · STORY -->
   <section class="screen on" id="s-story">
     <div class="scene">
       <div class="cast">
         <div class="actor" id="a-you"><canvas width="16" height="18"></canvas><span id="youName">You</span></div>
-        <div class="actor" id="a-shen"><canvas width="16" height="18"></canvas><span>Master Shen 參老</span></div>
+        <div class="actor" id="a-shen"><canvas width="16" height="18"></canvas><span>Master Shen<span class="zh"> 參老</span></span></div>
       </div>
       <div class="bubble" id="bubble">
         <div class="who" id="who"></div>
@@ -163,14 +163,14 @@ body.nozh .zh{display:none}
   <!-- 2 · TEACH -->
   <section class="screen" id="s-teach">
     <div class="teach">
-      <div class="tag">First Lesson · 第一課</div>
-      <h2>Landmarks 定位標誌</h2>
+      <div class="tag">First Lesson<span class="zh"> · 第一課</span></div>
+      <h2>Landmarks<span class="zh"> 定位標誌</span></h2>
       <ul>
         <li><b>1</b><div>The <b>wrist crease</b> — the line where the palm meets the forearm. Everything on the wrist is measured from here.<span class="zh">腕橫紋——手掌與前臂交界的那條線。腕部取穴都從這裡算起。</span></div></li>
         <li><b>2</b><div>The <b>thumb side</b> is called the <b>radial</b> side. The Lung channel runs down it.<span class="zh">拇指那一側稱為橈側。肺經沿著它走下來。</span></div></li>
         <li><b>3</b><div>Where the <b>radial artery beats</b> at the wrist crease — that is where we take the pulse.<span class="zh">腕橫紋橈側、橈動脈搏動之處——就是我們診脈的地方。</span></div></li>
       </ul>
-      <button class="btn" id="teachBtn">I'm ready 我明白了</button>
+      <button class="btn" id="teachBtn">I'm ready<span class="zh"> 我明白了</span></button>
     </div>
   </section>
 
@@ -196,7 +196,7 @@ body.nozh .zh{display:none}
   <!-- 4 · TRAINING -->
   <section class="screen" id="s-train">
     <div class="trainhead">
-      <div class="tag">Training Ground · 修煉場</div>
+      <div class="tag">Training Ground<span class="zh"> · 修煉場</span></div>
       <h2 id="trainTitle">Know the Landmarks</h2>
       <p id="trainDesc"></p>
       <div class="reps" id="reps"></div>
@@ -218,7 +218,7 @@ body.nozh .zh{display:none}
       <h2 id="endTitle"></h2>
       <p style="font-size:14.5px;line-height:1.85" id="endText"></p>
       <div class="card-reward">
-        <div class="rar">TECHNIQUE CARD · 心法</div>
+        <div class="rar">TECHNIQUE CARD<span class="zh"> · 心法</span></div>
         <h3>Proportional Cun 骨度分寸</h3>
         <p>Measure the body by the body. Elbow crease to wrist crease is 12 cun on every patient, tall or small.
           <span class="zh">以身度身。肘橫紋到腕橫紋，人人皆為十二寸。</span></p>
@@ -233,7 +233,7 @@ body.nozh .zh{display:none}
 <script>
 /* ═════ sprites ═════ */
 const P={K:"#2B241C",H:"#3A2E24",F:"#F0CDA8",R:"#B23A2E",D:"#7A5C3A",C:"#EFD9AE",G:"#6E8B57",B:"#5B6E86",
-         W:"#FDFBF4",Y:"#C8A44B",N:"#4A5560",M:"#9C4A2F",Q:"#E8A08C"};
+         W:"#FDFBF4",Y:"#C8A44B",N:"#4A5560",M:"#9C4A2F",Q:"#E8A08C",O:"#C77B3E"};
 const SP={
  yan:["................","....RRRRRR......","...RRRRRRRR.....","...HHHHHHHH.....","..HFFFFFFFFH....",
  "..HFKFFFFKFH....","..HFFFFFFFFH....","..HFFFQQFFFH....","...FFFFFFFF.....","....FFFFFF......",
@@ -243,6 +243,10 @@ const SP={
  "...HFKFFFFKFH...","...HFFFFFFFFH...","...HFFFQFFFH....","....FFFFFFFF....","......FFFF......",
  "....BBBBBBBB....","...BBBBBBBBBB...","..FBBWWWWBBBF...","..FBBWWWWBBBF...","...BBBBBBBBBB...",
  "....BB....BB....","....FF....FF....","................"],
+ hu:["................","....OKOKOKO.....","...OOOOOOOO.....","...HHHHHHHH.....","..HFFFFFFFFH....",
+ "..HFKFFFFKFH....","..HFFFFFFFFH....","..HFFFQQFFFH....","...FFFFFFFF.....","....FFFFFF......",
+ "...OOOFFOOO.....","..OOOOFFOOOO....",".FOOOOFFOOOOF...",".FRRRRRRRRRRF...","...OOOOOOOO.....",
+ "....OO..OO......","....KK..KK......","................"],
  zhu:["................","...YYYYYYYYYY...","..YYYYYYYYYYYY..","....HHHHHHHH....","...HFFFFFFFFH...",
  "...HFKFFFFKFH...","...HFFFFFFFFH...","...HFFFQFFFH....","....FFFFFFFF....","......FFFF......",
  "....GGGGGGGG....","...GGGGGGGGGG...","..FGGGGGGGGGGF..","..FGGGDDDDGGGF..","...GGGDDDDGGG...",
@@ -251,13 +255,15 @@ const SP={
  "...GG.GG.GG.....","...DCCCCCCD.....","..DCCCCCCCCD....","..DCWKCCWKCD....","..DCCCCCCCCD....",
  "..DCQCMMCQCD....","...DCCMMCCD.....","....DCCCCD......","...DCC..CCD.....","...DC....CD.....",
  "....D....D......","................","................"]};
-function draw(cv,key,bob){const g=SP[key],x=cv.getContext("2d");x.clearRect(0,0,16,18);
+function draw(cv,key,bob){const g=SP[key]||SP.he,x=cv.getContext("2d");x.clearRect(0,0,16,18);
   g.forEach((row,y)=>[...row].forEach((c,i)=>{if(P[c]){x.fillStyle=P[c];x.fillRect(i,Math.min(y+(bob?1:0),17),1,1)}}))}
 const $=id=>document.getElementById(id);
 const S=AG.state, save=AG.save;
 if(!S.char)S.char="he";
-const NAMES={yan:"Yàn Sān 燕三",he:"Ā Hé 阿禾",zhu:"Zhú Niáng 竹娘"};
-$("youName").textContent=NAMES[S.char]||"You";
+const NAMES={yan:['Yàn Sān','燕三'],he:['Ā Hé','阿禾'],hu:['Ā Hǔ','阿虎'],zhu:['Zhú Niáng','竹娘']};
+function charName(caps){const n=NAMES[S.char];if(!n)return caps?"YOU":"You";
+  return (caps?n[0].toUpperCase():n[0])+`<span class="zh"> ${n[1]}</span>`;}
+$("youName").innerHTML=charName(false);
 const youCv=$("a-you").querySelector("canvas"),shenCv=$("a-shen").querySelector("canvas");
 let bob=false;setInterval(()=>{bob=!bob;draw(youCv,S.char,bob);draw(shenCv,"shen",!bob)},580);
 draw(youCv,S.char,false);draw(shenCv,"shen",true);
@@ -292,7 +298,7 @@ function renderLine(){
   const en=dyn?dyn.en:l.en, zh=dyn?dyn.zh:l.zh;
   $("a-you").classList.toggle("on",l.w==="you");
   $("a-shen").classList.toggle("on",l.w==="shen");
-  $("who").textContent=l.w==="shen"?"MASTER SHEN 參老":l.w==="you"?(NAMES[S.char]||"YOU"):"—";
+  $("who").innerHTML=l.w==="shen"?'MASTER SHEN<span class="zh"> 參老</span>':l.w==="you"?charName(true):"—";
   $("line").className="line"+(l.w==="narr"?" narr":"");
   $("line").innerHTML=en+(S.zh?`<span class="zh">${zh}</span>`:"");
   $("tap").textContent=si===SCRIPT.length-1?"begin ▸":"tap ▸";

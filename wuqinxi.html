@@ -30,7 +30,7 @@ body{font-family:"Songti TC","Noto Serif TC",Georgia,serif;background:#CFC3A8;co
   border:1.5px solid rgba(51,47,40,.14);border-radius:99px;padding:4px 11px;font-size:11px;font-family:inherit;
   color:var(--ink-soft);cursor:pointer}
 .zh{display:block;font-size:.84em;color:var(--ink-soft);margin-top:4px;line-height:1.65}
-body.nozh .zh{display:none}
+body.nozh .zh{display:none !important}
 .chapline{position:relative;z-index:5;text-align:center;font-family:"Courier New",monospace;font-size:10px;
   letter-spacing:.36em;color:var(--gold);text-transform:uppercase;padding-top:calc(14px + env(safe-area-inset-top))}
 .screen{position:absolute;inset:0;z-index:3;display:none;flex-direction:column;
@@ -134,18 +134,18 @@ body.nozh .zh{display:none}
 <div id="app">
   <div class="seal">導</div>
   <button class="langBtn" id="langBtn">中文 ON</button>
-  <div class="chapline">Training Ground · 修煉場</div>
+  <div class="chapline">Training Ground<span class="zh"> · 修煉場</span></div>
 
   <!-- 1 · INTRO -->
   <section class="screen on" id="s1">
     <div class="mrow">
       <canvas id="mc1" width="16" height="18"></canvas>
-      <div class="mt"><div class="nm">Xióng Shī · 熊師</div>
+      <div class="mt"><div class="nm">Xióng Shī<span class="zh"> · 熊師</span></div>
         "Five animals. Hua Tuo watched them and built medicine out of what he saw."
         <span class="zh">「五種動物。華佗看著牠們，從中造出了一套醫術。」</span></div>
     </div>
     <div class="learn" id="learn"></div>
-    <button class="btn" id="go1">Begin the frolics ▸<small>Follow me · 跟著我做</small></button>
+    <button class="btn" id="go1">Begin the frolics ▸<small>Follow me<span class="zh"> · 跟著我做</span></small></button>
   </section>
 
   <!-- 2 · SEQUENCE -->
@@ -175,13 +175,13 @@ body.nozh .zh{display:none}
       <h2 id="rTitle"></h2>
       <p style="font-size:14.5px;line-height:1.8" id="rText"></p>
       <div class="gain">
-        <div class="rar">TECHNIQUE CARD · 心法</div>
-        <h3>Movement Opens the Channel 導引通經</h3>
+        <div class="rar">TECHNIQUE CARD<span class="zh"> · 心法</span></div>
+        <h3>Movement Opens the Channel<span class="zh"> 導引通經</span></h3>
         <p>In TCM, gentle repeated movement is one of the oldest ways to move qi and blood — care taken before illness arrives.
           <span class="zh">中醫認為，柔和而反覆的動作是行氣活血最古老的方法之一——病未至而先養。</span></p>
       </div>
-      <button class="btn" id="again">Practise again 再練一輪</button>
-      <button class="btn ghost" id="back">Back to town 回小鎮</button>
+      <button class="btn" id="again">Practise again<span class="zh"> 再練一輪</span></button>
+      <button class="btn ghost" id="back">Back to town<span class="zh"> 回小鎮</span></button>
       <p class="note">Educational game · gentle exercise information, not medical advice</p>
     </div>
   </section>
@@ -256,9 +256,9 @@ let bob=false;setInterval(()=>{bob=!bob;paintBob($("mc1"),XIONG,bob)},600);paint
 $("learn").innerHTML=BEASTS.map((b,i)=>`
   <div class="acard" style="animation-delay:${.05+i*.08}s">
     <canvas width="16" height="16"></canvas>
-    <div class="ai"><b>${b.en} ${b.zh}</b><span class="py">${b.py}</span>
+    <div class="ai"><b>${b.en}<span class="zh"> ${b.zh}</span></b><span class="py">${b.py}</span>
       <small>${b.good}<span class="zh">${b.goodZh}</span></small></div>
-    <div class="organ"><b>${b.organ}</b><small>${b.organEn}</small></div>
+    <div class="organ"><b class="zh">${b.organ}</b><small>${b.organEn}</small></div>
   </div>`).join("");
 $("learn").querySelectorAll("canvas").forEach((cv,i)=>paint(cv,A16[BEASTS[i].k],16));
 $("go1").onclick=()=>startSeq();
@@ -267,7 +267,7 @@ $("go1").onclick=()=>startSeq();
 function buildGrid(el,onTap){
   el.innerHTML=BEASTS.map((b,i)=>`
     <button class="beast" data-i="${i}"><span class="num"></span>
-      <canvas width="16" height="16"></canvas><b>${b.en}</b><small>${b.zh}</small></button>`).join("");
+      <canvas width="16" height="16"></canvas><b>${b.en}</b><small class="zh">${b.zh}</small></button>`).join("");
   el.querySelectorAll("canvas").forEach((cv,i)=>paint(cv,A16[BEASTS[i].k],16));
   el.querySelectorAll(".beast").forEach(b=>b.onclick=()=>onTap(+b.dataset.i,b));
   return [...el.querySelectorAll(".beast")];
@@ -322,7 +322,7 @@ function tapSeq(i,btn){
     seq.locked=true;
     const b=BEASTS[want];
     $("fb2").className="fb on warn";
-    $("fb2").innerHTML=`The next one was <b>${b.en} ${b.zh}</b> — ${b.move}.<br>${b.good}`+(S.zh?`<span class="zh">${b.goodZh}</span>`:"");
+    $("fb2").innerHTML=`The next one was <b>${b.en}<span class="zh"> ${b.zh}</span></b> — ${b.move}.<br>${b.good}`+(S.zh?`<span class="zh">${b.goodZh}</span>`:"");
     setTimeout(()=>finishRound(false),1100);
   }
 }
@@ -360,7 +360,7 @@ function tapMatch(i,btn){
   else{score+=4;btn.classList.add("bad");cells3[want].classList.add("good")}
   $("sc3").textContent=score;
   $("fb3").className="fb on"+(ok?"":" warn");
-  $("fb3").innerHTML=`<b>${b.en} ${b.zh} → ${b.organ} ${b.organEn}</b><br>${b.move}<br>${b.good}`
+  $("fb3").innerHTML=`<b>${b.en}<span class="zh"> ${b.zh}</span> → <span class="zh">${b.organ} </span>${b.organEn}</b><br>${b.move}<br>${b.good}`
     +(S.zh?`<span class="zh">${b.goodZh}</span>`:"");
   const last=mt.i===4;
   $("btn3").innerHTML=`<button class="btn" id="nx3">${last?"Finish ▸":"Next ▸"}</button>`;

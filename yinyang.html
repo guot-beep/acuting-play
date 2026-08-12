@@ -31,7 +31,7 @@ body{font-family:"Songti TC","Noto Serif TC",Georgia,serif;background:#CFC3A8;co
   border:1.5px solid rgba(51,47,40,.14);border-radius:99px;padding:4px 11px;font-size:11px;font-family:inherit;
   color:var(--ink-soft);cursor:pointer}
 .zh{display:block;font-size:.84em;color:var(--ink-soft);margin-top:4px;line-height:1.65}
-body.nozh .zh{display:none}
+body.nozh .zh{display:none !important}
 .chapline{position:relative;z-index:5;text-align:center;font-family:"Courier New",monospace;font-size:10px;
   letter-spacing:.36em;color:var(--gold);text-transform:uppercase;padding-top:calc(14px + env(safe-area-inset-top))}
 .screen{position:absolute;inset:0;z-index:3;display:none;flex-direction:column;
@@ -135,13 +135,13 @@ body.nozh .zh{display:none}
 <div id="app">
   <div class="seal">理</div>
   <button class="langBtn" id="langBtn">中文 ON</button>
-  <div class="chapline">Training Ground · 修煉場</div>
+  <div class="chapline">Training Ground<span class="zh"> · 修煉場</span></div>
 
   <!-- 1 · INTRO -->
   <section class="screen on" id="s1">
     <div class="mrow">
       <canvas id="mc" width="16" height="18"></canvas>
-      <div class="mt"><div class="nm">Shū Chī · 書癡</div>
+      <div class="mt"><div class="nm">Shū Chī<span class="zh"> · 書癡</span></div>
         "Everything divides into two. Not into good and bad — into which half of a pair it belongs to. Sort fast; think later."
         <span class="zh">「萬物分為二。不是分好壞，是分它屬於哪一半。先分得快，再想得深。」</span></div>
     </div>
@@ -154,8 +154,8 @@ body.nozh .zh{display:none}
     <div class="howto">
       Swipe the card — or tap a button.<span class="zh">滑動卡片，或直接按下方按鈕。</span>
       <div class="pair">
-        <div class="half y"><b>Yīn 陰</b><small>◂ SWIPE LEFT</small></div>
-        <div class="half g"><b>Yáng 陽</b><small>SWIPE RIGHT ▸</small></div>
+        <div class="half y"><b>Yīn<span class="zh"> 陰</span></b><small>◂ SWIPE LEFT</small></div>
+        <div class="half g"><b>Yáng<span class="zh"> 陽</span></b><small>SWIPE RIGHT ▸</small></div>
       </div>
     </div>
     <button class="btn" id="go">Begin sorting ▸<small>4 sets · 24 cards</small></button>
@@ -167,13 +167,13 @@ body.nozh .zh{display:none}
     <div class="setname" id="setname"></div>
     <div class="bar"><i id="barfill"></i></div>
     <div class="stage" id="stage">
-      <div class="side l"><b>YIN</b>陰 ◂</div>
-      <div class="side r"><b>YANG</b>▸ 陽</div>
+      <div class="side l"><b>YIN</b><span class="zh">陰</span> ◂</div>
+      <div class="side r"><b>YANG</b>▸ <span class="zh">陽</span></div>
     </div>
     <div class="fb idle" id="fb">Sort by nature, not by value — neither half is better.</div>
     <div class="btnsrow">
-      <button class="swipeBtn yin" id="bYin">Yin<small>陰</small></button>
-      <button class="swipeBtn yang" id="bYang">Yang<small>陽</small></button>
+      <button class="swipeBtn yin" id="bYin">Yin<small class="zh">陰</small></button>
+      <button class="swipeBtn yang" id="bYang">Yang<small class="zh">陽</small></button>
     </div>
   </section>
 
@@ -336,7 +336,7 @@ function result(){
     :'<b>Shu Chi:</b> "Look again at the ones you missed. Each mistake is a place your map is still blank."')
     +(S.zh?(n===3?'<span class="zh"><b>書癡：</b>「你沒有猶豫。很好——陰陽不是謎題，是一種看事情的習慣。」</span>'
                  :'<span class="zh"><b>書癡：</b>「再看一次錯的那幾張。每個錯處，都是你地圖上還空白的地方。」</span>'):"")
-    +`<br><br><span style="font-family:'Courier New',monospace;color:var(--terra);font-size:13.5px">${g.right} / ${TOTAL} correct · Theory 醫理 ${S.stats.theory}/4</span>`;
+    +`<br><br><span style="font-family:'Courier New',monospace;color:var(--terra);font-size:13.5px">${g.right} / ${TOTAL} correct · Theory<span class="zh"> 醫理</span> ${S.stats.theory}/4</span>`;
   if(g.missed.length){
     $("missed").style.display="block";
     $("missedList").innerHTML=g.missed.map(c=>`<b>${c.zh} ${c.en}</b> → ${c.a==="yin"?"陰":"陽"}<br>`).join("");

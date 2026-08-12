@@ -171,6 +171,7 @@
   .btn-row .ghost{background:var(--white);color:var(--ink);box-shadow:0 5px 0 rgba(58,55,48,.18), var(--shadow)}
   .btn-row .ghost:active{box-shadow:0 2px 0 rgba(58,55,48,.18)}
   .disclaimer{font-size:10.5px;color:var(--ink-soft);opacity:.7;text-align:center;margin-top:10px;line-height:1.6}
+  body.nozh .zh{display:none !important}
 </style>
 <link rel="stylesheet" href="desktop.css">
 <script src="state.js"></script>
@@ -198,7 +199,7 @@
     <div class="brand">
       <div class="eyebrow">ACUTING PLAY</div>
       <h1>Point Tap</h1>
-      <div class="sub">Learn acupuncture through play · 點穴</div>
+      <div class="sub">Learn acupuncture through play<span class="zh"> · 點穴</span></div>
     </div>
     <div class="companion-box">
       <canvas id="sprite" width="16" height="18" aria-label="Ginseng Baby"></canvas>
@@ -211,7 +212,7 @@
     <div class="meridian-card">
       <div class="row1">
         <h2>Lung Meridian</h2>
-        <span class="en">LU · 手太陰肺經</span>
+        <span class="en">LU<span class="zh"> · 手太陰肺經</span></span>
       </div>
       <div class="prog-track"><div class="prog-fill" id="prog-fill"></div></div>
       <div class="prog-label" id="prog-label">Opened 0/7 points</div>

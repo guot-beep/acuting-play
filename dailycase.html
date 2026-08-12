@@ -30,7 +30,7 @@ body{font-family:"Songti TC","Noto Serif TC",Georgia,serif;background:#CFC3A8;co
   border:1.5px solid rgba(51,47,40,.14);border-radius:99px;padding:4px 11px;font-size:11px;font-family:inherit;
   color:var(--ink-soft);cursor:pointer}
 .zh{display:block;font-size:.84em;color:var(--ink-soft);margin-top:4px;line-height:1.65}
-body.nozh .zh{display:none}
+body.nozh .zh{display:none !important}
 .chapline{position:relative;z-index:5;text-align:center;font-family:"Courier New",monospace;font-size:10px;
   letter-spacing:.34em;color:var(--gold);text-transform:uppercase;padding-top:calc(14px + env(safe-area-inset-top))}
 .screen{position:absolute;inset:0;z-index:3;display:none;flex-direction:column;
@@ -116,20 +116,20 @@ body.nozh .zh{display:none}
 <div id="app">
   <div class="seal">診</div>
   <button class="langBtn" id="langBtn">中文 ON</button>
-  <div class="chapline">Four Examinations 望聞問切</div>
+  <div class="chapline">Four Examinations<span class="zh"> 望聞問切</span></div>
 
   <!-- 1 · INTRO -->
   <section class="screen on" id="s1">
     <div class="mrow">
       <canvas id="mc" width="16" height="18"></canvas>
-      <div class="mt"><div class="nm">Jìng Gū · 靜姑</div>
+      <div class="mt"><div class="nm">Jìng Gū<span class="zh"> · 靜姑</span></div>
         "One patient a day. The same patient for every student in the world today. Tell me what you see."
         <span class="zh">「一天一個病人。今天全天下的學生，看的都是同一個人。說說你看見了什麼。」</span></div>
     </div>
     <div class="daycard">
       <div class="no" id="caseNo">CASE #1</div>
       <h1>Daily Case</h1>
-      <div class="sub">今日病例 · <span id="dateStr"></span></div>
+      <div class="sub"><span class="zh">今日病例 · </span><span id="dateStr"></span></div>
       <div class="streakRow">
         <span class="pill">🔥 <b id="streakN">0</b> day streak</span>
         <span class="pill">✓ <b id="solvedN">0</b> solved</span>
@@ -154,14 +154,14 @@ body.nozh .zh{display:none}
       <div class="grid" id="grid"></div>
       <h2 id="rt"></h2>
       <div class="answer">
-        <div class="rar">TODAY'S PATTERN · 今日答案</div>
+        <div class="rar">TODAY'S PATTERN<span class="zh"> · 今日答案</span></div>
         <h3 id="ansName"></h3>
         <p id="ansText"></p>
       </div>
       <div class="sharebox" id="sharebox"></div>
-      <button class="btn" id="shareBtn">Copy &amp; share 複製分享</button>
-      <button class="btn ghost" id="practiceBtn">Practise an old case 練習舊題<small>doesn't affect your streak · 不影響連續天數</small></button>
-      <button class="btn ghost" id="backBtn">Back to town 回小鎮</button>
+      <button class="btn" id="shareBtn">Copy &amp; share<span class="zh"> 複製分享</span></button>
+      <button class="btn ghost" id="practiceBtn">Practise an old case<span class="zh"> 練習舊題</span><small>doesn't affect your streak<span class="zh"> · 不影響連續天數</span></small></button>
+      <button class="btn ghost" id="backBtn">Back to town<span class="zh"> 回小鎮</span></button>
       <p class="note">Educational game · fictional teaching cases · not medical advice</p>
     </div>
   </section>
@@ -207,9 +207,9 @@ function renderIntro(){
     ? `<div class="fb on" style="text-align:center">You have already solved today's case.<span class="zh">今天的病例你已經看過了。</span></div>
        <button class="btn" id="seeRes">See today's result 看今日結果</button>
        <button class="btn ghost" id="pr1">Practise an old case 練習舊題</button>
-       <button class="btn ghost" id="bk1">Back to town 回小鎮</button>`
+       <button class="btn ghost" id="bk1">Back to town<span class="zh"> 回小鎮</span></button>`
     : `<button class="btn" id="startBtn">See the patient ▸<small>3 steps · about 2 minutes</small></button>
-       <button class="btn ghost" id="bk1">Back to town 回小鎮</button>`;
+       <button class="btn ghost" id="bk1">Back to town<span class="zh"> 回小鎮</span></button>`;
   const s=$("startBtn");if(s)s.onclick=()=>startCase(caseIdx,true);
   const r=$("seeRes");if(r)r.onclick=()=>{G={marks:S.dc.results[dayKey].marks,ci:caseIdx,daily:true};showResult()};
   const p=$("pr1");if(p)p.onclick=practice;
@@ -228,8 +228,8 @@ function renderStep(){
   const c=CASES[G.ci],q=c.q[G.step];
   $("steps").innerHTML=c.q.map((_,i)=>
     `<i class="${i<G.step?(G.marks[i]?'done':'miss'):i===G.step?'now':''}"></i>`).join("");
-  $("vig").innerHTML=`<div class="who">The patient 病人</div>${c.v}`+(S.zh?`<span class="zh">${c.vz}</span>`:"");
-  $("qtitle").innerHTML=`Step ${G.step+1} — ${q.t}<small>${q.z}</small>`;
+  $("vig").innerHTML=`<div class="who">The patient<span class="zh"> 病人</span></div>${c.v}`+(S.zh?`<span class="zh">${c.vz}</span>`:"");
+  $("qtitle").innerHTML=`Step ${G.step+1} — ${q.t}<small class="zh">${q.z}</small>`;
   $("opts").innerHTML=q.o.map((o,i)=>`<button class="opt" data-i="${i}">${o.a}</button>`).join("");
   $("opts").querySelectorAll(".opt").forEach(b=>b.onclick=()=>answer(+b.dataset.i,b));
   $("fb").className="fb";$("btnwrap").innerHTML="";G.locked=false;
