@@ -26,7 +26,8 @@
       v: VERSION,
       char: null,               // yan | he | zhu | hu
       mode: null,               // "beginner" | "student" — asked once, changeable any time
-      zh: true,                 // bilingual helper text on/off (global)
+      zh: false,                // English first. Chinese is an opt-in helper layer
+                                //  (Settings ⚙ → Chinese support), per the English-first audience.
       xp: 0,
       day: 1,
       stats: blankStats(),      // 0..4 per axis, shown on the radar
@@ -198,6 +199,7 @@
     // story chapters open their schools
     if (state.flags.chapter01Done && !state.unlocks.dx) { state.unlocks.dx = true; out.newUnlocks.push("dx"); }
     if (state.flags.chapter02Done && !state.unlocks.herb) { state.unlocks.herb = true; out.newUnlocks.push("herb"); }
+    if (state.flags.chapter03Done && !state.unlocks.daoyin) { state.unlocks.daoyin = true; }
 
     bumpPlayStreak();
     save();

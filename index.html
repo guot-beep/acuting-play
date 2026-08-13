@@ -146,6 +146,21 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
 .rlab{font-size:9px;fill:var(--ink-soft);font-family:"Courier New",monospace;letter-spacing:.06em}
 
 
+/* ── title screen ── */
+#s1{position:relative;overflow:hidden}
+.titlebg{position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:url("art/town-map.jpg") center 62%/cover no-repeat;opacity:.78}
+.titlebg::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(244,237,220,.80) 0%,rgba(244,237,220,.44) 40%,
+    rgba(244,237,220,.82) 76%,var(--paper) 100%)}
+.titlewrap{position:relative;z-index:2;margin:auto 0}
+.titlemascot{position:relative;z-index:2;display:block;width:118px;height:118px;
+  object-fit:cover;border-radius:50%;margin:0 auto 14px;
+  border:3px solid var(--white);box-shadow:0 6px 20px rgba(51,47,40,.26)}
+#s1 .btn,#s1 .note{position:relative;z-index:2}
+#s1 .title,#s1 .subtitle{text-shadow:0 1px 0 var(--paper),0 0 12px var(--paper)}
+@media (max-height:640px){.titlemascot{width:84px;height:84px;margin-bottom:10px}}
+
 .modepanel .modes{display:flex;gap:9px}
 .modes button{flex:1;background:var(--paper2,#F3EBD7);border:1.5px solid rgba(51,47,40,.12);
   border-radius:13px;padding:11px 10px;font-family:inherit;cursor:pointer;text-align:left;
@@ -229,7 +244,8 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
 
   <!-- ═══ 1 · TITLE ═══ -->
   <section class="screen on" id="s1">
-    <div style="margin:auto 0">
+    <div class="titlebg" aria-hidden="true"></div>
+    <div class="titlewrap">
       <div class="eyebrow">A Chinese Medicine RPG</div>
       <h1 class="title">Apricot Grove</h1>
       <div class="subtitle zh">杏林行</div>
@@ -239,6 +255,7 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
         <span class="zh">一座水鄉小鎮，一位不再看診的老大夫，<br>和什麼都沒有的你。</span>
       </p>
     </div>
+    <img class="titlemascot" src="art/mascot-jiang-run.jpg" alt="" aria-hidden="true">
     <button class="btn" id="beginBtn">Begin <span class="zh">啟程</span></button>
     <p class="note">Educational game · not medical advice</p>
   </section>
@@ -642,7 +659,8 @@ function paintModes(){
 function nextChapter(){ if(!S.flags.prologueDone)return{href:"prologue.html",label:"Prologue ▸",sub:'The First Lesson<span class="zh"> · 第一課</span>'};
   if(!S.flags.chapter01Done)return{href:"chapter.html?ch=01",label:"Chapter One ▸",sub:"A-Lian's Cough<span class='zh'> · 阿蓮的咳嗽</span>"};
   if(!S.flags.chapter02Done)return{href:"chapter.html?ch=02",label:"Chapter Two ▸",sub:"The Boatman's Shoulder<span class='zh'> · 船夫的肩背</span>"};
-  return{href:"chapter.html?ch=02",label:"Replay Chapter Two ▸",sub:'More chapters are being written<span class="zh"> · 後續章節撰寫中</span>'}; }
+  if(!S.flags.chapter03Done)return{href:"chapter.html?ch=03",label:"Chapter Three ▸",sub:"The Teahouse Keeper<span class='zh'> · 茶館的柳三娘</span>"};
+  return{href:"chapter.html?ch=03",label:"Replay Chapter Three ▸",sub:'More chapters are being written<span class="zh"> · 後續章節撰寫中</span>'}; }
 const storyHref=()=>nextChapter().href;
 $("n-main").onclick=()=>{location.href=storyHref()};
 $("storyBtn").onclick=()=>{location.href=storyHref()};
