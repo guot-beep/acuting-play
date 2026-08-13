@@ -26,6 +26,9 @@
     --seal:#A63B2A; --white:#FDFBF4; --shadow:0 4px 14px rgba(58,55,48,.16);
   }
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+/* `hidden` must win. The UA stylesheet's [hidden]{display:none} loses to any
+   author display rule, which is how a hidden plate rendered as an empty box. */
+[hidden]{display:none !important}
   html,body{height:100%}
   body{
     font-family:"Songti TC","Noto Serif TC","Georgia",serif;
@@ -321,12 +324,12 @@
   .reward p{font-size:12.5px;color:var(--ink-soft);line-height:1.6}
   .disclaimer{font-size:10.5px;color:var(--ink-soft);opacity:.7;line-height:1.6;margin-top:8px}
 </style>
-<link rel="stylesheet" href="desktop.css?v=4">
-<script src="state.js?v=4"></script>
-<script src="data/herbs.js?v=4"></script>
-<script src="hud.js?v=4"></script>
-<script src="data/chapters.js?v=4"></script>
-<script src="data/drills.js?v=4"></script>
+<link rel="stylesheet" href="desktop.css?v=6">
+<script src="state.js?v=6"></script>
+<script src="data/herbs.js?v=6"></script>
+<script src="hud.js?v=6"></script>
+<script src="data/chapters.js?v=6"></script>
+<script src="data/drills.js?v=6"></script>
 </head>
 <body data-page="chapter">
 <div id="app">
@@ -1166,9 +1169,18 @@ function paintChapterCopy(){
   const codex=(window.AG_HERBS||[]).filter(h=>h.id===CH.reward.herbId)[0];
   const hsrc=CH.reward.herbImg||(codex&&codex.img);
   const hp=$("herbPlate");
-  if(hsrc){ hi.src=hsrc; hi.alt=CH.reward.herbEn; hi.hidden=false; if(hp) hp.hidden=true; }
-  else { hi.hidden=true;
-         if(hp){ hp.textContent=(CH.reward.herbZh||CH.reward.herbEn||"").charAt(0); hp.hidden=false; } }
+  /* An image slot collapses unless a picture actually loads. A URL in the data
+     is not proof — the file can 404 — so the fallback also runs on error. */
+  function herbPlateOnly(){
+    hi.hidden=true;
+    if(hp){ hp.textContent=(CH.reward.herbZh||CH.reward.herbEn||"").charAt(0); hp.hidden=false; }
+  }
+  if(hsrc){
+    hi.onerror=herbPlateOnly;
+    hi.onload=function(){ hi.hidden=false; if(hp) hp.hidden=true; };
+    hi.alt=CH.reward.herbEn; hi.src=hsrc;
+    if(hi.complete && hi.naturalWidth) { hi.hidden=false; if(hp) hp.hidden=true; }
+  } else herbPlateOnly();
   /* a small living celebration on the ending — sprite sheet, ~90 KB, loops forever */
   const sp=$("endSprite");
   if(sp && CH.reward.sprite){ sp.style.backgroundImage=`url(${CH.reward.sprite})`; sp.hidden=false; }

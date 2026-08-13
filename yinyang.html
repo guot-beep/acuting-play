@@ -28,6 +28,9 @@
   --ease:cubic-bezier(.22,.9,.3,1);
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+/* `hidden` must win. The UA stylesheet's [hidden]{display:none} loses to any
+   author display rule, which is how a hidden plate rendered as an empty box. */
+[hidden]{display:none !important}
 html,body{height:100%}
 body{font-family:"Songti TC","Noto Serif TC",Georgia,serif;background:#CFC3A8;color:var(--ink);
   display:flex;justify-content:center;overflow:hidden}
@@ -140,10 +143,10 @@ body.nozh .zh{display:none !important}
 .missed h4{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.24em;color:var(--terra);margin-bottom:5px}
 .note{font-size:10.5px;color:var(--ink-faint);line-height:1.7;text-align:center;margin-top:8px}
 </style>
-<link rel="stylesheet" href="desktop.css?v=4">
-<script src="state.js?v=4"></script>
-<script src="data/herbs.js?v=4"></script>
-<script src="hud.js?v=4"></script>
+<link rel="stylesheet" href="desktop.css?v=6">
+<script src="state.js?v=6"></script>
+<script src="data/herbs.js?v=6"></script>
+<script src="hud.js?v=6"></script>
 </head>
 <body data-page="yinyang">
 <div id="app">

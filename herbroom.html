@@ -38,6 +38,9 @@
   --ease:cubic-bezier(.22,.9,.3,1);
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+/* `hidden` must win. The UA stylesheet's [hidden]{display:none} loses to any
+   author display rule, which is how a hidden plate rendered as an empty box. */
+[hidden]{display:none !important}
 html,body{height:100%}
 body{font-family:"Songti TC","Noto Serif TC",Georgia,serif;background:#CFC3A8;color:var(--ink);
   display:flex;justify-content:center;overflow:hidden}
@@ -149,7 +152,7 @@ h2.rt{font-size:25px;letter-spacing:.1em;text-align:center;margin:2px 0 3px}
   text-align:center;box-shadow:var(--sh-l)}
 .card .rar{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.28em;color:var(--sage-deep);
   text-transform:uppercase;margin-bottom:9px}
-.card img,.card .plate{width:100%;max-width:190px;aspect-ratio:1/1;object-fit:cover;border-radius:13px;
+.card img,.card .plate{width:100%;max-width:320px;aspect-ratio:1/1;object-fit:contain;border-radius:13px;
   margin:0 auto 10px;display:block;background:var(--paper2)}
 .card .plate{display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:60px}
 .card h3{font-size:20px;margin-bottom:4px}
@@ -191,8 +194,8 @@ h2.rt{font-size:25px;letter-spacing:.1em;text-align:center;margin:2px 0 3px}
   <section class="screen" id="s-talk">
     <div class="scrollbody">
       <div class="stage">
-        <img class="portrait" id="portrait" alt="">
-        <div class="portrait plate" id="portraitPlate" style="display:none"></div>
+        <img class="portrait" id="portrait" alt="" hidden>
+        <div class="portrait plate" id="portraitPlate" hidden></div>
         <h2 class="hname" id="hname"></h2>
         <p class="hnature" id="hnature"></p>
       </div>
@@ -222,8 +225,8 @@ h2.rt{font-size:25px;letter-spacing:.1em;text-align:center;margin:2px 0 3px}
     <div class="scrollbody">
       <div class="card">
         <div class="rar">Herb Card<span class="zh"> · 藥草卡</span></div>
-        <img id="cardImg" alt="" style="display:none">
-        <div class="plate" id="cardPlate" style="display:none"></div>
+        <img id="cardImg" alt="" hidden>
+        <div class="plate" id="cardPlate" hidden></div>
         <h3 id="cardName"></h3>
         <p class="nature" id="cardNature"></p>
         <p id="cardLine"></p>
@@ -237,11 +240,11 @@ h2.rt{font-size:25px;letter-spacing:.1em;text-align:center;margin:2px 0 3px}
   </section>
 </div>
 
-<script src="state.js?v=4"></script>
-<script src="data/herbs.js?v=4"></script>
-<script src="data/herbstory.js?v=4"></script>
-<script src="hud.js?v=4"></script>
-<link rel="stylesheet" href="desktop.css?v=4">
+<script src="state.js?v=6"></script>
+<script src="data/herbs.js?v=6"></script>
+<script src="data/herbstory.js?v=6"></script>
+<script src="hud.js?v=6"></script>
+<link rel="stylesheet" href="desktop.css?v=6">
 <script>
 const $ = id => document.getElementById(id);
 const STORY = window.AG_HERBSTORY || [];
@@ -299,8 +302,13 @@ function visit(id){
   S = { story, herb, beat: 0, qi: 0, right: 0 };
 
   const img = $("portrait"), plate = $("portraitPlate");
-  if (herb.img){ img.src = herb.img; img.style.display = ""; plate.style.display = "none"; }
-  else { img.style.display = "none"; plate.style.display = "flex"; plate.textContent = herb.zh.charAt(0); }
+  const portraitPlateOnly = () => { img.hidden = true; plate.textContent = herb.zh.charAt(0); plate.hidden = false; };
+  if (herb.img){
+    img.onerror = portraitPlateOnly;
+    img.onload  = () => { img.hidden = false; plate.hidden = true; };
+    img.alt = herb.en; img.src = herb.img;
+    if (img.complete && img.naturalWidth){ img.hidden = false; plate.hidden = true; }
+  } else portraitPlateOnly();
 
   $("hname").innerHTML   = herb.en + zhs(herb.zh);
   $("hnature").innerHTML = herb.nature + zhs(herb.natureZh);
@@ -357,8 +365,18 @@ function finish(){
   const h = S.herb, total = S.story.qs.length;
   const gain = 30 + S.right * 12;
 
-  if (h.img){ $("cardImg").src = h.img; $("cardImg").style.display = ""; $("cardPlate").style.display = "none"; }
-  else { $("cardImg").style.display = "none"; $("cardPlate").style.display = "flex"; $("cardPlate").textContent = h.zh.charAt(0); }
+  /* A full illustrated plate wins over the character crop on the big card.
+     Either way the slot collapses unless a picture actually loads — a URL in
+     the data is not proof, the file can 404. */
+  const big = h.plate || h.img;
+  const ci = $("cardImg"), cp = $("cardPlate");
+  const plateOnly = () => { ci.hidden = true; cp.textContent = h.zh.charAt(0); cp.hidden = false; };
+  if (big){
+    ci.onerror = plateOnly;
+    ci.onload  = () => { ci.hidden = false; cp.hidden = true; };
+    ci.alt = h.en; ci.src = big;
+    if (ci.complete && ci.naturalWidth){ ci.hidden = false; cp.hidden = true; }
+  } else plateOnly();
 
   $("cardName").innerHTML   = h.en + zhs(h.zh);
   $("cardNature").innerHTML = h.nature + zhs(h.natureZh);

@@ -28,6 +28,9 @@
   --ease:cubic-bezier(.22,.9,.3,1);
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+/* `hidden` must win. The UA stylesheet's [hidden]{display:none} loses to any
+   author display rule, which is how a hidden plate rendered as an empty box. */
+[hidden]{display:none !important}
 html,body{height:100%}
 body{font-family:"Songti TC","Noto Serif TC",Georgia,serif;background:#CFC3A8;color:var(--ink);
   display:flex;justify-content:center;overflow:hidden}
@@ -188,7 +191,11 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
 #s1 .eyebrow {animation-delay:.10s}
 #s1 .title   {animation-delay:.26s}
 #s1 .subtitle{animation-delay:.42s}
-#s1 .tagline {animation-delay:.80s}
+#s1 .tagline {animation-delay:.78s}
+/* the story lines are typed out one character at a time — see typeTagline() */
+#s1 .tagline .cursor{display:inline-block;width:2px;height:1em;vertical-align:-2px;
+  background:rgba(255,255,255,.8);margin-left:2px;animation:caret .8s steps(1) infinite}
+@keyframes caret{50%{opacity:0}}
 #s1 .btn     {animation-delay:1.00s}
 #s1 .note    {animation-delay:1.15s}
 @keyframes riseIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
@@ -286,10 +293,10 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
   transition:.3s var(--ease);z-index:80;pointer-events:none}
 .toast.on{opacity:.95;transform:translate(-50%,0)}
 </style>
-<link rel="stylesheet" href="desktop.css?v=4">
-<script src="state.js?v=4"></script>
-<script src="data/herbs.js?v=4"></script>
-<script src="hud.js?v=4"></script>
+<link rel="stylesheet" href="desktop.css?v=6">
+<script src="state.js?v=6"></script>
+<script src="data/herbs.js?v=6"></script>
+<script src="hud.js?v=6"></script>
 </head>
 <body data-page="hub">
 <div id="app">
@@ -722,6 +729,81 @@ $("storyBtn").onclick=()=>{location.href=storyHref()};
 
 /* resume */
 if(S.char){cur=S.char;enterHub()}
+
+/* ── the tagline types itself out ──
+   Runs on the English line and the Chinese line separately so each keeps its
+   own element (and the Chinese one stays hidden when 中文 is off). Honours
+   prefers-reduced-motion, and skips instantly if the player taps Begin. */
+(function typeTagline(){
+  var wrap = document.querySelector('#s1 .tagline');
+  if (!wrap) return;
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var zh = wrap.querySelector('.zh');
+  var enHTML = '', node;
+  for (node of Array.prototype.slice.call(wrap.childNodes)) {
+    if (node === zh) break;
+    enHTML += node.nodeType === 1 ? node.outerHTML : node.textContent;
+  }
+  var zhText = zh ? zh.innerHTML : '';
+
+  // split into a list of "atoms": a tag stays whole, a character is one step
+  function atoms(html){
+    var out = [], i = 0;
+    while (i < html.length) {
+      if (html[i] === '<') { var j = html.indexOf('>', i); if (j < 0) j = html.length - 1;
+        out.push({tag: html.slice(i, j + 1)}); i = j + 1; }
+      else { out.push({ch: html[i]}); i++; }
+    }
+    return out;
+  }
+
+  var enA = atoms(enHTML), zhA = atoms(zhText);
+  var enEl = document.createElement('span');
+  wrap.insertBefore(enEl, zh || null);
+  // clear the original English nodes, keep the .zh element in place
+  Array.prototype.slice.call(wrap.childNodes).forEach(function(n){
+    if (n !== enEl && n !== zh) wrap.removeChild(n);
+  });
+  if (zh) zh.innerHTML = '';
+
+  var caret = document.createElement('i');
+  caret.className = 'cursor';
+  wrap.appendChild(caret);
+
+  var done = false;
+  function finish(){
+    if (done) return; done = true;
+    enEl.innerHTML = enHTML; if (zh) zh.innerHTML = zhText;
+    if (caret.parentNode) caret.parentNode.removeChild(caret);
+  }
+
+  function run(list, target, speed, then){
+    var i = 0, buf = '';
+    (function step(){
+      if (done) return;
+      if (i >= list.length) { then && then(); return; }
+      var a = list[i++];
+      buf += a.tag || a.ch;
+      target.innerHTML = buf;
+      // punctuation gets a beat, so it reads like speech rather than a printer
+      var d = a.tag ? 0 : (/[.,—、。，]/.test(a.ch) ? speed * 7 : speed);
+      setTimeout(step, d);
+    })();
+  }
+
+  setTimeout(function(){
+    run(enA, enEl, 26, function(){
+      if (!zh) { finish(); return; }
+      setTimeout(function(){ run(zhA, zh, 34, finish); }, 260);
+    });
+  }, 900);
+
+  // never make someone wait for the animation
+  var b = document.getElementById('beginBtn');
+  if (b) b.addEventListener('click', finish, true);
+  document.addEventListener('keydown', function(e){ if (e.key === 'Enter') finish(); });
+})();
 </script>
 </body>
 </html>

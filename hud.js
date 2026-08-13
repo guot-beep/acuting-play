@@ -65,11 +65,15 @@
   /* the bar stays BEHIND the backdrop while a panel is open: a tap up there
      then reads as "tap outside to dismiss", which is what people expect.
      Raising it above caused a tap to close and instantly reopen the panel. */
-  .tray{position:absolute;left:0;right:0;bottom:0;z-index:90;background:var(--paper,#F4EDDC);
+  .tray{display:none;position:absolute;left:0;right:0;bottom:0;z-index:90;
+    background:var(--paper,#F4EDDC);
     border-radius:20px 20px 0 0;box-shadow:0 -14px 44px rgba(58,55,48,.3);
-    transform:translateY(102%);transition:transform .34s cubic-bezier(.22,1,.36,1);
     max-height:88%;overflow-y:auto;overscroll-behavior:contain}
-  .tray.on{transform:none}
+  /* .shown = in the DOM flow; .on = slid up. Two classes so it can still
+     animate, while a closed tray is display:none and cannot peek at all. */
+  .tray.shown{display:block;transform:translateY(102%);
+    transition:transform .34s cubic-bezier(.22,1,.36,1)}
+  .tray.shown.on{transform:none}
   .tray-in{padding:16px 18px calc(20px + env(safe-area-inset-bottom));position:relative}
   .tray-grab{width:38px;height:4px;border-radius:2px;background:rgba(58,55,48,.2);margin:0 auto 12px}
   /* the ✕ — 44px tap target, top-right, above everything in the tray */
@@ -197,11 +201,21 @@
 
     var openBy = null;   // which HUD button opened it, so that button can toggle it shut
 
-    function open(html, key){ D.getElementById("trayBody").innerHTML=html;
+    var hideT=null;
+    function open(html, key){
+      if(hideT){ clearTimeout(hideT); hideT=null; }
+      D.getElementById("trayBody").innerHTML=html;
+      tray.classList.add("shown");
+      tray.offsetHeight;                       // force layout so the slide animates
       scrim.classList.add("on"); tray.classList.add("on");
-      D.body.classList.add("tray-open"); tray.scrollTop=0; openBy=key||null; }
-    function close(){ scrim.classList.remove("on"); tray.classList.remove("on");
-      D.body.classList.remove("tray-open"); openBy=null; }
+      D.body.classList.add("tray-open"); tray.scrollTop=0; openBy=key||null;
+    }
+    function close(){
+      scrim.classList.remove("on"); tray.classList.remove("on");
+      D.body.classList.remove("tray-open"); openBy=null;
+      if(hideT) clearTimeout(hideT);
+      hideT=setTimeout(function(){ tray.classList.remove("shown"); hideT=null; }, 360);
+    }
     function isOpen(){ return tray.classList.contains("on"); }
 
     /* Closing must never depend on one element keeping one handler.
