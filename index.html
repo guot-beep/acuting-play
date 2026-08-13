@@ -173,11 +173,11 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
    button reads — the hero stays clear through the middle */
 .titlebg::after{content:"";position:absolute;inset:0;
   background:
-    linear-gradient(180deg,rgba(242,234,216,.95) 0%,rgba(242,234,216,.74) 15%,
-      rgba(242,234,216,.06) 30%, rgba(242,234,216,0) 44%,
-      rgba(40,36,30,.16) 62%, rgba(40,36,30,.58) 84%, rgba(40,36,30,.74) 100%)}
+    linear-gradient(180deg,rgba(242,234,216,.95) 0%,rgba(242,234,216,.72) 15%,
+      rgba(242,234,216,.05) 29%, rgba(28,24,18,.10) 44%,
+      rgba(28,24,18,.42) 60%, rgba(28,24,18,.66) 80%, rgba(28,24,18,.80) 100%)}
 .titlewrap{position:relative;z-index:2;margin:0;padding:2px 22px 0;text-align:center}
-.titlefoot{position:relative;z-index:2;margin-top:auto;width:100%;
+.titlefoot{position:relative;z-index:2;flex:none;width:100%;
   padding:0 22px calc(14px + env(safe-area-inset-bottom))}
 #s1 .title{font-size:min(11.2vw,44px);letter-spacing:.08em;margin:2px 0 0;white-space:nowrap}
 #s1 .subtitle{font-size:21px;letter-spacing:.42em}
@@ -208,10 +208,14 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
   .titlebg,#s1 .rule{animation:none;opacity:1;transform:none;width:52px}
   #s1 .eyebrow,#s1 .title,#s1 .subtitle,#s1 .tagline,#s1 .btn,#s1 .note{width:auto}
 }
-/* the story lines live in the dark foot, so the hero art stays uncovered */
-#s1 .tagline{font-size:14px;line-height:1.8;color:rgba(255,255,255,.88);text-align:center;
-  text-shadow:0 1px 6px rgba(40,36,30,.75);margin-bottom:14px}
-#s1 .tagline .zh{color:rgba(255,255,255,.7);font-size:12.5px}
+/* the story lines sit in the middle of the poster: margin:auto on a flex item
+   absorbs the free space above and below, so they centre between the name and
+   the button no matter how tall the screen is */
+#s1 .tagline{position:relative;z-index:2;margin:auto 0;padding:0 24px;text-align:center;
+  font-size:clamp(17px,5vw,22px);line-height:1.8;color:#fff;
+  text-shadow:0 2px 12px rgba(28,24,18,.95),0 0 30px rgba(28,24,18,.75)}
+#s1 .tagline .zh{color:rgba(255,255,255,.88);font-size:clamp(14.5px,4vw,17px);margin-top:11px;
+  text-shadow:0 2px 10px rgba(28,24,18,.95)}
 /* the strapline over the dark foot has to invert */
 #s1 .note{color:rgba(255,255,255,.72);text-shadow:0 1px 4px rgba(58,55,48,.6);margin-top:9px}
 #s1 .btn{box-shadow:0 8px 26px rgba(51,47,40,.36)}
@@ -219,7 +223,8 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
 @media (max-height:660px){
   #s1 .title{font-size:36px}
   #s1 .subtitle{font-size:18px}
-  #s1 .tagline{display:none}
+  #s1 .tagline{font-size:16px;line-height:1.7}
+  #s1 .tagline .zh{font-size:13.5px}
 }
 
 .modepanel .modes{display:flex;gap:9px}
@@ -293,10 +298,10 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
   transition:.3s var(--ease);z-index:80;pointer-events:none}
 .toast.on{opacity:.95;transform:translate(-50%,0)}
 </style>
-<link rel="stylesheet" href="desktop.css?v=6">
-<script src="state.js?v=6"></script>
-<script src="data/herbs.js?v=6"></script>
-<script src="hud.js?v=6"></script>
+<link rel="stylesheet" href="desktop.css?v=7">
+<script src="state.js?v=7"></script>
+<script src="data/herbs.js?v=7"></script>
+<script src="hud.js?v=7"></script>
 </head>
 <body data-page="hub">
 <div id="app">
@@ -312,11 +317,11 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
       <div class="subtitle zh">杏林行</div>
       <div class="rule"></div>
     </div>
+    <p class="tagline">
+      A river town. An old physician who no longer takes patients.<br>And you, arriving with nothing.
+      <span class="zh">一座水鄉小鎮，一位不再看診的老大夫，<br>和什麼都沒有的你。</span>
+    </p>
     <div class="titlefoot">
-      <p class="tagline">
-        A river town. An old physician who no longer takes patients.<br>And you, arriving with nothing.
-        <span class="zh">一座水鄉小鎮，一位不再看診的老大夫，<br>和什麼都沒有的你。</span>
-      </p>
       <button class="btn" id="beginBtn">Begin <span class="zh">啟程</span></button>
       <p class="note">Educational game · not medical advice</p>
     </div>
