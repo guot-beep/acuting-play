@@ -31,13 +31,16 @@
 /* `hidden` must win. The UA stylesheet's [hidden]{display:none} loses to any
    author display rule, which is how a hidden plate rendered as an empty box. */
 [hidden]{display:none !important}
-html,body{height:100%;max-width:100%;overflow-x:hidden}
+html,body{height:100%;max-width:100%;overflow-x:hidden;
+  /* iOS Safari remembers a per-site page zoom and can inflate text on its own;
+     pin it so the layout cannot be blown apart from outside the page */
+  -webkit-text-size-adjust:100%;text-size-adjust:100%}
 /* nothing may widen the document past the viewport — an overflowing title
    once squeezed the whole app frame to a sliver on iOS Safari */
 #app,.screen,.titlewrap,.titlefoot,#s1 .tagline{max-width:100%;min-width:0}
 body{font-family:"Songti TC","Noto Serif TC",Georgia,serif;background:#CFC3A8;color:var(--ink);
   display:flex;justify-content:center;overflow:hidden}
-#app{position:relative;width:100%;max-width:440px;height:100svh;overflow:hidden;display:flex;flex-direction:column;
+#app{position:relative;width:min(100%,440px);max-width:440px;flex:0 0 auto;min-width:0;height:100svh;overflow:hidden;display:flex;flex-direction:column;
   background:radial-gradient(ellipse 130% 50% at 50% -6%,rgba(255,255,255,.55),transparent 62%),
     repeating-linear-gradient(0deg,transparent 0 3px,rgba(120,105,80,.028) 3px 4px),
     repeating-linear-gradient(90deg,transparent 0 3px,rgba(120,105,80,.028) 3px 4px),var(--paper);
@@ -182,8 +185,9 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
 .titlewrap{position:relative;z-index:2;margin:0;padding:2px 22px 0;text-align:center}
 .titlefoot{position:relative;z-index:2;flex:none;width:100%;
   padding:0 22px calc(14px + env(safe-area-inset-bottom))}
-#s1 .title{font-size:clamp(26px,9.4vw,44px);letter-spacing:.04em;margin:2px 0 0;
-  white-space:normal;overflow-wrap:break-word;max-width:100%}
+#s1 .title{font-size:clamp(24px,8.4vw,42px);letter-spacing:.03em;margin:2px 0 0;
+  white-space:normal;overflow-wrap:break-word;word-break:normal;max-width:100%;
+  line-height:1.06}
 #s1 .subtitle{font-size:21px;letter-spacing:.42em}
 #s1 .title,#s1 .subtitle,#s1 .eyebrow{text-shadow:0 1px 0 rgba(244,237,220,.9),0 0 14px rgba(244,237,220,.85)}
 #s1 .rule{margin:9px auto;width:0;animation:ruleGrow .9s var(--ease) .55s forwards}
@@ -225,8 +229,8 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
 #s1 .btn{box-shadow:0 8px 26px rgba(51,47,40,.36)}
 /* short screens: drop the story lines rather than squash the art */
 @media (max-height:660px){
-  #s1 .title{font-size:36px}
-  #s1 .subtitle{font-size:18px}
+  #s1 .title{font-size:clamp(24px,8.4vw,34px)}
+  #s1 .subtitle{font-size:clamp(14px,4.4vw,18px)}
   #s1 .tagline{font-size:16px;line-height:1.7}
   #s1 .tagline .zh{font-size:13.5px}
 }
@@ -302,10 +306,10 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
   transition:.3s var(--ease);z-index:80;pointer-events:none}
 .toast.on{opacity:.95;transform:translate(-50%,0)}
 </style>
-<link rel="stylesheet" href="desktop.css?v=10">
-<script src="state.js?v=10"></script>
-<script src="data/herbs.js?v=10"></script>
-<script src="hud.js?v=10"></script>
+<link rel="stylesheet" href="desktop.css?v=11">
+<script src="state.js?v=11"></script>
+<script src="data/herbs.js?v=11"></script>
+<script src="hud.js?v=11"></script>
 </head>
 <body data-page="hub">
 <div id="app">
