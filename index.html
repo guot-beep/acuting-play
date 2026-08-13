@@ -306,10 +306,10 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
   transition:.3s var(--ease);z-index:80;pointer-events:none}
 .toast.on{opacity:.95;transform:translate(-50%,0)}
 </style>
-<link rel="stylesheet" href="desktop.css?v=11">
-<script src="state.js?v=11"></script>
-<script src="data/herbs.js?v=11"></script>
-<script src="hud.js?v=11"></script>
+<link rel="stylesheet" href="desktop.css?v=12">
+<script src="state.js?v=12"></script>
+<script src="data/herbs.js?v=12"></script>
+<script src="hud.js?v=12"></script>
 </head>
 <body data-page="hub">
 <div id="app">
@@ -816,6 +816,54 @@ if(S.char){cur=S.char;enterHub()}
   var b = document.getElementById('beginBtn');
   if (b) b.addEventListener('click', finish, true);
   document.addEventListener('keydown', function(e){ if (e.key === 'Enter') finish(); });
+})();
+
+/* ── ?debug=1 · on-screen diagnostics ──
+   Three blind fixes for the mobile title screen have not landed, because I
+   cannot reproduce the device. This prints the numbers that decide the layout
+   directly on the page, so one screenshot answers it. Off unless asked for. */
+(function debugPanel(){
+  if (!/[?&]debug=1/.test(location.search)) return;
+  var d = document.createElement('div');
+  d.style.cssText = 'position:fixed;left:0;right:0;top:0;z-index:99999;'
+    + 'background:rgba(20,18,14,.94);color:#8fe38f;font:12px/1.5 ui-monospace,Menlo,monospace;'
+    + 'padding:8px 10px;white-space:pre;letter-spacing:0';
+  function box(sel){
+    var e = document.querySelector(sel); if (!e) return sel + ' MISSING';
+    var r = e.getBoundingClientRect();
+    return sel + '  x' + Math.round(r.x) + ' w' + Math.round(r.width) + ' h' + Math.round(r.height);
+  }
+  function paint(){
+    var app = document.getElementById('app');
+    var cs = app ? getComputedStyle(app) : {};
+    d.textContent =
+      'screen   ' + screen.width + 'x' + screen.height + '  dpr ' + devicePixelRatio + '\n'
+    + 'inner    ' + innerWidth + 'x' + innerHeight + '\n'
+    + 'visual   ' + (window.visualViewport
+        ? Math.round(visualViewport.width) + 'x' + Math.round(visualViewport.height)
+          + '  scale ' + visualViewport.scale.toFixed(2)
+          + '  off ' + Math.round(visualViewport.offsetLeft) + ',' + Math.round(visualViewport.offsetTop)
+        : 'n/a') + '\n'
+    + 'document ' + document.documentElement.scrollWidth + ' wide  (body '
+        + document.body.scrollWidth + ')\n'
+    + box('#app') + '   css-width ' + (cs.width || '?') + '\n'
+    + box('#s1') + '\n'
+    + box('#s1 .title') + '\n'
+    + box('#s1 .tagline') + '\n'
+    + box('#beginBtn') + '\n'
+    + 'font16   ' + (function(){
+        var t = document.createElement('span');
+        t.style.cssText = 'font-size:16px;position:absolute;visibility:hidden';
+        t.textContent = 'MMMMMMMMMM';
+        document.body.appendChild(t);
+        var w = t.getBoundingClientRect().width; t.remove();
+        return Math.round(w) + 'px for 10 M at 16px  (zoom check)';
+      })();
+  }
+  document.body.appendChild(d);
+  paint();
+  addEventListener('resize', paint);
+  if (window.visualViewport) visualViewport.addEventListener('resize', paint);
 })();
 </script>
 </body>
