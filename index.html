@@ -37,7 +37,7 @@ html,body{height:100%;max-width:100%;overflow-x:hidden;
   -webkit-text-size-adjust:100%;text-size-adjust:100%}
 /* nothing may widen the document past the viewport — an overflowing title
    once squeezed the whole app frame to a sliver on iOS Safari */
-#app,.screen,.titlewrap,.titlefoot,#s1 .tagline{max-width:100%;min-width:0}
+#app,.screen,.titlecard,.titlefoot,#s1 .tagline{max-width:100%;min-width:0}
 body{font-family:"Songti TC","Noto Serif TC",Georgia,serif;background:#CFC3A8;color:var(--ink);
   display:flex;justify-content:center;overflow:hidden}
 #app{position:relative;width:min(100%,440px);max-width:440px;flex:0 0 auto;min-width:0;height:100svh;overflow:hidden;display:flex;flex-direction:column;
@@ -167,72 +167,73 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
 .rlab{font-size:9px;fill:var(--ink-soft);font-family:"Courier New",monospace;letter-spacing:.06em}
 
 
-/* ── title screen ── */
-/* The title is a poster, not a page: the hero fills the screen, the words
-   sit in the light at the top, and the only button waits at the bottom. */
-/* NOTE: do not set position here — .screen is absolutely positioned and
-   overriding it collapses the title to content height. */
-#s1{overflow:hidden;padding:calc(48px + env(safe-area-inset-top)) 0 0;justify-content:flex-start}
-.titlebg{position:absolute;inset:0;z-index:0;pointer-events:none;
-  background:url("art/cinematic-renshen.jpg") center 42%/cover no-repeat}
-/* two veils: light at the top so the title reads, deep at the foot so the
-   button reads — the hero stays clear through the middle */
-.titlebg::after{content:"";position:absolute;inset:0;
-  background:
-    linear-gradient(180deg,rgba(242,234,216,.95) 0%,rgba(242,234,216,.72) 15%,
-      rgba(242,234,216,.05) 29%, rgba(28,24,18,.10) 44%,
-      rgba(28,24,18,.42) 60%, rgba(28,24,18,.66) 80%, rgba(28,24,18,.80) 100%)}
-.titlewrap{position:relative;z-index:2;margin:0;padding:2px 22px 0;text-align:center}
-.titlefoot{position:relative;z-index:2;flex:none;width:100%;
-  padding:0 22px calc(14px + env(safe-area-inset-bottom))}
-#s1 .title{font-size:clamp(24px,8.4vw,42px);letter-spacing:.03em;margin:2px 0 0;
-  white-space:normal;overflow-wrap:break-word;word-break:normal;max-width:100%;
-  line-height:1.06}
-#s1 .subtitle{font-size:21px;letter-spacing:.42em}
-#s1 .title,#s1 .subtitle,#s1 .eyebrow{text-shadow:0 1px 0 rgba(244,237,220,.9),0 0 14px rgba(244,237,220,.85)}
-#s1 .rule{margin:9px auto;width:0;animation:ruleGrow .9s var(--ease) .55s forwards}
+/* ── title screen ──────────────────────────────────────────────────
+   Two stacked blocks, no absolute positioning: the scene on top, a paper
+   story card below. The old version was a desktop poster with text floating
+   over the art — on a portrait phone that crops the scene to a sliver and
+   leaves white text sitting on pale paper. Composition changes with the
+   shape of the screen; it is not the same picture at a different size. */
+#s1{overflow:hidden;padding:0;justify-content:flex-start;gap:0;
+  top:var(--hud-h,48px)}
+
+/* the scene — a real <img>, so object-position can keep the character framed */
+.titlescene{flex:0 0 47%;position:relative;min-height:0;overflow:hidden;
+  background:#C9BFA6}
+.titlescene img{width:100%;height:100%;object-fit:cover;object-position:50% 32%;
+  display:block;transform:scale(1.05);animation:heroIn 2.2s var(--ease) forwards}
+@keyframes heroIn{to{transform:scale(1)}}
+/* the art fades into the paper instead of ending on a hard seam */
+.titlescene::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:38%;
+  background:linear-gradient(180deg,rgba(242,234,216,0),rgba(242,234,216,.72) 62%,var(--paper) 100%)}
+
+/* the story card — ink on paper, so every word is legible */
+.titlecard{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;
+  padding:2px 24px calc(16px + env(safe-area-inset-bottom));gap:0}
+#s1 .eyebrow{color:var(--gold)}
+#s1 .title{font-size:clamp(28px,8.6vw,42px);letter-spacing:.05em;margin:4px 0 0;
+  line-height:1.08;max-width:100%;overflow-wrap:break-word}
+#s1 .subtitle{font-size:clamp(15px,4.4vw,19px);letter-spacing:.36em;margin-top:4px}
+#s1 .rule{margin:12px auto;width:0;animation:ruleGrow .9s var(--ease) .55s forwards}
 @keyframes ruleGrow{to{width:52px}}
-/* the poster assembles itself: eyebrow, then the name, then the story lines.
-   Each piece rises a few pixels into place — enough to feel alive, not busy. */
+
+/* dark ink on paper — the old white-on-paper failed contrast outright */
+#s1 .tagline{margin:2px 0 18px;max-width:34ch;text-align:center;
+  font-size:clamp(15px,4.3vw,18px);line-height:1.85;color:var(--ink-soft)}
+#s1 .tagline .zh{color:var(--ink-faint);font-size:clamp(13px,3.7vw,15px);margin-top:9px}
+#s1 .tagline .cursor{display:inline-block;width:2px;height:1em;vertical-align:-2px;
+  background:var(--ink-soft);margin-left:2px;animation:caret .8s steps(1) infinite}
+@keyframes caret{50%{opacity:0}}
+
+.titlefoot{flex:none;width:100%;max-width:400px}
+#s1 .btn{box-shadow:0 5px 0 var(--terra-deep),0 10px 26px rgba(51,47,40,.22)}
+#s1 .note{color:var(--ink-faint);margin-top:10px;font-size:11px}
+
+/* each piece rises into place — alive, not busy */
 #s1 .eyebrow,#s1 .title,#s1 .subtitle,#s1 .tagline,#s1 .btn,#s1 .note{
   opacity:0;animation:riseIn .8s var(--ease) forwards}
 #s1 .eyebrow {animation-delay:.10s}
 #s1 .title   {animation-delay:.26s}
 #s1 .subtitle{animation-delay:.42s}
 #s1 .tagline {animation-delay:.78s}
-/* the story lines are typed out one character at a time — see typeTagline() */
-#s1 .tagline .cursor{display:inline-block;width:2px;height:1em;vertical-align:-2px;
-  background:rgba(255,255,255,.8);margin-left:2px;animation:caret .8s steps(1) infinite}
-@keyframes caret{50%{opacity:0}}
 #s1 .btn     {animation-delay:1.00s}
 #s1 .note    {animation-delay:1.15s}
 @keyframes riseIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-/* the hero drifts in slowly behind it all */
-.titlebg{animation:heroIn 1.5s var(--ease) forwards;transform:scale(1.06)}
-@keyframes heroIn{to{transform:scale(1)}}
-/* respect a player who has asked their phone to stop animating */
+
 @media (prefers-reduced-motion:reduce){
   #s1 .eyebrow,#s1 .title,#s1 .subtitle,#s1 .tagline,#s1 .btn,#s1 .note,
-  .titlebg,#s1 .rule{animation:none;opacity:1;transform:none;width:52px}
-  #s1 .eyebrow,#s1 .title,#s1 .subtitle,#s1 .tagline,#s1 .btn,#s1 .note{width:auto}
+  .titlescene img{animation:none;opacity:1;transform:none}
+  #s1 .rule{animation:none;width:52px}
 }
-/* the story lines sit in the middle of the poster: margin:auto on a flex item
-   absorbs the free space above and below, so they centre between the name and
-   the button no matter how tall the screen is */
-#s1 .tagline{position:relative;z-index:2;margin:auto 0;padding:0 24px;text-align:center;
-  font-size:clamp(17px,5vw,22px);line-height:1.8;color:#fff;
-  text-shadow:0 2px 12px rgba(28,24,18,.95),0 0 30px rgba(28,24,18,.75)}
-#s1 .tagline .zh{color:rgba(255,255,255,.88);font-size:clamp(14.5px,4vw,17px);margin-top:11px;
-  text-shadow:0 2px 10px rgba(28,24,18,.95)}
-/* the strapline over the dark foot has to invert */
-#s1 .note{color:rgba(255,255,255,.72);text-shadow:0 1px 4px rgba(58,55,48,.6);margin-top:9px}
-#s1 .btn{box-shadow:0 8px 26px rgba(51,47,40,.36)}
-/* short screens: drop the story lines rather than squash the art */
-@media (max-height:660px){
-  #s1 .title{font-size:clamp(24px,8.4vw,34px)}
-  #s1 .subtitle{font-size:clamp(14px,4.4vw,18px)}
-  #s1 .tagline{font-size:16px;line-height:1.7}
-  #s1 .tagline .zh{font-size:13.5px}
+/* a short phone gives the scene less room rather than squashing the words */
+@media (max-height:680px){
+  .titlescene{flex-basis:40%}
+  #s1 .tagline{margin-bottom:12px;line-height:1.7}
+  #s1 .rule{margin:8px auto}
+}
+@media (max-height:580px){
+  .titlescene{flex-basis:32%}
+  #s1 .subtitle{display:none}
 }
 
 .modepanel .modes{display:flex;gap:9px}
@@ -306,10 +307,10 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
   transition:.3s var(--ease);z-index:80;pointer-events:none}
 .toast.on{opacity:.95;transform:translate(-50%,0)}
 </style>
-<link rel="stylesheet" href="desktop.css?v=12">
-<script src="state.js?v=12"></script>
-<script src="data/herbs.js?v=12"></script>
-<script src="hud.js?v=12"></script>
+<link rel="stylesheet" href="desktop.css?v=13">
+<script src="state.js?v=13"></script>
+<script src="data/herbs.js?v=13"></script>
+<script src="hud.js?v=13"></script>
 </head>
 <body data-page="hub">
 <div id="app">
@@ -318,20 +319,22 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
 
   <!-- ═══ 1 · TITLE ═══ -->
   <section class="screen on" id="s1">
-    <div class="titlebg" aria-hidden="true"></div>
-    <div class="titlewrap">
+    <div class="titlescene">
+      <img src="art/cinematic-renshen.jpg" alt="" aria-hidden="true">
+    </div>
+    <div class="titlecard">
       <div class="eyebrow">A Chinese Medicine RPG</div>
       <h1 class="title">Apricot Grove</h1>
       <div class="subtitle zh">杏林行</div>
       <div class="rule"></div>
-    </div>
-    <p class="tagline">
-      A river town. An old physician who no longer takes patients.<br>And you, arriving with nothing.
-      <span class="zh">一座水鄉小鎮，一位不再看診的老大夫，<br>和什麼都沒有的你。</span>
-    </p>
-    <div class="titlefoot">
-      <button class="btn" id="beginBtn">Begin <span class="zh">啟程</span></button>
-      <p class="note">Educational game · not medical advice</p>
+      <p class="tagline">
+        A river town. An old physician who no longer takes patients.<br>And you, arriving with nothing.
+        <span class="zh">一座水鄉小鎮，一位不再看診的老大夫，<br>和什麼都沒有的你。</span>
+      </p>
+      <div class="titlefoot">
+        <button class="btn" id="beginBtn">Begin <span class="zh">啟程</span></button>
+        <p class="note">Educational game · not medical advice</p>
+      </div>
     </div>
   </section>
 
