@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<!-- HTML must always be revalidated: assets are cache-busted with ?v=, but a
+     stale index.html would keep serving the old ?v= and hide every fix. -->
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta name="theme-color" content="#F2EAD8">
+<!-- bookmark / home-screen icon 書籤圖示 -->
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="art/icon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="art/icon-apple-180.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="apple-mobile-web-app-title" content="杏林行">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>The Herb Room 藥草間 · Apricot Grove</title>
+<!--
+  藥草間 · The Herb Room
+
+  One engine, many herbs. Everything a herb says lives in
+  data/herbstory.js; its name, nature and picture live in data/herbs.js.
+  Adding an herb is a data edit — no code changes here.
+
+  Shape of a visit:
+    shelf → the herb speaks (tap through) → 3 questions → card collected
+  The third question is always the caution. A beginner who only learns
+  what an herb is good for has learned the dangerous half.
+-->
+<style>
+:root{
+  --paper:#F2EAD8;--paper2:#E7DBBE;--ink:#332F28;--ink-soft:#6E675A;--ink-faint:#9A9182;
+  --sage:#7B8B6F;--sage-deep:#4E5D46;--terra:#C26D4E;--terra-deep:#9D5238;
+  --gold:#B08D3E;--seal:#A63B2A;--white:#FDFBF4;
+  --sh-s:0 2px 6px rgba(51,47,40,.1);--sh:0 5px 16px rgba(51,47,40,.14);--sh-l:0 14px 34px rgba(51,47,40,.22);
+  --ease:cubic-bezier(.22,.9,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{font-family:"Songti TC","Noto Serif TC",Georgia,serif;background:#CFC3A8;color:var(--ink);
+  display:flex;justify-content:center;overflow:hidden}
+#app{position:relative;width:100%;max-width:440px;height:100svh;overflow:hidden;display:flex;flex-direction:column;
+  background:radial-gradient(ellipse 130% 50% at 50% -6%,rgba(255,255,255,.5),transparent 62%),
+    repeating-linear-gradient(0deg,transparent 0 3px,rgba(120,105,80,.028) 3px 4px),
+    repeating-linear-gradient(90deg,transparent 0 3px,rgba(120,105,80,.028) 3px 4px),var(--paper);
+  box-shadow:0 0 44px rgba(51,47,40,.36)}
+.seal{position:absolute;right:13px;top:calc(11px + env(safe-area-inset-top));z-index:40;width:29px;height:29px;
+  background:var(--seal);color:var(--white);display:flex;align-items:center;justify-content:center;font-size:16px;
+  border-radius:4px;transform:rotate(-3deg);opacity:.85;box-shadow:inset 0 0 0 2px rgba(255,255,255,.3);pointer-events:none}
+.zh{display:block;font-size:.84em;color:var(--ink-soft);margin-top:4px;line-height:1.65}
+body.nozh .zh{display:none !important}
+
+/* the drawer wall, behind everything */
+.roombg{position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:url("art/scene-treatment.jpg") center 30%/cover no-repeat;opacity:.5}
+.roombg::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(242,234,216,.86) 0%,rgba(242,234,216,.66) 40%,rgba(242,234,216,.94) 100%)}
+
+.chapline{position:relative;z-index:5;text-align:center;font-family:"Courier New",monospace;font-size:10px;
+  letter-spacing:.36em;color:var(--gold);text-transform:uppercase;
+  padding-top:calc(8px + env(safe-area-inset-top));height:calc(26px + env(safe-area-inset-top))}
+.screen{position:absolute;inset:0;z-index:3;display:none;flex-direction:column;
+  padding:0 20px;overflow:hidden}
+/* hud.js injects its own .screen padding-top later in the head, so this rule
+   has to out-specify it or the content rides up under the chapter line */
+/* .screen is absolutely positioned, and inset:0 resolves against #app's
+   PADDING box — which starts above the HUD bar. hud.js offsets the pages it
+   knows about; this page has to offset itself. */
+body[data-page="herbroom"] .screen{top:var(--hud-h,48px);
+  padding-top:calc(10px + env(safe-area-inset-top)) !important}
+.screen.on{display:flex;animation:fade .42s var(--ease)}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}}
+/* the split every screen uses: a scrolling body and a footer never scrolled past */
+.scrollbody{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch;display:flex;flex-direction:column;padding-bottom:10px}
+.footbar{flex:none;padding:8px 0 calc(10px + env(safe-area-inset-bottom));position:relative;z-index:6;
+  background:linear-gradient(0deg,var(--paper) 62%,rgba(242,234,216,.9))}
+.footbar .btn+.btn{margin-top:8px}
+
+h2.rt{font-size:25px;letter-spacing:.1em;text-align:center;margin:2px 0 3px}
+.sub{text-align:center;font-size:12px;letter-spacing:.2em;color:var(--ink-soft);
+  font-family:"Courier New",monospace;text-transform:uppercase;margin-bottom:14px}
+
+/* ── the shelf ── */
+.shelf{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.jar{position:relative;background:var(--white);border:1.5px solid rgba(51,47,40,.12);border-radius:16px;
+  padding:10px 10px 12px;box-shadow:var(--sh);cursor:pointer;font-family:inherit;text-align:center;
+  color:var(--ink);transition:transform .18s var(--ease),box-shadow .18s var(--ease)}
+.jar:active{transform:scale(.97);box-shadow:var(--sh-s)}
+.jar img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:11px;display:block;margin-bottom:8px;
+  background:var(--paper2)}
+.jar .plate{display:flex;align-items:center;justify-content:center;width:100%;aspect-ratio:1/1;
+  border-radius:11px;background:var(--paper2);color:var(--gold);font-size:40px;margin-bottom:8px}
+.jar b{display:block;font-size:14px;line-height:1.35}
+.jar .py{display:block;font-family:"Courier New",monospace;font-size:10px;letter-spacing:.14em;
+  color:var(--ink-faint);margin-top:3px}
+.jar .tick{position:absolute;top:8px;right:8px;width:24px;height:24px;border-radius:50%;
+  background:var(--sage);color:#fff;font-size:13px;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 5px rgba(51,47,40,.25)}
+.shelfnote{font-size:12.5px;line-height:1.75;color:var(--ink-faint);text-align:center;margin:14px 0 4px}
+
+/* ── the herb speaks ── */
+.stage{flex:none;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
+  margin-bottom:14px}
+/* the herb floats in the middle of whatever room is left, never squashed */
+#s-talk .scrollbody{justify-content:center;gap:4px}
+.portrait{width:min(56vw,208px);aspect-ratio:1/1;object-fit:cover;border-radius:20px;flex:none;
+  border:3px solid var(--white);box-shadow:var(--sh-l);background:var(--paper2);
+  animation:bob 3.4s ease-in-out infinite}
+.portrait.plate{display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:74px}
+@keyframes bob{50%{transform:translateY(-6px)}}
+.hname{text-align:center;margin:12px 0 2px;font-size:22px;letter-spacing:.06em}
+.hnature{text-align:center;font-size:12px;line-height:1.7;color:var(--ink-soft);margin-bottom:12px}
+.bubble{background:var(--white);border:1.5px solid rgba(51,47,40,.11);border-radius:17px;
+  padding:15px 17px 30px;box-shadow:var(--sh);font-size:15px;line-height:1.85;cursor:pointer;
+  position:relative;width:100%}
+.bubble .zh{font-size:13px}
+.bubble .tap{position:absolute;right:14px;bottom:9px;font-family:"Courier New",monospace;font-size:10px;
+  letter-spacing:.2em;color:var(--ink-faint);animation:blink 1.5s ease-in-out infinite}
+@keyframes blink{50%{opacity:.35}}
+.dots{display:flex;gap:5px;justify-content:center;margin-top:12px}
+.dots i{width:6px;height:6px;border-radius:50%;background:rgba(51,47,40,.16)}
+.dots i.on{background:var(--gold)}
+
+/* ── questions ── */
+.qline{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.28em;color:var(--gold);
+  text-transform:uppercase;text-align:center;margin-bottom:8px}
+.q{font-size:17.5px;line-height:1.7;text-align:center;margin-bottom:14px}
+.q .zh{font-size:13.5px}
+.opts{display:flex;flex-direction:column;gap:9px}
+.opt{background:var(--white);border:1.5px solid rgba(51,47,40,.12);border-radius:14px;padding:13px 15px;
+  font-family:inherit;font-size:14.5px;line-height:1.6;text-align:left;color:var(--ink);cursor:pointer;
+  box-shadow:var(--sh-s);transition:transform .16s var(--ease),border-color .16s;min-height:52px}
+.opt:active{transform:scale(.985)}
+.opt.good{border-color:var(--sage-deep);background:rgba(123,139,111,.12)}
+.opt.bad{border-color:var(--terra);background:rgba(194,109,78,.1)}
+.opt.used{cursor:default}
+.opt .zh{font-size:12.5px}
+.fb{display:none;margin-top:12px;background:rgba(255,255,255,.72);border-left:3px solid var(--gold);
+  border-radius:0 12px 12px 0;padding:12px 14px;font-size:13.5px;line-height:1.8;color:var(--ink-soft)}
+.fb.show{display:block;animation:fade .3s var(--ease)}
+.fb b{color:var(--ink)}
+.fb.wrong{border-left-color:var(--terra)}
+
+/* ── the card ── */
+.card{background:var(--white);border:1.5px solid var(--sage);border-radius:18px;padding:16px;
+  text-align:center;box-shadow:var(--sh-l)}
+.card .rar{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.28em;color:var(--sage-deep);
+  text-transform:uppercase;margin-bottom:9px}
+.card img,.card .plate{width:100%;max-width:190px;aspect-ratio:1/1;object-fit:cover;border-radius:13px;
+  margin:0 auto 10px;display:block;background:var(--paper2)}
+.card .plate{display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:60px}
+.card h3{font-size:20px;margin-bottom:4px}
+.card .nature{font-size:12px;color:var(--ink-soft);line-height:1.7;margin-bottom:9px}
+.card p{font-size:13.5px;line-height:1.75;color:var(--ink-soft)}
+.score{text-align:center;font-family:"Courier New",monospace;font-size:12.5px;letter-spacing:.14em;
+  color:var(--gold);margin:14px 0 4px}
+
+.btn{width:100%;min-height:52px;border:none;border-radius:14px;cursor:pointer;font-family:inherit;font-size:16px;
+  letter-spacing:.14em;background:var(--terra);color:var(--white);box-shadow:0 5px 0 var(--terra-deep),var(--sh);
+  transition:transform .12s,box-shadow .12s}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 var(--terra-deep)}
+.btn.ghost{background:var(--white);color:var(--ink);box-shadow:0 5px 0 rgba(51,47,40,.13),var(--sh)}
+.btn.ghost:active{box-shadow:0 2px 0 rgba(51,47,40,.13)}
+.disclaimer{font-size:10.5px;color:var(--ink-faint);opacity:.8;line-height:1.6;margin-top:10px;text-align:center}
+</style>
+</head>
+<body data-page="herbroom">
+<div id="app">
+  <div class="roombg" aria-hidden="true"></div>
+  <div class="seal">杏</div>
+
+  <!-- ═══ shelf ═══ -->
+  <section class="screen on" id="s-shelf">
+    <div class="scrollbody">
+      <h2 class="rt">The Herb Room<span class="zh">藥草間</span></h2>
+      <p class="sub" id="sub">Meet them one at a time</p>
+      <div class="shelf" id="shelf"></div>
+      <p class="shelfnote">Each herb tells you what it is good at — and when it should not be used.
+        <span class="zh">每一味藥會說自己擅長什麼，也會說什麼時候不該用。</span></p>
+    </div>
+    <div class="footbar">
+      <button class="btn ghost" id="homeBtn">Back to town <span class="zh">回小鎮</span></button>
+      <p class="disclaimer">Educational game · fictional teaching examples · not medical advice</p>
+    </div>
+  </section>
+
+  <!-- ═══ the herb speaks ═══ -->
+  <section class="screen" id="s-talk">
+    <div class="scrollbody">
+      <div class="stage">
+        <img class="portrait" id="portrait" alt="">
+        <div class="portrait plate" id="portraitPlate" style="display:none"></div>
+        <h2 class="hname" id="hname"></h2>
+        <p class="hnature" id="hnature"></p>
+      </div>
+      <div class="bubble" id="bubble"><span id="beat"></span><span class="tap">tap ▸</span></div>
+      <div class="dots" id="dots"></div>
+    </div>
+    <div class="footbar">
+      <button class="btn ghost" id="leaveBtn">Back to the shelf <span class="zh">回藥架</span></button>
+    </div>
+  </section>
+
+  <!-- ═══ questions ═══ -->
+  <section class="screen" id="s-q">
+    <div class="scrollbody">
+      <div class="qline" id="qline"></div>
+      <p class="q" id="qText"></p>
+      <div class="opts" id="qOpts"></div>
+      <div class="fb" id="qFb"></div>
+    </div>
+    <div class="footbar">
+      <button class="btn" id="qNext" style="display:none">Continue ▸</button>
+    </div>
+  </section>
+
+  <!-- ═══ the card ═══ -->
+  <section class="screen" id="s-card">
+    <div class="scrollbody">
+      <div class="card">
+        <div class="rar">Herb Card<span class="zh"> · 藥草卡</span></div>
+        <img id="cardImg" alt="" style="display:none">
+        <div class="plate" id="cardPlate" style="display:none"></div>
+        <h3 id="cardName"></h3>
+        <p class="nature" id="cardNature"></p>
+        <p id="cardLine"></p>
+      </div>
+      <p class="score" id="score"></p>
+    </div>
+    <div class="footbar">
+      <button class="btn" id="nextHerb">Next herb ▸ <span class="zh">下一味</span></button>
+      <button class="btn ghost" id="shelfBtn">Back to the shelf <span class="zh">回藥架</span></button>
+    </div>
+  </section>
+</div>
+
+<script src="state.js?v=4"></script>
+<script src="data/herbs.js?v=4"></script>
+<script src="data/herbstory.js?v=4"></script>
+<script src="hud.js?v=4"></script>
+<link rel="stylesheet" href="desktop.css?v=4">
+<script>
+const $ = id => document.getElementById(id);
+const STORY = window.AG_HERBSTORY || [];
+const HERBS = window.AG_HERBS || [];
+const byId  = {}; HERBS.forEach(h => byId[h.id] = h);
+
+/* Chinese support is a saved preference; the HUD tray owns the switch */
+AG.applyLang && AG.applyLang();
+
+const zhs = t => t ? `<span class="zh">${t}</span>` : "";
+
+/* ── which herbs has the player already met? ──
+   The Codex reads AG.state.cards, so we store the same shape it expects. */
+function met(){
+  const out = {};
+  (AG.state.cards || []).forEach(c => {
+    const k = String((c && (c.id || c.n || c)) || "").toLowerCase();
+    HERBS.forEach(h => {
+      if (k.indexOf(h.id) >= 0 || (h.zh && k.indexOf(h.zh) >= 0) || k.indexOf(h.en.toLowerCase()) >= 0)
+        out[h.id] = true;
+    });
+  });
+  return out;
+}
+
+function setScreen(id){
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("on"));
+  $(id).classList.add("on");
+  const body = $(id).querySelector(".scrollbody");
+  if (body) body.scrollTop = 0;
+}
+
+/* ══════════ shelf ══════════ */
+function paintShelf(){
+  const own = met();
+  $("shelf").innerHTML = STORY.map(s => {
+    const h = byId[s.id]; if (!h) return "";
+    const art = h.img ? `<img src="${h.img}" alt="" loading="lazy">`
+                      : `<span class="plate">${h.zh.charAt(0)}</span>`;
+    return `<button class="jar" data-id="${s.id}">${art}`
+         + (own[s.id] ? '<span class="tick">✓</span>' : "")
+         + `<b>${h.en}${zhs(h.zh)}</b><span class="py">${h.py}</span></button>`;
+  }).join("");
+  $("shelf").querySelectorAll(".jar").forEach(b => b.onclick = () => visit(b.dataset.id));
+  $("sub").textContent = `${Object.keys(own).length} of ${STORY.length} met`;
+}
+
+/* ══════════ a visit ══════════ */
+let S = null;   // {story, herb, beat, qi, right}
+
+function visit(id){
+  const story = STORY.filter(s => s.id === id)[0];
+  const herb  = byId[id];
+  if (!story || !herb) return;
+  S = { story, herb, beat: 0, qi: 0, right: 0 };
+
+  const img = $("portrait"), plate = $("portraitPlate");
+  if (herb.img){ img.src = herb.img; img.style.display = ""; plate.style.display = "none"; }
+  else { img.style.display = "none"; plate.style.display = "flex"; plate.textContent = herb.zh.charAt(0); }
+
+  $("hname").innerHTML   = herb.en + zhs(herb.zh);
+  $("hnature").innerHTML = herb.nature + zhs(herb.natureZh);
+  paintBeat();
+  setScreen("s-talk");
+}
+
+function paintBeat(){
+  const b = S.story.beats[S.beat];
+  $("beat").innerHTML = b.en + zhs(b.zh);
+  $("dots").innerHTML = S.story.beats.map((_, i) => `<i class="${i <= S.beat ? "on" : ""}"></i>`).join("");
+}
+
+$("bubble").onclick = () => {
+  if (S.beat < S.story.beats.length - 1){ S.beat++; paintBeat(); }
+  else startQs();
+};
+
+/* ══════════ questions ══════════ */
+function startQs(){ S.qi = 0; paintQ(); setScreen("s-q"); }
+
+function paintQ(){
+  const q = S.story.qs[S.qi];
+  $("qline").textContent = `${S.herb.en} · Question ${S.qi + 1} of ${S.story.qs.length}`;
+  $("qText").innerHTML = q.q + zhs(q.cq);
+  $("qFb").className = "fb";
+  $("qNext").style.display = "none";
+  $("qOpts").innerHTML = q.opts
+    .map((o, i) => `<button class="opt" data-i="${i}">${o.t}${zhs(o.c)}</button>`).join("");
+  $("qOpts").querySelectorAll(".opt").forEach(btn => btn.onclick = () => answer(+btn.dataset.i));
+}
+
+function answer(i){
+  const q = S.story.qs[S.qi], o = q.opts[i];
+  if (o.ok) S.right++;
+  $("qOpts").querySelectorAll(".opt").forEach((btn, n) => {
+    btn.onclick = null; btn.classList.add("used");
+    if (q.opts[n].ok) btn.classList.add("good");
+    else if (n === i) btn.classList.add("bad");
+  });
+  $("qFb").innerHTML = o.note;
+  $("qFb").className = "fb show" + (o.ok ? "" : " wrong");
+  $("qNext").textContent = (S.qi < S.story.qs.length - 1) ? "Next question ▸" : "Take the card ▸";
+  $("qNext").style.display = "";
+}
+
+$("qNext").onclick = () => {
+  if (S.qi < S.story.qs.length - 1){ S.qi++; paintQ(); $("s-q").querySelector(".scrollbody").scrollTop = 0; }
+  else finish();
+};
+
+/* ══════════ the card ══════════ */
+function finish(){
+  const h = S.herb, total = S.story.qs.length;
+  const gain = 30 + S.right * 12;
+
+  if (h.img){ $("cardImg").src = h.img; $("cardImg").style.display = ""; $("cardPlate").style.display = "none"; }
+  else { $("cardImg").style.display = "none"; $("cardPlate").style.display = "flex"; $("cardPlate").textContent = h.zh.charAt(0); }
+
+  $("cardName").innerHTML   = h.en + zhs(h.zh);
+  $("cardNature").innerHTML = h.nature + zhs(h.natureZh);
+  $("cardLine").innerHTML   = S.story.card.en + zhs(S.story.card.zh);
+  $("score").textContent    = `${S.right} / ${total} · +${gain} XP`;
+
+  /* the card is stored in the shape the Herb Codex already reads */
+  const already = !!met()[h.id];
+  if (!already){
+    AG.state.cards = AG.state.cards || [];
+    AG.state.cards.push({ id: h.id, n: h.en + " " + h.zh, d: AG.gameDayKey() });
+  }
+  AG.complete({
+    activity: "herbroom_" + h.id,
+    completed: true, score: S.right, stars: S.right >= total ? 3 : (S.right >= 2 ? 2 : 1),
+    xpEarned: already ? Math.round(gain / 3) : gain,     // revisits are worth less, never zero
+    skillXp: { herb: 14 + S.right * 7 },
+    unlocks: []
+  });
+
+  const left = STORY.filter(s => !met()[s.id]);
+  $("nextHerb").style.display = left.length ? "" : "none";
+  setScreen("s-card");
+}
+
+$("nextHerb").onclick = () => {
+  const own = met();
+  const next = STORY.filter(s => !own[s.id])[0] || STORY.filter(s => s.id !== S.herb.id)[0];
+  if (next) visit(next.id); else { paintShelf(); setScreen("s-shelf"); }
+};
+$("shelfBtn").onclick = $("leaveBtn").onclick = () => { paintShelf(); setScreen("s-shelf"); };
+$("homeBtn").onclick  = () => location.href = "index.html";
+
+/* Split every screen into a scrolling body and a pinned footer where the
+   markup did not already do it — same contract as the chapter engine. */
+paintShelf();
+</script>
+</body>
+</html>

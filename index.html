@@ -3,6 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<!-- HTML must always be revalidated: assets are cache-busted with ?v=, but a
+     stale index.html would keep serving the old ?v= and hide every fix. -->
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
 <meta name="theme-color" content="#F2EAD8">
 <!-- bookmark / home-screen icon 書籤圖示 -->
 <link rel="icon" href="favicon.ico" sizes="any">
@@ -175,7 +179,28 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
 #s1 .title{font-size:min(11.2vw,44px);letter-spacing:.08em;margin:2px 0 0;white-space:nowrap}
 #s1 .subtitle{font-size:21px;letter-spacing:.42em}
 #s1 .title,#s1 .subtitle,#s1 .eyebrow{text-shadow:0 1px 0 rgba(244,237,220,.9),0 0 14px rgba(244,237,220,.85)}
-#s1 .rule{margin:9px auto}
+#s1 .rule{margin:9px auto;width:0;animation:ruleGrow .9s var(--ease) .55s forwards}
+@keyframes ruleGrow{to{width:52px}}
+/* the poster assembles itself: eyebrow, then the name, then the story lines.
+   Each piece rises a few pixels into place — enough to feel alive, not busy. */
+#s1 .eyebrow,#s1 .title,#s1 .subtitle,#s1 .tagline,#s1 .btn,#s1 .note{
+  opacity:0;animation:riseIn .8s var(--ease) forwards}
+#s1 .eyebrow {animation-delay:.10s}
+#s1 .title   {animation-delay:.26s}
+#s1 .subtitle{animation-delay:.42s}
+#s1 .tagline {animation-delay:.80s}
+#s1 .btn     {animation-delay:1.00s}
+#s1 .note    {animation-delay:1.15s}
+@keyframes riseIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+/* the hero drifts in slowly behind it all */
+.titlebg{animation:heroIn 1.5s var(--ease) forwards;transform:scale(1.06)}
+@keyframes heroIn{to{transform:scale(1)}}
+/* respect a player who has asked their phone to stop animating */
+@media (prefers-reduced-motion:reduce){
+  #s1 .eyebrow,#s1 .title,#s1 .subtitle,#s1 .tagline,#s1 .btn,#s1 .note,
+  .titlebg,#s1 .rule{animation:none;opacity:1;transform:none;width:52px}
+  #s1 .eyebrow,#s1 .title,#s1 .subtitle,#s1 .tagline,#s1 .btn,#s1 .note{width:auto}
+}
 /* the story lines live in the dark foot, so the hero art stays uncovered */
 #s1 .tagline{font-size:14px;line-height:1.8;color:rgba(255,255,255,.88);text-align:center;
   text-shadow:0 1px 6px rgba(40,36,30,.75);margin-bottom:14px}
@@ -261,10 +286,10 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
   transition:.3s var(--ease);z-index:80;pointer-events:none}
 .toast.on{opacity:.95;transform:translate(-50%,0)}
 </style>
-<link rel="stylesheet" href="desktop.css?v=2">
-<script src="state.js?v=2"></script>
-<script src="data/herbs.js?v=2"></script>
-<script src="hud.js?v=2"></script>
+<link rel="stylesheet" href="desktop.css?v=4">
+<script src="state.js?v=4"></script>
+<script src="data/herbs.js?v=4"></script>
+<script src="hud.js?v=4"></script>
 </head>
 <body data-page="hub">
 <div id="app">
@@ -541,7 +566,7 @@ const SCHOOLS={
  herb:{key:"herb",glyph:"草",school:"Materia Medica 本草方藥",mentor:"Yào Wēng · 藥翁",sprite:"yao",
   quote:'"Every plant on that hill wants to tell you something. Most students are too busy talking."',
   quoteZh:"「那座山上每一株草都想告訴你些什麼。多數學生忙著說話。」",
-  games:[{ic:"🍵",t:"Herb Codex 本草圖鑑",d:"Collect herb cards and learn their nature.",go:"SOON",open:0},
+  games:[{ic:"🍵",t:"The Herb Room 藥草間",d:"Each herb tells you what it is good at — and when not to use it.",go:"PLAY",open:1,file:"herbroom.html"},
          {ic:"⚖️",t:"Formula Build 君臣佐使",d:"Assemble a formula by role.",go:"SOON",open:0},
          {ic:"🍲",t:"Seasonal Kitchen 節氣食療",d:"Cook for the season and the pattern.",go:"SOON",open:0}]}
 };

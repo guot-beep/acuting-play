@@ -3,6 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<!-- HTML must always be revalidated: assets are cache-busted with ?v=, but a
+     stale index.html would keep serving the old ?v= and hide every fix. -->
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
 <meta name="theme-color" content="#F2EAD8">
 <!-- bookmark / home-screen icon 書籤圖示 -->
 <link rel="icon" href="favicon.ico" sizes="any">
@@ -146,10 +150,10 @@ body.nozh .zh{display:none !important}
 .card-reward p{font-size:12.5px;color:var(--ink-soft);line-height:1.65}
 .note{font-size:10.5px;color:var(--ink-faint);line-height:1.7;text-align:center;margin-top:8px}
 </style>
-<link rel="stylesheet" href="desktop.css?v=2">
-<script src="state.js?v=2"></script>
-<script src="data/herbs.js?v=2"></script>
-<script src="hud.js?v=2"></script>
+<link rel="stylesheet" href="desktop.css?v=4">
+<script src="state.js?v=4"></script>
+<script src="data/herbs.js?v=4"></script>
+<script src="hud.js?v=4"></script>
 </head>
 <body data-page="prologue">
 <div id="app">
