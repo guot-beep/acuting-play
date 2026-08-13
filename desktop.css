@@ -209,3 +209,30 @@
   .cast         { min-height: 70px; }
   .bubble       { min-height: 76px; }
 }
+
+/* ─────────────────────────────────────────────────────────────
+   5 · MODALS ON DESKTOP
+   A bottom sheet is a phone idiom. Across a 1240px landscape card it
+   reads as a stray band at the foot of the page rather than a dialog —
+   so the Retreat becomes a centred panel, matching the HUD trays.
+   ───────────────────────────────────────────────────────────── */
+@media (min-width: 900px) {
+  .retreat {
+    left: 50%;
+    right: auto;
+    bottom: 50%;
+    width: min(560px, 84%);
+    max-height: 84%;
+    border-radius: 20px;
+    transform: translate(-50%, 50%) scale(.96);
+    opacity: 0;
+    box-shadow: 0 26px 70px rgba(58, 55, 48, .38);
+  }
+  .retreat.on {
+    transform: translate(-50%, 50%) scale(1);
+    opacity: 1;
+  }
+  /* the buttons inside a centred dialog should not stretch to full width */
+  .rt-inner { padding: 24px 26px 26px; }
+  .rt-x     { top: 8px; right: 8px; }
+}

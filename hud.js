@@ -54,17 +54,27 @@
     letter-spacing:.08em;white-space:nowrap;padding:0 2px}
   .hud-xp b{color:var(--terra,#C26D4E);font-size:13px}
 
-  /* the tray that slides up */
+  /* the tray that slides up.
+     Every panel closes three ways: the ✕, the backdrop, and Esc. The ✕ is the
+     one that always works — a real <button>, so a tap can never fall through. */
   .hud-scrim{position:absolute;inset:0;z-index:88;background:rgba(58,55,48,.44);
-    opacity:0;pointer-events:none;transition:opacity .28s ease}
+    opacity:0;pointer-events:none;transition:opacity .28s ease;cursor:pointer}
   .hud-scrim.on{opacity:1;pointer-events:auto}
   .tray{position:absolute;left:0;right:0;bottom:0;z-index:90;background:var(--paper,#F4EDDC);
     border-radius:20px 20px 0 0;box-shadow:0 -14px 44px rgba(58,55,48,.3);
     transform:translateY(102%);transition:transform .34s cubic-bezier(.22,1,.36,1);
     max-height:88%;overflow-y:auto;overscroll-behavior:contain}
   .tray.on{transform:none}
-  .tray-in{padding:16px 18px calc(20px + env(safe-area-inset-bottom))}
+  .tray-in{padding:16px 18px calc(20px + env(safe-area-inset-bottom));position:relative}
   .tray-grab{width:38px;height:4px;border-radius:2px;background:rgba(58,55,48,.2);margin:0 auto 12px}
+  /* the ✕ — 44px tap target, top-right, above everything in the tray */
+  .tray-x{position:absolute;top:6px;right:8px;z-index:3;width:44px;height:44px;
+    border:none;background:rgba(255,255,255,.86);border-radius:50%;cursor:pointer;
+    font-family:inherit;font-size:20px;line-height:1;color:var(--ink-soft,#5E594E);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 1px 4px rgba(58,55,48,.16);transition:transform .14s ease}
+  .tray-x:active{transform:scale(.9)}
+  .tray h4{padding-right:48px}
   .tray h4{font-family:"Courier New",monospace;font-size:10.5px;letter-spacing:.28em;
     color:var(--gold,#B08D3E);text-transform:uppercase;margin:0 0 10px}
   .tray h4 .zh{font-family:"Songti TC",serif;letter-spacing:.06em}
@@ -166,13 +176,23 @@
     app.appendChild(bar);
 
     var scrim = el('<div class="hud-scrim" id="hudScrim"></div>');
-    var tray  = el('<aside class="tray" id="hudTray"><div class="tray-in"><div class="tray-grab"></div><div id="trayBody"></div></div></aside>');
+    var tray  = el('<aside class="tray" id="hudTray" role="dialog" aria-modal="true">'
+      + '<div class="tray-in">'
+      + '<button class="tray-x" id="trayX" aria-label="Close" title="Close">✕</button>'
+      + '<div class="tray-grab"></div><div id="trayBody"></div></div></aside>');
     app.appendChild(scrim); app.appendChild(tray);
 
     function open(html){ D.getElementById("trayBody").innerHTML=html;
-      scrim.classList.add("on"); tray.classList.add("on"); }
-    function close(){ scrim.classList.remove("on"); tray.classList.remove("on"); }
+      scrim.classList.add("on"); tray.classList.add("on");
+      D.body.classList.add("tray-open"); tray.scrollTop=0; }
+    function close(){ scrim.classList.remove("on"); tray.classList.remove("on");
+      D.body.classList.remove("tray-open"); }
+    /* three independent ways out, so no single quirk can trap the player */
+    D.getElementById("trayX").onclick=close;
     scrim.onclick=close;
+    scrim.addEventListener("touchend", function(e){ e.preventDefault(); close(); }, {passive:false});
+    D.addEventListener("keydown", function(e){ if(e.key==="Escape") close(); });
+    global.AG_closeTray=close;
 
     /* ── 己 · who you are right now ── */
     D.getElementById("hudYou").onclick=function(){

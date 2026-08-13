@@ -4,6 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#F2EAD8">
+<!-- bookmark / home-screen icon 書籤圖示 -->
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="art/icon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="art/icon-apple-180.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="apple-mobile-web-app-title" content="杏林行">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Apricot Grove">
 <title>Chapter One · Apricot Grove 杏林行</title>
@@ -111,7 +119,14 @@
     transform:translateY(102%);transition:transform .38s cubic-bezier(.22,1,.36,1);
     max-height:92%;overflow-y:auto}
   .retreat.on{transform:none}
-  .rt-inner{padding:20px 20px calc(22px + env(safe-area-inset-bottom))}
+  .rt-inner{padding:20px 20px calc(22px + env(safe-area-inset-bottom));position:relative}
+  /* same ✕ contract as the HUD trays: a real button, 44px, never trapped */
+  .rt-x{position:absolute;top:4px;right:4px;z-index:3;width:44px;height:44px;border:none;
+    background:rgba(255,255,255,.86);border-radius:50%;cursor:pointer;font-family:inherit;
+    font-size:20px;line-height:1;color:var(--ink-soft);display:flex;align-items:center;
+    justify-content:center;box-shadow:0 1px 4px rgba(58,55,48,.16);transition:transform .14s ease}
+  .rt-x:active{transform:scale(.9)}
+  .rt-head{padding-right:46px}
   .rt-head{display:flex;align-items:center;gap:12px;margin-bottom:10px}
   .rt-sprite{image-rendering:pixelated;width:44px;height:50px;flex:none}
   .rt-kicker{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.28em;color:var(--gold)}
@@ -292,6 +307,13 @@
   .cardart{display:block;width:100%;max-width:190px;aspect-ratio:1/1;object-fit:cover;
     margin:8px auto 6px;border-radius:12px;border:1px solid rgba(58,55,48,.12);
     background:var(--paper);box-shadow:0 3px 10px rgba(58,55,48,.16)}
+  /* no art yet for this herb? show a named seal-plate rather than a wrong picture */
+  .cardplate{display:flex;align-items:center;justify-content:center;width:100%;max-width:190px;
+    aspect-ratio:1/1;margin:8px auto 6px;border-radius:12px;border:1px solid rgba(58,55,48,.12);
+    background:radial-gradient(ellipse 90% 70% at 50% 30%,rgba(255,255,255,.7),transparent 70%),
+      repeating-linear-gradient(45deg,transparent 0 6px,rgba(120,105,80,.045) 6px 7px),var(--paper);
+    box-shadow:0 3px 10px rgba(58,55,48,.16);
+    font-family:"Songti TC","Noto Serif TC",serif;font-size:52px;color:var(--gold);letter-spacing:.06em}
   .reward p{font-size:12.5px;color:var(--ink-soft);line-height:1.6}
   .disclaimer{font-size:10.5px;color:var(--ink-soft);opacity:.7;line-height:1.6;margin-top:8px}
 </style>
@@ -442,6 +464,7 @@
   <div class="retreat-scrim" id="rtScrim"></div>
   <aside class="retreat" id="rt" aria-live="polite">
     <div class="rt-inner">
+      <button class="rt-x" id="rtX" aria-label="Close" title="Close">✕</button>
       <div class="rt-head">
         <canvas class="rt-sprite" width="16" height="18"></canvas>
         <div>
@@ -491,6 +514,7 @@
       <div class="reward" style="border-color:var(--sage)">
         <div class="rar" style="color:var(--sage)">HERB CARD<span class="zh"> · 藥草</span></div>
         <img id="herbImg" class="cardart" alt="" hidden>
+        <div id="herbPlate" class="cardplate" aria-hidden="true" hidden></div>
         <h3 id="herbName"></h3><p id="herbTxt"></p>
       </div>
       <button class="cta" id="againBtn">Play chapter again</button>
@@ -746,6 +770,11 @@ function closeRetreat(){
   setTimeout(()=>{ const f=RT.after; RT.after=null; wrongStreak=0; f&&f(); },300);
 }
 $("rtSkip").onclick=()=>{ wrongStreak=0; closeRetreat(); };
+$("rtX").onclick=()=>{ wrongStreak=0; closeRetreat(); };
+$("rtScrim").onclick=()=>{ wrongStreak=0; closeRetreat(); };
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape" && $("rt").classList.contains("on")){ wrongStreak=0; closeRetreat(); }
+});
 $("rtGo").onclick=()=>{ $("rtOffer").style.display="none"; $("rtPlay").style.display=""; rtStep(); };
 $("rtBack").onclick=closeRetreat;
 
@@ -826,7 +855,12 @@ function doAsk(i,btn){
   btn.classList.add("used",o.good?"good":"bad");
   if(o.good){score+=10;if(o.clue)addClue(o.clue);scored("ask")}else{slipped("ask")}
   $("askFb").className="fb show"+(o.good?"":" wrong");
-  $("askFb").innerHTML=`<b>${PT_EN}:</b> ${o.a}<span class="zh" style="display:block;font-size:12.5px;margin-top:4px">${o.ca}</span><br>${o.note}`;
+  /* a missing line must never reach the player as the word "undefined" —
+     if the data has no spoken reply, show the teaching note alone */
+  const reply = o.a ? `<b>${PT_EN}:</b> ${o.a}`
+                    + (o.ca?`<span class="zh" style="display:block;font-size:12.5px;margin-top:4px">${o.ca}</span>`:"")
+                    + "<br>" : "";
+  $("askFb").innerHTML=reply+(o.note||"");
   paintAskBtn();
   if(asked>=3){$("askOpts").querySelectorAll(".opt").forEach(b=>b.classList.add("used"))}
 }
@@ -1112,7 +1146,10 @@ function paintChapterCopy(){
   const hi=$("herbImg");
   const codex=(window.AG_HERBS||[]).filter(h=>h.id===CH.reward.herbId)[0];
   const hsrc=CH.reward.herbImg||(codex&&codex.img);
-  if(hsrc){ hi.src=hsrc; hi.alt=CH.reward.herbEn; hi.hidden=false; } else hi.hidden=true;
+  const hp=$("herbPlate");
+  if(hsrc){ hi.src=hsrc; hi.alt=CH.reward.herbEn; hi.hidden=false; if(hp) hp.hidden=true; }
+  else { hi.hidden=true;
+         if(hp){ hp.textContent=(CH.reward.herbZh||CH.reward.herbEn||"").charAt(0); hp.hidden=false; } }
   /* a small living celebration on the ending — sprite sheet, ~90 KB, loops forever */
   const sp=$("endSprite");
   if(sp && CH.reward.sprite){ sp.style.backgroundImage=`url(${CH.reward.sprite})`; sp.hidden=false; }
