@@ -73,8 +73,11 @@ body.nozh .zh{display:none !important}
 .teach h2{font-size:23px;text-align:center;letter-spacing:.1em;margin:4px 0 12px}
 .teach ul{list-style:none;display:flex;flex-direction:column;gap:11px}
 .teach li{display:flex;gap:11px;align-items:flex-start;font-size:14px;line-height:1.7}
-.teach li b{flex:none;width:24px;height:24px;border-radius:7px;background:var(--paper2);display:flex;
+/* only the numbered badge — the direct child. Inline <b> terms inside the
+   text must stay inline, or every emphasised phrase gets crushed into a box. */
+.teach li > b{flex:none;width:24px;height:24px;border-radius:7px;background:var(--paper2);display:flex;
   align-items:center;justify-content:center;font-size:13px;color:var(--sage-deep)}
+.teach li div b{color:var(--sage-deep);font-weight:600}
 .teach .zh{font-size:12.5px}
 
 /* task */
