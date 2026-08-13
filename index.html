@@ -157,9 +157,13 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
 .modes button.on b{color:var(--sage-deep)}
 
 /* ── map ── */
-.mapbox{position:relative;flex:none;background:linear-gradient(180deg,#EFE6CE,#E6DABC);border:1.5px solid rgba(51,47,40,.12);
+.mapbox{position:relative;flex:none;background:#E6DABC url("art/town-map.jpg") center/cover no-repeat;border:1.5px solid rgba(51,47,40,.12);
   border-radius:16px;overflow:hidden;box-shadow:var(--sh);margin-bottom:12px}
 .mapbox svg.scene{display:block;width:100%;height:auto}
+/* the painted scene carries the place; the code only draws the markers */
+.node circle.pin{filter:drop-shadow(0 1px 3px rgba(58,55,48,.35))}
+.node text{paint-order:stroke;stroke:rgba(244,237,220,.9);stroke-width:3px;stroke-linejoin:round}
+.node text.sub{stroke-width:2.5px}
 .node{cursor:pointer}
 .node .hit{fill:transparent;pointer-events:all}   /* invisible, but tappable */
 .node:active .hit{fill:rgba(58,55,48,.05)}
@@ -215,6 +219,7 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
 </style>
 <link rel="stylesheet" href="desktop.css">
 <script src="state.js"></script>
+<script src="data/herbs.js"></script>
 <script src="hud.js"></script>
 </head>
 <body data-page="hub">
@@ -314,19 +319,9 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
 
     <div class="mapbox">
       <svg class="scene" viewBox="0 0 400 250">
-        <defs>
-          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#F3EBD5"/><stop offset="1" stop-color="#E6DABC"/></linearGradient>
-        </defs>
-        <rect width="400" height="250" fill="url(#sky)"/>
-        <path d="M0 92 Q46 44 88 84 Q108 40 140 26 Q178 62 196 96 Q236 34 268 68 Q300 92 318 122 Q346 62 380 86 Q396 96 400 88 L400 0 L0 0 Z" fill="#B9C0AC" opacity=".42"/>
-        <path d="M0 118 Q58 84 106 110 Q156 76 206 120 Q258 88 306 124 Q360 92 400 116 L400 0 L0 0 Z" fill="#98A78C" opacity=".3"/>
-        <path d="M0 176 Q100 160 200 176 Q300 192 400 172 L400 250 L0 250 Z" fill="#AFC0C4" opacity=".45"/>
-        <path d="M0 184 Q100 170 200 184 Q300 198 400 180" fill="none" stroke="#8FA5AB" stroke-width="1.4" opacity=".6"/>
-        <g opacity=".5" fill="none" stroke="#B3A88C" stroke-width="1.4">
-          <path d="M22 44 q-6-12 6-15 q2-11 15-8 q7-8 17-2"/>
-          <path d="M300 40 q-6-11 6-14 q2-10 14-7 q7-7 16-2"/>
-        </g>
+        <!-- scenery now comes from art/town-map.jpg on .mapbox;
+             this SVG carries only the interactive markers -->
+        <rect width="400" height="250" fill="none"/>
         <g class="node daily" id="n-daily">
           <circle class="ping" cx="200" cy="196" r="12"/>
           <circle class="pin" cx="200" cy="196" r="12"/>

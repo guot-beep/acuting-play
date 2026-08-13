@@ -35,7 +35,10 @@
   .backdrop svg,.backdrop img{position:absolute;left:0;width:100%;display:block}
   .backdrop .far {top:0;height:58%}
   .backdrop .near{bottom:0;height:46%}
-  .backdrop img{inset:0;height:100%;object-fit:cover;opacity:.9}
+  .backdrop img{inset:0;height:100%;object-fit:cover;object-position:center 38%;opacity:1}
+  /* a soft paper veil so speech stays legible over painted scenery */
+  .backdrop::after{content:"";position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(180deg,rgba(244,237,220,.10) 0%,rgba(244,237,220,.34) 46%,rgba(244,237,220,.72) 100%)}
   .seal{position:absolute;right:12px;top:calc(10px + env(safe-area-inset-top));z-index:9;
     width:30px;height:30px;background:var(--seal);color:var(--white);display:flex;align-items:center;
     justify-content:center;font-size:17px;border-radius:4px;transform:rotate(-3deg);opacity:.85;
@@ -65,7 +68,8 @@
   .actor{display:flex;flex-direction:column;align-items:center;gap:6px;opacity:.45;transition:opacity .3s,transform .3s}
   .actor.speaking{opacity:1;transform:translateY(-4px)}
   .actor canvas{image-rendering:pixelated;width:80px;height:90px;filter:drop-shadow(0 5px 5px rgba(58,55,48,.22))}
-  .actor span{font-size:11px;color:var(--ink-soft);letter-spacing:.12em}
+  .actor span{font-size:11px;color:var(--ink);letter-spacing:.12em;
+    text-shadow:0 0 4px var(--paper),0 0 8px var(--paper),0 1px 0 var(--paper)}
   .bubble{
     background:var(--white);border:1.5px solid rgba(58,55,48,.14);border-radius:14px;
     padding:14px 16px;box-shadow:var(--shadow);min-height:104px;position:relative
@@ -289,6 +293,7 @@
 </style>
 <link rel="stylesheet" href="desktop.css">
 <script src="state.js"></script>
+<script src="data/herbs.js"></script>
 <script src="hud.js"></script>
 <script src="data/chapters.js"></script>
 <script src="data/drills.js"></script>
@@ -1067,6 +1072,9 @@ function ending(){
   const n=pct>=.85?3:pct>=.6?2:1;
   const gained=Math.round(score*0.9)+(n===3?60:n===2?30:10);
   const retreats=Object.keys(retreatDone).length;
+  if(CH.reward.herbId && !(S.cards||[]).some(c=>c && c.id===CH.reward.herbId)){
+    S.cards.push({id:CH.reward.herbId, n:CH.reward.herbEn, d:AG.gameDayKey(), source:"chapter_"+CH_ID});
+  }
   const report=AG.complete({
     activity:"chapter_"+CH_ID, completed:true, score:score, stars:n,
     xpEarned:gained,
@@ -1098,8 +1106,9 @@ function paintChapterCopy(){
   $("cardName").innerHTML=CH.reward.cardEn+zhs(CH.reward.cardZh);$("cardTxt").innerHTML=CH.reward.cardTxt;
   $("herbName").innerHTML=CH.reward.herbEn+zhs(CH.reward.herbZh);$("herbTxt").innerHTML=CH.reward.herbTxt;
   const hi=$("herbImg");
-  if(CH.reward.herbImg){ hi.src=CH.reward.herbImg; hi.alt=CH.reward.herbEn; hi.hidden=false; }
-  else hi.hidden=true;
+  const codex=(window.AG_HERBS||[]).filter(h=>h.id===CH.reward.herbId)[0];
+  const hsrc=CH.reward.herbImg||(codex&&codex.img);
+  if(hsrc){ hi.src=hsrc; hi.alt=CH.reward.herbEn; hi.hidden=false; } else hi.hidden=true;
   /* a small living celebration on the ending — sprite sheet, ~90 KB, loops forever */
   const sp=$("endSprite");
   if(sp && CH.reward.sprite){ sp.style.backgroundImage=`url(${CH.reward.sprite})`; sp.hidden=false; }

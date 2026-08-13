@@ -97,6 +97,29 @@
   .tray-card .ic{font-size:19px;display:block;margin-bottom:3px;font-family:"Songti TC",serif}
   .tray-card small{display:block;margin-top:3px;font-size:10.5px;color:var(--ink-faint,#8A8578)}
   .tray-empty{font-size:13px;color:var(--ink-faint,#8A8578);line-height:1.7}
+  /* herb codex */
+  .codex{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px}
+  .herbcell{background:var(--white,#fff);border:1.5px solid rgba(58,55,48,.1);border-radius:12px;
+    padding:7px 5px 8px;font-family:inherit;cursor:pointer;text-align:center;color:var(--ink,#3A3730)}
+  .herbcell img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:8px;display:block;margin-bottom:5px}
+  .herbcell .qm{display:flex;align-items:center;justify-content:center;width:100%;aspect-ratio:1/1;
+    border-radius:8px;background:rgba(58,55,48,.05);color:var(--ink-faint,#8A8578);
+    font-size:22px;margin-bottom:5px}
+  .herbcell b{display:block;font-size:11px;line-height:1.3}
+  .herbcell .zh{display:block;font-size:10.5px;color:var(--ink-soft,#5E594E);margin-top:1px}
+  .herbcell .qm.plate{background:rgba(176,141,62,.12);color:var(--gold,#B08D3E);
+    font-family:"Songti TC",serif;font-size:26px}
+  .herbcell.locked{border-style:dashed;background:rgba(58,55,48,.03)}
+  .herbcell.locked b{color:var(--ink-faint,#8A8578);letter-spacing:.14em}
+  .herbcell:active{transform:scale(.96)}
+  .herbdetail{display:none;margin-top:10px;padding:12px 14px;border-radius:12px;
+    background:rgba(123,139,111,.09);border-left:3px solid var(--sage,#7B8B6F);
+    font-size:13px;line-height:1.7;color:var(--ink-soft,#5E594E)}
+  .herbdetail.on{display:block;animation:reactIn .26s ease}
+  .herbdetail b{color:var(--ink,#3A3730);font-size:15px}
+  .herbdetail i{color:var(--gold,#B08D3E);font-style:normal;font-size:12.5px}
+  .herbdetail p{margin-top:6px}
+  .herbdetail .nat{font-family:"Courier New",monospace;font-size:11.5px;color:var(--ink-faint,#8A8578)}
   /* sprite-sheet animation — 8 frames in one 90 KB image, driven by steps().
      Pixel maths, not percentages: percentage background-position resolves
      against (container - image), which does not step evenly. */
@@ -176,6 +199,7 @@
         return '<div class="tray-card"><span class="ic">牌</span>Chapter '+k.slice(-2)
              + '<small style="display:block;color:var(--gold)">'+"★".repeat(b.stars||0)+'</small></div>';
       });
+      var codex = herbCodex();
       var halls = NODES.map(function(n){
         var on=AG.unlocked(n[0]);
         return '<div class="tray-card'+(on?'':' locked')+'"><span class="ic">'+n[1]+'</span>'+n[2]
@@ -186,8 +210,10 @@
             ? '<div class="tray-cards">'+cards.join("")+'</div>'
             : '<p class="tray-empty">No case cards yet. Finish a chapter to earn your first.'
               + '<span class="zh"> 尚無病案卡。完成一章即可獲得。</span></p>')
+        + codex
         + '<h4 style="margin-top:16px">Halls of the Town<span class="zh"> 鎮上門派</span></h4>'
         + '<div class="tray-cards">'+halls+'</div>');
+      bindCodex();
     };
 
     /* ── ⚙ · settings ── */
@@ -265,6 +291,56 @@
       kids.slice(i).forEach(function(k){foot.appendChild(k)});
       sec.appendChild(body); sec.appendChild(foot);
       sec.style.overflowY="hidden";
+    });
+  }
+
+  /* ── Herb Codex ── */
+  function ownedIds(){
+    var out={};
+    (AG.state.cards||[]).forEach(function(c){
+      var k=(c&&(c.id||c.n||c))+""; k=k.toLowerCase();
+      (global.AG_HERBS||[]).forEach(function(h){
+        if(k.indexOf(h.id)>=0 || (h.zh&&k.indexOf(h.zh)>=0) || k.indexOf(h.en.toLowerCase())>=0) out[h.id]=true;
+      });
+    });
+    return out;
+  }
+  function herbCodex(){
+    var list=global.AG_HERBS||[]; if(!list.length) return "";
+    var own=ownedIds(), n=Object.keys(own).length;
+    var cells=list.map(function(h){
+      var got=!!own[h.id];
+      return '<button class="herbcell'+(got?"":" locked")+'" data-h="'+h.id+'">'
+        + (got
+             ? (h.img ? '<img src="'+h.img+'" alt="'+h.en+'" loading="lazy">'
+                      : '<span class="qm plate">'+h.zh.charAt(0)+'</span>')
+             : '<span class="qm">?</span>')
+        + '<b>'+(got?h.en:"— — —")+'</b>'
+        + (got?'<span class="zh">'+h.zh+'</span>':'')
+        + '</button>';
+    }).join("");
+    return '<h4 style="margin-top:16px">Herb Codex<span class="zh"> 本草圖鑑</span>'
+      + ' <span style="float:right;color:var(--ink-faint);letter-spacing:.1em">'+n+' / '+list.length+'</span></h4>'
+      + '<div class="codex">'+cells+'</div>'
+      + '<div class="herbdetail" id="herbDetail"></div>';
+  }
+  function bindCodex(){
+    var own=ownedIds();
+    D.querySelectorAll(".herbcell").forEach(function(b){
+      b.onclick=function(){
+        var h=(global.AG_HERBS||[]).filter(function(x){return x.id===b.dataset.h})[0];
+        var d=D.getElementById("herbDetail"); if(!h||!d) return;
+        if(!own[h.id]){
+          d.className="herbdetail on";
+          d.innerHTML='<b>Not found yet</b><span class="zh"> 尚未取得</span>'
+            +'<p>Herb cards drop from chapters and from Point Tap.<span class="zh"> 章節與點穴練習皆可能掉落藥草卡。</span></p>';
+          return;
+        }
+        d.className="herbdetail on";
+        d.innerHTML='<b>'+h.en+'</b> <i>'+h.py+'</i><span class="zh"> '+h.zh+'</span>'
+          +'<p class="nat">'+h.nature+'<span class="zh" style="display:block">'+h.natureZh+'</span></p>'
+          +'<p>'+h.fact+'<span class="zh" style="display:block;margin-top:4px">'+h.factZh+'</span></p>';
+      };
     });
   }
 
