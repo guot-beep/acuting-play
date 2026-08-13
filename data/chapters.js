@@ -164,7 +164,7 @@ window.AG_CHAPTERS = {
  {who:"master",en:"\"Read it again,\" Master Shen says. \"The river is not going anywhere.\"",zh:"「再讀一次。」參師父說，「河又不會跑。」"}
 ],
     remedy:{ask:"pain_quality",look:"cold_heat",pulse:"cold_heat",dx:"channel_organ",rx:"channel_organ",tech:"cold_heat"},
-    reward:{cardEn:"The Four Command Points",cardZh:"四總穴歌",cardTxt:"For the belly, keep Zusanli. For the low back, seek Weizhong. For the head and nape, seek Lieque. For the face and mouth, Hegu will do.",herbId:"ganjiang",herbEn:"Dried Ginger",herbZh:"乾薑",herbImg:"art/mascot-hongzao-warrior.jpg",sprite:"art/sprite-renshen-jump.webp",herbTxt:"Acrid and hot — in TCM it is used to warm the interior and disperse cold. Old Wu takes it as a warm tea before the dawn crossing."},
+    reward:{cardEn:"The Four Command Points",cardZh:"四總穴歌",cardTxt:"For the belly, keep Zusanli. For the low back, seek Weizhong. For the head and nape, seek Lieque. For the face and mouth, Hegu will do.",herbId:"ganjiang",herbEn:"Dried Ginger",herbZh:"乾薑",herbImg:"",sprite:"art/sprite-renshen-jump.webp",herbTxt:"Acrid and hot — in TCM it is used to warm the interior and disperse cold. Old Wu takes it as a warm tea before the dawn crossing."},
     endings:{
       three:["A week later Old Wu is poling the ferry again at dawn. \"It still aches when the rain comes,\" he says, \"but I can lift the pole.\"<br><b>Master Shen:</b> \"You did not chase an organ that was not ill. This one lived in the channels — and you found it there.\"","一週後，吳伯又在天亮時撐篙。「下雨還是會痠，」他說，「但篙我撐得起來了。」<br><b>參師父：</b>「你沒有去追一個根本沒病的臟。這病住在經絡裡——你就在那裡找到它。」"],
       two:["Old Wu moves more freely, though the cold mornings still catch him.<br><b>Master Shen:</b> \"Better. But you hesitated between the channel and the organ. Learn to tell them apart.\"","吳伯活動鬆了些，清晨受寒仍會犯。<br><b>參師父：</b>「好些了。可你在經絡與臟腑之間猶豫。要學會分清這兩者。」"],
@@ -260,7 +260,7 @@ window.AG_CHAPTERS = {
     target:{id:"PC6",zh:"內關",py:"Nèiguān",x:288,y:478,
       note:"<b>內關 Nèiguān PC6</b> — 2 cun proximal to the wrist crease, between the tendons of palmaris longus and flexor carpi radialis. Luo-connecting point of the Pericardium and confluent point of the Yin Wei vessel: it opens the chest, regulates qi, calms the spirit and settles nausea.<br>腕橫紋上二寸，掌長肌腱與橈側腕屈肌腱之間。心包絡穴、八脈交會通陰維：寬胸理氣、寧心安神、和胃止嘔。"},
     reward:{cardEn:"The Four Gates",cardZh:"四關穴",cardTxt:"Hegu LI4 and Taichong LR3, needled together. The classic pair for moving stagnant qi through the whole body when emotion is the cause.",
-            herbId:"aiye",herbEn:"Rose Bud",herbZh:"玫瑰花",herbTxt:"Sweet, slightly bitter, warm. In TCM it gently courses Liver qi and harmonises the blood — light enough to drink as a daily tea."},
+            herbId:"meiguihua",herbEn:"Rose Bud",herbZh:"玫瑰花",herbTxt:"Sweet, slightly bitter, warm. In TCM it gently courses Liver qi and harmonises the blood — light enough to drink as a daily tea."},
     reactions:[
  {who:"master",en:"Master Shen watches her hands, not her face.",zh:"參師父看的是她的手，不是她的臉。"},
  {who:"patient",en:"\"It's nothing,\" Sanniang says quickly. \"Everyone is tired.\"",zh:"「沒什麼，」三娘很快地說，「誰不累呢。」"},
@@ -324,10 +324,13 @@ window.AG_CHAPTERS = {
   a:"Irregular since the funeral. The few days before, my breasts ache and I am short with everyone.",ca:"喪事之後就不準了。經前幾天乳房脹痛，脾氣也差。",
   clue:{en:"Breast distension and irritability before menses",zh:"經前乳脹、煩躁"},note:"The Liver channel traverses the breast and the Liver governs the free flow of qi and blood; premenstrual breast distension is one of its clearest signs. 肝經布脅絡乳，主疏泄；經前乳脹為肝鬱之顯徵。"},
  {q:"Do you have burning pain in the stomach, sour reflux, and a bitter taste on waking?",cq:"胃脘灼痛、泛酸、晨起口苦？",good:0,
+  a:"No. It is only tight, never burning — and there is no sour taste. I eat little, but that is grief, not my stomach.",ca:"沒有。只是悶，不燒，也不泛酸。吃得少，是心裡的事，不是胃。",
   clue:"",note:"Reasonable to screen — constrained qi does often invade the Stomach. But she reports none of it, and there is no heat anywhere in this picture yet. 篩查合理；肝鬱確可犯胃，然本案無此見症，亦未見熱象。"},
  {q:"Do you have night sweats, five-centre heat, and a dry mouth at night?",cq:"盜汗、五心煩熱、夜間口乾？",good:0,
+  a:"No. I sleep badly and wake at two or three, but I do not wake wet, and my mouth is not dry.",ca:"沒有。睡不好，兩三點就醒，但不盜汗，口也不乾。",
   clue:"",note:"These probe Yin deficiency. Her problem changes hour by hour with her mood — deficiency does not behave that way. 此問屬陰虛。本案隨情緒時輕時重，虛證不如此。"},
  {q:"Is there a fixed stabbing pain, worse at night, with dark clots in the flow?",cq:"痛如針刺、固定不移、夜間加重、經有紫塊？",good:0,
+  a:"It is not sharp. More like a hand pressing on me. And no — the flow is much as it always was.",ca:"不是刺痛，倒像被一隻手壓著。經血也和平常差不多。",
   clue:"",note:"That is blood stasis — often where long-standing qi stagnation ends up, but her pain still moves and there are no clots. Not yet. 此為血瘀，久鬱可致；然本案痛尚走竄、經無血塊，未及血分。"}
 ],
     look:[

@@ -18,7 +18,7 @@ window.AG_HERBS = [
     factZh:"發散風寒、溫中止嘔。風寒初起最尋常的廚房之藥。" },
 
   { id:"ganjiang", en:"Dried Ginger", py:"Gān Jiāng", zh:"乾薑",
-    img:"art/mascot-hongzao-warrior.jpg",
+    img:"",
     nature:"Acrid, hot · Spleen, Stomach, Kidney, Heart, Lung",
     natureZh:"辛、熱 · 歸脾胃腎心肺經",
     fact:"Warms the middle and expels cold from the interior. Where fresh ginger works on the surface, dried ginger works within.",
@@ -52,12 +52,24 @@ window.AG_HERBS = [
     fact:"Tonifies the middle and calms the spirit; softens harsh herbs in a formula so the stomach tolerates them.",
     factZh:"補中益氣、養血安神，並能緩和藥性。" },
 
+  /* NOTE · art/mascot-hongzao-warrior.jpg is deliberately unused.
+     It reads as "a round red fruit" and could be jujube or goji — and a
+     picture on the wrong herb teaches wrong botany. It stays out of the
+     codex until there is art we are sure of. Same rule for every entry:
+     a named plate is better than a confident mistake. */
   { id:"gouqi", en:"Goji Berry", py:"Gǒu Qǐ Zǐ", zh:"枸杞子",
     img:"",
     nature:"Sweet, neutral · Liver, Kidney",
     natureZh:"甘、平 · 歸肝腎經",
     fact:"Nourishes Liver and Kidney yin and brightens the eyes — the classic pairing for tired vision.",
     factZh:"滋補肝腎、益精明目。目澀昏花之常用。" },
+
+  { id:"meiguihua", en:"Rose Bud", py:"Méi Guī Huā", zh:"玫瑰花",
+    img:"",
+    nature:"Sweet, slightly bitter, warm · Liver, Spleen",
+    natureZh:"甘、微苦、溫 · 歸肝脾經",
+    fact:"Courses Liver qi and harmonises the blood, gently. Light enough for daily tea, which is why it suits stagnation that comes from feeling rather than from cold.",
+    factZh:"疏肝解鬱、和血調經，藥性平和，可作日常花茶。情志所致之鬱，最為相宜。" },
 
   { id:"fuling", en:"Poria", py:"Fú Líng", zh:"茯苓",
     img:"",
