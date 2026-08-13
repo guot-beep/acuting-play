@@ -7,7 +7,7 @@ window.AG_CHAPTERS = {
   "01": {
     id:"01", title:"A-Lian&#39;s Cough", titleZh:"阿蓮的咳嗽",
     patient:{name:"A-Lian 阿蓮", sprite:"girl"},
-    scene:{key:"rain"},   // swap to {img:"art/ch01.jpg"} when the artwork is ready
+    scene:{img:"art/ch00-clinic.jpg", key:"rain"},   // painted clinic; key is the fallback
     pattern:"Wind-Cold invading the Lung 風寒襲肺",
     principle:"release the exterior, diffuse the Lung",
     tongue:"pale-red, thin white coating",
@@ -32,7 +32,7 @@ window.AG_CHAPTERS = {
  {who:"master",en:"\"The illness is three days old,\" he says. \"It is not hiding.\"",zh:"「病才三天，」他說，「它沒有躲。」"}
 ],
     remedy:{ask:"cold_heat",look:"cold_heat",pulse:"cold_heat",dx:"excess_def",rx:"channel_organ",tech:"cold_heat"},
-    reward:{cardEn:"Diffuse &amp; Release",cardZh:"宣肺解表",cardTxt:"For an exterior Wind-Cold pattern, open the Lung&#39;s dispersing function and push the pathogen back out through the surface.",herbEn:"Fresh Ginger",herbZh:"生薑",herbTxt:"Acrid and warm — in TCM food therapy it is the everyday kitchen ally for early wind-cold, taken as a warm tea."},
+    reward:{cardEn:"Diffuse &amp; Release",cardZh:"宣肺解表",cardTxt:"For an exterior Wind-Cold pattern, open the Lung&#39;s dispersing function and push the pathogen back out through the surface.",herbId:"shengjiang",herbEn:"Fresh Ginger",herbZh:"生薑",herbImg:"art/mascot-jiang-run.jpg",sprite:"art/sprite-renshen-jump.webp",herbTxt:"Acrid and warm — in TCM food therapy it is the everyday kitchen ally for early wind-cold, taken as a warm tea."},
     endings:{
       three:["Two days later A-Lian is back at the silk shop. \"The stiffness in my neck went first,\" she says, \"then the cough.\"<br><b>Master Shen:</b> \"You read the surface correctly. Most students rush inward and miss what is right in front of them.\"","兩天後，阿蓮回到絲行。「先是脖子鬆了，然後咳嗽就好了。」<br><b>參師父：</b>「你把表證看準了。多數學生急著往裡鑽，反而錯過眼前的東西。」"],
       two:["A-Lian sleeps through the night, though the cough lingers a little.<br><b>Master Shen:</b> \"Not bad. Go back over your reasoning — one link was loose.\"","阿蓮夜裡能睡了，咳嗽還有一點。<br><b>參師父：</b>「不差。回頭把推理再走一遍，有一環鬆了。」"],
@@ -114,7 +114,7 @@ window.AG_CHAPTERS = {
   ,"02": {
     id:"02", title:"The Boatman&#39;s Shoulder", titleZh:"船夫的肩背",
     patient:{name:"Old Wu 吳伯", sprite:"man"},
-    scene:{key:"river"},  // swap to {img:"art/ch02.jpg"} when the artwork is ready
+    scene:{img:"art/ch00-clinic.jpg", key:"river"},  // painted clinic; key is the fallback
     pattern:"Cold-Damp obstructing the channels 寒濕痹阻經絡",
     principle:"warm the channels, dispel cold and damp, free the collaterals",
     tongue:"pale with a white moist coating",
@@ -122,6 +122,31 @@ window.AG_CHAPTERS = {
     needleAsk:{en:"The Four Command Points say: <b>for the head and neck, seek Lièquē</b>. Tap LU7.",zh:"四總穴歌云：頭項尋列缺。點出 LU7。"},
     target:{id:"LU7",zh:"列缺",py:"Lièquē",x:262,y:497,
       note:"<b>列缺 Lièquē LU7</b> — one of the Four Command Points: <i>for disorders of the head and nape, seek Lièquē</i>. A distal point for neck and upper-back stiffness.<br>四總穴之一：「頭項尋列缺」。項背強痛之遠端要穴。"},
+    safety:{
+      ask:{en:"Before you name a pattern — is this safe to keep evaluating in an acupuncture setting?",
+           zh:"在辨證之前——這個病人適合繼續在針灸診間評估嗎？"},
+      lead:{en:"You have three months of shoulder and upper-back pain in a man who works on cold water. Screen him first.",
+            zh:"一位在冷水上工作的男子，肩背痛三個月。先做安全篩查。"},
+      opts:[
+ {t:"Ask about arm weakness, numbness, a cold or pale hand, and any loss of grip",
+  c:"問手臂無力、麻木、手冷或蒼白、握力下降",ok:1,
+  note:"Correct. Neurovascular change in the arm — weakness, numbness, a cold or discoloured hand, dropping things — can mean nerve root or thoracic-outlet compression, not a channel bi-syndrome. Old Wu reports none of these: strength, colour and sensation are normal.<br><b>Safe to continue.</b><br>手臂之神經血管改變（無力、麻木、手冷色變、持物脫落）提示神經根或胸廓出口受壓，非單純痹證。吳伯無此類見症，可續。"},
+ {t:"Ask about fever, night sweats, unexplained weight loss, and pain that wakes him at night",
+  c:"問發熱、盜汗、體重不明原因下降、夜間痛醒",ok:1,
+  note:"Correct. Constant night pain that wakes a patient, with fever, sweats or weight loss, is a systemic red flag needing referral before any pattern work. Old Wu sleeps through, has no fever and his weight is steady.<br><b>Safe to continue.</b><br>夜間痛醒併發熱、盜汗、消瘦，屬全身性紅旗徵，須先轉介。吳伯夜能安睡、無熱、體重穩定，可續。"},
+ {t:"Ask about chest pressure, breathlessness, sweating, or pain spreading to the jaw or left arm",
+  c:"問胸悶、氣促、出汗、痛引下頜或左臂",ok:1,
+  note:"Correct — and easy to forget. Left shoulder and upper-back pain can be referred cardiac pain, especially with exertion. Old Wu's pain is right-sided, purely mechanical, and unchanged by exertion of the heart. <b>Never treat a shoulder without excluding this.</b><br>左肩背痛可為心源性牽涉痛，尤其勞則加重者。吳伯痛在右側、純機械性，與心臟負荷無關。<b>肩痛必先排除此項。</b>"},
+ {t:"Go straight to the tongue and pulse — the four examinations will reveal everything",
+  c:"直接看舌切脈，四診自然會顯示一切",ok:0,
+  note:"The four examinations are how we differentiate a <i>pattern</i>. They are not designed to catch a fracture, a tumour, a cardiac event or a nerve compression. In a licensed setting, safety screening comes first, then differentiation.<br>四診用以辨證，非用以排除骨折、腫瘤、心臟事件或神經壓迫。臨床應先安全篩查，再行辨證。"},
+ {t:"He has worked three months in pain, so it is clearly chronic and clearly safe",
+  c:"痛了三個月還在工作，顯然是慢性、顯然安全",ok:0,
+  note:"Duration alone proves nothing. Serious pathology can smoulder for months, and people who cannot afford to stop working are exactly the people who ignore warning signs.<br>病程長短不足為據。重症可遷延數月；而無法停工者，往往正是忽略警訊的人。"}
+],
+      pass:{en:"No red flags. This is a musculoskeletal presentation you may differentiate and treat.",
+            zh:"未見紅旗徵象。此為可辨證論治之筋骨經絡病症。"}
+    },
     hints:{
  ask:{en:"A painful body asks three things: <b>where</b>, <b>what makes it better or worse</b>, and <b>how long</b>. Chase those, not the whole body.",zh:"痛症問三事：部位、緩解與加重、病程。抓這三條，別漫問全身。"},
  look:{en:"You are looking for <b>heat</b>. If it were heat, the skin would tell you before he did.",zh:"你在找熱。若真有熱，皮膚會比他先開口。"},
@@ -139,7 +164,7 @@ window.AG_CHAPTERS = {
  {who:"master",en:"\"Read it again,\" Master Shen says. \"The river is not going anywhere.\"",zh:"「再讀一次。」參師父說，「河又不會跑。」"}
 ],
     remedy:{ask:"pain_quality",look:"cold_heat",pulse:"cold_heat",dx:"channel_organ",rx:"channel_organ",tech:"cold_heat"},
-    reward:{cardEn:"The Four Command Points",cardZh:"四總穴歌",cardTxt:"For the belly, keep Zusanli. For the low back, seek Weizhong. For the head and nape, seek Lieque. For the face and mouth, Hegu will do.",herbEn:"Dried Ginger",herbZh:"乾薑",herbTxt:"Acrid and hot — in TCM it is used to warm the interior and disperse cold. Old Wu takes it as a warm tea before the dawn crossing."},
+    reward:{cardEn:"The Four Command Points",cardZh:"四總穴歌",cardTxt:"For the belly, keep Zusanli. For the low back, seek Weizhong. For the head and nape, seek Lieque. For the face and mouth, Hegu will do.",herbId:"ganjiang",herbEn:"Dried Ginger",herbZh:"乾薑",herbImg:"art/mascot-hongzao-warrior.jpg",sprite:"art/sprite-renshen-jump.webp",herbTxt:"Acrid and hot — in TCM it is used to warm the interior and disperse cold. Old Wu takes it as a warm tea before the dawn crossing."},
     endings:{
       three:["A week later Old Wu is poling the ferry again at dawn. \"It still aches when the rain comes,\" he says, \"but I can lift the pole.\"<br><b>Master Shen:</b> \"You did not chase an organ that was not ill. This one lived in the channels — and you found it there.\"","一週後，吳伯又在天亮時撐篙。「下雨還是會痠，」他說，「但篙我撐得起來了。」<br><b>參師父：</b>「你沒有去追一個根本沒病的臟。這病住在經絡裡——你就在那裡找到它。」"],
       two:["Old Wu moves more freely, though the cold mornings still catch him.<br><b>Master Shen:</b> \"Better. But you hesitated between the channel and the organ. Learn to tell them apart.\"","吳伯活動鬆了些，清晨受寒仍會犯。<br><b>參師父：</b>「好些了。可你在經絡與臟腑之間猶豫。要學會分清這兩者。」"],
