@@ -298,10 +298,10 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
   transition:.3s var(--ease);z-index:80;pointer-events:none}
 .toast.on{opacity:.95;transform:translate(-50%,0)}
 </style>
-<link rel="stylesheet" href="desktop.css?v=7">
-<script src="state.js?v=7"></script>
-<script src="data/herbs.js?v=7"></script>
-<script src="hud.js?v=7"></script>
+<link rel="stylesheet" href="desktop.css?v=8">
+<script src="state.js?v=8"></script>
+<script src="data/herbs.js?v=8"></script>
+<script src="hud.js?v=8"></script>
 </head>
 <body data-page="hub">
 <div id="app">
@@ -798,9 +798,9 @@ if(S.char){cur=S.char;enterHub()}
   }
 
   setTimeout(function(){
-    run(enA, enEl, 26, function(){
+    run(enA, enEl, 104, function(){
       if (!zh) { finish(); return; }
-      setTimeout(function(){ run(zhA, zh, 34, finish); }, 260);
+      setTimeout(function(){ run(zhA, zh, 136, finish); }, 700);
     });
   }, 900);
 
