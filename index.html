@@ -31,7 +31,10 @@
 /* `hidden` must win. The UA stylesheet's [hidden]{display:none} loses to any
    author display rule, which is how a hidden plate rendered as an empty box. */
 [hidden]{display:none !important}
-html,body{height:100%}
+html,body{height:100%;max-width:100%;overflow-x:hidden}
+/* nothing may widen the document past the viewport — an overflowing title
+   once squeezed the whole app frame to a sliver on iOS Safari */
+#app,.screen,.titlewrap,.titlefoot,#s1 .tagline{max-width:100%;min-width:0}
 body{font-family:"Songti TC","Noto Serif TC",Georgia,serif;background:#CFC3A8;color:var(--ink);
   display:flex;justify-content:center;overflow:hidden}
 #app{position:relative;width:100%;max-width:440px;height:100svh;overflow:hidden;display:flex;flex-direction:column;
@@ -179,7 +182,8 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
 .titlewrap{position:relative;z-index:2;margin:0;padding:2px 22px 0;text-align:center}
 .titlefoot{position:relative;z-index:2;flex:none;width:100%;
   padding:0 22px calc(14px + env(safe-area-inset-bottom))}
-#s1 .title{font-size:min(11.2vw,44px);letter-spacing:.08em;margin:2px 0 0;white-space:nowrap}
+#s1 .title{font-size:clamp(26px,9.4vw,44px);letter-spacing:.04em;margin:2px 0 0;
+  white-space:normal;overflow-wrap:break-word;max-width:100%}
 #s1 .subtitle{font-size:21px;letter-spacing:.42em}
 #s1 .title,#s1 .subtitle,#s1 .eyebrow{text-shadow:0 1px 0 rgba(244,237,220,.9),0 0 14px rgba(244,237,220,.85)}
 #s1 .rule{margin:9px auto;width:0;animation:ruleGrow .9s var(--ease) .55s forwards}
@@ -298,10 +302,10 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
   transition:.3s var(--ease);z-index:80;pointer-events:none}
 .toast.on{opacity:.95;transform:translate(-50%,0)}
 </style>
-<link rel="stylesheet" href="desktop.css?v=8">
-<script src="state.js?v=8"></script>
-<script src="data/herbs.js?v=8"></script>
-<script src="hud.js?v=8"></script>
+<link rel="stylesheet" href="desktop.css?v=9">
+<script src="state.js?v=9"></script>
+<script src="data/herbs.js?v=9"></script>
+<script src="hud.js?v=9"></script>
 </head>
 <body data-page="hub">
 <div id="app">
