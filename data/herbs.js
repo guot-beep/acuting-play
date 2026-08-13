@@ -18,7 +18,10 @@ window.AG_HERBS = [
     factZh:"發散風寒、溫中止嘔。風寒初起最尋常的廚房之藥。" },
 
   { id:"ganjiang", en:"Dried Ginger", py:"Gān Jiāng", zh:"乾薑",
-    img:"",
+    img:"art/herb-ganjiang.jpg",
+    /* `plate` is the full illustrated codex card. `img` is a crop of just the
+       character, because baked-in text is unreadable at grid size. */
+    plate:"art/card-ganjiang.jpg",
     nature:"Acrid, hot · Spleen, Stomach, Kidney, Heart, Lung",
     natureZh:"辛、熱 · 歸脾胃腎心肺經",
     fact:"Warms the middle and expels cold from the interior. Where fresh ginger works on the surface, dried ginger works within.",
@@ -71,7 +74,7 @@ window.AG_HERBS = [
     factZh:"疏肝解鬱、和血調經，藥性平和，可作日常花茶。情志所致之鬱，最為相宜。" },
 
   { id:"fuling", en:"Poria", py:"Fú Líng", zh:"茯苓",
-    img:"",
+    img:"art/herb-fuling.jpg",
     nature:"Sweet, bland, neutral · Heart, Spleen, Kidney",
     natureZh:"甘、淡、平 · 歸心脾腎經",
     fact:"Drains damp without draining strength, and quiets the spirit. Bland-percolating, so gentle enough for long use.",
