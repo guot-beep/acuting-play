@@ -267,7 +267,7 @@ function showResult(){
   $("rt").textContent=right===3?"Clean Diagnosis":right===2?"Nearly There":"Study Again";
   $("ansName").textContent=c.p;
   $("ansText").innerHTML=c.teach+(S.zh?`<span class="zh">${c.teachZ}</span>`:"");
-  const share=`杏林行 Apricot Grove · Daily Case #${dayNum+1}\n${grid}  ${right}/3\n🔥 streak ${S.dc.streak||0}\nguot-beep.github.io/acuting-play`;
+  const share=`杏林行 Apricot Grove · Daily Case #${dayNum+1}\n${grid}  ${right}/3\n🔥 streak ${S.dc.streak||0}\nplay.acuting.com`;
   $("sharebox").textContent=share;
   $("shareBtn").onclick=async()=>{
     try{

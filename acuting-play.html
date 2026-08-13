@@ -417,7 +417,8 @@ function endGame(){
   if(nStars>=2){
     const pool=nStars===3?HERBS:HERBS.slice(0,3);
     const h=pool[Math.floor(Math.random()*pool.length)];
-    S.cards.push({n:h.name,d:t});
+    S.cards.push({id:h.name.replace(/\s+/g,"_").toLowerCase(),
+                  n:h.name, d:AG.gameDayKey(), source:"point_tap"});
     $("card-rar").textContent=h.rar; $("card-name").textContent=h.name; $("card-fact").textContent=h.fact;
     drop.style.display="block";
   } else drop.style.display="none";

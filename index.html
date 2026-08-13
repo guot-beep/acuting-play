@@ -32,6 +32,24 @@ body{font-family:"Songti TC","Noto Serif TC",Georgia,serif;background:#CFC3A8;co
   color:var(--ink-soft);cursor:pointer;letter-spacing:.06em}
 .zh{display:block;font-size:.82em;color:var(--ink-soft);margin-top:3px;line-height:1.6}
 body.nozh .zh{display:none !important}
+/* short phones (Safari with the address bar showing): compact the panels so the
+   whole town map — including Daily Case — is on screen without scrolling */
+/* very short screens: the compass is a stat panel and already lives in the
+   HUD "Me" tray, so the map — which is the actual navigation — gets the room */
+@media (max-height:620px){
+  #s4 .panel{display:none}
+}
+@media (max-height:640px){
+  .topbar{padding:6px 10px;margin-bottom:8px}
+  .topbar canvas{width:30px;height:34px}
+  .topbar .nm b{font-size:13.5px}
+  .panel{padding:9px 11px;margin-bottom:8px}
+  .radar-wrap svg{width:112px;height:112px}
+  .legend div{font-size:11.5px;gap:5px}
+  .panel h3{font-size:9.5px}
+  .mapbox{margin-bottom:8px}
+  #s4 .note{display:none}
+}
 body.nozh .node text.sub{display:none}   /* map: Chinese sub-labels */
 body.nozh .node .glyph{display:none}     /* map: Chinese node glyphs */
 
@@ -55,6 +73,10 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
 
 /* ── choice cards ── */
 .cards{display:flex;flex-direction:column;gap:11px}
+.pathcard{width:100%;text-align:left;font-family:inherit;cursor:pointer}
+.pathcard .say b{font-size:17px}
+.pathnote{font-size:12px;line-height:1.6;color:var(--ink-soft);margin-top:5px}
+.pathnote .zh{font-size:11.5px;margin-top:2px}
 .card{position:relative;background:var(--white);border:1.5px solid rgba(51,47,40,.12);border-radius:16px;
   padding:14px 15px;display:flex;gap:14px;align-items:center;cursor:pointer;box-shadow:var(--sh);
   transition:transform .22s var(--ease),box-shadow .22s var(--ease),border-color .22s;font-family:inherit;text-align:left;
@@ -139,6 +161,8 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
   border-radius:16px;overflow:hidden;box-shadow:var(--sh);margin-bottom:12px}
 .mapbox svg.scene{display:block;width:100%;height:auto}
 .node{cursor:pointer}
+.node .hit{fill:transparent;pointer-events:all}   /* invisible, but tappable */
+.node:active .hit{fill:rgba(58,55,48,.05)}
 .node circle.pin{fill:var(--white);stroke:var(--sage-deep);stroke-width:2.5;transition:.2s}
 .node.main circle.pin{stroke:var(--terra)}
 .node.daily circle.pin{stroke:var(--gold)}
@@ -212,6 +236,31 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
     </div>
     <button class="btn" id="beginBtn">Begin <span class="zh">啟程</span></button>
     <p class="note">Educational game · not medical advice</p>
+  </section>
+
+  <!-- ═══ 1b · LEARNING PATH (asked once) ═══ -->
+  <section class="screen" id="s-path">
+    <p class="q">How do you want to learn?<span class="zh">你想怎麼學？</span></p>
+    <p class="hint">— YOU CAN CHANGE THIS ANY TIME IN SETTINGS —</p>
+    <div class="cards">
+      <button class="card pathcard" data-m="beginner">
+        <div class="body">
+          <div class="say"><b>Explore</b><span class="zh"> 入門</span></div>
+          <div class="who">FOR CURIOUS BEGINNERS</div>
+          <p class="pathnote">More hints · simpler wording · fewer close distractors · help arrives sooner
+            <span class="zh">提示多、用詞淺、干擾項少、更早給補救</span></p>
+        </div>
+      </button>
+      <button class="card pathcard" data-m="student">
+        <div class="body">
+          <div class="say"><b>Student</b><span class="zh"> 學徒</span></div>
+          <div class="who">FOR TCM / ACUPUNCTURE LEARNERS</div>
+          <p class="pathnote">Full option set · clinical reasoning · exam-level distractors
+            <span class="zh">完整選項、臨床推理、考試級鑑別</span></p>
+        </div>
+      </button>
+    </div>
+    <p class="note">Same cases, same medicine — only how much scaffolding you get.<span class="zh"> 病案與醫理相同，差別只在提示多寡。</span></p>
   </section>
 
   <!-- ═══ 2 · CHOOSE ═══ -->
@@ -469,7 +518,13 @@ function go(id){document.querySelectorAll(".screen").forEach(s=>s.classList.remo
 function toast(t){const e=$("toast");e.textContent=t;e.classList.add("on");setTimeout(()=>e.classList.remove("on"),1900)}
 
 /* ═════ 1 → 2 ═════ */
-$("beginBtn").onclick=()=>{go("s2");buildCards()};
+$("beginBtn").onclick=()=>{
+  if(AG.state.mode){ go("s2"); buildCards(); }      // already chosen: skip
+  else go("s-path");
+};
+document.querySelectorAll(".pathcard").forEach(b=>{
+  b.onclick=()=>{ AG.setMode(b.dataset.m); go("s2"); buildCards(); };
+});
 function buildCards(){
   const w=$("cards");w.innerHTML="";
   Object.entries(CHARS).forEach(([k,c])=>{
@@ -553,6 +608,30 @@ $("scrim").onclick=closeSheet;
   };
 });
 $("n-daily").onclick=()=>{location.href="dailycase.html"};
+
+/* ── make the whole node tappable, not just the ink ── */
+(function addNodeHitAreas(){
+  const NS="http://www.w3.org/2000/svg";
+  document.querySelectorAll(".node").forEach(g=>{
+    const pin=g.querySelector("circle.pin"); if(!pin) return;
+    const cx=+pin.getAttribute("cx"), cy=+pin.getAttribute("cy");
+    // widest label in this node decides the width
+    let half=32;   /* 60 viewBox units ≈ 52 screen px on the narrowest phone */
+    g.querySelectorAll("text").forEach(t=>{
+      const len=(t.textContent||"").trim().length;
+      const px=t.classList.contains("glyph")?7:(t.classList.contains("sub")?4.6:5.2);
+      half=Math.max(half, len*px/2 + 6);
+    });
+    const r=document.createElementNS(NS,"rect");
+    r.setAttribute("class","hit");
+    r.setAttribute("x",(cx-half).toFixed(1));
+    r.setAttribute("y",(cy-22).toFixed(1));
+    r.setAttribute("width",(half*2).toFixed(1));
+    r.setAttribute("height","66");
+    r.setAttribute("rx","8");
+    g.insertBefore(r, g.firstChild);
+  });
+})();
 function paintLocks(){
   ["needle","theory","dx","herb","daoyin"].forEach(k=>
     $("n-"+k).classList.toggle("lock",!AG.unlocked(k)));

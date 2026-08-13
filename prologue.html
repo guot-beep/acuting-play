@@ -451,8 +451,10 @@ $("trainWrap").addEventListener("pointerdown",ev=>{
 
 /* ═════ ENDING ═════ */
 function ending(){
+  const EARNED=40;
   const rep=AG.complete({activity:"prologue",completed:true,score:S.xp,stars:3,
-    xpEarned:40,skillXp:{needle:40},unlocks:[]});
+    xpEarned:EARNED,skillXp:{needle:40},unlocks:[]});
+  rep.xpEarned=EARNED;
   S.flags.prologueDone=true;save();
   $("endTitle").innerHTML="The First Lesson"+(S.zh?'<span class="zh" style="font-size:15px">第一課</span>':"");
   $("endText").innerHTML=
@@ -460,7 +462,8 @@ function ending(){
     '"What you just touched is not a point on a chart. It is the place where you can feel that a person is still alive."<br><br>'+
     '"Never forget which of those two you are treating."'+
     (S.zh?'<span class="zh"><b>參老：</b>「不錯。現在聽剩下的一半。」<br><br>「你剛才摸到的，不是圖上的一個穴。那是你能感覺到一個人還活著的地方。」<br><br>「別忘了你治的是哪一個。」</span>':'')+
-    `<br><br><span style="font-family:'Courier New',monospace;color:var(--terra);font-size:13.5px">+${S.xp} XP · Needle 針道 ${S.stats.needle}/4</span>`;
+    `<br><br><span style="font-family:'Courier New',monospace;color:var(--terra);font-size:13.5px">+${rep.xpEarned} XP</span>`+
+    `<br><span style="font-family:'Courier New',monospace;color:var(--ink-faint);font-size:11.5px">Total ${rep.xp} XP \u00b7 Needle<span class="zh"> 針道</span> ${S.stats.needle}/4</span>`;
   go("s-end");
 }
 $("nextChap").onclick=()=>location.href="chapter1.html";

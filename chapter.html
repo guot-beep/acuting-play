@@ -217,23 +217,28 @@
   .loupe .lx::after{top:50%;left:-9px;height:1.5px;width:9px;margin-top:-.75px}
 
   .armhelp{text-align:center;font-size:12.5px;color:var(--ink-soft);margin:2px 0 8px;line-height:1.6}
+  .safebadge{text-align:center;font-family:"Courier New",monospace;font-size:10.5px;
+    letter-spacing:.26em;color:#B4594A;background:rgba(180,89,74,.09);
+    border-radius:8px;padding:7px 0;margin-bottom:10px}
+  .safebadge .zh{font-family:"Songti TC",serif;letter-spacing:.06em}
+  .safelead{font-size:13.5px;line-height:1.75;color:var(--ink-soft);text-align:center;margin-bottom:12px}
 
   /* ── the Continue button never hides below the fold ──
      Once it appears it sticks to the bottom of the scrolling screen, so the
      player is never stranded wondering how to go on. */
-  .screen > .cta{
-    position:sticky;
-    bottom:calc(4px + env(safe-area-inset-bottom));
-    z-index:6;
-    box-shadow:0 6px 0 var(--terra-deep,#9E5B3A), 0 -10px 18px -6px var(--paper);
-  }
-  .screen > .cta.ghost{box-shadow:0 5px 0 rgba(58,55,48,.13), 0 -10px 18px -6px var(--paper)}
+  /* the screen splits: a scrolling body, and a footer never scrolled over */
+  .screen{padding-bottom:0}
+  .scrollbody{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;
+    -webkit-overflow-scrolling:touch;display:flex;flex-direction:column;padding-bottom:10px}
+  .footbar{flex:none;padding:8px 0 calc(6px + env(safe-area-inset-bottom));
+    background:linear-gradient(0deg,var(--paper) 62%,rgba(244,237,220,.9));
+    position:relative;z-index:6}
+  .footbar .cta{margin-top:0}
+  .footbar .cta + .cta{margin-top:8px}
   .cta:disabled{background:var(--white);color:var(--ink);cursor:default;font-size:15px;
     box-shadow:0 4px 0 rgba(58,55,48,.10), 0 -14px 20px -6px var(--paper);
     border:1.5px dashed var(--gold);letter-spacing:.06em}
   .cta:disabled .zh{color:var(--ink-faint)}
-  /* a little breathing room so the last option is not tucked under the button */
-  .screen{padding-bottom:calc(18px + env(safe-area-inset-bottom))}
 
   .pt-dot{fill:var(--seal);stroke:#fff;stroke-width:2;opacity:0}
   .pt-glow{fill:none;stroke:var(--gold);stroke-width:2;opacity:0}
@@ -372,6 +377,16 @@
     <div class="react" id="pulseReact"></div>
     <div class="fb" id="pulseFb"></div>
     <button class="cta" id="pulseNext" style="display:none">Continue ▸</button>
+  </section>
+
+  <!-- 4b · SAFETY SCREEN -->
+  <section class="screen" id="s-safety">
+    <div class="safebadge">RED FLAG SCREEN<span class="zh"> · 紅旗篩查</span></div>
+    <p class="ask" id="safeAsk"></p>
+    <p class="safelead" id="safeLead"></p>
+    <div class="opts" id="safeOpts"></div>
+    <div class="fb" id="safeFb"></div>
+    <button class="cta" id="safeNext" style="display:none">Continue \u25B8</button>
   </section>
 
   <!-- 5 · DIFFERENTIATION -->
@@ -604,7 +619,7 @@ const S=AG.state, save=AG.save;
 /* ── Clinical Encounter Engine: which chapter am I? ── */
 let clues=[], score=0, maxScore=0;
 const STAGES=[["Prologue",""],["Interview","問診"],["Inspection","望診"],["Pulse","切診"],
-              ["Pattern","辨證"],["Points","選穴"],["Needling","行針"],["Outcome",""]];
+              ["Safety","安全篩查"],["Pattern","辨證"],["Points","選穴"],["Needling","行針"],["Outcome",""]];
 function patternClue(){                       // "Wind-Cold invading the Lung 風寒襲肺" -> {en,zh}
   const p=String(CH.pattern||"");
   const m=p.match(/^([^\u4e00-\u9fff]*)([\u4e00-\u9fff].*)?$/);
@@ -860,7 +875,36 @@ $("pulseOpts").querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
   $("pulseNext").style.display="block";
 });
 mountHint("pulse");
-$("pulseNext").onclick=()=>maybeRetreat(()=>{setStage(4);show("s-dx");startDx()});
+$("pulseNext").onclick=()=>maybeRetreat(()=>{
+  if(CH.safety){ setStage(4); show("s-safety"); startSafety(); }
+  else { setStage(5); show("s-dx"); startDx(); }
+});
+
+/* ══════════ 4b · safety screen ══════════
+   One decision, not a Western medicine exam. It teaches the order of
+   operations every licensed practitioner works in: rule out danger,
+   then differentiate the pattern. */
+let safePicked=0;
+function startSafety(){
+  const S2=CH.safety;
+  $("safeAsk").innerHTML=S2.ask.en+`<span class="zh" style="display:block;font-size:13px;margin-top:5px">${S2.ask.zh}</span>`;
+  $("safeLead").innerHTML=S2.lead.en+`<span class="zh" style="display:block;margin-top:4px">${S2.lead.zh}</span>`;
+  $("safeOpts").innerHTML=S2.opts.map((o,i)=>`<button class="opt" data-i="${i}">${o.t}<small class="zh">${o.c}</small></button>`).join("");
+  $("safeFb").className="fb";
+  $("safeOpts").querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
+    const o=S2.opts[+b.dataset.i]; if(b.classList.contains("used")) return;
+    maxScore+=15; b.classList.add("used",o.ok?"good":"bad");
+    if(o.ok){score+=15;safePicked++;scored("dx")}else{slipped("dx")}
+    $("safeFb").className="fb show"+(o.ok?"":" wrong");
+    $("safeFb").innerHTML=o.note;
+    if(safePicked>=2||!o.ok) $("safeNext").style.display="block";
+  });
+  $("safeNext").style.display="none";
+}
+$("safeNext").onclick=()=>maybeRetreat(()=>{
+  addClue({en:"Screened: no red flags",zh:"已篩查：無紅旗徵象"});
+  setStage(5); show("s-dx"); startDx();
+});
 
 /* ══════════ 5 · differentiation (2 steps) ══════════ */
 const DX=CH.dx;
@@ -879,7 +923,7 @@ function startDx(){renderClues();const s=DX[dxStep];
     $("dxNext").style.display="block";
   });
 }
-$("dxNext").onclick=()=>maybeRetreat(()=>{dxStep++;if(dxStep<DX.length)startDx();else{addClue(patternClue());setStage(5);show("s-rx")}});
+$("dxNext").onclick=()=>maybeRetreat(()=>{dxStep++;if(dxStep<DX.length)startDx();else{addClue(patternClue());setStage(6);show("s-rx")}});
 
 /* ══════════ 6 · point prescription ══════════ */
 const RX=CH.rx;
@@ -906,7 +950,7 @@ $("rxNext").onclick=()=>{
     (picked.some(i=>!RX[i].ok)?"<br><br>"+picked.filter(i=>!RX[i].ok).map(i=>`<b>${RX[i].t}</b> — ${RX[i].note}`).join("<br><br>"):"");
   $("rxNext").style.display="none";
   const nb=document.createElement("button");nb.className="cta";nb.textContent="Begin needling ▸";
-  nb.onclick=()=>maybeRetreat(()=>{setStage(6);show("s-needle")});$("s-rx").appendChild(nb);
+  nb.onclick=()=>maybeRetreat(()=>{setStage(7);show("s-needle")});$("s-rx").appendChild(nb);
 };
 
 /* ══════════ 7 · needling ══════════ */
@@ -1015,7 +1059,7 @@ function showTech(){
     $("needleNext").style.display="block";
   });
 }
-$("needleNext").onclick=()=>maybeRetreat(()=>{setStage(7);show("s-end");ending()});
+$("needleNext").onclick=()=>maybeRetreat(()=>{setStage(8);show("s-end");ending()});
 
 /* ══════════ 8 · ending ══════════ */
 function ending(){
@@ -1063,6 +1107,46 @@ function paintChapterCopy(){
   $("chapline").innerHTML="Chapter "+CH_ID+`<span class="zh"> · ${CH.titleZh}</span>`+(BEGINNER?' <span style="color:var(--sage-deep)">· BEGINNER</span>':"");
   $("ptName").innerHTML=PT_EN+(PT_ZH?` <span class="zh">${PT_ZH}</span>`:"");
 }
+/* Split each stage into <scrollbody> + <footbar>. Done here so no stage markup
+   had to change, and any stage added later gets the behaviour for free. */
+(function buildFooters(){
+  document.querySelectorAll(".screen").forEach(sec=>{
+    const kids=[...sec.children];
+    let i=kids.length;
+    while(i>0 && kids[i-1].classList && kids[i-1].classList.contains("cta")) i--;
+    if(i===kids.length) return;                    // no trailing buttons
+    const body=document.createElement("div"); body.className="scrollbody";
+    const foot=document.createElement("div"); foot.className="footbar";
+    kids.slice(0,i).forEach(k=>body.appendChild(k));
+    kids.slice(i).forEach(k=>foot.appendChild(k));
+    sec.appendChild(body); sec.appendChild(foot);
+    sec._foot=foot;
+  });
+  /* the ending keeps its buttons inside .end-wrap, so pull those out too */
+  const end=document.getElementById("s-end");
+  if(end && !end._foot){
+    const wrap=end.querySelector(".end-wrap");
+    const btns=wrap?[...wrap.querySelectorAll(":scope > .cta")]:[];
+    if(btns.length){
+      const body=document.createElement("div"); body.className="scrollbody";
+      const foot=document.createElement("div"); foot.className="footbar";
+      [...end.children].forEach(k=>body.appendChild(k));
+      btns.forEach(btn=>foot.appendChild(btn));
+      end.appendChild(body); end.appendChild(foot);
+      end._foot=foot;
+    }
+  }
+  /* buttons created later ("Begin needling") must land in the footer too */
+  const sec=document.getElementById("s-rx");
+  if(sec && sec._foot){
+    const native=Element.prototype.appendChild;
+    sec.appendChild=function(node){
+      if(node.classList && node.classList.contains("cta")) return native.call(sec._foot,node);
+      return native.call(sec,node);
+    };
+  }
+})();
+
 paintChapterCopy();
 paintBackdrop();
 setStage(0);

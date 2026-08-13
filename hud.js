@@ -237,7 +237,35 @@
     var home=D.getElementById("hudHome");
     if(home) home.onclick=function(){ location.href="index.html"; };
 
+    pinFooters();
     paintXp();
+  }
+
+  /* Every screen that ends in action buttons gets a footer that is never
+     scrolled past. Without this, a long intro buries the only way forward. */
+  function pinFooters(){
+    if(D.body.getAttribute("data-page")==="chapter") return;   // chapter does its own
+    var st=D.createElement("style");
+    st.textContent=".hud-scroll{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;"
+      +"-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;padding-bottom:8px}"
+      +".hud-foot{flex:none;padding:8px 0 calc(6px + env(safe-area-inset-bottom));position:relative;z-index:5;"
+      +"background:linear-gradient(0deg,var(--paper,#F4EDDC) 62%,rgba(244,237,220,.9))}"
+      +".hud-foot .btn+.btn,.hud-foot .cta+.cta{margin-top:8px}";
+    D.head.appendChild(st);
+    D.querySelectorAll(".screen").forEach(function(sec){
+      if(getComputedStyle(sec).position==="absolute" && !sec.style.display) {/* still fine */}
+      var kids=[].slice.call(sec.children);
+      var i=kids.length;
+      while(i>0 && kids[i-1].classList &&
+            (kids[i-1].classList.contains("btn")||kids[i-1].classList.contains("cta"))) i--;
+      if(i===kids.length) return;
+      var body=D.createElement("div"); body.className="hud-scroll";
+      var foot=D.createElement("div"); foot.className="hud-foot";
+      kids.slice(0,i).forEach(function(k){body.appendChild(k)});
+      kids.slice(i).forEach(function(k){foot.appendChild(k)});
+      sec.appendChild(body); sec.appendChild(foot);
+      sec.style.overflowY="hidden";
+    });
   }
 
   function paintXp(){
