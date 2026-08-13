@@ -3,7 +3,7 @@
 Ting 給的每一張圖都登記在這裡：檔名、內容、用在哪、還沒用的原因。
 **加圖或改用途的時候要一起更新這份清冊。**
 
-最後更新：2026-08-13（枸杞、紅棗入庫）
+最後更新：2026-08-13（枸杞、紅棗、當歸、乾薑、茯苓入庫；藥草間上線）
 
 ---
 
@@ -41,22 +41,28 @@ Ting 自己也說不確定是哪一個。放錯圖等於教錯本草，所以不
 
 ## 3 · 藥草卡 Herb Codex
 
-圖鑑共 9 味，目前 5 味有圖。沒有圖的顯示中文字印版（不是缺圖，是刻意留白）。
+圖鑑共 9 味，目前 8 味有圖（只剩玫瑰花）。沒有圖的顯示中文字印版（不是缺圖，是刻意留白）。
 
 | 藥 | id | 檔名 | 狀態 |
 |---|---|---|---|
 | 生薑 Fresh Ginger | `shengjiang` | `mascot-jiang-run.jpg` | ✅ |
-| 乾薑 Dried Ginger | `ganjiang` | — | 印版（原本配錯圖，已移除） |
+| 乾薑 Dried Ginger | `ganjiang` | `herb-ganjiang.jpg` | ✅ 白鬍老爺爺，性熱守中 |
 | 人參 Ginseng | `renshen` | `herb-renshen.jpg` | ✅ 風格基準 |
 | 艾葉 Mugwort | `aiye` | `herb-aiye.jpg` | ✅ 風格基準 |
-| 當歸 Angelica | `danggui` | — | 待生成 |
+| 當歸 Angelica | `danggui` | `herb-danggui.jpg` | ✅ 淡色根、多根尾、白繖形花 |
 | 紅棗 Jujube | `hongzao` | `herb-hongzao.jpg` | ✅ 皺褶橢圓，正確 |
 | 枸杞子 Goji | `gouqi` | `herb-gouqi.jpg` | ✅ 細長橢圓成串＋紫色花，正確 |
 | 玫瑰花 Rose Bud | `meiguihua` | — | 待生成（原本誤用艾葉圖，已修正） |
-| 茯苓 Poria | `fuling` | — | 待生成 |
+| 茯苓 Poria | `fuling` | `herb-fuling.jpg` | ✅ 塊狀菌核、內白、長在松根旁 |
 
 **風格基準：**新圖一律以 `herb-renshen.jpg` 和 `herb-aiye.jpg` 為準
 （象牙紙底、淡墨山水、雲紋、大眼睛、腮紅、圓身體、細點陣質感）。
+
+### 藥草間 The Herb Room
+
+`herbroom.html` + `data/herbstory.js`。8 味有圖的藥各有一段小故事：
+自我介紹 2-4 段 → 3 題 → 收服藥草卡。第三題**一定是禁忌**。
+藥草卡直接進 Bag 的本草圖鑑。加一味藥只要改資料，不用改程式。
 
 ## 4 · 器具 Tools
 
