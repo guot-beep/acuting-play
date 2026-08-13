@@ -155,19 +155,40 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
 
 
 /* ── title screen ── */
-#s1{position:relative;overflow:hidden}
+/* The title is a poster, not a page: the hero fills the screen, the words
+   sit in the light at the top, and the only button waits at the bottom. */
+/* NOTE: do not set position here — .screen is absolutely positioned and
+   overriding it collapses the title to content height. */
+#s1{overflow:hidden;padding:calc(48px + env(safe-area-inset-top)) 0 0;justify-content:flex-start}
 .titlebg{position:absolute;inset:0;z-index:0;pointer-events:none;
-  background:url("art/town-map.jpg") center 62%/cover no-repeat;opacity:.78}
+  background:url("art/cinematic-renshen.jpg") center 42%/cover no-repeat}
+/* two veils: light at the top so the title reads, deep at the foot so the
+   button reads — the hero stays clear through the middle */
 .titlebg::after{content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(244,237,220,.80) 0%,rgba(244,237,220,.44) 40%,
-    rgba(244,237,220,.82) 76%,var(--paper) 100%)}
-.titlewrap{position:relative;z-index:2;margin:auto 0}
-.titlemascot{position:relative;z-index:2;display:block;width:118px;height:118px;
-  object-fit:cover;border-radius:50%;margin:0 auto 14px;
-  border:3px solid var(--white);box-shadow:0 6px 20px rgba(51,47,40,.26)}
-#s1 .btn,#s1 .note{position:relative;z-index:2}
-#s1 .title,#s1 .subtitle{text-shadow:0 1px 0 var(--paper),0 0 12px var(--paper)}
-@media (max-height:640px){.titlemascot{width:84px;height:84px;margin-bottom:10px}}
+  background:
+    linear-gradient(180deg,rgba(242,234,216,.95) 0%,rgba(242,234,216,.74) 15%,
+      rgba(242,234,216,.06) 30%, rgba(242,234,216,0) 44%,
+      rgba(40,36,30,.16) 62%, rgba(40,36,30,.58) 84%, rgba(40,36,30,.74) 100%)}
+.titlewrap{position:relative;z-index:2;margin:0;padding:2px 22px 0;text-align:center}
+.titlefoot{position:relative;z-index:2;margin-top:auto;width:100%;
+  padding:0 22px calc(14px + env(safe-area-inset-bottom))}
+#s1 .title{font-size:min(11.2vw,44px);letter-spacing:.08em;margin:2px 0 0;white-space:nowrap}
+#s1 .subtitle{font-size:21px;letter-spacing:.42em}
+#s1 .title,#s1 .subtitle,#s1 .eyebrow{text-shadow:0 1px 0 rgba(244,237,220,.9),0 0 14px rgba(244,237,220,.85)}
+#s1 .rule{margin:9px auto}
+/* the story lines live in the dark foot, so the hero art stays uncovered */
+#s1 .tagline{font-size:14px;line-height:1.8;color:rgba(255,255,255,.88);text-align:center;
+  text-shadow:0 1px 6px rgba(40,36,30,.75);margin-bottom:14px}
+#s1 .tagline .zh{color:rgba(255,255,255,.7);font-size:12.5px}
+/* the strapline over the dark foot has to invert */
+#s1 .note{color:rgba(255,255,255,.72);text-shadow:0 1px 4px rgba(58,55,48,.6);margin-top:9px}
+#s1 .btn{box-shadow:0 8px 26px rgba(51,47,40,.36)}
+/* short screens: drop the story lines rather than squash the art */
+@media (max-height:660px){
+  #s1 .title{font-size:36px}
+  #s1 .subtitle{font-size:18px}
+  #s1 .tagline{display:none}
+}
 
 .modepanel .modes{display:flex;gap:9px}
 .modes button{flex:1;background:var(--paper2,#F3EBD7);border:1.5px solid rgba(51,47,40,.12);
@@ -240,10 +261,10 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
   transition:.3s var(--ease);z-index:80;pointer-events:none}
 .toast.on{opacity:.95;transform:translate(-50%,0)}
 </style>
-<link rel="stylesheet" href="desktop.css">
-<script src="state.js"></script>
-<script src="data/herbs.js"></script>
-<script src="hud.js"></script>
+<link rel="stylesheet" href="desktop.css?v=2">
+<script src="state.js?v=2"></script>
+<script src="data/herbs.js?v=2"></script>
+<script src="hud.js?v=2"></script>
 </head>
 <body data-page="hub">
 <div id="app">
@@ -258,14 +279,15 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
       <h1 class="title">Apricot Grove</h1>
       <div class="subtitle zh">杏林行</div>
       <div class="rule"></div>
-      <p class="q" style="font-size:15px;color:var(--ink-soft);line-height:1.9">
+    </div>
+    <div class="titlefoot">
+      <p class="tagline">
         A river town. An old physician who no longer takes patients.<br>And you, arriving with nothing.
         <span class="zh">一座水鄉小鎮，一位不再看診的老大夫，<br>和什麼都沒有的你。</span>
       </p>
+      <button class="btn" id="beginBtn">Begin <span class="zh">啟程</span></button>
+      <p class="note">Educational game · not medical advice</p>
     </div>
-    <img class="titlemascot" src="art/mascot-jiang-run.jpg" alt="" aria-hidden="true">
-    <button class="btn" id="beginBtn">Begin <span class="zh">啟程</span></button>
-    <p class="note">Educational game · not medical advice</p>
   </section>
 
   <!-- ═══ 1b · LEARNING PATH (asked once) ═══ -->

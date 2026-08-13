@@ -55,11 +55,16 @@
   .hud-xp b{color:var(--terra,#C26D4E);font-size:13px}
 
   /* the tray that slides up.
-     Every panel closes three ways: the ✕, the backdrop, and Esc. The ✕ is the
-     one that always works — a real <button>, so a tap can never fall through. */
+     Four independent ways out — the ✕ top-right, the Close row at the foot,
+     a tap on the dimmed backdrop, and Esc. Both buttons are real <button>s
+     wired through a delegated capture-phase listener, so a tap can neither
+     fall through nor depend on one element keeping one handler. */
   .hud-scrim{position:absolute;inset:0;z-index:88;background:rgba(58,55,48,.44);
     opacity:0;pointer-events:none;transition:opacity .28s ease;cursor:pointer}
   .hud-scrim.on{opacity:1;pointer-events:auto}
+  /* the bar stays BEHIND the backdrop while a panel is open: a tap up there
+     then reads as "tap outside to dismiss", which is what people expect.
+     Raising it above caused a tap to close and instantly reopen the panel. */
   .tray{position:absolute;left:0;right:0;bottom:0;z-index:90;background:var(--paper,#F4EDDC);
     border-radius:20px 20px 0 0;box-shadow:0 -14px 44px rgba(58,55,48,.3);
     transform:translateY(102%);transition:transform .34s cubic-bezier(.22,1,.36,1);
@@ -74,6 +79,12 @@
     display:flex;align-items:center;justify-content:center;
     box-shadow:0 1px 4px rgba(58,55,48,.16);transition:transform .14s ease}
   .tray-x:active{transform:scale(.9)}
+  /* and a plain Close row at the foot, for anyone who never looks top-right */
+  .tray-done{display:block;width:100%;margin-top:16px;min-height:48px;border-radius:14px;
+    border:1.5px solid rgba(58,55,48,.16);background:var(--white,#fff);cursor:pointer;
+    font-family:inherit;font-size:15px;letter-spacing:.06em;color:var(--ink,#3A3730)}
+  .tray-done:active{transform:scale(.98)}
+  body.nozh .tray-done .zh{display:none}
   .tray h4{padding-right:48px}
   .tray h4{font-family:"Courier New",monospace;font-size:10.5px;letter-spacing:.28em;
     color:var(--gold,#B08D3E);text-transform:uppercase;margin:0 0 10px}
@@ -178,24 +189,53 @@
     var scrim = el('<div class="hud-scrim" id="hudScrim"></div>');
     var tray  = el('<aside class="tray" id="hudTray" role="dialog" aria-modal="true">'
       + '<div class="tray-in">'
-      + '<button class="tray-x" id="trayX" aria-label="Close" title="Close">✕</button>'
-      + '<div class="tray-grab"></div><div id="trayBody"></div></div></aside>');
+      + '<button class="tray-x" data-close-tray aria-label="Close" title="Close">✕</button>'
+      + '<div class="tray-grab"></div><div id="trayBody"></div>'
+      + '<button class="tray-done" data-close-tray>Close<span class="zh"> 關閉</span></button>'
+      + '</div></aside>');
     app.appendChild(scrim); app.appendChild(tray);
 
-    function open(html){ D.getElementById("trayBody").innerHTML=html;
+    var openBy = null;   // which HUD button opened it, so that button can toggle it shut
+
+    function open(html, key){ D.getElementById("trayBody").innerHTML=html;
       scrim.classList.add("on"); tray.classList.add("on");
-      D.body.classList.add("tray-open"); tray.scrollTop=0; }
+      D.body.classList.add("tray-open"); tray.scrollTop=0; openBy=key||null; }
     function close(){ scrim.classList.remove("on"); tray.classList.remove("on");
-      D.body.classList.remove("tray-open"); }
-    /* three independent ways out, so no single quirk can trap the player */
-    D.getElementById("trayX").onclick=close;
+      D.body.classList.remove("tray-open"); openBy=null; }
+    function isOpen(){ return tray.classList.contains("on"); }
+
+    /* Closing must never depend on one element keeping one handler.
+       This listens on the document in the CAPTURE phase, so any tap that
+       lands on anything marked data-close-tray closes the panel — even if
+       the tray's own markup was re-rendered, or a handler was lost. */
+    function closer(e){
+      var n=e.target;
+      while(n && n!==D.body){
+        if(n.nodeType===1 && n.hasAttribute && n.hasAttribute("data-close-tray")){
+          e.preventDefault(); e.stopPropagation(); close(); return;
+        }
+        n=n.parentNode;
+      }
+      /* a tap on the dimmed backdrop also closes */
+      if(isOpen() && (n===D.body||true) && e.target===scrim){ e.preventDefault(); close(); }
+    }
+    D.addEventListener("click", closer, true);
+    D.addEventListener("touchend", closer, true);
     scrim.onclick=close;
-    scrim.addEventListener("touchend", function(e){ e.preventDefault(); close(); }, {passive:false});
-    D.addEventListener("keydown", function(e){ if(e.key==="Escape") close(); });
+    D.addEventListener("keydown", function(e){ if(e.key==="Escape"||e.key==="Esc") close(); });
+    /* leaving the page or changing screen never leaves a panel stranded */
+    global.addEventListener("pagehide", close);
+    global.addEventListener("hashchange", close);
     global.AG_closeTray=close;
+    global.AG_trayOpen=isOpen;
+
+    /* tapping the same HUD button again shuts the panel it opened */
+    function toggler(key, build){
+      return function(){ if(isOpen() && openBy===key){ close(); return; } build(); };
+    }
 
     /* ── 己 · who you are right now ── */
-    D.getElementById("hudYou").onclick=function(){
+    D.getElementById("hudYou").onclick=toggler("you", function(){
       var S=AG.state, r=AG.rank();
       var rows=AXES.map(function(a){
         var lv=S.stats[a[0]]||0;
@@ -208,10 +248,10 @@
         + '<div class="tray-axes" style="margin-top:12px">'+rows+'</div>'
         + '<p class="tray-empty" style="margin-top:12px">Each case you finish raises the axes it exercised.'
         + '<span class="zh"> 每完成一個病案，會提升該案用到的軸。</span></p>');
-    };
+    });
 
     /* ── 囊 · what you have collected ── */
-    D.getElementById("hudBag").onclick=function(){
+    D.getElementById("hudBag").onclick=toggler("bag", function(){
       var S=AG.state, best=S.best||{};
       var chapters=Object.keys(best).filter(function(k){return k.indexOf("chapter_")===0}).sort();
       var cards = chapters.map(function(k){
@@ -234,10 +274,10 @@
         + '<h4 style="margin-top:16px">Halls of the Town<span class="zh"> 鎮上門派</span></h4>'
         + '<div class="tray-cards">'+halls+'</div>');
       bindCodex();
-    };
+    });
 
     /* ── ⚙ · settings ── */
-    D.getElementById("hudSet").onclick=function(){
+    D.getElementById("hudSet").onclick=toggler("set", function(){
       var S=AG.state;
       open('<h4>Settings<span class="zh"> 設定</span></h4>'
         + '<div class="tray-row"><div>Chinese support<small>中文輔助文字</small></div>'
@@ -278,7 +318,7 @@
         try{ global.localStorage.removeItem("acuting-play-v1"); }catch(e){}
         location.href="index.html";
       };
-    };
+    });
 
     var home=D.getElementById("hudHome");
     if(home) home.onclick=function(){ location.href="index.html"; };

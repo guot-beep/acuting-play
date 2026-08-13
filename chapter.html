@@ -317,12 +317,12 @@
   .reward p{font-size:12.5px;color:var(--ink-soft);line-height:1.6}
   .disclaimer{font-size:10.5px;color:var(--ink-soft);opacity:.7;line-height:1.6;margin-top:8px}
 </style>
-<link rel="stylesheet" href="desktop.css">
-<script src="state.js"></script>
-<script src="data/herbs.js"></script>
-<script src="hud.js"></script>
-<script src="data/chapters.js"></script>
-<script src="data/drills.js"></script>
+<link rel="stylesheet" href="desktop.css?v=2">
+<script src="state.js?v=2"></script>
+<script src="data/herbs.js?v=2"></script>
+<script src="hud.js?v=2"></script>
+<script src="data/chapters.js?v=2"></script>
+<script src="data/drills.js?v=2"></script>
 </head>
 <body data-page="chapter">
 <div id="app">
@@ -464,7 +464,7 @@
   <div class="retreat-scrim" id="rtScrim"></div>
   <aside class="retreat" id="rt" aria-live="polite">
     <div class="rt-inner">
-      <button class="rt-x" id="rtX" aria-label="Close" title="Close">✕</button>
+      <button class="rt-x" id="rtX" data-close-rt aria-label="Close" title="Close">✕</button>
       <div class="rt-head">
         <canvas class="rt-sprite" width="16" height="18"></canvas>
         <div>
@@ -769,11 +769,26 @@ function closeRetreat(){
   $("rt").classList.remove("on"); $("rtScrim").classList.remove("on");
   setTimeout(()=>{ const f=RT.after; RT.after=null; wrongStreak=0; f&&f(); },300);
 }
-$("rtSkip").onclick=()=>{ wrongStreak=0; closeRetreat(); };
-$("rtX").onclick=()=>{ wrongStreak=0; closeRetreat(); };
-$("rtScrim").onclick=()=>{ wrongStreak=0; closeRetreat(); };
+/* Leaving the Retreat must never depend on one element keeping one handler.
+   A delegated capture-phase listener means any tap on anything marked
+   data-close-rt closes it, plus the backdrop, plus Esc. */
+function bailRetreat(){ wrongStreak=0; closeRetreat(); }
+$("rtSkip").onclick=bailRetreat;
+function rtCloser(e){
+  if(!$("rt").classList.contains("on")) return;
+  if(e.target===$("rtScrim")){ e.preventDefault(); bailRetreat(); return; }
+  let n=e.target;
+  while(n && n!==document.body){
+    if(n.nodeType===1 && n.hasAttribute && n.hasAttribute("data-close-rt")){
+      e.preventDefault(); e.stopPropagation(); bailRetreat(); return;
+    }
+    n=n.parentNode;
+  }
+}
+document.addEventListener("click", rtCloser, true);
+document.addEventListener("touchend", rtCloser, true);
 document.addEventListener("keydown",e=>{
-  if(e.key==="Escape" && $("rt").classList.contains("on")){ wrongStreak=0; closeRetreat(); }
+  if((e.key==="Escape"||e.key==="Esc") && $("rt").classList.contains("on")) bailRetreat();
 });
 $("rtGo").onclick=()=>{ $("rtOffer").style.display="none"; $("rtPlay").style.display=""; rtStep(); };
 $("rtBack").onclick=closeRetreat;
