@@ -228,6 +228,10 @@
     box-shadow:0 6px 0 var(--terra-deep,#9E5B3A), 0 -10px 18px -6px var(--paper);
   }
   .screen > .cta.ghost{box-shadow:0 5px 0 rgba(58,55,48,.13), 0 -10px 18px -6px var(--paper)}
+  .cta:disabled{background:var(--white);color:var(--ink);cursor:default;font-size:15px;
+    box-shadow:0 4px 0 rgba(58,55,48,.10), 0 -14px 20px -6px var(--paper);
+    border:1.5px dashed var(--gold);letter-spacing:.06em}
+  .cta:disabled .zh{color:var(--ink-faint)}
   /* a little breathing room so the last option is not tucked under the button */
   .screen{padding-bottom:calc(18px + env(safe-area-inset-bottom))}
 
@@ -320,7 +324,7 @@
     <div class="opts" id="askOpts"></div>
     <div class="react" id="askReact"></div>
     <div class="fb" id="askFb"></div>
-    <button class="cta" id="askNext" style="display:none">Continue ▸</button>
+    <button class="cta" id="askNext" disabled>Ask 3 questions<span class="zh"> 問 3 題</span></button>
   </section>
 
   <!-- 3 · INSPECTION -->
@@ -390,7 +394,7 @@
     <div class="opts" id="rxOpts"></div>
     <div class="react" id="rxReact"></div>
     <div class="fb" id="rxFb"></div>
-    <button class="cta" id="rxNext" style="display:none" disabled>Confirm prescription ▸</button>
+    <button class="cta" id="rxNext" disabled>Choose 3 points<span class="zh"> 選 3 個穴位</span></button>
   </section>
 
   <!-- 7 · NEEDLING -->
@@ -452,6 +456,7 @@
   <!-- 8 · ENDING -->
   <section class="screen" id="s-end">
     <div class="end-wrap">
+      <div class="sprite" id="endSprite" hidden aria-hidden="true"></div>
       <div class="stars" id="stars">★★★</div>
       <h2 id="endTitle">Outcome</h2>
       <p class="ask" id="endText" style="margin:0"></p>
@@ -798,8 +803,23 @@ function doAsk(i,btn){
   if(o.good){score+=10;if(o.clue)addClue(o.clue);scored("ask")}else{slipped("ask")}
   $("askFb").className="fb show"+(o.good?"":" wrong");
   $("askFb").innerHTML=`<b>${PT_EN}:</b> ${o.a}<span class="zh" style="display:block;font-size:12.5px;margin-top:4px">${o.ca}</span><br>${o.note}`;
-  if(asked>=3){$("askOpts").querySelectorAll(".opt").forEach(b=>b.classList.add("used"));$("askNext").style.display="block"}
+  paintAskBtn();
+  if(asked>=3){$("askOpts").querySelectorAll(".opt").forEach(b=>b.classList.add("used"))}
 }
+/* never leave the player wondering why nothing happens: the footer button
+   is present from the start and states exactly what is still needed. */
+function paintAskBtn(){
+  const b=$("askNext"), left=3-asked;
+  b.style.display="block";
+  if(left>0){
+    b.disabled=true;
+    b.innerHTML=`Ask ${left} more question${left>1?"s":""}<span class="zh"> 還要再問 ${left} 題</span>`;
+  }else{
+    b.disabled=false;
+    b.innerHTML='Continue \u25B8';
+  }
+}
+paintAskBtn();
 mountHint("ask");
 $("askNext").onclick=()=>maybeRetreat(()=>{setStage(2);show("s-look")});
 
@@ -871,7 +891,10 @@ $("rxOpts").querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
   const i=+b.dataset.i;
   if(picked.includes(i)){picked=picked.filter(x=>x!==i);b.classList.remove("pick")}
   else{if(picked.length>=3)return;picked.push(i);b.classList.add("pick")}
-  $("rxNext").disabled=picked.length!==3;$("rxNext").style.display="block";
+  const n=picked.length, rb=$("rxNext");
+  rb.style.display="block"; rb.disabled=n!==3;
+  rb.innerHTML = n===3 ? 'Confirm prescription \u25B8<span class="zh"> 確定處方</span>'
+    : `Choose ${3-n} more point${3-n>1?"s":""}<span class="zh"> 還要再選 ${3-n} 個穴位</span>`;
 });
 $("rxNext").onclick=()=>{
   maxScore+=30;const right=picked.filter(i=>RX[i].ok).length;score+=right*10;
@@ -1033,6 +1056,10 @@ function paintChapterCopy(){
   const hi=$("herbImg");
   if(CH.reward.herbImg){ hi.src=CH.reward.herbImg; hi.alt=CH.reward.herbEn; hi.hidden=false; }
   else hi.hidden=true;
+  /* a small living celebration on the ending — sprite sheet, ~90 KB, loops forever */
+  const sp=$("endSprite");
+  if(sp && CH.reward.sprite){ sp.style.backgroundImage=`url(${CH.reward.sprite})`; sp.hidden=false; }
+  else if(sp) sp.hidden=true;
   $("chapline").innerHTML="Chapter "+CH_ID+`<span class="zh"> · ${CH.titleZh}</span>`+(BEGINNER?' <span style="color:var(--sage-deep)">· BEGINNER</span>':"");
   $("ptName").innerHTML=PT_EN+(PT_ZH?` <span class="zh">${PT_ZH}</span>`:"");
 }

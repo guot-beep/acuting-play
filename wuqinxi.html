@@ -74,7 +74,19 @@ body.nozh .zh{display:none !important}
   background:radial-gradient(circle at 40% 35%,rgba(255,255,255,.9),rgba(138,155,176,.28));
   transform:scale(.72);transition:transform 1.6s var(--ease)}
 .orb.in{transform:scale(1.12)}
-.breath span{font-family:"Courier New",monospace;font-size:10.5px;letter-spacing:.28em;color:var(--sky)}
+.breath span{font-family:"Courier New",monospace;font-size:11px;letter-spacing:.12em;color:var(--ink-soft)}
+.breath span b{color:var(--ink);letter-spacing:.06em;font-size:13px}
+.phase{font-family:"Courier New",monospace;font-size:12px;letter-spacing:.3em;text-align:center;
+  padding:7px 0;margin-bottom:6px;border-radius:9px;transition:.25s}
+.phase.watch{background:rgba(124,143,160,.16);color:#5B6E86}
+.phase.turn{background:rgba(194,109,78,.16);color:var(--terra)}
+.phase .zh{font-family:"Songti TC",serif;letter-spacing:.06em}
+.howto{background:var(--white);border:1.5px solid rgba(51,47,40,.1);border-radius:15px;
+  padding:14px 16px;margin-bottom:12px;font-size:13.5px;line-height:1.75;color:var(--ink-soft);
+  box-shadow:var(--sh);text-align:left}
+.howto b{color:var(--ink)}
+.howto ol{margin:8px 0 0 18px;display:flex;flex-direction:column;gap:7px}
+.howto li{padding-left:2px}
 
 /* animal ring */
 .ring{flex:1;display:flex;align-items:center;justify-content:center;min-height:0}
@@ -146,14 +158,26 @@ body.nozh .zh{display:none !important}
         <span class="zh">「五種動物。華佗看著牠們，從中造出了一套醫術。」</span></div>
     </div>
     <div class="learn" id="learn"></div>
-    <button class="btn" id="go1">Begin the frolics ▸<small>Follow me<span class="zh"> · 跟著我做</span></small></button>
+    <div class="howto">
+      <b>How this works</b><span class="zh"> 玩法</span>
+      <ol>
+        <li>Master Xiong performs a sequence of animal forms — <b>watch which cards light up</b>.
+          <span class="zh">熊師會示範一串動作，注意哪張卡亮起來。</span></li>
+        <li>Then tap the same animals <b>in the same order</b>.
+          <span class="zh">接著依照相同順序點出那些動物。</span></li>
+        <li>Three rounds, each a little longer. Each animal trains one organ.
+          <span class="zh">共三輪，一輪比一輪長。每一戲各養一臟。</span></li>
+      </ol>
+    </div>
+    <button class="btn" id="go1">Begin the frolics ▸<small>3 rounds<span class="zh"> · 共三輪</span></small></button>
   </section>
 
   <!-- 2 · SEQUENCE -->
   <section class="screen" id="s2">
     <div class="hud"><span class="rnd" id="r2">SEQUENCE 1 / 3</span><span class="sc" id="sc2">0</span></div>
     <div class="callout" id="call2"></div>
-    <div class="breath"><div class="orb" id="orb"></div><span id="brText">BREATHE</span></div>
+    <div class="phase watch" id="phase2">WATCH<span class="zh"> 看示範</span></div>
+    <div class="breath"><div class="orb" id="orb"></div><span id="brText">get ready</span></div>
     <div class="dots" id="dots2"></div>
     <div class="ring"><div class="grid5" id="grid2"></div></div>
     <div class="fb" id="fb2"></div>
@@ -289,22 +313,28 @@ async function runRound(){
   seq.at=0;seq.locked=true;seq.miss=false;
   $("r2").textContent=`SEQUENCE ${seq.round+1} / ${LENS.length}`;
   $("fb2").className="fb";$("btn2").innerHTML="";
-  $("call2").innerHTML=`Watch Master Xiong.<small>看熊師示範 · ${n} movements</small>`;
+  $("phase2").className="phase watch";
+  $("phase2").innerHTML='WATCH<span class="zh"> 看示範</span>';
+  $("call2").innerHTML=`Watch which cards light up — ${n} in a row.<small class="zh">注意哪幾張卡亮起，共 ${n} 個</small>`;
   $("dots2").innerHTML=seq.list.map(()=>"<i></i>").join("");
   cells2.forEach(c=>c.className="beast dim");
   await wait(700);
   for(let i=0;i<seq.list.length;i++){
     const c=cells2[seq.list[i]];
-    $("orb").classList.add("in");$("brText").textContent="INHALE 吸";
+    const bst=BEASTS[seq.list[i]];
+    $("orb").classList.add("in");
+    $("brText").innerHTML=`${i+1} / ${seq.list.length} \u00b7 <b>${bst.en}</b><span class="zh"> ${bst.zh}</span>`;
     c.classList.remove("dim");c.classList.add("lit");
-    await wait(620);
+    await wait(660);
     c.classList.remove("lit");c.classList.add("dim");
-    $("orb").classList.remove("in");$("brText").textContent="EXHALE 呼";
-    await wait(430);
+    $("orb").classList.remove("in");
+    await wait(400);
   }
-  $("brText").textContent="YOUR TURN";
+  $("phase2").className="phase turn";
+  $("phase2").innerHTML='YOUR TURN<span class="zh"> 換你</span>';
+  $("brText").innerHTML='tap them in order<span class="zh"> 依序點出</span>';
   cells2.forEach(c=>c.className="beast");
-  $("call2").innerHTML=`Now you.<small>repeat the sequence in order · 換你</small>`;
+  $("call2").innerHTML=`Now tap the same animals, in the same order.<small class="zh">依照剛才的順序，點出同樣的動物</small>`;
   [...$("dots2").children].forEach((d,i)=>d.className=i===0?"now":"");
   seq.locked=false;
 }

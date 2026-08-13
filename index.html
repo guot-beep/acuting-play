@@ -135,7 +135,7 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
 .modes button.on b{color:var(--sage-deep)}
 
 /* ── map ── */
-.mapbox{position:relative;background:linear-gradient(180deg,#EFE6CE,#E6DABC);border:1.5px solid rgba(51,47,40,.12);
+.mapbox{position:relative;flex:none;background:linear-gradient(180deg,#EFE6CE,#E6DABC);border:1.5px solid rgba(51,47,40,.12);
   border-radius:16px;overflow:hidden;box-shadow:var(--sh);margin-bottom:12px}
 .mapbox svg.scene{display:block;width:100%;height:auto}
 .node{cursor:pointer}
@@ -261,17 +261,6 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
         </svg>
         <div class="legend" id="legend"></div>
       </div>
-    </div>
-
-    <div class="panel modepanel">
-      <h3>Learning Path<span class="zh"> 學習路線</span></h3>
-      <div class="modes" id="modes">
-        <button data-m="beginner"><b>Beginner</b><span class="zh">入門</span>
-          <small>Fewer options · hints on demand · help arrives sooner</small></button>
-        <button data-m="student"><b>Student</b><span class="zh">學徒</span>
-          <small>Full option set · no hints · board-style depth</small></button>
-      </div>
-      <p class="note" style="margin-top:8px;text-align:left">Same cases, same medicine — only how much scaffolding you get.<span class="zh"> 病案與醫理相同，差別只在提示多寡。</span></p>
     </div>
 
     <div class="mapbox">

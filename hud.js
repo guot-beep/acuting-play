@@ -25,6 +25,10 @@
   body[data-page="prologue"] .screen,
   body[data-page="daily"] .screen,
   body[data-page="points"] .screen{top:var(--hud-h)}
+  /* page chrome that is absolutely positioned also has to clear the bar */
+  .chapline,.r2,#r2,.stage-name{position:relative;z-index:4}
+  body[data-page="daoyin"] .screen,
+  body[data-page="yinyang"] .screen{padding-top:26px}
   /* the HUD's settings tray owns the language switch now */
   .lang-toggle,.langBtn,#langBtn{display:none !important}
   .seal{top:calc(var(--hud-h) + 6px) !important}
@@ -71,6 +75,16 @@
   .tray-toggle{min-width:78px;height:34px;border-radius:99px;border:1.5px solid rgba(58,55,48,.16);
     background:var(--white,#fff);font-family:inherit;font-size:12.5px;color:var(--ink,#3A3730);cursor:pointer}
   .tray-toggle.on{background:rgba(123,139,111,.18);border-color:var(--sage-deep,#6E8B57);color:var(--sage-deep,#6E8B57)}
+  .tray-toggle.danger{color:var(--terra,#C26D4E);border-color:rgba(194,109,78,.4)}
+  .tray-toggle.danger.solid{background:var(--terra,#C26D4E);color:#fff;border-color:transparent}
+  .resetbox{display:none;margin-top:10px;padding:12px 14px;border-radius:12px;
+    background:rgba(194,109,78,.08);border-left:3px solid var(--terra,#C26D4E);
+    font-size:13px;line-height:1.7;color:var(--ink-soft,#5E594E)}
+  .resetbox.on{display:block;animation:reactIn .28s ease}
+  .resetbox b{color:var(--ink,#3A3730)}
+  .resetrow{display:flex;gap:8px;margin-top:11px}
+  .resetrow button{flex:1;min-width:0;height:38px;font-size:12.5px}
+  @keyframes reactIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
   .tray-axes{display:flex;flex-direction:column;gap:7px;margin-top:4px}
   .tray-axes div{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-soft,#5E594E)}
   .tray-axes .bar{flex:1;height:6px;border-radius:3px;background:rgba(58,55,48,.1);overflow:hidden}
@@ -83,6 +97,18 @@
   .tray-card .ic{font-size:19px;display:block;margin-bottom:3px;font-family:"Songti TC",serif}
   .tray-card small{display:block;margin-top:3px;font-size:10.5px;color:var(--ink-faint,#8A8578)}
   .tray-empty{font-size:13px;color:var(--ink-faint,#8A8578);line-height:1.7}
+  /* sprite-sheet animation — 8 frames in one 90 KB image, driven by steps().
+     Pixel maths, not percentages: percentage background-position resolves
+     against (container - image), which does not step evenly. */
+  .sprite{--cell:112px;--frames:8;
+    width:var(--cell);height:var(--cell);margin:0 auto 6px;
+    background-repeat:no-repeat;
+    background-size:calc(var(--cell) * var(--frames)) var(--cell);
+    animation:spriteRun .78s steps(8) infinite}
+  @keyframes spriteRun{
+    from{background-position:0 0}
+    to  {background-position:calc(-1 * var(--cell) * var(--frames)) 0}}
+  @media (prefers-reduced-motion:reduce){.sprite{animation:none;background-position:0 0}}
   @media (min-width:900px){
     .tray{left:50%;right:auto;bottom:50%;transform:translate(-50%,50%) scale(.97);
       width:min(560px,90%);border-radius:20px;opacity:0}
@@ -175,6 +201,13 @@
         + (AG.isBeginner()?"Beginner":"Student")+'</button></div>'
         + '<div class="tray-row"><div>Reduced motion<small>依系統設定自動調整</small></div>'
         + '<span style="font-size:12.5px;color:var(--ink-faint)">auto</span></div>'
+        + '<div class="tray-row"><div>Start over<small>重新開始 · 換一個角色</small></div>'
+        + '<button class="tray-toggle danger" id="tgReset">Reset</button></div>'
+        + '<div id="resetConfirm" class="resetbox">'
+        + '<b>This erases everything.</b> Your character, XP, chapters, cards and streak all go back to zero. It cannot be undone.'
+        + '<span class="zh" style="display:block;margin-top:5px">這會清除全部進度：角色、XP、章節、卡片、連續天數，且無法復原。</span>'
+        + '<div class="resetrow"><button class="tray-toggle" id="rsNo">Keep my progress</button>'
+        + '<button class="tray-toggle danger solid" id="rsYes">Erase and start over</button></div></div>'
         + '<p class="tray-empty" style="margin-top:12px">Apricot Grove is an educational game. Cases are fictional teaching examples and not medical advice.'
         + '<span class="zh"> 本遊戲為教學用途，病案為虛構教學範例，不構成醫療建議。</span></p>');
       D.getElementById("tgZh").onclick=function(){
@@ -184,6 +217,20 @@
       D.getElementById("tgMode").onclick=function(){
         var b=!AG.isBeginner(); AG.setMode(b?"beginner":"student");
         this.textContent=b?"Beginner":"Student"; this.classList.toggle("on",b);
+      };
+      /* destructive, so it asks first and says exactly what is lost */
+      D.getElementById("tgReset").onclick=function(){
+        D.getElementById("resetConfirm").classList.add("on");
+        this.disabled=true; this.style.opacity=".45";
+      };
+      D.getElementById("rsNo").onclick=function(){
+        D.getElementById("resetConfirm").classList.remove("on");
+        var t=D.getElementById("tgReset"); t.disabled=false; t.style.opacity="";
+      };
+      D.getElementById("rsYes").onclick=function(){
+        AG.reset();
+        try{ global.localStorage.removeItem("acuting-play-v1"); }catch(e){}
+        location.href="index.html";
       };
     };
 
