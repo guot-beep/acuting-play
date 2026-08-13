@@ -39,26 +39,25 @@ window.AG_HERBS = [
     factZh:"溫經止血、散寒止痛。艾灸之艾，即此葉。" },
 
   { id:"danggui", en:"Angelica Root", py:"Dāng Guī", zh:"當歸",
-    img:"",
+    img:"art/herb-danggui.jpg",
     nature:"Sweet, acrid, warm · Liver, Heart, Spleen",
     natureZh:"甘、辛、溫 · 歸肝心脾經",
     fact:"Nourishes blood and moves blood at the same time — which is why it appears in so many gynaecological formulas.",
     factZh:"補血活血，血中之氣藥。婦科方中常見之由。" },
 
   { id:"hongzao", en:"Jujube", py:"Hóng Zǎo", zh:"紅棗",
-    img:"",
+    img:"art/herb-hongzao.jpg",
     nature:"Sweet, warm · Spleen, Stomach",
     natureZh:"甘、溫 · 歸脾胃經",
     fact:"Tonifies the middle and calms the spirit; softens harsh herbs in a formula so the stomach tolerates them.",
     factZh:"補中益氣、養血安神，並能緩和藥性。" },
 
-  /* NOTE · art/mascot-hongzao-warrior.jpg is deliberately unused.
-     It reads as "a round red fruit" and could be jujube or goji — and a
-     picture on the wrong herb teaches wrong botany. It stays out of the
-     codex until there is art we are sure of. Same rule for every entry:
-     a named plate is better than a confident mistake. */
+  /* NOTE · art/mascot-hongzao-warrior.jpg stays unused: it reads as
+     "a round red fruit" and could be either of these two. Both now have
+     proper art with the right fruit shape, so the ambiguous one is retired.
+     Rule for every entry: a named plate beats a confident mistake. */
   { id:"gouqi", en:"Goji Berry", py:"Gǒu Qǐ Zǐ", zh:"枸杞子",
-    img:"",
+    img:"art/herb-gouqi.jpg",
     nature:"Sweet, neutral · Liver, Kidney",
     natureZh:"甘、平 · 歸肝腎經",
     fact:"Nourishes Liver and Kidney yin and brightens the eyes — the classic pairing for tired vision.",
