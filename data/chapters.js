@@ -7,7 +7,7 @@ window.AG_CHAPTERS = {
   "01": {
     id:"01", title:"A-Lian&#39;s Cough", titleZh:"阿蓮的咳嗽",
     patient:{name:"A-Lian 阿蓮", sprite:"girl"},
-    scene:{img:"art/ch00-clinic.jpg", key:"rain"},   // painted clinic; key is the fallback
+    scene:{img:"art/scene-clinic.jpg", key:"rain"},   // painted clinic; key is the fallback
     pattern:"Wind-Cold invading the Lung 風寒襲肺",
     principle:"release the exterior, diffuse the Lung",
     tongue:"pale-red, thin white coating",
@@ -114,7 +114,7 @@ window.AG_CHAPTERS = {
   ,"02": {
     id:"02", title:"The Boatman&#39;s Shoulder", titleZh:"船夫的肩背",
     patient:{name:"Old Wu 吳伯", sprite:"man"},
-    scene:{img:"art/ch00-clinic.jpg", key:"river"},  // painted clinic; key is the fallback
+    scene:{img:"art/scene-clinic.jpg", key:"river"},  // painted clinic; key is the fallback
     pattern:"Cold-Damp obstructing the channels 寒濕痹阻經絡",
     principle:"warm the channels, dispel cold and damp, free the collaterals",
     tongue:"pale with a white moist coating",
