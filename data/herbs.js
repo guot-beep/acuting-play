@@ -84,5 +84,59 @@ window.AG_HERBS = [
     nature:"Sweet, bland, neutral · Heart, Spleen, Kidney",
     natureZh:"甘、淡、平 · 歸心脾腎經",
     fact:"Drains damp without draining strength, and quiets the spirit. Bland-percolating, so gentle enough for long use.",
-    factZh:"利水滲濕、健脾寧心。性平味淡，可久服。" }
+    factZh:"利水滲濕、健脾寧心。性平味淡，可久服。" },
+
+  /* ── added with Ting's second batch of illustrated plates ──
+     Each was identified from the title printed on its own card, not from the
+     order the files arrived in. A picture on the wrong herb teaches wrong
+     botany, and that is the one mistake this codex must never make.
+     Where an herb carries a real safety point, it goes in `fact` so it
+     travels with the card and cannot be dropped. */
+  { id:"dangshen", en:"Codonopsis Root", py:"Dǎng Shēn", zh:"黨參",
+    img:"art/herb-dangshen.jpg",
+    plate:"art/card-dangshen.jpg",
+    nature:"Sweet, neutral · Spleen, Lung",
+    natureZh:"甘、平 · 歸脾肺經",
+    fact:"Tonifies the middle burner and strengthens Spleen and Lung qi. Gentler and more everyday than ginseng, which is why formulas often use it in ginseng's place.",
+    factZh:"補中益氣、健脾益肺。性較人參平和，日常方中常代人參而用。" },
+
+  { id:"baihe", en:"Lily Bulb", py:"Bǎi Hé", zh:"百合",
+    img:"art/herb-baihe.jpg",
+    plate:"art/card-baihe.jpg",
+    nature:"Sweet, slightly cold · Heart, Lung",
+    natureZh:"甘、微寒 · 歸心肺經",
+    fact:"Moistens the Lung and stops a dry cough; clears heat from the Heart and settles a restless mind. Suits dryness and irritability, not phlegm and damp.",
+    factZh:"潤肺止咳、清心安神。宜於燥證與心煩，痰濕者非其所長。" },
+
+  { id:"yiyiren", en:"Job's Tears Seed", py:"Yì Yǐ Rén", zh:"薏苡仁",
+    img:"art/herb-yiyiren.jpg",
+    plate:"art/card-yiyiren.jpg",
+    nature:"Sweet, bland, slightly cold · Spleen, Stomach, Lung",
+    natureZh:"甘、淡、微寒 · 歸脾胃肺經",
+    fact:"Drains damp and strengthens the Spleen, eases damp painful obstruction, and clears heat. Traditionally used with caution during pregnancy.",
+    factZh:"利水滲濕、健脾除痺、清熱排膿。古有孕婦慎用之說。" },
+
+  { id:"lianzi", en:"Lotus Seed", py:"Lián Zǐ", zh:"蓮子",
+    img:"art/herb-lianzi.jpg",
+    plate:"art/card-lianzi.jpg",
+    nature:"Sweet, astringent, neutral · Spleen, Kidney, Heart",
+    natureZh:"甘、澀、平 · 歸脾腎心經",
+    fact:"Tonifies the Spleen and binds — so it both strengthens and holds. Also nourishes the Heart and quiets the spirit. Its astringency means it suits leakage, not constipation.",
+    factZh:"補脾止瀉、益腎固精、養心安神。性澀，宜於滑脫，便秘者不宜。" },
+
+  { id:"danzhuye", en:"Lophatherum Leaf", py:"Dàn Zhú Yè", zh:"淡竹葉",
+    img:"art/herb-danzhuye.jpg",
+    plate:"art/card-danzhuye.jpg",
+    nature:"Sweet, bland, cold · Heart, Stomach, Small Intestine",
+    natureZh:"甘、淡、寒 · 歸心胃小腸經",
+    fact:"Clears heat and drains it downward through the urine. The classic choice when heat shows as restlessness, thirst, mouth sores and scanty dark urine.",
+    factZh:"清熱除煩、利尿。心煩口渴、口舌生瘡、小便短赤者宜之。" },
+
+  { id:"honghua", en:"Safflower", py:"Hóng Huā", zh:"紅花",
+    img:"art/herb-honghua.jpg",
+    plate:"art/card-honghua.jpg",
+    nature:"Acrid, warm · Heart, Liver",
+    natureZh:"辛、溫 · 歸心肝經",
+    fact:"Invigorates blood and breaks stasis. Because it moves blood strongly, it is contraindicated in pregnancy and used with care where there is bleeding.",
+    factZh:"活血通經、祛瘀止痛。行血力強，孕婦忌用，有出血傾向者慎用。" }
 ];
