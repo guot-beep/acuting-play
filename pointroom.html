@@ -4,11 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
 <!-- HTML must always be revalidated: assets are cache-busted with ?v=, but a
-     stale index.html would keep serving the old ?v= and hide every fix. -->
+     stale page would keep serving the old ?v= and hide every fix. -->
 <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta name="theme-color" content="#F2EAD8">
-<!-- bookmark / home-screen icon 書籤圖示 -->
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="art/icon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="art/icon-apple-180.png">
@@ -16,18 +15,19 @@
 <meta name="apple-mobile-web-app-title" content="杏林行">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<title>The Herb Room 藥草間 · Apricot Grove</title>
+<title>The Point Hall 點穴堂 · Apricot Grove</title>
 <!--
-  藥草間 · The Herb Room
+  點穴堂 · The Point Hall
 
-  One engine, many herbs. Everything a herb says lives in
-  data/herbstory.js; its name, nature and picture live in data/herbs.js.
-  Adding an herb is a data edit — no code changes here.
+  Sister page to herbroom.html, and deliberately the same engine shape:
+    wall → the scene (tap through) → 3 questions → point card
 
-  Shape of a visit:
-    shelf → the herb speaks (tap through) → 3 questions → card collected
-  The third question is always the caution. A beginner who only learns
-  what an herb is good for has learned the dangerous half.
+  The reference data lives in data/points.js; the teaching lives in
+  data/pointstory.js. Adding a point is a data edit — no code here.
+
+  What makes this page different from a location quiz: the three questions
+  are application, differentiation, and caution. A student who can find
+  Hegu but cannot say why, or when not to use it, has learned half a fact.
 -->
 <style>
 :root{
@@ -71,7 +71,7 @@ body.nozh .zh{display:none !important}
 /* .screen is absolutely positioned, and inset:0 resolves against #app's
    PADDING box — which starts above the HUD bar. hud.js offsets the pages it
    knows about; this page has to offset itself. */
-body[data-page="herbroom"] .screen{top:var(--hud-h,48px);
+body[data-page="pointroom"] .screen{top:var(--hud-h,48px);
   padding-top:calc(10px + env(safe-area-inset-top)) !important}
 .screen.on{display:flex;animation:fade .42s var(--ease)}
 @keyframes fade{from{opacity:0;transform:translateY(8px)}}
@@ -169,20 +169,49 @@ h2.rt{font-size:25px;letter-spacing:.1em;text-align:center;margin:2px 0 3px}
 .btn.ghost:active{box-shadow:0 2px 0 rgba(51,47,40,.13)}
 .disclaimer{font-size:10.5px;color:var(--ink-faint);opacity:.8;line-height:1.6;margin-top:10px;text-align:center}
 </style>
+<style>
+/* ── added for the Point Hall ── */
+.roombg{background-image:url("art/scene-needles.jpg")}
+.shelfhead{grid-column:1/-1;font-family:"Courier New",monospace;font-size:10px;letter-spacing:.28em;
+  color:var(--gold);text-transform:uppercase;margin:14px 0 -2px;text-align:center}
+.shelfhead:first-child{margin-top:0}
+.jar .code{display:block;font-family:"Courier New",monospace;font-size:11px;letter-spacing:.1em;
+  color:var(--terra-deep);margin-bottom:2px}
+.jar .cat{display:block;font-size:10.5px;line-height:1.5;color:var(--ink-faint);margin-top:4px}
+/* the anatomy plate is a wide photograph, so it gets a band rather than a square */
+.plateimg{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:center;border-radius:16px;
+  border:3px solid var(--white);box-shadow:var(--sh-l);background:var(--paper2);display:block}
+.pname{text-align:center;margin:12px 0 2px;font-size:22px;letter-spacing:.06em}
+.pmeta{text-align:center;font-size:12px;line-height:1.7;color:var(--ink-soft);margin-bottom:12px}
+.pmeta .cat{display:block;color:var(--terra-deep)}
+/* the fact rows on the collected card */
+.facts{text-align:left;margin-top:10px}
+.fact{border-top:1px solid rgba(51,47,40,.1);padding:9px 2px 0;margin-top:9px}
+.fact:first-child{border-top:none;margin-top:0;padding-top:0}
+.fact b{display:block;font-family:"Courier New",monospace;font-size:9.5px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:3px}
+.fact span.v{display:block;font-size:13.5px;line-height:1.75;color:var(--ink-soft)}
+.fact.warn b{color:var(--terra-deep)}
+.fact.warn{background:rgba(194,109,78,.07);border-radius:10px;padding:9px 11px;border-top:none;
+  border-left:3px solid var(--terra)}
+.hookline{font-size:14px;line-height:1.8;color:var(--ink);text-align:center;margin-top:4px}
+</style>
+
 </head>
-<body data-page="herbroom">
+<body data-page="pointroom">
 <div id="app">
   <div class="roombg" aria-hidden="true"></div>
   <div class="seal">杏</div>
 
-  <!-- ═══ shelf ═══ -->
+  <!-- ═══ the wall of points ═══ -->
   <section class="screen on" id="s-shelf">
     <div class="scrollbody">
-      <h2 class="rt">The Herb Room<span class="zh">藥草間</span></h2>
-      <p class="sub" id="sub">Meet them one at a time</p>
+      <h2 class="rt">The Point Hall<span class="zh">點穴堂</span></h2>
+      <p class="sub" id="sub">Learn where — and why</p>
       <div class="shelf" id="shelf"></div>
-      <p class="shelfnote">Each herb tells you what it is good at — and when it should not be used.
-        <span class="zh">每一味藥會說自己擅長什麼，也會說什麼時候不該用。</span></p>
+      <p class="shelfnote">Knowing where a point is, without knowing why you would use it, is half a fact.
+        Every visit here asks for the other half.
+        <span class="zh">只知穴之所在，不知何以用之，僅得其半。此處所問，正在其半之外。</span></p>
     </div>
     <div class="footbar">
       <button class="btn ghost" id="homeBtn">Back to town <span class="zh">回小鎮</span></button>
@@ -190,20 +219,19 @@ h2.rt{font-size:25px;letter-spacing:.1em;text-align:center;margin:2px 0 3px}
     </div>
   </section>
 
-  <!-- ═══ the herb speaks ═══ -->
+  <!-- ═══ the scene ═══ -->
   <section class="screen" id="s-talk">
     <div class="scrollbody">
       <div class="stage">
-        <img class="portrait" id="portrait" alt="" hidden>
-        <div class="portrait plate" id="portraitPlate" hidden></div>
-        <h2 class="hname" id="hname"></h2>
-        <p class="hnature" id="hnature"></p>
+        <img class="plateimg" id="portrait" alt="" hidden>
+        <h2 class="pname" id="pname"></h2>
+        <p class="pmeta" id="pmeta"></p>
       </div>
       <div class="bubble" id="bubble"><span id="beat"></span><span class="tap">tap ▸</span></div>
       <div class="dots" id="dots"></div>
     </div>
     <div class="footbar">
-      <button class="btn ghost" id="leaveBtn">Back to the shelf <span class="zh">回藥架</span></button>
+      <button class="btn ghost" id="leaveBtn">Back to the wall <span class="zh">回穴牆</span></button>
     </div>
   </section>
 
@@ -220,98 +248,115 @@ h2.rt{font-size:25px;letter-spacing:.1em;text-align:center;margin:2px 0 3px}
     </div>
   </section>
 
-  <!-- ═══ the card ═══ -->
+  <!-- ═══ the point card ═══ -->
   <section class="screen" id="s-card">
     <div class="scrollbody">
       <div class="card">
-        <div class="rar">Herb Card<span class="zh"> · 藥草卡</span></div>
-        <img id="cardImg" alt="" hidden>
-        <div class="plate" id="cardPlate" hidden></div>
+        <div class="rar">Point Card<span class="zh"> · 穴位卡</span></div>
+        <img id="cardImg" class="plateimg" alt="" hidden style="margin-bottom:12px">
         <h3 id="cardName"></h3>
-        <p class="nature" id="cardNature"></p>
-        <p id="cardLine"></p>
+        <p class="nature" id="cardMeta"></p>
+        <p class="hookline" id="cardHook"></p>
+        <div class="facts" id="cardFacts"></div>
       </div>
       <p class="score" id="score"></p>
     </div>
     <div class="footbar">
-      <button class="btn" id="nextHerb">Next herb ▸ <span class="zh">下一味</span></button>
-      <button class="btn ghost" id="shelfBtn">Back to the shelf <span class="zh">回藥架</span></button>
+      <button class="btn" id="nextPoint">Next point ▸ <span class="zh">下一穴</span></button>
+      <button class="btn ghost" id="shelfBtn">Back to the wall <span class="zh">回穴牆</span></button>
     </div>
   </section>
 </div>
 
 <script src="state.js?v=18"></script>
-<script src="data/herbs.js?v=18"></script>
-<script src="data/herbstory.js?v=18"></script>
+<script src="data/points.js?v=18"></script>
+<script src="data/pointstory.js?v=18"></script>
 <script src="hud.js?v=18"></script>
 <link rel="stylesheet" href="desktop.css?v=18">
 <script>
 const $ = id => document.getElementById(id);
-const STORY = window.AG_HERBSTORY || [];
-const HERBS = window.AG_HERBS || [];
-const byId  = {}; HERBS.forEach(h => byId[h.id] = h);
+const STORY  = window.AG_POINTSTORY || [];
+const POINTS = window.AG_POINTS || [];
+const byId = {}; POINTS.forEach(p => byId[p.id] = p);
 
-/* Chinese support is a saved preference; the HUD tray owns the switch */
 AG.applyLang && AG.applyLang();
 
-const zhs = t => t ? `<span class="zh">${t}</span>` : "";
+const zhs = t => t ? '<span class="zh">' + t + '</span>' : "";
+/* every en/zh pair renders the same way, so the pairing is written once */
+const pair = o => o ? (o.en || "") + zhs(o.zh || "") : "";
 
-/* ── which herbs has the player already met? ──
-   The Codex reads AG.state.cards, so we store the same shape it expects. */
-function met(){
-  const out = {};
-  (AG.state.cards || []).forEach(c => {
-    const k = String((c && (c.id || c.n || c)) || "").toLowerCase();
-    HERBS.forEach(h => {
-      if (k.indexOf(h.id) >= 0 || (h.zh && k.indexOf(h.zh) >= 0) || k.indexOf(h.en.toLowerCase()) >= 0)
-        out[h.id] = true;
-    });
-  });
-  return out;
+const REGIONS = [
+  { key:"hand", en:"Hand & Arm", zh:"手臂" },
+  { key:"leg",  en:"Leg & Foot",  zh:"下肢" },
+  { key:"back", en:"Back of the Leg", zh:"腿後" },
+  { key:"head", en:"Head & Neck", zh:"頭頸" }
+];
+
+/* ── which points has the player already learned? ──
+   Stored under its own key so point cards never collide with herb cards,
+   which the Codex reads. */
+function learned(){
+  const raw = AG.state.points || [];
+  const out = {}; raw.forEach(id => out[id] = true); return out;
+}
+function remember(id){
+  AG.state.points = AG.state.points || [];
+  if (AG.state.points.indexOf(id) < 0) AG.state.points.push(id);
 }
 
 function setScreen(id){
   document.querySelectorAll(".screen").forEach(s => s.classList.remove("on"));
   $(id).classList.add("on");
-  const body = $(id).querySelector(".scrollbody");
-  if (body) body.scrollTop = 0;
+  const b = $(id).querySelector(".scrollbody"); if (b) b.scrollTop = 0;
 }
 
-/* ══════════ shelf ══════════ */
+/* ══════════ the wall ══════════ */
 function paintShelf(){
-  const own = met();
-  $("shelf").innerHTML = STORY.map(s => {
-    const h = byId[s.id]; if (!h) return "";
-    const art = h.img ? `<img src="${h.img}" alt="" loading="lazy">`
-                      : `<span class="plate">${h.zh.charAt(0)}</span>`;
-    return `<button class="jar" data-id="${s.id}">${art}`
-         + (own[s.id] ? '<span class="tick">✓</span>' : "")
-         + `<b>${h.en}${zhs(h.zh)}</b><span class="py">${h.py}</span></button>`;
-  }).join("");
+  const own = learned();
+  let html = "";
+  REGIONS.forEach(function(r){
+    const inR = STORY.filter(s => s.region === r.key);
+    if (!inR.length) return;
+    html += '<div class="shelfhead">' + r.en + '</div>';
+    html += inR.map(function(s){
+      const p = byId[s.id]; if (!p) return "";
+      return '<button class="jar" data-id="' + s.id + '">'
+           + '<span class="code">' + p.id + '</span>'
+           + (own[s.id] ? '<span class="tick">✓</span>' : "")
+           + '<b>' + p.en + zhs(p.zh) + '</b>'
+           + '<span class="py">' + p.py + '</span>'
+           + '<span class="cat">' + pair(p.ch) + '</span></button>';
+    }).join("");
+  });
+  $("shelf").innerHTML = html;
   $("shelf").querySelectorAll(".jar").forEach(b => b.onclick = () => visit(b.dataset.id));
-  $("sub").textContent = `${Object.keys(own).length} of ${STORY.length} met`;
+  $("sub").textContent = Object.keys(own).length + " of " + STORY.length + " learned";
 }
 
 /* ══════════ a visit ══════════ */
-let S = null;   // {story, herb, beat, qi, right}
+let S = null;
+
+/* An image slot with no picture must collapse, not sit there as an empty box.
+   A URL in the data is not proof the file exists, so onerror counts too. */
+function showArt(img, src){
+  const hide = function(){ img.hidden = true; };
+  if (!src){ hide(); return; }
+  img.onerror = hide;
+  img.onload  = function(){ img.hidden = false; };
+  img.src = src;
+  if (img.complete && img.naturalWidth) img.hidden = false; else img.hidden = true;
+}
 
 function visit(id){
   const story = STORY.filter(s => s.id === id)[0];
-  const herb  = byId[id];
-  if (!story || !herb) return;
-  S = { story, herb, beat: 0, qi: 0, right: 0 };
+  const pt = byId[id];
+  if (!story || !pt) return;
+  S = { story:story, pt:pt, beat:0, qi:0, right:0 };
 
-  const img = $("portrait"), plate = $("portraitPlate");
-  const portraitPlateOnly = () => { img.hidden = true; plate.textContent = herb.zh.charAt(0); plate.hidden = false; };
-  if (herb.img){
-    img.onerror = portraitPlateOnly;
-    img.onload  = () => { img.hidden = false; plate.hidden = true; };
-    img.alt = herb.en; img.src = herb.img;
-    if (img.complete && img.naturalWidth){ img.hidden = false; plate.hidden = true; }
-  } else portraitPlateOnly();
-
-  $("hname").innerHTML   = herb.en + zhs(herb.zh);
-  $("hnature").innerHTML = herb.nature + zhs(herb.natureZh);
+  showArt($("portrait"), pt.img);
+  $("pname").innerHTML = pt.id + " · " + pt.en + zhs(pt.zh);
+  $("pmeta").innerHTML = pair(pt.ch)
+    + (pt.cat && (pt.cat.en || pt.cat.zh) ? '<span class="cat">' + pair(pt.cat) + '</span>' : "");
   paintBeat();
   setScreen("s-talk");
 }
@@ -319,12 +364,11 @@ function visit(id){
 function paintBeat(){
   const b = S.story.beats[S.beat];
   $("beat").innerHTML = b.en + zhs(b.zh);
-  $("dots").innerHTML = S.story.beats.map((_, i) => `<i class="${i <= S.beat ? "on" : ""}"></i>`).join("");
+  $("dots").innerHTML = S.story.beats.map((_, i) => '<i class="' + (i <= S.beat ? "on" : "") + '"></i>').join("");
 }
 
-$("bubble").onclick = () => {
-  if (S.beat < S.story.beats.length - 1){ S.beat++; paintBeat(); }
-  else startQs();
+$("bubble").onclick = function(){
+  if (S.beat < S.story.beats.length - 1){ S.beat++; paintBeat(); } else startQs();
 };
 
 /* ══════════ questions ══════════ */
@@ -332,19 +376,19 @@ function startQs(){ S.qi = 0; paintQ(); setScreen("s-q"); }
 
 function paintQ(){
   const q = S.story.qs[S.qi];
-  $("qline").textContent = `${S.herb.en} · Question ${S.qi + 1} of ${S.story.qs.length}`;
+  $("qline").textContent = S.pt.id + " · Question " + (S.qi + 1) + " of " + S.story.qs.length;
   $("qText").innerHTML = q.q + zhs(q.cq);
   $("qFb").className = "fb";
   $("qNext").style.display = "none";
-  $("qOpts").innerHTML = q.opts
-    .map((o, i) => `<button class="opt" data-i="${i}">${o.t}${zhs(o.c)}</button>`).join("");
-  $("qOpts").querySelectorAll(".opt").forEach(btn => btn.onclick = () => answer(+btn.dataset.i));
+  $("qOpts").innerHTML = q.opts.map((o, i) =>
+    '<button class="opt" data-i="' + i + '">' + o.t + zhs(o.c) + '</button>').join("");
+  $("qOpts").querySelectorAll(".opt").forEach(b => b.onclick = () => answer(+b.dataset.i));
 }
 
 function answer(i){
   const q = S.story.qs[S.qi], o = q.opts[i];
   if (o.ok) S.right++;
-  $("qOpts").querySelectorAll(".opt").forEach((btn, n) => {
+  $("qOpts").querySelectorAll(".opt").forEach(function(btn, n){
     btn.onclick = null; btn.classList.add("used");
     if (q.opts[n].ok) btn.classList.add("good");
     else if (n === i) btn.classList.add("bad");
@@ -355,63 +399,56 @@ function answer(i){
   $("qNext").style.display = "";
 }
 
-$("qNext").onclick = () => {
+$("qNext").onclick = function(){
   if (S.qi < S.story.qs.length - 1){ S.qi++; paintQ(); $("s-q").querySelector(".scrollbody").scrollTop = 0; }
   else finish();
 };
 
 /* ══════════ the card ══════════ */
+function row(label, val, warn){
+  if (!val) return "";
+  return '<div class="fact' + (warn ? " warn" : "") + '"><b>' + label + '</b><span class="v">' + val + '</span></div>';
+}
+
 function finish(){
-  const h = S.herb, total = S.story.qs.length;
-  const gain = 30 + S.right * 12;
+  const p = S.pt, total = S.story.qs.length, gain = 30 + S.right * 12;
 
-  /* A full illustrated plate wins over the character crop on the big card.
-     Either way the slot collapses unless a picture actually loads — a URL in
-     the data is not proof, the file can 404. */
-  const big = h.plate || h.img;
-  const ci = $("cardImg"), cp = $("cardPlate");
-  const plateOnly = () => { ci.hidden = true; cp.textContent = h.zh.charAt(0); cp.hidden = false; };
-  if (big){
-    ci.onerror = plateOnly;
-    ci.onload  = () => { ci.hidden = false; cp.hidden = true; };
-    ci.alt = h.en; ci.src = big;
-    if (ci.complete && ci.naturalWidth){ ci.hidden = false; cp.hidden = true; }
-  } else plateOnly();
+  showArt($("cardImg"), p.img);
+  $("cardName").innerHTML = p.id + " · " + p.en + zhs(p.zh);
+  $("cardMeta").innerHTML = pair(p.ch) + (p.cat && (p.cat.en || p.cat.zh) ? " · " + pair(p.cat) : "");
+  $("cardHook").innerHTML = S.story.card ? pair(S.story.card) : "";
+  $("cardFacts").innerHTML =
+      row("Location 定位", pair(p.where))
+    + row("Actions 功效", pair(p.acts))
+    + row("When you reach for it 臨床應用", pair(p.use))
+    + row("Remember 記憶", pair(p.hook))
+    + row("Caution 注意", pair(p.caution), true);
+  $("score").textContent = S.right + " / " + total + " · +" + gain + " XP";
 
-  $("cardName").innerHTML   = h.en + zhs(h.zh);
-  $("cardNature").innerHTML = h.nature + zhs(h.natureZh);
-  $("cardLine").innerHTML   = S.story.card.en + zhs(S.story.card.zh);
-  $("score").textContent    = `${S.right} / ${total} · +${gain} XP`;
-
-  /* the card is stored in the shape the Herb Codex already reads */
-  const already = !!met()[h.id];
-  if (!already){
-    AG.state.cards = AG.state.cards || [];
-    AG.state.cards.push({ id: h.id, n: h.en + " " + h.zh, d: AG.gameDayKey() });
-  }
+  const already = !!learned()[p.id];
+  remember(p.id);
   AG.complete({
-    activity: "herbroom_" + h.id,
-    completed: true, score: S.right, stars: S.right >= total ? 3 : (S.right >= 2 ? 2 : 1),
-    xpEarned: already ? Math.round(gain / 3) : gain,     // revisits are worth less, never zero
-    skillXp: { herb: 14 + S.right * 7 },
+    activity: "pointroom_" + p.id,
+    completed: true, score: S.right,
+    stars: S.right >= total ? 3 : (S.right >= 2 ? 2 : 1),
+    xpEarned: already ? Math.round(gain / 3) : gain,   /* revisits worth less, never zero */
+    skillXp: { point: 14 + S.right * 7 },
     unlocks: []
   });
 
-  const left = STORY.filter(s => !met()[s.id]);
-  $("nextHerb").style.display = left.length ? "" : "none";
+  const left = STORY.filter(s => !learned()[s.id]);
+  $("nextPoint").style.display = left.length ? "" : "none";
   setScreen("s-card");
 }
 
-$("nextHerb").onclick = () => {
-  const own = met();
-  const next = STORY.filter(s => !own[s.id])[0] || STORY.filter(s => s.id !== S.herb.id)[0];
+$("nextPoint").onclick = function(){
+  const own = learned();
+  const next = STORY.filter(s => !own[s.id])[0] || STORY.filter(s => s.id !== S.pt.id)[0];
   if (next) visit(next.id); else { paintShelf(); setScreen("s-shelf"); }
 };
-$("shelfBtn").onclick = $("leaveBtn").onclick = () => { paintShelf(); setScreen("s-shelf"); };
-$("homeBtn").onclick  = () => location.href = "index.html";
+$("shelfBtn").onclick = $("leaveBtn").onclick = function(){ paintShelf(); setScreen("s-shelf"); };
+$("homeBtn").onclick = function(){ location.href = "index.html"; };
 
-/* Split every screen into a scrolling body and a pinned footer where the
-   markup did not already do it — same contract as the chapter engine. */
 paintShelf();
 </script>
 </body>

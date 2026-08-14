@@ -39,6 +39,7 @@
         dx: false, herb: false
       },
       cards: [],                // herb cards collected
+      points: [],               // point ids learned in the Point Hall 點穴堂
       mastery: {},              // pointId -> repetitions (spaced repetition seed)
       streak: 0, lastDay: "",   // overall play streak
       dc: { streak: 0, last: "", solved: 0, results: {} }   // daily case
