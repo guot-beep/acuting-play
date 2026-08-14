@@ -11,7 +11,8 @@
    ═══════════════════════════════════════════════════════════════ */
 window.AG_HERBS = [
   { id:"shengjiang", en:"Fresh Ginger", py:"Shēng Jiāng", zh:"生薑",
-    img:"art/mascot-jiang-run.jpg",
+    img:"art/herb-shengjiang.jpg",
+    plate:"art/card-shengjiang.jpg",
     nature:"Acrid, slightly warm · Lung, Spleen, Stomach",
     natureZh:"辛、微溫 · 歸肺脾胃經",
     fact:"Releases the exterior and disperses cold; warms the middle and stops nausea. The everyday kitchen ally for an early wind-cold.",
@@ -43,6 +44,7 @@ window.AG_HERBS = [
 
   { id:"danggui", en:"Angelica Root", py:"Dāng Guī", zh:"當歸",
     img:"art/herb-danggui.jpg",
+    plate:"art/card-danggui.jpg",
     nature:"Sweet, acrid, warm · Liver, Heart, Spleen",
     natureZh:"甘、辛、溫 · 歸肝心脾經",
     fact:"Nourishes blood and moves blood at the same time — which is why it appears in so many gynaecological formulas.",
@@ -50,6 +52,7 @@ window.AG_HERBS = [
 
   { id:"hongzao", en:"Jujube", py:"Hóng Zǎo", zh:"紅棗",
     img:"art/herb-hongzao.jpg",
+    plate:"art/card-hongzao.jpg",
     nature:"Sweet, warm · Spleen, Stomach",
     natureZh:"甘、溫 · 歸脾胃經",
     fact:"Tonifies the middle and calms the spirit; softens harsh herbs in a formula so the stomach tolerates them.",
