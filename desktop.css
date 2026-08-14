@@ -137,23 +137,19 @@
   /* ═══ CHAPTER ENGINE (chapter.html) ═══
      The dialogue screen splits: cast left, speech right.
      This is what kills the empty band in the middle. */
-  [data-page="chapter"] #s-story .scene {
-    flex-direction: row;
-    align-items: flex-end;   /* characters stand on the ground, not float mid-air */
-    justify-content: center;
-    gap: 46px;
-    padding-bottom: 54px;
-  }
-  [data-page="chapter"] #s-story .cast {
-    flex: 0 1 440px;
-    min-height: 0;
-    align-items: flex-end;
-    gap: 44px;
+  /* The story stage is now illustration-over-dialogue on every screen size —
+     one structure, so a fix on the phone cannot break the desktop and back.
+     Desktop simply gives the picture more of the frame and centres the words. */
+  [data-page="chapter"] #s-story .storyart { flex: 1 1 auto; }
+  [data-page="chapter"] #s-story .storycard {
+    padding-left: 40px;
+    padding-right: 40px;
+    align-items: center;
   }
   [data-page="chapter"] #s-story .bubble {
-    flex: 0 1 540px;
-    min-height: 190px;
-    max-width: 540px;
+    width: 100%;
+    max-width: 640px;
+    min-height: 150px;
   }
   [data-page="chapter"] .actor canvas { width: 128px; height: 144px; }
   [data-page="chapter"] .actor span   { font-size: 12.5px; }
