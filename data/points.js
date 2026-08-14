@@ -293,6 +293,25 @@ window.AG_POINTS = [
         zh:"外為陽陵泉，內為陰陵泉；高低相當，內外相對。"},
   img:"art/channel-3.jpg" },
 
+/* Ting's medial-leg plate (art/channel-3.jpg) runs SP6 up to SP9, so the two
+   Spleen points on it are entered together — SP6 is arguably the most-tested
+   point in the whole syllabus, and carries a contraindication that must
+   travel with it. */
+{ id:"SP6", en:"Sanyinjiao", py:"Sān Yīn Jiāo", zh:"三陰交",
+  ch:{en:"Spleen", zh:"足太陰脾經"},
+  cat:{en:"Meeting point of the three leg yin channels 三陰經交會穴", zh:"足三陰經交會穴"},
+  where:{en:"Three cun directly above the tip of the medial malleolus, on the posterior border of the tibia.",
+         zh:"內踝尖上三寸，脛骨內側緣後方。"},
+  acts:{en:"Fortifies the Spleen and resolves damp · harmonises Liver and tonifies Kidney · regulates menstruation and the lower burner · calms the spirit",
+        zh:"健脾化濕、疏肝益腎、調經理下焦、安神"},
+  use:{en:"Where the Spleen, Liver and Kidney channels cross, so one needle reaches all three — which is why it appears in almost every gynaecological, digestive and sleep prescription. Painful or irregular periods, infertility, poor digestion, insomnia, urinary difficulty.",
+       zh:"脾、肝、腎三經交會，一穴而通三經，故婦科、脾胃、失眠諸方皆用。主痛經、月經不調、不孕、納呆、失眠、小便不利。"},
+  hook:{en:"Three yin cross here — Spleen, Liver, Kidney. That crossing is the whole point.",
+        zh:"三陰交會：脾、肝、腎。名即其理。"},
+  caution:{en:"Contraindicated in pregnancy — classically paired with LI4 as the points that move too strongly for it.",
+           zh:"孕婦禁針。古與合谷並稱，行血力強，孕期忌用。"},
+  img:"art/channel-3.jpg" },
+
 { id:"KI3", en:"Taixi", py:"Tài Xī", zh:"太谿",
   ch:{en:"Kidney", zh:"足少陰腎經"},
   cat:{en:"Source point · Stream point 原穴、輸穴", zh:"原穴、輸穴"},

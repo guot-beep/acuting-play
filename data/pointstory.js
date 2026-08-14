@@ -892,6 +892,59 @@ window.AG_POINTSTORY = [
   card:{en:"Yinlingquan drains damp from the lower body — Yang Mound outside, Yin Mound inside, at the same height on the knee.",
         zh:"陰陵泉，下焦祛濕要穴。外為陽陵，內為陰陵，高低相當。"} },
 
+{ id:"SP6", region:"leg",
+  beats:[
+    {en:"A young weaver has had painful periods for years. They come late, the blood is dark with clots, and she sleeps badly the week before.",
+     zh:"一位年輕織婦經痛多年，經行後期，色暗有塊，經前一週輾轉難眠。"},
+    {en:"Shen Yi measures four finger-breadths up from the tip of the inner ankle bone, and settles her thumb just behind the edge of the shin bone.",
+     zh:"沈醫師自內踝尖上量四橫指，按於脛骨內側緣後方。"},
+    {en:"\"Three channels cross under my thumb,\" she says. \"Spleen, Liver, Kidney. Her periods are all three at once — so I would rather use the crossing than chase each one.\"",
+     zh:"「我指下有三經相交，」她說，「脾、肝、腎。她的經病三者俱涉，與其逐一而治，不如取其交會。」"}
+  ],
+  qs:[
+    {q:"Why is Sanyinjiao used in almost every gynaecological prescription?",
+     cq:"婦科諸方，何以幾乎必用三陰交？",
+     opts:[
+      {t:"It is the meeting point of the Spleen, Liver and Kidney channels, and menstrual disorders usually involve some combination of those three",
+       c:"為脾、肝、腎三經交會穴；經病多不離此三經",ok:true,
+       note:"<b>Correct.</b> Spleen makes and holds blood, Liver stores and moves it, Kidney governs reproduction. One point at the crossing reaches all three — that is the economy of it."},
+      {t:"Because it is the Source point of the Spleen channel",
+       c:"為脾經原穴",ok:false,
+       note:"The Spleen's Source point 原穴 is <b>Taibai SP3</b>. SP6 is a meeting point 交會穴, not a Source point."},
+      {t:"Because it is a local point over the uterus",
+       c:"為胞宮之局部穴",ok:false,
+       note:"It is on the lower leg — distal. Its reach comes from the three channels that pass through it."}
+     ]},
+    {q:"Her blood is dark with clots and the pain eases with a warm compress. What does that suggest, and what does it add to the treatment?",
+     cq:"其血色暗有塊，得溫則減，屬何證？當增何法？",
+     opts:[
+      {t:"Cold with blood stasis — so warming methods suit, and moxa on SP6 or the lower abdomen fits the pattern",
+       c:"寒凝血瘀——宜溫，可灸三陰交或小腹",ok:true,
+       note:"<b>Correct.</b> Dark blood with clots, pain relieved by warmth and worse with cold, is a coherent <b>寒凝血瘀</b> picture. Note that this reasoning also tells you moxa is appropriate — pattern first, technique second."},
+      {t:"Damp-heat in the lower burner — so cooling and draining suit",
+       c:"下焦濕熱——宜清利",ok:false,
+       note:"Damp-heat brings burning, yellow discharge, and pain that is <b>worse</b> with warmth. Here warmth helps, which points the other way."},
+      {t:"Blood deficiency — so the period would be heavy and bright red",
+       c:"血虛——當經量多而色鮮",ok:false,
+       note:"Blood deficiency gives a <b>scant, pale</b> period with dull pain that eases with pressure — not dark clots."}
+     ]},
+    {q:"A month later the same woman returns and mentions she is pregnant. What changes?",
+     cq:"一月後其人復診，告知已有身孕。當如何？",
+     opts:[
+      {t:"Stop using SP6 — it is contraindicated in pregnancy, in the same group as LI4 and BL60",
+       c:"停用三陰交——孕婦禁針，與合谷、崑崙同屬此類",ok:true,
+       note:"<b>Correct, and this is the answer that matters most.</b> Keep the pregnancy-caution group together: <b>LI4 合谷 · SP6 三陰交 · BL60 崑崙 · BL67 至陰</b>, plus points over the lower abdomen and lumbosacral area. Ask about pregnancy before you needle, not after."},
+      {t:"Continue, but needle more gently",
+       c:"照常施針，惟手法宜輕",ok:false,
+       note:"A contraindication is not softened by technique. Choose a different point."},
+      {t:"Continue — the contraindication only applies in the first month",
+       c:"惟首月禁用，其後無妨",ok:false,
+       note:"The caution is not limited to the first month."}
+     ]}
+  ],
+  card:{en:"Sanyinjiao is where Spleen, Liver and Kidney cross — three cun above the inner ankle. Never in pregnancy.",
+        zh:"三陰交，脾肝腎三經交會，內踝上三寸。孕婦禁針。"} },
+
 { id:"KI3", region:"leg",
   beats:[
     {en:"A widow in her sixties has ringing in her ears that grows louder when she is tired, aching in her lower back, and heat in her palms at night.",
