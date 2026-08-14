@@ -67,7 +67,8 @@ window.AG_HERBS = [
     factZh:"滋補肝腎、益精明目。目澀昏花之常用。" },
 
   { id:"meiguihua", en:"Rose Bud", py:"Méi Guī Huā", zh:"玫瑰花",
-    img:"",
+    img:"art/herb-meiguihua.jpg",
+    plate:"art/card-meiguihua.jpg",
     nature:"Sweet, slightly bitter, warm · Liver, Spleen",
     natureZh:"甘、微苦、溫 · 歸肝脾經",
     fact:"Courses Liver qi and harmonises the blood, gently. Light enough for daily tea, which is why it suits stagnation that comes from feeling rather than from cold.",
