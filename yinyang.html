@@ -142,14 +142,31 @@ body.nozh .zh{display:none !important}
   max-width:330px;text-align:left;font-size:12.5px;line-height:1.7;color:var(--ink-soft)}
 .missed h4{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.24em;color:var(--terra);margin-bottom:5px}
 .note{font-size:10.5px;color:var(--ink-faint);line-height:1.7;text-align:center;margin-top:8px}
+
+/* ── the room this practice happens in ──
+   Portrait plate on a phone, wide plate on a desktop: the same room, framed
+   for the shape of the screen. A paper veil keeps every word legible over it. */
+.roombg{position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:url("art/scene-hall.jpg") center 58%/cover no-repeat;opacity:.85}
+.roombg::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(242,234,216,.86) 0%,rgba(242,234,216,.52) 30%,
+    rgba(242,234,216,.62) 62%,rgba(242,234,216,.92) 88%,var(--paper) 100%)}
+@media (min-width:900px){
+  .roombg{background-image:url("art/scene-hall-wide.jpg")}
+}
+@media (prefers-reduced-motion:no-preference){
+  .roombg{animation:roomIn 1.6s cubic-bezier(.22,.9,.3,1) forwards;transform:scale(1.04)}
+  @keyframes roomIn{to{transform:scale(1)}}
+}
 </style>
-<link rel="stylesheet" href="desktop.css?v=15">
-<script src="state.js?v=15"></script>
-<script src="data/herbs.js?v=15"></script>
-<script src="hud.js?v=15"></script>
+<link rel="stylesheet" href="desktop.css?v=16">
+<script src="state.js?v=16"></script>
+<script src="data/herbs.js?v=16"></script>
+<script src="hud.js?v=16"></script>
 </head>
 <body data-page="yinyang">
 <div id="app">
+  <div class="roombg" aria-hidden="true"></div>
   <div class="seal">理</div>
   <button class="langBtn" id="langBtn">中文 ON</button>
   <div class="chapline">Training Ground<span class="zh"> · 修煉場</span></div>

@@ -187,14 +187,31 @@
   .btn-row .ghost:active{box-shadow:0 2px 0 rgba(58,55,48,.18)}
   .disclaimer{font-size:10.5px;color:var(--ink-soft);opacity:.7;text-align:center;margin-top:10px;line-height:1.6}
   body.nozh .zh{display:none !important}
+
+/* ── the room this practice happens in ──
+   Portrait plate on a phone, wide plate on a desktop: the same room, framed
+   for the shape of the screen. A paper veil keeps every word legible over it. */
+.roombg{position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:url("art/scene-needles.jpg") center 50%/cover no-repeat;opacity:.85}
+.roombg::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(242,234,216,.86) 0%,rgba(242,234,216,.52) 30%,
+    rgba(242,234,216,.62) 62%,rgba(242,234,216,.92) 88%,var(--paper) 100%)}
+@media (min-width:900px){
+  .roombg{background-image:url("art/scene-needles.jpg")}
+}
+@media (prefers-reduced-motion:no-preference){
+  .roombg{animation:roomIn 1.6s cubic-bezier(.22,.9,.3,1) forwards;transform:scale(1.04)}
+  @keyframes roomIn{to{transform:scale(1)}}
+}
 </style>
-<link rel="stylesheet" href="desktop.css?v=15">
-<script src="state.js?v=15"></script>
-<script src="data/herbs.js?v=15"></script>
-<script src="hud.js?v=15"></script>
+<link rel="stylesheet" href="desktop.css?v=16">
+<script src="state.js?v=16"></script>
+<script src="data/herbs.js?v=16"></script>
+<script src="hud.js?v=16"></script>
 </head>
 <body data-page="points">
 <div id="app">
+  <div class="roombg" aria-hidden="true"></div>
   <!-- 背景 山與雲 -->
   <div class="scenery">
     <svg class="cloud" style="top:9%" width="150" height="46" viewBox="0 0 150 46"><path d="M8 34 Q2 22 14 18 Q16 6 32 8 Q40 0 54 6 Q70 2 74 14 Q90 12 88 24 Q98 28 92 34 Z M104 40 Q100 32 110 30 Q112 22 124 24 Q134 20 138 28 Q148 28 144 36 Z" fill="#fff" opacity=".8" stroke="#C9BFA6" stroke-width="1.5"/></svg>
