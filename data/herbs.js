@@ -30,6 +30,7 @@ window.AG_HERBS = [
 
   { id:"renshen", en:"Ginseng", py:"Rén Shēn", zh:"人參",
     img:"art/herb-renshen.jpg",
+    plate:"art/card-renshen.jpg",
     nature:"Sweet, slightly bitter, slightly warm · Lung, Spleen, Heart",
     natureZh:"甘、微苦、微溫 · 歸肺脾心經",
     fact:"Strongly tonifies original qi. Reserved for real depletion — not a daily pick-me-up.",
@@ -37,6 +38,7 @@ window.AG_HERBS = [
 
   { id:"aiye", en:"Mugwort Leaf", py:"Ài Yè", zh:"艾葉",
     img:"art/herb-aiye.jpg",
+    plate:"art/card-aiye.jpg",
     nature:"Bitter, acrid, warm · Liver, Spleen, Kidney",
     natureZh:"苦、辛、溫 · 歸肝脾腎經",
     fact:"Warms the channels and stops bleeding; disperses cold in the lower abdomen. This is the leaf that becomes moxa.",

@@ -43,7 +43,7 @@ window.AG_POINTS = [
         zh:"四總穴歌：「面口合谷收」。"},
   caution:{en:"Strongly moves qi and blood downward — avoid in pregnancy.",
            zh:"行氣活血力強，孕婦禁針。"},
-  img:"anatomy/hand-dorsal.jpg" },
+  img:"art/anatomy/hand-dorsal.jpg" },
 
 { id:"SI3", en:"Houxi", py:"Hòu Xī", zh:"後谿",
   ch:{en:"Small Intestine", zh:"手太陽小腸經"},
@@ -56,7 +56,7 @@ window.AG_POINTS = [
        zh:"項強、脊背疼痛之遠端要穴——通督脈，督行於背。落枕不能轉側者尤宜。"},
   hook:{en:"It opens the Du channel, so it treats the whole length of the back.",
         zh:"通督脈，故治一身之背。"},
-  img:"anatomy/hand-dorsal.jpg" },
+  img:"art/anatomy/hand-dorsal.jpg" },
 
 { id:"TE3", en:"Zhongzhu", py:"Zhōng Zhǔ", zh:"中渚",
   ch:{en:"Triple Burner", zh:"手少陽三焦經"}, cat:{en:"Stream point 輸穴", zh:"輸穴"},
@@ -66,7 +66,7 @@ window.AG_POINTS = [
         zh:"清三焦熱、聰耳、舒筋活絡"},
   use:{en:"Ear problems along the Shaoyang line — tinnitus, deafness, ear fullness — and pain along the outside of the arm and shoulder. Useful when a headache sits at the temple rather than the forehead.",
        zh:"耳鳴、耳聾、耳脹等少陽經病，及肩臂外側痛。頭痛在側者尤宜。"},
-  img:"anatomy/hand-dorsal.jpg" },
+  img:"art/anatomy/hand-dorsal.jpg" },
 
 { id:"LI5", en:"Yangxi", py:"Yáng Xī", zh:"陽谿",
   ch:{en:"Large Intestine", zh:"手陽明大腸經"}, cat:{en:"River point 經穴", zh:"經穴"},
@@ -76,12 +76,12 @@ window.AG_POINTS = [
         zh:"清大腸經熱、利腕關節、消腫（咽喉、齒）"},
   use:{en:"The local point for wrist pain and for tendon strain at the base of the thumb. Also used for toothache and sore throat along the same channel.",
        zh:"腕痛、拇指腱鞘不利之局部穴；本經之牙痛、咽痛亦可取。"},
-  img:"anatomy/hand-dorsal.jpg" },
+  img:"art/anatomy/hand-dorsal.jpg" },
 
 /* ── leg, lateral ────────────────────────────────────────────── */
 { id:"GB34", en:"Yanglingquan", py:"Yáng Líng Quán", zh:"陽陵泉",
   ch:{en:"Gallbladder", zh:"足少陽膽經"},
-  cat:{en:"Sea point · Influential point of the sinews 合穴、筋會", zh:"合穴，八會穴之筋會"},
+  cat:{en:"Sea point · Influential point of the sinews · Lower He-Sea of the Gallbladder", zh:"合穴、八會穴之筋會、膽之下合穴"},
   where:{en:"In the depression anterior and inferior to the head of the fibula.",
          zh:"腓骨頭前下方凹陷處。"},
   acts:{en:"Benefits the sinews and joints · courses the Liver and Gallbladder · clears damp-heat · unblocks the channel",
@@ -90,7 +90,7 @@ window.AG_POINTS = [
        zh:"筋會陽陵泉，一身之筋病皆可取：拘攣、抽筋、關節不利。膽經證見口苦、脅脹者亦宜。"},
   hook:{en:"The sinews gather at Yanglingquan — remember it as the sinew point.",
         zh:"八會穴：筋會陽陵泉。"},
-  img:"anatomy/leg-lateral-a.jpg" },
+  img:"art/anatomy/leg-lateral-a.jpg" },
 
 { id:"GB39", en:"Xuanzhong", py:"Xuán Zhōng", zh:"懸鐘",
   ch:{en:"Gallbladder", zh:"足少陽膽經"},
@@ -103,7 +103,7 @@ window.AG_POINTS = [
        zh:"髓會絕骨，故骨髓之病取之；又主項強、半身不遂、膽經之下肢痛。"},
   hook:{en:"The marrow gathers at Xuanzhong — also called Juegu 絕骨.",
         zh:"八會穴：髓會絕骨（懸鐘）。"},
-  img:"anatomy/leg-lateral-a.jpg" },
+  img:"art/anatomy/leg-lateral-a.jpg" },
 
 { id:"GB37", en:"Guangming", py:"Guāng Míng", zh:"光明",
   ch:{en:"Gallbladder", zh:"足少陽膽經"}, cat:{en:"Connecting point 絡穴", zh:"絡穴"},
@@ -115,7 +115,7 @@ window.AG_POINTS = [
        zh:"膽之絡穴，別走厥陰肝——肝開竅於目，故在小腿而能治目：目視不明、夜盲、目痛，兼治下肢外側痛。"},
   hook:{en:"Its name means brightness. The Liver opens into the eyes, and this is the Gallbladder's link to the Liver.",
         zh:"名曰光明。肝開竅於目，此為膽絡肝之穴。"},
-  img:"anatomy/leg-lateral-a.jpg" },
+  img:"art/anatomy/leg-lateral-a.jpg" },
 
 { id:"GB40", en:"Qiuxu", py:"Qiū Xū", zh:"丘墟",
   ch:{en:"Gallbladder", zh:"足少陽膽經"}, cat:{en:"Source point 原穴", zh:"原穴"},
@@ -125,7 +125,7 @@ window.AG_POINTS = [
         zh:"疏肝利膽、清濕熱、利踝、疏脅"},
   use:{en:"The Source point of the Gallbladder, so it treats that organ's patterns directly — bitter taste, rib-side pain, sighing. Locally it is the point for a sprained or painful ankle.",
        zh:"膽之原穴，直治膽腑之證：口苦、脅痛、太息。局部則為踝扭傷、踝痛之要穴。"},
-  img:"anatomy/leg-lateral-a.jpg" },
+  img:"art/anatomy/leg-lateral-a.jpg" },
 
 /* ── leg, anterior ───────────────────────────────────────────── */
 { id:"ST36", en:"Zusanli", py:"Zú Sān Lǐ", zh:"足三里",
@@ -139,7 +139,7 @@ window.AG_POINTS = [
        zh:"補益第一要穴。一切脾胃病皆可取：納差、腹脹、便溏、嘔惡；虛損者尤宜久灸培元。"},
   hook:{en:"For the belly, keep Zusanli — one of the Four Command Points.",
         zh:"四總穴歌：「肚腹三里留」。"},
-  img:"anatomy/leg-anterior.jpg" },
+  img:"art/anatomy/leg-anterior.jpg" },
 
 { id:"ST40", en:"Fenglong", py:"Fēng Lóng", zh:"豐隆",
   ch:{en:"Stomach", zh:"足陽明胃經"}, cat:{en:"Connecting point 絡穴", zh:"絡穴"},
@@ -151,7 +151,7 @@ window.AG_POINTS = [
        zh:"化痰要穴。凡涉痰者皆可取：痰多咳嗽、胸悶、頭重、眩暈，乃至痰蒙心竅。所謂痰，不限有形。"},
   hook:{en:"For phlegm, seek Fenglong.",
         zh:"諸痰皆取豐隆。"},
-  img:"anatomy/leg-anterior.jpg" },
+  img:"art/anatomy/leg-anterior.jpg" },
 
 { id:"ST41", en:"Jiexi", py:"Jiě Xī", zh:"解谿",
   ch:{en:"Stomach", zh:"足陽明胃經"}, cat:{en:"River point 經穴", zh:"經穴"},
@@ -161,7 +161,7 @@ window.AG_POINTS = [
         zh:"清胃經熱、利踝關節、安神、消腫"},
   use:{en:"The local point for ankle pain and for weakness of the foot in dropfoot. Along the channel it also treats a frontal headache and facial swelling.",
        zh:"踝痛、足下垂之局部要穴；循經亦治前額頭痛、面浮。"},
-  img:"anatomy/leg-anterior.jpg" },
+  img:"art/anatomy/leg-anterior.jpg" },
 
 /* ── leg, posterior ──────────────────────────────────────────── */
 { id:"BL40", en:"Weizhong", py:"Wěi Zhōng", zh:"委中",
@@ -175,7 +175,7 @@ window.AG_POINTS = [
        zh:"腰痛遠端要穴，與腰部局部穴相配。急性腰扭傷、血熱皮膚病可刺絡放血。"},
   hook:{en:"For the low back, seek Weizhong — one of the Four Command Points.",
         zh:"四總穴歌：「腰背委中求」。"},
-  img:"anatomy/leg-posterior.jpg" },
+  img:"art/anatomy/leg-posterior.jpg" },
 
 { id:"BL57", en:"Chengshan", py:"Chéng Shān", zh:"承山",
   ch:{en:"Bladder", zh:"足太陽膀胱經"}, cat:{en:"", zh:""},
@@ -185,7 +185,7 @@ window.AG_POINTS = [
         zh:"舒筋活絡、利腰腿、治痔"},
   use:{en:"Calf cramp, low back and leg pain along the Bladder channel, and — classically — haemorrhoids, because the Bladder channel runs through the anal region.",
        zh:"腓腸肌痙攣、腰腿痛（膀胱經循行）；經脈過肛，故亦為治痔要穴。"},
-  img:"anatomy/leg-posterior.jpg" },
+  img:"art/anatomy/leg-posterior.jpg" },
 
 { id:"BL60", en:"Kunlun", py:"Kūn Lún", zh:"崑崙",
   ch:{en:"Bladder", zh:"足太陽膀胱經"}, cat:{en:"River point 經穴", zh:"經穴"},
@@ -197,7 +197,7 @@ window.AG_POINTS = [
        zh:"膀胱經一線之痛皆可取：後頭痛、項強、腰痛、踝痛。經脈自頭至足，故上下皆治。"},
   caution:{en:"Traditionally avoided in pregnancy.",
            zh:"孕婦慎用。"},
-  img:"anatomy/leg-posterior.jpg" },
+  img:"art/anatomy/leg-posterior.jpg" },
 
 /* ── head, lateral ───────────────────────────────────────────── */
 { id:"GB20", en:"Fengchi", py:"Fēng Chí", zh:"風池",
@@ -212,7 +212,7 @@ window.AG_POINTS = [
         zh:"名曰風池：風所聚，亦風所出。"},
   caution:{en:"Needle toward the opposite eye or the tip of the nose, never deeply upward — the brainstem lies beyond.",
            zh:"針尖朝對側目內眥或鼻尖，不可向上深刺，內有延髓。"},
-  img:"anatomy/head-lateral.jpg" },
+  img:"art/anatomy/head-lateral.jpg" },
 
 { id:"TE17", en:"Yifeng", py:"Yì Fēng", zh:"翳風",
   ch:{en:"Triple Burner", zh:"手少陽三焦經"}, cat:{en:"", zh:""},
@@ -222,7 +222,7 @@ window.AG_POINTS = [
         zh:"聰耳、袪面部之風、通經活絡"},
   use:{en:"The main local point for the ear — tinnitus, deafness, ear pain — and for facial paralysis, where wind has struck the face along the Shaoyang line.",
        zh:"耳病局部主穴：耳鳴、耳聾、耳痛；面癱（風中少陽之絡）亦為要穴。"},
-  img:"anatomy/head-lateral.jpg" },
+  img:"art/anatomy/head-lateral.jpg" },
 
 { id:"GB8", en:"Shuaigu", py:"Shuài Gǔ", zh:"率谷",
   ch:{en:"Gallbladder", zh:"足少陽膽經"}, cat:{en:"", zh:""},
@@ -232,7 +232,7 @@ window.AG_POINTS = [
         zh:"清頭止痛、和胃止嘔、袪風"},
   use:{en:"The local point for a one-sided headache at the temple — the Shaoyang headache — especially when it comes with nausea, which is the picture of a migraine.",
        zh:"偏頭痛（少陽頭痛）之局部要穴，兼嘔惡者尤宜——即今之偏頭痛。"},
-  img:"anatomy/head-lateral.jpg" },
+  img:"art/anatomy/head-lateral.jpg" },
 
 { id:"TAIYANG", en:"Taiyang", py:"Tài Yáng", zh:"太陽",
   ch:{en:"Extra point", zh:"經外奇穴"}, cat:{en:"Extra point EX-HN5 奇穴", zh:"經外奇穴 EX-HN5"},
@@ -242,7 +242,7 @@ window.AG_POINTS = [
         zh:"清熱止痛、明目、袪風"},
   use:{en:"The point everyone presses without being taught to — temporal headache and tired, sore eyes. Bleeding it is a traditional method for a stubborn headache with heat.",
        zh:"太陽穴：偏頭痛、目脹目澀，人人自按而不自知。熱盛頭痛久不解者可刺絡放血。"},
-  img:"anatomy/head-lateral.jpg" },
+  img:"art/anatomy/head-lateral.jpg" },
 
 /* ── points the chapters already use ─────────────────────────── */
 { id:"LU7", en:"Lieque", py:"Liè Quē", zh:"列缺",
@@ -279,6 +279,32 @@ window.AG_POINTS = [
        zh:"肝之原穴。鬱而為煩躁、太息、脅脹、經前頭痛者首選。配合谷，是為四關。"},
   hook:{en:"With Hegu it forms the Four Gates — the classic pair for moving stagnant qi through the whole body.",
         zh:"配合谷為四關穴，行一身之氣滯。"},
-  img:"" }
+  img:"" },
+/* ── leg, medial (the plate Ting supplied last) ──────────────── */
+{ id:"SP9", en:"Yinlingquan", py:"Yīn Líng Quán", zh:"陰陵泉",
+  ch:{en:"Spleen", zh:"足太陰脾經"}, cat:{en:"Sea point 合穴", zh:"合穴"},
+  where:{en:"In the depression on the lower border of the medial condyle of the tibia, level with the tuberosity.",
+         zh:"脛骨內側髁下緣凹陷處。"},
+  acts:{en:"Drains damp and promotes urination · fortifies the Spleen · frees the water passages · benefits the knee",
+        zh:"利水滲濕、健脾、通調水道、利膝"},
+  use:{en:"The damp point of the lower body. Reach for it in oedema, heaviness, loose stools, vaginal discharge and difficult urination. Where ST36 builds, SP9 drains — they are often needled together for a damp, weak middle.",
+       zh:"下焦祛濕要穴：水腫、身重、便溏、帶下、小便不利。足三里主補，陰陵泉主利，脾虛濕困常二穴並用。"},
+  hook:{en:"Yang Mound Spring is GB34 on the outside; Yin Mound Spring is SP9 on the inside. Same height, opposite faces.",
+        zh:"外為陽陵泉，內為陰陵泉；高低相當，內外相對。"},
+  img:"art/channel-3.jpg" },
+
+{ id:"KI3", en:"Taixi", py:"Tài Xī", zh:"太谿",
+  ch:{en:"Kidney", zh:"足少陰腎經"},
+  cat:{en:"Source point · Stream point 原穴、輸穴", zh:"原穴、輸穴"},
+  where:{en:"In the depression between the tip of the medial malleolus and the Achilles tendon.",
+         zh:"內踝尖與跟腱之間凹陷處。"},
+  acts:{en:"Tonifies Kidney yin and yang · anchors the qi · strengthens the low back and knees · benefits the ear and throat",
+        zh:"補腎陰腎陽、納氣、強腰膝、利耳咽"},
+  use:{en:"The Kidney's Source point, and the point to reach for in the whole picture of Kidney depletion — sore lower back and knees, tinnitus, night sweats, dizziness, waking at night. It tonifies both yin and yang, which is unusual and worth remembering.",
+       zh:"腎之原穴，腎虛諸證皆取：腰膝痠軟、耳鳴、盜汗、眩暈、夜寐不安。陰陽俱補，此為其特別處。"},
+  hook:{en:"The Source point of the Kidney sits where you can feel the pulse behind the ankle.",
+        zh:"腎之原穴，在踝後動脈應手處。"},
+  img:"art/channel-3.jpg" }
+
 
 ];
