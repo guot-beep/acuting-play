@@ -201,7 +201,7 @@ window.AG_POINTS = [
         zh:"清三焦熱、聰耳、舒筋活絡"},
   use:{en:"Ear problems along the Shaoyang line — tinnitus, deafness, ear fullness — and pain along the outside of the arm and shoulder. Useful when a headache sits at the temple rather than the forehead.",
        zh:"耳鳴、耳聾、耳脹等少陽經病，及肩臂外側痛。頭痛在側者尤宜。"},
-  img:"" },
+  img:"art/points/TE3.jpg" },
 
 { id:"LI5", en:"Yangxi", py:"Yáng Xī", zh:"陽谿",
   ch:{en:"Large Intestine", zh:"手陽明大腸經"}, cat:{en:"River point 經穴", zh:"經穴"},
@@ -357,7 +357,7 @@ window.AG_POINTS = [
         zh:"聰耳、袪面部之風、通經活絡"},
   use:{en:"The main local point for the ear — tinnitus, deafness, ear pain — and for facial paralysis, where wind has struck the face along the Shaoyang line.",
        zh:"耳病局部主穴：耳鳴、耳聾、耳痛；面癱（風中少陽之絡）亦為要穴。"},
-  img:"" },
+  img:"art/points/TE17.jpg" },
 
 { id:"GB8", en:"Shuaigu", py:"Shuài Gǔ", zh:"率谷",
   ch:{en:"Gallbladder", zh:"足少陽膽經"}, cat:{en:"", zh:""},
@@ -377,7 +377,7 @@ window.AG_POINTS = [
         zh:"清熱止痛、明目、袪風"},
   use:{en:"The point everyone presses without being taught to — temporal headache and tired, sore eyes. Bleeding it is a traditional method for a stubborn headache with heat.",
        zh:"太陽穴：偏頭痛、目脹目澀，人人自按而不自知。熱盛頭痛久不解者可刺絡放血。"},
-  img:"" },
+  img:"art/points/TAIYANG.jpg" },
 
 /* ── points the chapters already use ─────────────────────────── */
 { id:"LU7", en:"Lieque", py:"Liè Quē", zh:"列缺",
@@ -414,7 +414,7 @@ window.AG_POINTS = [
        zh:"肝之原穴。鬱而為煩躁、太息、脅脹、經前頭痛者首選。配合谷，是為四關。"},
   hook:{en:"With Hegu it forms the Four Gates — the classic pair for moving stagnant qi through the whole body.",
         zh:"配合谷為四關穴，行一身之氣滯。"},
-  img:"" },
+  img:"art/points/LR3.jpg" },
 /* ── leg, medial (the plate Ting supplied last) ──────────────── */
 { id:"SP9", en:"Yinlingquan", py:"Yīn Líng Quán", zh:"陰陵泉",
   ch:{en:"Spleen", zh:"足太陰脾經"}, cat:{en:"Sea point 合穴", zh:"合穴"},
