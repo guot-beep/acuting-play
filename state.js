@@ -8,6 +8,13 @@
   "use strict";
 
   var KEY = "apricot-grove";
+
+  /* ── support link ─────────────────────────────────────────────────
+     TING FILLS THIS IN. One place, read by hud.js and chapter.html.
+     Leave it empty (or leave the REPLACE placeholder in) and every
+     "Support" button hides itself — a donate button that 404s costs
+     more trust than no button at all. Same rule as the 催更 form. */
+  var SUPPORT_LINK = "";
   var VERSION = 2;
 
   /* ── skill axes ── */
@@ -220,7 +227,7 @@
   }
 
   global.AG = {
-    KEY: KEY, VERSION: VERSION, AXES: AXES, SKILL_MAX: SKILL_MAX,
+    KEY: KEY, VERSION: VERSION, SUPPORT_LINK: SUPPORT_LINK, AXES: AXES, SKILL_MAX: SKILL_MAX,
     state: state, save: save, reload: function () { state = load(); global.AG.state = state; return state; },
     reset: function () { try { global.localStorage.removeItem(KEY); } catch (e) {} },
     setZh: setZh, toggleZh: toggleZh, applyLang: applyLang, bindLangButton: bindLangButton,

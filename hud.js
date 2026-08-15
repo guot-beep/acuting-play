@@ -65,12 +65,16 @@
     background:linear-gradient(180deg,rgba(244,237,220,.97),rgba(244,237,220,.86) 70%,transparent);
     backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);pointer-events:none}
   .hud>*{pointer-events:auto}
-  .hud-btn{min-width:40px;height:36px;padding:0 10px;border-radius:11px;
+  .hud-btn{position:relative;min-width:40px;height:36px;padding:0 10px;border-radius:11px;
     border:1.5px solid rgba(58,55,48,.14);background:rgba(255,255,255,.92);
     font-family:inherit;font-size:13px;color:var(--ink,#3A3730);cursor:pointer;
     display:flex;align-items:center;justify-content:center;gap:5px;line-height:1;
     box-shadow:0 1px 3px rgba(58,55,48,.12);transition:transform .14s ease}
   .hud-btn:active{transform:scale(.94)}
+  /* The visible button stays 36px because every page's header spacing was
+     hand-tuned around it; the *tappable* area is pushed out to ~44px with an
+     invisible pseudo-element, which is the documented minimum touch target. */
+  .hud-btn::before{content:"";position:absolute;top:-4px;bottom:-4px;left:-2px;right:-2px}
   .hud-btn .g{font-size:14px;opacity:.7}
   .hud-btn .zh{font-family:"Songti TC","Noto Serif TC",serif;font-size:12px;color:var(--ink-soft,#5E594E)}
   body.nozh .hud-btn .zh{display:none}
@@ -334,6 +338,12 @@
       bindCodex();
     });
 
+    /* A link is "real" only if Ting has replaced the placeholder. */
+    function supportReady(){
+      var u = (AG && AG.SUPPORT_LINK) || "";
+      return !!u && u.indexOf("REPLACE") < 0;
+    }
+
     /* ── ⚙ · settings ── */
     D.getElementById("hudSet").onclick=toggler("set", function(){
       var S=AG.state;
@@ -366,6 +376,12 @@
              + '<span class="zh" style="margin-top:2px">會開啟一個簡短表單，不需登入，不收集個人資料。</span></small>'
              + '</div>'
            : '')
+      /* 支持杏林行 — same rule as 催更: no link, no row. A donate button
+         that leads nowhere costs more trust than no button at all. */
+      + (supportReady()
+         ? '<div class="tray-row"><div>Support Apricot Grove<small>支持杏林行 · 獨立製作</small></div>'
+           + '<a class="tray-toggle on" id="tgSupport" href="' + AG.SUPPORT_LINK + '" target="_blank" rel="noopener">Support</a></div>'
+         : '')
         + '<div class="tray-row"><div>Start over<small>重新開始 · 換一個角色</small></div>'
         + '<button class="tray-toggle danger" id="tgReset">Reset</button></div>'
         + '<div id="resetConfirm" class="resetbox">'

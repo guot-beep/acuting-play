@@ -343,14 +343,19 @@
     box-shadow:0 3px 10px rgba(58,55,48,.16);
     font-family:"Songti TC","Noto Serif TC",serif;font-size:52px;color:var(--gold);letter-spacing:.06em}
   .reward p{font-size:12.5px;color:var(--ink-soft);line-height:1.6}
+  .support-cta{margin-top:16px;padding:14px;border-radius:13px;background:rgba(123,139,111,.1);
+    border:1px solid rgba(110,139,87,.25)}
+  .support-ask{font-size:13.5px;color:var(--ink-soft,#5E594E);text-align:center;margin:0 0 10px}
+  .cta.dim{box-shadow:none;color:var(--ink-faint,#8A8578);font-size:13px;min-height:auto;
+    padding:8px;margin-top:4px}
   .disclaimer{font-size:10.5px;color:var(--ink-soft);opacity:.7;line-height:1.6;margin-top:8px}
 </style>
-<link rel="stylesheet" href="desktop.css?v=31">
-<script src="state.js?v=31"></script>
-<script src="data/herbs.js?v=31"></script>
-<script src="hud.js?v=31"></script>
-<script src="data/chapters.js?v=31"></script>
-<script src="data/drills.js?v=31"></script>
+<link rel="stylesheet" href="desktop.css?v=32">
+<script src="state.js?v=32"></script>
+<script src="data/herbs.js?v=32"></script>
+<script src="hud.js?v=32"></script>
+<script src="data/chapters.js?v=32"></script>
+<script src="data/drills.js?v=32"></script>
 </head>
 <body data-page="chapter">
 <div id="app">
@@ -549,6 +554,13 @@
         <img id="herbImg" class="cardart" alt="" hidden>
         <div id="herbPlate" class="cardplate" aria-hidden="true" hidden></div>
         <h3 id="herbName"></h3><p id="herbTxt"></p>
+      </div>
+      <!-- Asking for money is the last thing on the screen and the easiest to
+           dismiss. It is hidden entirely until AG.SUPPORT_LINK is a real link. -->
+      <div class="support-cta" id="supportCta" hidden>
+        <p class="support-ask">Enjoying Apricot Grove?<span class="zh"> 喜歡杏林行嗎？</span></p>
+        <button class="cta ghost" id="supportBtn">Support the next chapter 🌿<span class="zh"> 支持下一章</span></button>
+        <button class="cta ghost dim" id="supportDismiss">Maybe later<span class="zh"> 之後再說</span></button>
       </div>
       <button class="cta" id="againBtn">Play chapter again</button>
       <button class="cta ghost" id="hubBtn2" style="margin-top:10px">Back to town <span class="zh">回小鎮</span></button>
@@ -1195,6 +1207,17 @@ function ending(){
   });
   $("stars").innerHTML="★".repeat(n)+`<span class="off">${"★".repeat(3-n)}</span>`;
   $("endTitle").textContent=CH.endings.titles[3-n];
+/* 支持杏林行 · shown only once Ting has set a real link in state.js, and only
+   after a chapter has actually been finished — never mid-lesson. */
+(function(){
+  var url=(AG && AG.SUPPORT_LINK)||"", box=$("supportCta");
+  if(!box) return;
+  if(!url || url.indexOf("REPLACE")>=0) return;      // stays hidden
+  box.hidden=false;
+  $("supportBtn").onclick=function(){ global_open(url); };
+  $("supportDismiss").onclick=function(){ box.hidden=true; };
+  function global_open(u){ window.open(u,"_blank","noopener"); }
+})();
   const txt=n===3?CH.endings.three:n===2?CH.endings.two:CH.endings.one;
   $("endText").innerHTML=txt[0]+`<span class="zh" style="display:block;margin-top:8px">${txt[1]}</span>`;
   const AXN={needle:'Needle <span class="zh">針道</span>',theory:'Theory <span class="zh">醫理</span>',
