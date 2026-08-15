@@ -426,7 +426,7 @@ window.AG_POINTS = [
        zh:"下焦祛濕要穴：水腫、身重、便溏、帶下、小便不利。足三里主補，陰陵泉主利，脾虛濕困常二穴並用。"},
   hook:{en:"Yang Mound Spring is GB34 on the outside; Yin Mound Spring is SP9 on the inside. Same height, opposite faces.",
         zh:"外為陽陵泉，內為陰陵泉；高低相當，內外相對。"},
-  img:"" },
+  img:"art/points/SP8.jpg" },
 
 /* Ting's medial-leg plate (art/channel-3.jpg) runs SP6 up to SP9, so the two
    Spleen points on it are entered together — SP6 is arguably the most-tested
@@ -447,7 +447,7 @@ window.AG_POINTS = [
        zh:"脾統血，故崩漏、便血、鼻衄取之，尤宜灸法。又主多夢。"},
   hook:{en:"Well points sit at the tips of fingers and toes, and they revive — they are where qi first appears.",
         zh:"井穴在指趾之端，主急救開竅，氣之所出也。"},
-  img:"" },
+  img:"art/points/SP2.jpg" },
 
 { id:"SP2", en:"Dadu", py:"Dà Dū", zh:"大都",
   ch:{en:"Spleen", zh:"足太陰脾經"}, cat:{en:"Spring point 滎穴", zh:"滎穴"},
@@ -458,7 +458,7 @@ window.AG_POINTS = [
   use:{en:"Spring points clear heat, so SP2 suits a Spleen pattern that has turned hot: abdominal distension with a burning quality, or fever without sweating. Less used than its neighbours, but it fills the slot in the Five Shu run.",
        zh:"滎主身熱。脾經有熱之腹脹、身熱無汗者取之。臨床用之較少，然五輸之序不可缺。"},
   hook:{en:"Spring points clear heat — 滎主身熱.", zh:"「滎主身熱」。"},
-  img:"" },
+  img:"art/points/SP2.jpg" },
 
 { id:"SP3", en:"Taibai", py:"Tài Bái", zh:"太白",
   ch:{en:"Spleen", zh:"足太陰脾經"},
@@ -471,7 +471,7 @@ window.AG_POINTS = [
        zh:"脾之原穴，主本臟之病：納呆、腹脹、便溏、身重。陰經以輸為原，故一穴而兼二名。"},
   hook:{en:"On yin channels the Stream point IS the Source point — 陰經以輸為原.",
         zh:"「陰經以輸為原」。"},
-  img:"" },
+  img:"art/points/SP2.jpg" },
 
 { id:"SP4", en:"Gongsun", py:"Gōng Sūn", zh:"公孫",
   ch:{en:"Spleen", zh:"足太陰脾經"},
@@ -484,7 +484,7 @@ window.AG_POINTS = [
        zh:"配內關通衝脈，合主心、胸、胃，臨床最常用之對穴。單用則主胃痛、嘔吐、腹脹、痛經。"},
   hook:{en:"Gongsun with Neiguan — heart, chest and stomach. 公孫配內關，合於心、胸、胃。",
         zh:"「公孫配內關，合於心、胸、胃」。"},
-  img:"" },
+  img:"art/points/SP2.jpg" },
 
 { id:"SP5", en:"Shangqiu", py:"Shāng Qiū", zh:"商丘",
   ch:{en:"Spleen", zh:"足太陰脾經"}, cat:{en:"River point 經穴", zh:"經穴"},
@@ -496,7 +496,7 @@ window.AG_POINTS = [
        zh:"主脾濕之腹脹、腸鳴、便溏；又為內踝痛之局部穴，與外側丘墟相對。"},
   hook:{en:"SP1 to SP5 walk up the medial foot in Five Shu order: Well, Spring, Stream, River — the Sea, SP9, waits up at the knee.",
         zh:"隱白、大都、太白、公孫、商丘，井滎輸經依序而上；其合穴陰陵泉則在膝下。"},
-  img:"" },
+  img:"art/points/SP2.jpg" },
 
 { id:"SP6", en:"Sanyinjiao", py:"Sān Yīn Jiāo", zh:"三陰交",
   ch:{en:"Spleen", zh:"足太陰脾經"},
@@ -511,7 +511,7 @@ window.AG_POINTS = [
         zh:"三陰交會：脾、肝、腎。名即其理。"},
   caution:{en:"Contraindicated in pregnancy — classically paired with LI4 as the points that move too strongly for it.",
            zh:"孕婦禁針。古與合谷並稱，行血力強，孕期忌用。"},
-  img:"" },
+  img:"art/points/SP6.jpg" },
 
 { id:"KI3", en:"Taixi", py:"Tài Xī", zh:"太谿",
   ch:{en:"Kidney", zh:"足少陰腎經"},
