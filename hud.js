@@ -21,8 +21,8 @@
      entry.123456789), the player's chosen topic arrives already filled in.
      Without it the form still works; they just type it themselves.
      ═══════════════════════════════════════════════════════════ */
-  var WISH_FORM  = "";
-  var WISH_FIELD = "";
+  var WISH_FORM  = "https://docs.google.com/forms/d/e/1FAIpQLSeOhOtUmwfnAj80ezCEdPlscl5gXAPp1YT86gYzhkdbT2RVVg/viewform";
+  var WISH_FIELD = "entry.1457921760";   /* the "which topic" free-text question */
 
   /* The quick picks. Editing this list is a data edit — add or remove freely.
      Kept short on purpose: a wall of options gets skipped. */
@@ -144,6 +144,9 @@
     border-radius:99px;padding:7px 13px;font-family:inherit;font-size:12.5px;color:var(--ink,#3A3730);
     cursor:pointer;min-height:34px}
   .wishchips button.on{background:var(--gold,#B08D3E);color:#fff;border-color:transparent}
+  .wishchips button .zh{display:inline;margin:0 0 0 5px;font-size:11.5px}
+  .wishchips button.on .zh{color:rgba(255,255,255,.85)}
+  .wishsend .zh{display:inline;margin:0;color:inherit;font-size:13px}
   .wishbox input[type=text]{width:100%;margin-top:9px;padding:10px 12px;border-radius:10px;
     border:1.5px solid rgba(51,47,40,.16);background:var(--white,#FDFBF4);font-family:inherit;
     font-size:14px;color:var(--ink,#3A3730)}
@@ -351,11 +354,14 @@
              + 'Which topic should come next? Pick one, or write your own.'
              + '<span class="zh" style="display:block;margin-top:4px">下一個主題想看什麼？可以直接選，也可以自己寫。</span>'
              + '<div class="wishchips" id="wishChips">'
+             /* English is the label, Chinese is support — a chip that is
+                Chinese-only vanishes into nothing when 中文 is switched off. */
              + WISH_TOPICS.map(function(t){
-                 return '<button data-t="'+t.en+' '+t.zh+'">'+t.zh+'</button>'; }).join("")
+                 return '<button data-t="'+t.en+' '+t.zh+'">'+t.en
+                      + '<span class="zh">'+t.zh+'</span></button>'; }).join("")
              + '</div>'
-             + '<input type="text" id="wishText" maxlength="80" placeholder="Or write it here 或自己寫">'
-             + '<button class="wishsend" id="wishSend" disabled>Send 送出</button>'
+             + '<input type="text" id="wishText" maxlength="80" placeholder="'+(AG.state.zh?"Or write it here 或自己寫":"Or write it here")+'">'
+             + '<button class="wishsend" id="wishSend" disabled>Send<span class="zh"> 送出</span></button>'
              + '<small style="display:block;margin-top:8px;opacity:.75">Opens a short form. No account needed, nothing about you is collected.'
              + '<span class="zh" style="margin-top:2px">會開啟一個簡短表單，不需登入，不收集個人資料。</span></small>'
              + '</div>'
@@ -395,7 +401,7 @@
           var url=WISH_FORM;
           if(WISH_FIELD) url+=(url.indexOf("?")<0?"?":"&")+"usp=pp_url&"+WISH_FIELD+"="+encodeURIComponent(wishVal);
           global.open(url,"_blank","noopener");
-          this.textContent="Thank you 謝謝"; this.disabled=true;
+          this.innerHTML='Thank you<span class="zh"> 謝謝</span>'; this.disabled=true;
         };
       }
       D.getElementById("tgZh").onclick=function(){
