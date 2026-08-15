@@ -225,7 +225,7 @@ window.AG_POINTS = [
        zh:"筋會陽陵泉，一身之筋病皆可取：拘攣、抽筋、關節不利。膽經證見口苦、脅脹者亦宜。"},
   hook:{en:"The sinews gather at Yanglingquan — remember it as the sinew point.",
         zh:"八會穴：筋會陽陵泉。"},
-  img:"" },
+  img:"art/points/GB34.jpg" },
 
 { id:"GB39", en:"Xuanzhong", py:"Xuán Zhōng", zh:"懸鐘",
   ch:{en:"Gallbladder", zh:"足少陽膽經"},
@@ -238,7 +238,7 @@ window.AG_POINTS = [
        zh:"髓會絕骨，故骨髓之病取之；又主項強、半身不遂、膽經之下肢痛。"},
   hook:{en:"The marrow gathers at Xuanzhong — also called Juegu 絕骨.",
         zh:"八會穴：髓會絕骨（懸鐘）。"},
-  img:"" },
+  img:"art/points/GB39.jpg" },
 
 { id:"GB37", en:"Guangming", py:"Guāng Míng", zh:"光明",
   ch:{en:"Gallbladder", zh:"足少陽膽經"}, cat:{en:"Connecting point 絡穴", zh:"絡穴"},
@@ -250,7 +250,7 @@ window.AG_POINTS = [
        zh:"膽之絡穴，別走厥陰肝——肝開竅於目，故在小腿而能治目：目視不明、夜盲、目痛，兼治下肢外側痛。"},
   hook:{en:"Its name means brightness. The Liver opens into the eyes, and this is the Gallbladder's link to the Liver.",
         zh:"名曰光明。肝開竅於目，此為膽絡肝之穴。"},
-  img:"" },
+  img:"art/points/GB37.jpg" },
 
 { id:"GB40", en:"Qiuxu", py:"Qiū Xū", zh:"丘墟",
   ch:{en:"Gallbladder", zh:"足少陽膽經"}, cat:{en:"Source point 原穴", zh:"原穴"},
@@ -260,7 +260,7 @@ window.AG_POINTS = [
         zh:"疏肝利膽、清濕熱、利踝、疏脅"},
   use:{en:"The Source point of the Gallbladder, so it treats that organ's patterns directly — bitter taste, rib-side pain, sighing. Locally it is the point for a sprained or painful ankle.",
        zh:"膽之原穴，直治膽腑之證：口苦、脅痛、太息。局部則為踝扭傷、踝痛之要穴。"},
-  img:"" },
+  img:"art/points/GB39.jpg" },
 
 /* ── leg, anterior ───────────────────────────────────────────── */
 { id:"ST36", en:"Zusanli", py:"Zú Sān Lǐ", zh:"足三里",
@@ -402,7 +402,7 @@ window.AG_POINTS = [
         zh:"寧心安神、寬胸理氣、和胃止嘔"},
   use:{en:"Chest oppression, palpitations, anxiety and nausea — and the point that ties emotion to the chest and the stomach. Reach for it when tightness in the chest rises with feeling.",
        zh:"胸悶、心悸、煩躁、嘔惡；情志與胸胃相連之樞。遇情志而胸悶者取之。"},
-  img:"" },
+  img:"art/points/PC6.jpg" },
 
 { id:"LR3", en:"Taichong", py:"Tài Chōng", zh:"太衝",
   ch:{en:"Liver", zh:"足厥陰肝經"}, cat:{en:"Source point · Stream point 原穴、輸穴", zh:"原穴、輸穴"},
