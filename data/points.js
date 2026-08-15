@@ -367,7 +367,7 @@ window.AG_POINTS = [
         zh:"清頭止痛、和胃止嘔、袪風"},
   use:{en:"The local point for a one-sided headache at the temple — the Shaoyang headache — especially when it comes with nausea, which is the picture of a migraine.",
        zh:"偏頭痛（少陽頭痛）之局部要穴，兼嘔惡者尤宜——即今之偏頭痛。"},
-  img:"" },
+  img:"art/points/GB8.jpg" },
 
 { id:"TAIYANG", en:"Taiyang", py:"Tài Yáng", zh:"太陽",
   ch:{en:"Extra point", zh:"經外奇穴"}, cat:{en:"Extra point EX-HN5 奇穴", zh:"經外奇穴 EX-HN5"},
