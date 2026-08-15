@@ -138,5 +138,49 @@ window.AG_HERBS = [
     nature:"Acrid, warm · Heart, Liver",
     natureZh:"辛、溫 · 歸心肝經",
     fact:"Invigorates blood and breaks stasis. Because it moves blood strongly, it is contraindicated in pregnancy and used with care where there is bleeding.",
-    factZh:"活血通經、祛瘀止痛。行血力強，孕婦忌用，有出血傾向者慎用。" }
+    factZh:"活血通經、祛瘀止痛。行血力強，孕婦忌用，有出血傾向者慎用。" },
+
+  /* ── third batch. These five are the building blocks of 四君子湯 and
+     四物湯, so they are worth learning as a group rather than one by one.
+     Identified from each card's printed title — the first pass mis-read
+     Chuan Xiong as Bai Zhu, which is why the title is the only source. */
+  { id:"baizhu", en:"Atractylodes Rhizome", py:"Bái Zhú", zh:"白朮",
+    img:"art/herb-baizhu.jpg",
+    plate:"art/card-baizhu.jpg",
+    nature:"Bitter, sweet, warm · Spleen, Stomach",
+    natureZh:"苦、甘、溫 · 歸脾胃經",
+    fact:"Tonifies the Spleen and dries damp at the same time — it builds and it dries, which is why it anchors so many digestive formulas. Better suited to damp with deficiency than to dryness.",
+    factZh:"健脾益氣、燥濕利水，補中兼燥，故為健脾諸方之主藥。宜於脾虛濕困，陰虛燥渴者不宜。" },
+
+  { id:"baishao", en:"White Peony Root", py:"Bái Sháo", zh:"白芍",
+    img:"art/herb-baishao.jpg",
+    plate:"art/card-baishao.jpg",
+    nature:"Bitter, sour, slightly cold · Liver, Spleen",
+    natureZh:"苦、酸、微寒 · 歸肝脾經",
+    fact:"Nourishes blood and softens the Liver, so it eases cramping and spasm. Sour and inward-moving — the counterweight to herbs that push outward.",
+    factZh:"養血柔肝、緩急止痛。味酸主收，與辛散之品相反相成。" },
+
+  { id:"chuanxiong", en:"Chuanxiong Rhizome", py:"Chuān Xiōng", zh:"川芎",
+    img:"art/herb-chuanxiong.jpg",
+    plate:"art/card-chuanxiong.jpg",
+    nature:"Acrid, warm · Liver, Gallbladder, Pericardium",
+    natureZh:"辛、溫 · 歸肝膽心包經",
+    fact:"Moves blood and moves qi, and rises to the head — the classic choice for headache with stasis. Because it moves so strongly, it is used with care in pregnancy and where there is bleeding.",
+    factZh:"活血行氣、祛風止痛，上行頭目，為治頭痛要藥。行散力強，孕婦及出血者慎用。" },
+
+  { id:"gancao", en:"Licorice Root", py:"Gān Cǎo", zh:"甘草",
+    img:"art/herb-gancao.jpg",
+    plate:"art/card-gancao.jpg",
+    nature:"Sweet, neutral · all twelve channels, especially Heart, Lung, Spleen, Stomach",
+    natureZh:"甘、平 · 通行十二經，尤歸心肺脾胃",
+    fact:"Supplements qi, moistens the Lung, eases spasm, and harmonises the other herbs so a formula works as one thing. Long or high-dose use can cause water retention and raise blood pressure, so it is not a herb to take casually forever.",
+    factZh:"補氣潤肺、緩急止痛、調和諸藥。久服或大量可致水腫、血壓升高，不宜長期濫用。" },
+
+  { id:"chenpi", en:"Aged Tangerine Peel", py:"Chén Pí", zh:"陳皮",
+    img:"art/herb-chenpi.jpg",
+    plate:"art/card-chenpi.jpg",
+    nature:"Acrid, bitter, warm · Spleen, Lung",
+    natureZh:"辛、苦、溫 · 歸脾肺經",
+    fact:"Regulates qi in the middle burner, dries damp and transforms phlegm. Added to tonifying formulas so that supplementing does not turn into stagnation — the older the peel, the better it is said to be.",
+    factZh:"理氣健脾、燥濕化痰。補方中常佐之，使補而不滯。陳久者良。" }
 ];

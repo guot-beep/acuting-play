@@ -297,6 +297,72 @@ window.AG_POINTS = [
    Spleen points on it are entered together — SP6 is arguably the most-tested
    point in the whole syllabus, and carries a contraindication that must
    travel with it. */
+/* ── the medial foot (art/anatomy/foot-medial.jpg) ──
+   SP1 to SP5 run along the red-and-white flesh border of the big toe and
+   the arch, in Five Shu order. Learning them as a run is the point: the
+   sequence Well → Spring → Stream → River → Sea is the whole scheme in
+   five steps you can walk with one finger. */
+{ id:"SP1", en:"Yinbai", py:"Yǐn Bái", zh:"隱白",
+  ch:{en:"Spleen", zh:"足太陰脾經"}, cat:{en:"Well point 井穴", zh:"井穴"},
+  where:{en:"On the medial side of the big toe, about 0.1 cun from the corner of the nail.",
+         zh:"足大趾內側趾甲角旁約０．１寸。"},
+  acts:{en:"Stops bleeding · strengthens the Spleen's grip on the blood · restores consciousness · calms the spirit",
+        zh:"止血、健脾統血、醒神開竅、安神"},
+  use:{en:"The bleeding point of the Spleen channel — reached for in heavy uterine bleeding, blood in the stool, and nosebleed, because the Spleen holds blood in the vessels. Moxa here is the classic method. Also used for excessive dreaming.",
+       zh:"脾統血，故崩漏、便血、鼻衄取之，尤宜灸法。又主多夢。"},
+  hook:{en:"Well points sit at the tips of fingers and toes, and they revive — they are where qi first appears.",
+        zh:"井穴在指趾之端，主急救開竅，氣之所出也。"},
+  img:"art/anatomy/foot-medial.jpg" },
+
+{ id:"SP2", en:"Dadu", py:"Dà Dū", zh:"大都",
+  ch:{en:"Spleen", zh:"足太陰脾經"}, cat:{en:"Spring point 滎穴", zh:"滎穴"},
+  where:{en:"In the depression distal and inferior to the first metatarsophalangeal joint, on the border of red and white flesh.",
+         zh:"第一蹠趾關節前下方陷中，赤白肉際處。"},
+  acts:{en:"Clears heat · fortifies the Spleen · harmonises the middle burner",
+        zh:"清熱、健脾、和中"},
+  use:{en:"Spring points clear heat, so SP2 suits a Spleen pattern that has turned hot: abdominal distension with a burning quality, or fever without sweating. Less used than its neighbours, but it fills the slot in the Five Shu run.",
+       zh:"滎主身熱。脾經有熱之腹脹、身熱無汗者取之。臨床用之較少，然五輸之序不可缺。"},
+  hook:{en:"Spring points clear heat — 滎主身熱.", zh:"「滎主身熱」。"},
+  img:"art/anatomy/foot-medial.jpg" },
+
+{ id:"SP3", en:"Taibai", py:"Tài Bái", zh:"太白",
+  ch:{en:"Spleen", zh:"足太陰脾經"},
+  cat:{en:"Stream point · Source point 輸穴、原穴", zh:"輸穴、原穴"},
+  where:{en:"In the depression proximal and inferior to the head of the first metatarsal bone, on the border of red and white flesh.",
+         zh:"第一蹠骨小頭後下方陷中，赤白肉際處。"},
+  acts:{en:"Fortifies the Spleen and resolves damp · harmonises the middle burner · regulates the intestines",
+        zh:"健脾化濕、和中、調理腸胃"},
+  use:{en:"The Source point of the Spleen, so it is the point for the organ itself: poor appetite, abdominal distension, loose stools, heavy limbs. On yin channels the Stream point is also the Source, which is why one point carries both labels.",
+       zh:"脾之原穴，主本臟之病：納呆、腹脹、便溏、身重。陰經以輸為原，故一穴而兼二名。"},
+  hook:{en:"On yin channels the Stream point IS the Source point — 陰經以輸為原.",
+        zh:"「陰經以輸為原」。"},
+  img:"art/anatomy/foot-medial.jpg" },
+
+{ id:"SP4", en:"Gongsun", py:"Gōng Sūn", zh:"公孫",
+  ch:{en:"Spleen", zh:"足太陰脾經"},
+  cat:{en:"Connecting point · opens the Penetrating Vessel 絡穴、通衝脈", zh:"絡穴，八脈交會通衝脈"},
+  where:{en:"In the depression distal and inferior to the base of the first metatarsal bone, on the border of red and white flesh.",
+         zh:"第一蹠骨基底部前下方陷中，赤白肉際處。"},
+  acts:{en:"Fortifies the Spleen and harmonises the Stomach · regulates the Penetrating Vessel · calms the spirit · relieves pain in the chest and abdomen",
+        zh:"健脾和胃、通調衝脈、寧心安神、理胸腹之痛"},
+  use:{en:"Paired with PC6 Neiguan, it opens the Penetrating Vessel and the two together govern the heart, chest and stomach — one of the most used combinations in practice. On its own: stomach pain, vomiting, abdominal distension, painful periods.",
+       zh:"配內關通衝脈，合主心、胸、胃，臨床最常用之對穴。單用則主胃痛、嘔吐、腹脹、痛經。"},
+  hook:{en:"Gongsun with Neiguan — heart, chest and stomach. 公孫配內關，合於心、胸、胃。",
+        zh:"「公孫配內關，合於心、胸、胃」。"},
+  img:"art/anatomy/foot-medial.jpg" },
+
+{ id:"SP5", en:"Shangqiu", py:"Shāng Qiū", zh:"商丘",
+  ch:{en:"Spleen", zh:"足太陰脾經"}, cat:{en:"River point 經穴", zh:"經穴"},
+  where:{en:"In the depression anterior and inferior to the medial malleolus, midway between the tuberosity of the navicular bone and the tip of the malleolus.",
+         zh:"內踝前下方陷中，當舟骨結節與內踝尖連線之中點。"},
+  acts:{en:"Fortifies the Spleen and resolves damp · regulates the intestines · benefits the ankle",
+        zh:"健脾化濕、調理腸胃、利踝關節"},
+  use:{en:"Used for abdominal distension, borborygmus and loose stools of Spleen-damp origin, and as a local point for medial ankle pain — the mirror of GB40 on the outside of the same joint.",
+       zh:"主脾濕之腹脹、腸鳴、便溏；又為內踝痛之局部穴，與外側丘墟相對。"},
+  hook:{en:"SP1 to SP5 walk up the medial foot in Five Shu order: Well, Spring, Stream, River — the Sea, SP9, waits up at the knee.",
+        zh:"隱白、大都、太白、公孫、商丘，井滎輸經依序而上；其合穴陰陵泉則在膝下。"},
+  img:"art/anatomy/foot-medial.jpg" },
+
 { id:"SP6", en:"Sanyinjiao", py:"Sān Yīn Jiāo", zh:"三陰交",
   ch:{en:"Spleen", zh:"足太陰脾經"},
   cat:{en:"Meeting point of the three leg yin channels 三陰經交會穴", zh:"足三陰經交會穴"},

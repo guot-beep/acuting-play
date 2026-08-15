@@ -892,6 +892,155 @@ window.AG_POINTSTORY = [
   card:{en:"Yinlingquan drains damp from the lower body — Yang Mound outside, Yin Mound inside, at the same height on the knee.",
         zh:"陰陵泉，下焦祛濕要穴。外為陽陵，內為陰陵，高低相當。"} },
 
+/* The medial foot, SP1–SP5. Written as one run rather than five unrelated
+   visits, because the Five Shu sequence is the thing being taught. */
+{ id:"SP1", region:"leg",
+  beats:[
+    {en:"A midwife brings a woman whose bleeding has not stopped since her period began nine days ago. The blood is pale and thin, and she is exhausted.",
+     zh:"一位穩婆帶來一名婦人，經行九日未止，血色淡而稀，人已倦極。"},
+    {en:"Shen Yi does not needle. She lights a small cone of moxa at the inner corner of the big toenail and lets its warmth soak in.",
+     zh:"沈醫師不施針，於足大趾內側甲角旁置小艾炷，令其溫氣徐入。"},
+    {en:"\"The Spleen keeps blood inside the vessels,\" she says. \"When it is too weak to hold, the blood leaks. I am not stopping the bleeding. I am strengthening what holds it.\"",
+     zh:"「脾統血，」她說，「脾虛不攝則血溢。我非止其血，乃固其所以統之者。」"}
+  ],
+  qs:[
+    {q:"Why does the Spleen channel have anything to do with bleeding?",
+     cq:"崩漏之證，何以責之於脾？",
+     opts:[
+      {t:"The Spleen governs the holding of blood in the vessels 脾統血 — when Spleen qi is too weak to contain it, blood leaks out",
+       c:"脾統血。脾氣虛不能攝血，則血溢脈外",ok:true,
+       note:"<b>Correct.</b> Pale, thin, persistent bleeding with exhaustion is <b>脾不統血</b>. Compare: bright red heavy bleeding with heat signs is a different pattern needing a different method."},
+      {t:"Because the Spleen stores blood",c:"脾藏血",ok:false,
+       note:"The <b>Liver</b> stores blood 肝藏血. The Spleen <b>holds</b> it in the vessels 脾統血. Two different jobs, easily confused."},
+      {t:"Because the Spleen makes the blood move",c:"脾主行血",ok:false,
+       note:"Moving blood is the Heart and Liver's work. The Spleen's role here is containment."}
+     ]},
+    {q:"Shen Yi chose moxa rather than a needle. What does that tell you?",
+     cq:"用灸而不用針，其意為何？",
+     opts:[
+      {t:"Moxa warms and supplements, which suits a deficient, cold pattern — and SP1 is a classic moxa point for bleeding from Spleen deficiency",
+       c:"灸能溫補，宜於虛寒；隱白灸法本為脾虛失血之古法",ok:true,
+       note:"<b>Correct.</b> Pattern chooses technique. Deficiency and cold → warm and supplement. If this bleeding were bright red with heat signs, moxa would be the wrong tool."},
+      {t:"Moxa is used because needling the toe is too painful",
+       c:"因趾端刺之過痛，故改用灸",ok:false,
+       note:"Comfort is not the reasoning. Well points are needled routinely — the choice here is about <b>method matching pattern</b>."},
+      {t:"Moxa works faster than needles in all cases",
+       c:"灸法較針為速，凡病皆然",ok:false,
+       note:"Neither is universally faster. They do different things."}
+     ]},
+    {q:"What category is SP1, and what do points of that category share?",
+     cq:"隱白屬何類穴？此類穴之共性為何？",
+     opts:[
+      {t:"A Well point 井穴 — sited at the tips of fingers and toes, used to revive consciousness and clear heat at the very start of a channel",
+       c:"井穴。在指趾之端，主開竅醒神、清熱，為經氣所出",ok:true,
+       note:"<b>Correct.</b> Well points are where channel qi first emerges — small, sharp, and used for acute situations. Bleeding a Well point is a classic emergency method."},
+      {t:"A Source point 原穴",c:"原穴",ok:false,
+       note:"The Spleen's Source point is <b>SP3 太白</b>, further up the same foot."},
+      {t:"A Connecting point 絡穴",c:"絡穴",ok:false,
+       note:"The Spleen's Connecting point is <b>SP4 公孫</b>."}
+     ]}
+  ],
+  card:{en:"Yinbai sits beside the big toenail — the Well point where the Spleen learns to hold blood again.",
+        zh:"隱白在足大趾甲角旁。脾經井穴，脾虛失血者灸之。"} },
+
+{ id:"SP3", region:"leg",
+  beats:[
+    {en:"A cook has no appetite. His belly feels full after three mouthfuls, his stools are loose, and his arms feel heavy by afternoon.",
+     zh:"一位廚子納呆，食三口即脹，便溏，午後四肢沉重。"},
+    {en:"Shen Yi runs her thumb back along the inside edge of his foot until it drops into the hollow behind the big knuckle. \"The Spleen's own point,\" she says. \"When the organ itself is tired, this is where you speak to it.\"",
+     zh:"沈醫師沿足內側緣後推，指落於第一蹠骨小頭後之陷中。「脾之原穴也。」她說，「臟氣自倦，當於此處問之。」"}
+  ],
+  qs:[
+    {q:"Why is Taibai the point for the Spleen organ itself, rather than just the channel?",
+     cq:"太白何以能治脾臟本病，而不僅治經？",
+     opts:[
+      {t:"It is the Source point 原穴, where the original qi of that organ gathers — Source points treat the organ, not only its channel",
+       c:"為原穴，原氣所留止；原穴主治本臟之病",ok:true,
+       note:"<b>Correct.</b> No appetite, distension after eating, loose stools, heavy limbs — that is the Spleen organ failing to transform and transport 運化失司."},
+      {t:"Because it is the largest point on the foot",
+       c:"因其為足部最大之穴",ok:false,
+       note:"Size is not a category. The Source point relationship is what matters."},
+      {t:"Because it is a Well point",c:"因其為井穴",ok:false,
+       note:"The Well point is <b>SP1 隱白</b>, at the toenail."}
+     ]},
+    {q:"On the Spleen channel, SP3 carries two labels at once. Why?",
+     cq:"太白一穴而兼二名，何故？",
+     opts:[
+      {t:"On yin channels the Stream point is also the Source point — 陰經以輸為原",
+       c:"陰經以輸為原，故太白既為輸穴亦為原穴",ok:true,
+       note:"<b>Correct, and this rule saves you a whole column of the table.</b> On yang channels the Source point is separate and sits just after the Stream point."},
+      {t:"Because it belongs to two channels",c:"因其分屬二經",ok:false,
+       note:"It is a Spleen point only. The doubling is a category rule, not a channel crossing."},
+      {t:"Because it can be needled from two directions",
+       c:"因其可從二向進針",ok:false,
+       note:"Not a real basis for point categories."}
+     ]},
+    {q:"Walk SP1 to SP5 in order. Which sequence is right?",
+     cq:"自隱白至商丘，五輸之序為何？",
+     opts:[
+      {t:"SP1 Well · SP2 Spring · SP3 Stream/Source · SP4 Connecting · SP5 River",
+       c:"隱白井、大都滎、太白輸原、公孫絡、商丘經",ok:true,
+       note:"<b>Correct.</b> Note that SP4 公孫 breaks the run — it is the <b>Connecting point 絡穴</b>, not a Five Shu point, and the Sea point 合穴 is SP9 陰陵泉 up at the knee."},
+      {t:"SP1 Sea · SP2 River · SP3 Stream · SP4 Spring · SP5 Well",
+       c:"隱白合、大都經、太白輸、公孫滎、商丘井",ok:false,
+       note:"Reversed. The series starts small at the <b>toe</b> and grows toward the trunk."},
+      {t:"All five are Five Shu points, ending with SP5 as the Sea point",
+       c:"五穴皆屬五輸，商丘為合穴",ok:false,
+       note:"SP5 商丘 is the <b>River point 經穴</b>. The Sea point is SP9 陰陵泉, at the knee — the Five Shu of a leg channel do not all fit on the foot."}
+     ]}
+  ],
+  card:{en:"Taibai is the Spleen's Source point, behind the big knuckle — on yin channels, the Stream point IS the Source.",
+        zh:"太白，脾之原穴，在第一蹠骨小頭後陷中。陰經以輸為原。"} },
+
+{ id:"SP4", region:"leg",
+  beats:[
+    {en:"A tea-merchant has stomach pain that comes in waves, worse before her period, along with a tight chest and a fluttering heart.",
+     zh:"一位茶商婦胃痛陣作，經前尤甚，兼胸悶心悸。"},
+    {en:"Shen Yi needles one point on her wrist and one on her foot. \"These two work as a pair,\" she says. \"Between them they cover the heart, the chest and the stomach — which is exactly what she has brought me.\"",
+     zh:"沈醫師一取其腕，一取其足。「此二穴為對，」她說，「合主心、胸、胃——正其所苦。」"}
+  ],
+  qs:[
+    {q:"Which point on the wrist is Shen Yi pairing with Gongsun, and what do they open?",
+     cq:"與公孫相配之腕上穴為何？二者通何經？",
+     opts:[
+      {t:"PC6 Neiguan — together they open the Penetrating Vessel 衝脈 and govern the heart, chest and stomach",
+       c:"內關。公孫配內關，通衝脈，合主心、胸、胃",ok:true,
+       note:"<b>Correct.</b> Learn the Eight Confluent pairs by the <b>territory</b> they cover, not as a list of eight names. This pair's territory is 心、胸、胃."},
+      {t:"LU7 Lieque — together they open the Conception Vessel",
+       c:"列缺，通任脈",ok:false,
+       note:"LU7 列缺 pairs with <b>KI6 照海</b>, and their territory is the throat, chest and lung."},
+      {t:"SI3 Houxi — together they open the Governing Vessel",
+       c:"後谿，通督脈",ok:false,
+       note:"SI3 後谿 pairs with <b>BL62 申脈</b>, covering the inner canthus, neck, shoulder and back."}
+     ]},
+    {q:"Her pain is worse before her period. Why does that fit the Penetrating Vessel?",
+     cq:"其痛經前加重，何以與衝脈相合？",
+     opts:[
+      {t:"The Penetrating Vessel is called the Sea of Blood 血海 and governs menstruation, so complaints that track the cycle often involve it",
+       c:"衝為血海，主月事；病隨經期而作者，多涉衝脈",ok:true,
+       note:"<b>Correct.</b> <b>衝為血海</b>. Symptoms that rise and fall with the cycle are a strong clue to look at the Chong vessel rather than only at the organ that hurts."},
+      {t:"Because the Penetrating Vessel governs the exterior",
+       c:"衝脈主表",ok:false,
+       note:"Exterior defence belongs to the Yang channels and the Wei qi, not the Chong."},
+      {t:"Because premenstrual symptoms are always Liver qi stagnation",
+       c:"經前之症皆屬肝鬱",ok:false,
+       note:"Liver qi stagnation is common, but \"always\" is too strong. Here the pairing points at the Chong."}
+     ]},
+    {q:"What kind of point is SP4 within its own channel?",
+     cq:"公孫於本經屬何類穴？",
+     opts:[
+      {t:"The Connecting point 絡穴, which crosses to the Stomach channel",
+       c:"絡穴，別走足陽明胃經",ok:true,
+       note:"<b>Correct.</b> That crossing is why a Spleen point treats stomach pain and vomiting so directly — the Luo connects the paired yin and yang channels."},
+      {t:"The Source point 原穴",c:"原穴",ok:false,
+       note:"The Spleen's Source point is <b>SP3 太白</b>, one station back."},
+      {t:"The Sea point 合穴",c:"合穴",ok:false,
+       note:"The Spleen's Sea point is <b>SP9 陰陵泉</b>, at the knee."}
+     ]}
+  ],
+  card:{en:"Gongsun with Neiguan opens the Penetrating Vessel — heart, chest and stomach, from one point on the foot and one on the wrist.",
+        zh:"公孫配內關，通衝脈，合於心、胸、胃。"} },
+
 { id:"SP6", region:"leg",
   beats:[
     {en:"A young weaver has had painful periods for years. They come late, the blood is dark with clots, and she sleeps badly the week before.",
