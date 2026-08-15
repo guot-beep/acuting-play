@@ -12,6 +12,31 @@
   var AG = global.AG; if (!AG) return;
   var D = global.document;
 
+  /* ═══════════ 催更 · TING FILLS IN THESE TWO LINES ═══════════
+     Paste your Google Form link between the first pair of quotes and the
+     "Request a topic 催更" row appears in Settings. Leave it empty and the
+     row stays hidden — a button that goes nowhere is worse than no button.
+
+     WISH_FIELD is optional. If you paste the form's entry id (it looks like
+     entry.123456789), the player's chosen topic arrives already filled in.
+     Without it the form still works; they just type it themselves.
+     ═══════════════════════════════════════════════════════════ */
+  var WISH_FORM  = "";
+  var WISH_FIELD = "";
+
+  /* The quick picks. Editing this list is a data edit — add or remove freely.
+     Kept short on purpose: a wall of options gets skipped. */
+  var WISH_TOPICS = [
+    { en:"Insomnia",        zh:"失眠" },
+    { en:"Menopause",       zh:"更年期" },
+    { en:"Period pain",     zh:"經痛" },
+    { en:"Digestion",       zh:"腸胃" },
+    { en:"Fatigue",         zh:"疲勞" },
+    { en:"Seasonal care",   zh:"節氣養生" },
+    { en:"Herbs",           zh:"中藥" },
+    { en:"Acupoints",       zh:"穴位" }
+  ];
+
   var CSS = `
   :root{--hud-h:48px}
   /* the bar owns the top strip — make room for it on every layout style */
@@ -109,6 +134,22 @@
   .resetbox b{color:var(--ink,#3A3730)}
   .resetrow{display:flex;gap:8px;margin-top:11px}
   .resetrow button{flex:1;min-width:0;height:38px;font-size:12.5px}
+  /* 催更 · topic request */
+  .wishbox{display:none;margin-top:10px;padding:12px 14px;border-radius:12px;
+    background:rgba(176,141,62,.09);border-left:3px solid var(--gold,#B08D3E);
+    font-size:13px;line-height:1.7;color:var(--ink-soft,#5E594E)}
+  .wishbox.on{display:block;animation:reactIn .28s ease}
+  .wishchips{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0 4px}
+  .wishchips button{border:1.5px solid rgba(51,47,40,.16);background:var(--white,#FDFBF4);
+    border-radius:99px;padding:7px 13px;font-family:inherit;font-size:12.5px;color:var(--ink,#3A3730);
+    cursor:pointer;min-height:34px}
+  .wishchips button.on{background:var(--gold,#B08D3E);color:#fff;border-color:transparent}
+  .wishbox input[type=text]{width:100%;margin-top:9px;padding:10px 12px;border-radius:10px;
+    border:1.5px solid rgba(51,47,40,.16);background:var(--white,#FDFBF4);font-family:inherit;
+    font-size:14px;color:var(--ink,#3A3730)}
+  .wishsend{margin-top:11px;width:100%;height:42px;border:none;border-radius:11px;cursor:pointer;
+    font-family:inherit;font-size:14px;letter-spacing:.08em;background:var(--gold,#B08D3E);color:#fff}
+  .wishsend[disabled]{opacity:.4;cursor:default}
   @keyframes reactIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
   .tray-axes{display:flex;flex-direction:column;gap:7px;margin-top:4px}
   .tray-axes div{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-soft,#5E594E)}
@@ -301,6 +342,24 @@
         + (AG.isBeginner()?"Beginner":"Student")+'</button></div>'
         + '<div class="tray-row"><div>Reduced motion<small>依系統設定自動調整</small></div>'
         + '<span style="font-size:12.5px;color:var(--ink-faint)">auto</span></div>'
+        /* 催更 — only rendered once Ting has pasted a form URL. A button that
+           goes nowhere is worse than no button, so the row hides itself. */
+        + (WISH_FORM
+           ? '<div class="tray-row"><div>Request a topic<small>催更 · 你想看什麼主題？</small></div>'
+             + '<button class="tray-toggle" id="tgWish">Ask</button></div>'
+             + '<div id="wishBox" class="wishbox">'
+             + 'Which topic should come next? Pick one, or write your own.'
+             + '<span class="zh" style="display:block;margin-top:4px">下一個主題想看什麼？可以直接選，也可以自己寫。</span>'
+             + '<div class="wishchips" id="wishChips">'
+             + WISH_TOPICS.map(function(t){
+                 return '<button data-t="'+t.en+' '+t.zh+'">'+t.zh+'</button>'; }).join("")
+             + '</div>'
+             + '<input type="text" id="wishText" maxlength="80" placeholder="Or write it here 或自己寫">'
+             + '<button class="wishsend" id="wishSend" disabled>Send 送出</button>'
+             + '<small style="display:block;margin-top:8px;opacity:.75">Opens a short form. No account needed, nothing about you is collected.'
+             + '<span class="zh" style="margin-top:2px">會開啟一個簡短表單，不需登入，不收集個人資料。</span></small>'
+             + '</div>'
+           : '')
         + '<div class="tray-row"><div>Start over<small>重新開始 · 換一個角色</small></div>'
         + '<button class="tray-toggle danger" id="tgReset">Reset</button></div>'
         + '<div id="resetConfirm" class="resetbox">'
@@ -310,6 +369,35 @@
         + '<button class="tray-toggle danger solid" id="rsYes">Erase and start over</button></div></div>'
         + '<p class="tray-empty" style="margin-top:12px">Apricot Grove is an educational game. Cases are fictional teaching examples and not medical advice.'
         + '<span class="zh"> 本遊戲為教學用途，病案為虛構教學範例，不構成醫療建議。</span></p>');
+      /* 催更 · the wish panel. Chips and free text feed the same one field,
+         so the form stays a single short-answer question. */
+      if(WISH_FORM){
+        var wishVal="";
+        D.getElementById("tgWish").onclick=function(){
+          var b=D.getElementById("wishBox");
+          b.classList.toggle("on"); this.classList.toggle("on", b.classList.contains("on"));
+        };
+        var chips=D.getElementById("wishChips"), txt=D.getElementById("wishText"),
+            send=D.getElementById("wishSend");
+        function setWish(v){ wishVal=(v||"").trim(); send.disabled=!wishVal; }
+        chips.onclick=function(e){
+          var b=e.target.closest("button"); if(!b) return;
+          var was=b.classList.contains("on");
+          chips.querySelectorAll("button").forEach(function(x){ x.classList.remove("on"); });
+          if(!was){ b.classList.add("on"); txt.value=""; setWish(b.dataset.t); } else setWish("");
+        };
+        txt.oninput=function(){
+          chips.querySelectorAll("button").forEach(function(x){ x.classList.remove("on"); });
+          setWish(this.value);
+        };
+        send.onclick=function(){
+          if(!wishVal) return;
+          var url=WISH_FORM;
+          if(WISH_FIELD) url+=(url.indexOf("?")<0?"?":"&")+"usp=pp_url&"+WISH_FIELD+"="+encodeURIComponent(wishVal);
+          global.open(url,"_blank","noopener");
+          this.textContent="Thank you 謝謝"; this.disabled=true;
+        };
+      }
       D.getElementById("tgZh").onclick=function(){
         AG.setZh(!AG.state.zh); this.textContent=AG.state.zh?"ON":"OFF";
         this.classList.toggle("on",AG.state.zh);
