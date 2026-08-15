@@ -150,7 +150,7 @@ window.AG_POINTS = [
   use:{en:"Sore throat, loss of voice, cough with heat, fever. Spring points clear heat, and this is the Lung's.",
        zh:"咽喉腫痛、失音、熱咳、發熱。滎主身熱，此肺經之滎也。"},
   hook:{en:"Spring points clear heat — 滎主身熱.", zh:"「滎主身熱」。"},
-  img:"" },
+  img:"art/points/LU10-skin.jpg" },
 
 { id:"LU11", en:"Shaoshang", py:"Shào Shāng", zh:"少商",
   ch:{en:"Lung", zh:"手太陰肺經"}, cat:{en:"Well point 井穴", zh:"井穴"},
@@ -178,7 +178,7 @@ window.AG_POINTS = [
         zh:"四總穴歌：「面口合谷收」。"},
   caution:{en:"Strongly moves qi and blood downward — avoid in pregnancy.",
            zh:"行氣活血力強，孕婦禁針。"},
-  img:"" },
+  img:"art/points/LI4.jpg" },
 
 { id:"SI3", en:"Houxi", py:"Hòu Xī", zh:"後谿",
   ch:{en:"Small Intestine", zh:"手太陽小腸經"},
@@ -211,7 +211,7 @@ window.AG_POINTS = [
         zh:"清大腸經熱、利腕關節、消腫（咽喉、齒）"},
   use:{en:"The local point for wrist pain and for tendon strain at the base of the thumb. Also used for toothache and sore throat along the same channel.",
        zh:"腕痛、拇指腱鞘不利之局部穴；本經之牙痛、咽痛亦可取。"},
-  img:"" },
+  img:"art/points/LI5.jpg" },
 
 /* ── leg, lateral ────────────────────────────────────────────── */
 { id:"GB34", en:"Yanglingquan", py:"Yáng Líng Quán", zh:"陽陵泉",
@@ -274,7 +274,7 @@ window.AG_POINTS = [
        zh:"補益第一要穴。一切脾胃病皆可取：納差、腹脹、便溏、嘔惡；虛損者尤宜久灸培元。"},
   hook:{en:"For the belly, keep Zusanli — one of the Four Command Points.",
         zh:"四總穴歌：「肚腹三里留」。"},
-  img:"" },
+  img:"art/points/ST36.jpg" },
 
 { id:"ST40", en:"Fenglong", py:"Fēng Lóng", zh:"豐隆",
   ch:{en:"Stomach", zh:"足陽明胃經"}, cat:{en:"Connecting point 絡穴", zh:"絡穴"},
@@ -286,7 +286,7 @@ window.AG_POINTS = [
        zh:"化痰要穴。凡涉痰者皆可取：痰多咳嗽、胸悶、頭重、眩暈，乃至痰蒙心竅。所謂痰，不限有形。"},
   hook:{en:"For phlegm, seek Fenglong.",
         zh:"諸痰皆取豐隆。"},
-  img:"" },
+  img:"art/points/ST40.jpg" },
 
 { id:"ST41", en:"Jiexi", py:"Jiě Xī", zh:"解谿",
   ch:{en:"Stomach", zh:"足陽明胃經"}, cat:{en:"River point 經穴", zh:"經穴"},
@@ -347,7 +347,7 @@ window.AG_POINTS = [
         zh:"名曰風池：風所聚，亦風所出。"},
   caution:{en:"Needle toward the opposite eye or the tip of the nose, never deeply upward — the brainstem lies beyond.",
            zh:"針尖朝對側目內眥或鼻尖，不可向上深刺，內有延髓。"},
-  img:"" },
+  img:"art/points/GB20.jpg" },
 
 { id:"TE17", en:"Yifeng", py:"Yì Fēng", zh:"翳風",
   ch:{en:"Triple Burner", zh:"手少陽三焦經"}, cat:{en:"", zh:""},
