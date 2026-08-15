@@ -100,7 +100,7 @@ window.AG_POINTS = [
   use:{en:"The point for a hot, full Lung: cough with thick yellow phlegm, wheezing, sore throat. Because Sea points drain, it suits excess rather than deficiency.",
        zh:"肺經實熱之要穴：咳吐黃稠痰、氣喘、咽痛。合穴主瀉，宜實不宜虛。"},
   hook:{en:"Sea points drain — 合主逆氣而泄.", zh:"「合主逆氣而泄」。"},
-  img:"" },
+  img:"art/points/LU5.jpg" },
 
 { id:"LU6", en:"Kongzui", py:"Kǒng Zuì", zh:"孔最",
   ch:{en:"Lung", zh:"手太陰肺經"}, cat:{en:"Cleft point 郄穴", zh:"郄穴"},
@@ -112,7 +112,7 @@ window.AG_POINTS = [
        zh:"郄穴主急症痛症，陰經郄穴兼主血證，故咳血、急性哮喘取之。"},
   hook:{en:"Cleft points: acute conditions, and on yin channels, bleeding.",
         zh:"郄穴主急症；陰經郄穴主血證。"},
-  img:"" },
+  img:"art/points/LU5.jpg" },
 
 { id:"LU8", en:"Jingqu", py:"Jīng Qú", zh:"經渠",
   ch:{en:"Lung", zh:"手太陰肺經"}, cat:{en:"River point 經穴", zh:"經穴"},
@@ -126,7 +126,7 @@ window.AG_POINTS = [
         zh:"「經主喘咳寒熱」。"},
   caution:{en:"The radial artery runs alongside — avoid puncturing the vessel.",
            zh:"橈動脈在側，針時避開血管。"},
-  img:"" },
+  img:"art/points/LU5.jpg" },
 
 { id:"LU9", en:"Taiyuan", py:"Tài Yuān", zh:"太淵",
   ch:{en:"Lung", zh:"手太陰肺經"},
@@ -140,7 +140,7 @@ window.AG_POINTS = [
   hook:{en:"Influential point of the vessels 脈會太淵 — and it sits exactly where you take the pulse.",
         zh:"「脈會太淵」——正在寸口診脈之處。"},
   caution:{en:"Avoid the radial artery itself.", zh:"避開橈動脈。"},
-  img:"" },
+  img:"art/points/LU5.jpg" },
 
 { id:"LU10", en:"Yuji", py:"Yú Jì", zh:"魚際",
   ch:{en:"Lung", zh:"手太陰肺經"}, cat:{en:"Spring point 滎穴", zh:"滎穴"},
@@ -391,7 +391,7 @@ window.AG_POINTS = [
        zh:"外感咳嗽之要穴；項強、後頭痛之遠端配穴。"},
   hook:{en:"For the head and nape, seek Lieque — one of the Four Command Points.",
         zh:"四總穴歌：「頭項尋列缺」。"},
-  img:"" },
+  img:"art/points/LU5.jpg" },
 
 { id:"PC6", en:"Neiguan", py:"Nèi Guān", zh:"內關",
   ch:{en:"Pericardium", zh:"手厥陰心包經"},
@@ -524,7 +524,7 @@ window.AG_POINTS = [
        zh:"腎之原穴，腎虛諸證皆取：腰膝痠軟、耳鳴、盜汗、眩暈、夜寐不安。陰陽俱補，此為其特別處。"},
   hook:{en:"The Source point of the Kidney sits where you can feel the pulse behind the ankle.",
         zh:"腎之原穴，在踝後動脈應手處。"},
-  img:"" }
+  img:"art/points/KI3.jpg" }
 
 
 ];
