@@ -191,7 +191,7 @@ window.AG_POINTS = [
        zh:"項強、脊背疼痛之遠端要穴——通督脈，督行於背。落枕不能轉側者尤宜。"},
   hook:{en:"It opens the Du channel, so it treats the whole length of the back.",
         zh:"通督脈，故治一身之背。"},
-  img:"" },
+  img:"art/points/SI3.jpg" },
 
 { id:"TE3", en:"Zhongzhu", py:"Zhōng Zhǔ", zh:"中渚",
   ch:{en:"Triple Burner", zh:"手少陽三焦經"}, cat:{en:"Stream point 輸穴", zh:"輸穴"},
@@ -310,7 +310,7 @@ window.AG_POINTS = [
        zh:"腰痛遠端要穴，與腰部局部穴相配。急性腰扭傷、血熱皮膚病可刺絡放血。"},
   hook:{en:"For the low back, seek Weizhong — one of the Four Command Points.",
         zh:"四總穴歌：「腰背委中求」。"},
-  img:"" },
+  img:"art/points/BL40.jpg" },
 
 { id:"BL57", en:"Chengshan", py:"Chéng Shān", zh:"承山",
   ch:{en:"Bladder", zh:"足太陽膀胱經"}, cat:{en:"", zh:""},
@@ -332,7 +332,7 @@ window.AG_POINTS = [
        zh:"膀胱經一線之痛皆可取：後頭痛、項強、腰痛、踝痛。經脈自頭至足，故上下皆治。"},
   caution:{en:"Traditionally avoided in pregnancy.",
            zh:"孕婦慎用。"},
-  img:"" },
+  img:"art/points/BL60.jpg" },
 
 /* ── head, lateral ───────────────────────────────────────────── */
 { id:"GB20", en:"Fengchi", py:"Fēng Chí", zh:"風池",
