@@ -178,7 +178,7 @@ window.AG_POINTS = [
         zh:"四總穴歌：「面口合谷收」。"},
   caution:{en:"Strongly moves qi and blood downward — avoid in pregnancy.",
            zh:"行氣活血力強，孕婦禁針。"},
-  img:"art/anatomy/hand-dorsal.jpg" },
+  img:"" },
 
 { id:"SI3", en:"Houxi", py:"Hòu Xī", zh:"後谿",
   ch:{en:"Small Intestine", zh:"手太陽小腸經"},
@@ -191,7 +191,7 @@ window.AG_POINTS = [
        zh:"項強、脊背疼痛之遠端要穴——通督脈，督行於背。落枕不能轉側者尤宜。"},
   hook:{en:"It opens the Du channel, so it treats the whole length of the back.",
         zh:"通督脈，故治一身之背。"},
-  img:"art/anatomy/hand-dorsal.jpg" },
+  img:"" },
 
 { id:"TE3", en:"Zhongzhu", py:"Zhōng Zhǔ", zh:"中渚",
   ch:{en:"Triple Burner", zh:"手少陽三焦經"}, cat:{en:"Stream point 輸穴", zh:"輸穴"},
@@ -201,7 +201,7 @@ window.AG_POINTS = [
         zh:"清三焦熱、聰耳、舒筋活絡"},
   use:{en:"Ear problems along the Shaoyang line — tinnitus, deafness, ear fullness — and pain along the outside of the arm and shoulder. Useful when a headache sits at the temple rather than the forehead.",
        zh:"耳鳴、耳聾、耳脹等少陽經病，及肩臂外側痛。頭痛在側者尤宜。"},
-  img:"art/anatomy/hand-dorsal.jpg" },
+  img:"" },
 
 { id:"LI5", en:"Yangxi", py:"Yáng Xī", zh:"陽谿",
   ch:{en:"Large Intestine", zh:"手陽明大腸經"}, cat:{en:"River point 經穴", zh:"經穴"},
@@ -211,7 +211,7 @@ window.AG_POINTS = [
         zh:"清大腸經熱、利腕關節、消腫（咽喉、齒）"},
   use:{en:"The local point for wrist pain and for tendon strain at the base of the thumb. Also used for toothache and sore throat along the same channel.",
        zh:"腕痛、拇指腱鞘不利之局部穴；本經之牙痛、咽痛亦可取。"},
-  img:"art/anatomy/hand-dorsal.jpg" },
+  img:"" },
 
 /* ── leg, lateral ────────────────────────────────────────────── */
 { id:"GB34", en:"Yanglingquan", py:"Yáng Líng Quán", zh:"陽陵泉",
@@ -447,7 +447,7 @@ window.AG_POINTS = [
        zh:"脾統血，故崩漏、便血、鼻衄取之，尤宜灸法。又主多夢。"},
   hook:{en:"Well points sit at the tips of fingers and toes, and they revive — they are where qi first appears.",
         zh:"井穴在指趾之端，主急救開竅，氣之所出也。"},
-  img:"art/anatomy/foot-medial.jpg" },
+  img:"" },
 
 { id:"SP2", en:"Dadu", py:"Dà Dū", zh:"大都",
   ch:{en:"Spleen", zh:"足太陰脾經"}, cat:{en:"Spring point 滎穴", zh:"滎穴"},
@@ -458,7 +458,7 @@ window.AG_POINTS = [
   use:{en:"Spring points clear heat, so SP2 suits a Spleen pattern that has turned hot: abdominal distension with a burning quality, or fever without sweating. Less used than its neighbours, but it fills the slot in the Five Shu run.",
        zh:"滎主身熱。脾經有熱之腹脹、身熱無汗者取之。臨床用之較少，然五輸之序不可缺。"},
   hook:{en:"Spring points clear heat — 滎主身熱.", zh:"「滎主身熱」。"},
-  img:"art/anatomy/foot-medial.jpg" },
+  img:"" },
 
 { id:"SP3", en:"Taibai", py:"Tài Bái", zh:"太白",
   ch:{en:"Spleen", zh:"足太陰脾經"},
@@ -471,7 +471,7 @@ window.AG_POINTS = [
        zh:"脾之原穴，主本臟之病：納呆、腹脹、便溏、身重。陰經以輸為原，故一穴而兼二名。"},
   hook:{en:"On yin channels the Stream point IS the Source point — 陰經以輸為原.",
         zh:"「陰經以輸為原」。"},
-  img:"art/anatomy/foot-medial.jpg" },
+  img:"" },
 
 { id:"SP4", en:"Gongsun", py:"Gōng Sūn", zh:"公孫",
   ch:{en:"Spleen", zh:"足太陰脾經"},
@@ -484,7 +484,7 @@ window.AG_POINTS = [
        zh:"配內關通衝脈，合主心、胸、胃，臨床最常用之對穴。單用則主胃痛、嘔吐、腹脹、痛經。"},
   hook:{en:"Gongsun with Neiguan — heart, chest and stomach. 公孫配內關，合於心、胸、胃。",
         zh:"「公孫配內關，合於心、胸、胃」。"},
-  img:"art/anatomy/foot-medial.jpg" },
+  img:"" },
 
 { id:"SP5", en:"Shangqiu", py:"Shāng Qiū", zh:"商丘",
   ch:{en:"Spleen", zh:"足太陰脾經"}, cat:{en:"River point 經穴", zh:"經穴"},
@@ -496,7 +496,7 @@ window.AG_POINTS = [
        zh:"主脾濕之腹脹、腸鳴、便溏；又為內踝痛之局部穴，與外側丘墟相對。"},
   hook:{en:"SP1 to SP5 walk up the medial foot in Five Shu order: Well, Spring, Stream, River — the Sea, SP9, waits up at the knee.",
         zh:"隱白、大都、太白、公孫、商丘，井滎輸經依序而上；其合穴陰陵泉則在膝下。"},
-  img:"art/anatomy/foot-medial.jpg" },
+  img:"" },
 
 { id:"SP6", en:"Sanyinjiao", py:"Sān Yīn Jiāo", zh:"三陰交",
   ch:{en:"Spleen", zh:"足太陰脾經"},
