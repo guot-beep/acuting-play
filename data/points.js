@@ -260,7 +260,7 @@ window.AG_POINTS = [
         zh:"疏肝利膽、清濕熱、利踝、疏脅"},
   use:{en:"The Source point of the Gallbladder, so it treats that organ's patterns directly — bitter taste, rib-side pain, sighing. Locally it is the point for a sprained or painful ankle.",
        zh:"膽之原穴，直治膽腑之證：口苦、脅痛、太息。局部則為踝扭傷、踝痛之要穴。"},
-  img:"art/points/GB39.jpg" },
+  img:"art/points/GB40.jpg" },
 
 /* ── leg, anterior ───────────────────────────────────────────── */
 { id:"ST36", en:"Zusanli", py:"Zú Sān Lǐ", zh:"足三里",
