@@ -30,6 +30,141 @@
    ═══════════════════════════════════════════════════════════════ */
 window.AG_POINTS = [
 
+/* ── the Lung channel, complete ──────────────────────────────
+   Point Tap (acuting-play.html) can only show LU5–LU11, because its
+   background is a photograph of a forearm and hand — LU1 to LU4 are on
+   the chest and upper arm and have nowhere to sit on that image. The
+   reference should not inherit that limitation, so the whole channel is
+   entered here. `img` stays empty until a chest/upper-arm plate exists;
+   an empty slot collapses, which is honest, where a borrowed photo of
+   the wrong body part would teach the wrong location.               */
+{ id:"LU1", en:"Zhongfu", py:"Zhōng Fǔ", zh:"中府",
+  ch:{en:"Lung", zh:"手太陰肺經"},
+  cat:{en:"Front-Mu point of the Lung · meeting of Lung and Spleen 肺之募穴", zh:"肺之募穴，手足太陰之會"},
+  where:{en:"On the upper chest, 1 cun below LU2, level with the first intercostal space, 6 cun lateral to the midline.",
+         zh:"胸前壁外上方，雲門下一寸，平第一肋間隙，距前正中線六寸。"},
+  acts:{en:"Disseminates and descends Lung qi · clears heat from the upper burner · stops cough and wheeze",
+        zh:"宣降肺氣、清瀉上焦、止咳平喘"},
+  use:{en:"The Front-Mu point of the Lung — where the organ's qi gathers on the front of the body, so it treats the Lung directly: cough, wheezing, fullness in the chest, shoulder and upper-back pain.",
+       zh:"肺之募穴，臟氣結聚於胸前，故可直治其臟：咳嗽、氣喘、胸滿、肩背痛。"},
+  hook:{en:"Front-Mu on the chest, Back-Shu on the back — LU1 pairs with BL13 Feishu for the same organ.",
+        zh:"募在胸腹，俞在背。中府配肺俞，俞募相配。"},
+  caution:{en:"Over the chest — needle obliquely or transversely and never deeply or medially, because the lung lies beneath.",
+           zh:"胸部穴位，宜斜刺或平刺，不可深刺、內刺，以防傷肺。"},
+  img:"" },
+
+{ id:"LU2", en:"Yunmen", py:"Yún Mén", zh:"雲門",
+  ch:{en:"Lung", zh:"手太陰肺經"}, cat:{en:"", zh:""},
+  where:{en:"In the depression below the acromial end of the clavicle, 6 cun lateral to the midline.",
+         zh:"鎖骨外端下緣凹陷處，距前正中線六寸。"},
+  acts:{en:"Disseminates Lung qi · clears the upper burner · frees the shoulder",
+        zh:"宣肺理氣、清上焦、利肩臂"},
+  use:{en:"Cough and chest oppression, and pain in the shoulder that will not lift. Sits just above LU1, so the two are often used together.",
+       zh:"咳嗽胸悶、肩痛不能舉。在中府之上，二穴常並用。"},
+  hook:{en:"Cloud Gate then Central Treasury — the channel starts high on the chest and travels down the arm.",
+        zh:"雲門、中府居上，肺經自胸走手。"},
+  caution:{en:"Same chest caution as LU1 — shallow, oblique needling only.",
+           zh:"同中府，宜淺刺斜刺，不可深刺。"},
+  img:"" },
+
+{ id:"LU3", en:"Tianfu", py:"Tiān Fǔ", zh:"天府",
+  ch:{en:"Lung", zh:"手太陰肺經"}, cat:{en:"", zh:""},
+  where:{en:"On the lateral aspect of the upper arm, 3 cun below the anterior axillary fold, on the radial side of the biceps.",
+         zh:"腋前紋頭下三寸，肱二頭肌橈側緣。"},
+  acts:{en:"Regulates Lung qi · cools the blood and stops bleeding",
+        zh:"調理肺氣、涼血止血"},
+  use:{en:"Nosebleed is its distinctive use, alongside cough and asthma — a reminder that the Lung opens into the nose.",
+       zh:"善治鼻衄，兼治咳喘。肺開竅於鼻，此其理也。"},
+  hook:{en:"The Lung opens into the nose 肺開竅於鼻 — so a Lung point can stop a nosebleed.",
+        zh:"「肺開竅於鼻」，故肺經之穴可止鼻衄。"},
+  img:"" },
+
+{ id:"LU4", en:"Xiabai", py:"Xiá Bái", zh:"俠白",
+  ch:{en:"Lung", zh:"手太陰肺經"}, cat:{en:"", zh:""},
+  where:{en:"On the lateral aspect of the upper arm, 1 cun below LU3, 4 cun below the anterior axillary fold.",
+         zh:"天府下一寸，腋前紋頭下四寸，肱二頭肌橈側緣。"},
+  acts:{en:"Regulates Lung qi · relaxes the chest · eases pain along the inner arm",
+        zh:"理肺氣、寬胸、緩上臂內側痛"},
+  use:{en:"Cough with fullness in the chest, and pain along the medial upper arm following the channel.",
+       zh:"咳嗽胸滿、上臂內側循經作痛。"},
+  hook:{en:"LU3 and LU4 sit one cun apart on the upper arm — the stretch Point Tap's forearm photo cannot show.",
+        zh:"天府、俠白相距一寸，皆在上臂，非前臂圖所能載。"},
+  img:"" },
+
+{ id:"LU5", en:"Chize", py:"Chǐ Zé", zh:"尺澤",
+  ch:{en:"Lung", zh:"手太陰肺經"}, cat:{en:"Sea point 合穴", zh:"合穴"},
+  where:{en:"On the cubital crease, in the depression on the radial side of the biceps tendon.",
+         zh:"肘橫紋中，肱二頭肌腱橈側凹陷處。"},
+  acts:{en:"Clears Lung heat · descends rebellious qi · relaxes the sinews of the elbow",
+        zh:"清瀉肺熱、降逆、舒筋利肘"},
+  use:{en:"The point for a hot, full Lung: cough with thick yellow phlegm, wheezing, sore throat. Because Sea points drain, it suits excess rather than deficiency.",
+       zh:"肺經實熱之要穴：咳吐黃稠痰、氣喘、咽痛。合穴主瀉，宜實不宜虛。"},
+  hook:{en:"Sea points drain — 合主逆氣而泄.", zh:"「合主逆氣而泄」。"},
+  img:"" },
+
+{ id:"LU6", en:"Kongzui", py:"Kǒng Zuì", zh:"孔最",
+  ch:{en:"Lung", zh:"手太陰肺經"}, cat:{en:"Cleft point 郄穴", zh:"郄穴"},
+  where:{en:"7 cun above the wrist crease, on the line joining LU5 and LU9.",
+         zh:"腕橫紋上七寸，尺澤與太淵連線上。"},
+  acts:{en:"Clears Lung heat · stops bleeding · opens the chest",
+        zh:"清熱潤肺、止血、寬胸"},
+  use:{en:"Cleft points treat acute and painful conditions, and on yin channels they treat bleeding — so LU6 is the point for coughing blood and for a sudden severe asthma attack.",
+       zh:"郄穴主急症痛症，陰經郄穴兼主血證，故咳血、急性哮喘取之。"},
+  hook:{en:"Cleft points: acute conditions, and on yin channels, bleeding.",
+        zh:"郄穴主急症；陰經郄穴主血證。"},
+  img:"" },
+
+{ id:"LU8", en:"Jingqu", py:"Jīng Qú", zh:"經渠",
+  ch:{en:"Lung", zh:"手太陰肺經"}, cat:{en:"River point 經穴", zh:"經穴"},
+  where:{en:"1 cun above the wrist crease, on the radial side of the radial artery.",
+         zh:"腕橫紋上一寸，橈動脈橈側。"},
+  acts:{en:"Disseminates Lung qi · descends rebellious qi · eases the throat",
+        zh:"宣肺、降逆、利咽"},
+  use:{en:"Cough, wheeze, sore throat and chest pain — the River point indication 經主喘咳寒熱 stated almost literally.",
+       zh:"咳喘、咽痛、胸痛。「經主喘咳寒熱」，於此穴最為切合。"},
+  hook:{en:"River points govern cough, wheeze, chills and fever — 經主喘咳寒熱.",
+        zh:"「經主喘咳寒熱」。"},
+  caution:{en:"The radial artery runs alongside — avoid puncturing the vessel.",
+           zh:"橈動脈在側，針時避開血管。"},
+  img:"" },
+
+{ id:"LU9", en:"Taiyuan", py:"Tài Yuān", zh:"太淵",
+  ch:{en:"Lung", zh:"手太陰肺經"},
+  cat:{en:"Source point · Stream point · Influential point of the vessels 原穴、輸穴、脈會", zh:"原穴、輸穴、八會穴之脈會"},
+  where:{en:"At the radial end of the wrist crease, in the depression where the radial artery pulses.",
+         zh:"腕橫紋橈側端，橈動脈搏動處陷中。"},
+  acts:{en:"Tonifies the Lung · transforms phlegm · regulates and harmonises the hundred vessels",
+        zh:"補肺益氣、化痰、通調血脈"},
+  use:{en:"The Source point of the Lung, so it is the point for Lung deficiency — a weak chronic cough, shortness of breath, a quiet voice. It is also the Influential point of the vessels, which is why it is used for pulseless conditions and circulatory problems.",
+       zh:"肺之原穴，主肺虛：久咳無力、氣短、聲低。又為脈會，故無脈症、血脈不利者取之。"},
+  hook:{en:"Influential point of the vessels 脈會太淵 — and it sits exactly where you take the pulse.",
+        zh:"「脈會太淵」——正在寸口診脈之處。"},
+  caution:{en:"Avoid the radial artery itself.", zh:"避開橈動脈。"},
+  img:"" },
+
+{ id:"LU10", en:"Yuji", py:"Yú Jì", zh:"魚際",
+  ch:{en:"Lung", zh:"手太陰肺經"}, cat:{en:"Spring point 滎穴", zh:"滎穴"},
+  where:{en:"At the midpoint of the first metacarpal, on the border of red and white flesh of the thenar eminence.",
+         zh:"第一掌骨中點，赤白肉際處。"},
+  acts:{en:"Clears Lung heat · benefits the throat", zh:"清肺熱、利咽喉"},
+  use:{en:"Sore throat, loss of voice, cough with heat, fever. Spring points clear heat, and this is the Lung's.",
+       zh:"咽喉腫痛、失音、熱咳、發熱。滎主身熱，此肺經之滎也。"},
+  hook:{en:"Spring points clear heat — 滎主身熱.", zh:"「滎主身熱」。"},
+  img:"" },
+
+{ id:"LU11", en:"Shaoshang", py:"Shào Shāng", zh:"少商",
+  ch:{en:"Lung", zh:"手太陰肺經"}, cat:{en:"Well point 井穴", zh:"井穴"},
+  where:{en:"About 0.1 cun from the radial corner of the thumbnail.",
+         zh:"拇指橈側指甲角旁約０．一寸。"},
+  acts:{en:"Clears heat and benefits the throat · restores consciousness · opens the orifices",
+        zh:"清熱利咽、醒神開竅"},
+  use:{en:"The classic point for an acute sore throat, pricked to bleed. Also used in collapse and loss of consciousness, as Well points are.",
+       zh:"急性咽喉腫痛之要穴，多點刺出血。又主昏厥，井穴之通性也。"},
+  hook:{en:"Well points sit at the very tip and are pricked to bleed for acute heat.",
+        zh:"井穴在指端，急熱者點刺出血。"},
+  img:"" },
+
+
 /* ── hand, dorsal ────────────────────────────────────────────── */
 { id:"LI4", en:"Hegu", py:"Hé Gǔ", zh:"合谷",
   ch:{en:"Large Intestine", zh:"手陽明大腸經"}, cat:{en:"Source point 原穴", zh:"原穴"},
@@ -90,7 +225,7 @@ window.AG_POINTS = [
        zh:"筋會陽陵泉，一身之筋病皆可取：拘攣、抽筋、關節不利。膽經證見口苦、脅脹者亦宜。"},
   hook:{en:"The sinews gather at Yanglingquan — remember it as the sinew point.",
         zh:"八會穴：筋會陽陵泉。"},
-  img:"art/anatomy/leg-lateral-a.jpg" },
+  img:"" },
 
 { id:"GB39", en:"Xuanzhong", py:"Xuán Zhōng", zh:"懸鐘",
   ch:{en:"Gallbladder", zh:"足少陽膽經"},
@@ -103,7 +238,7 @@ window.AG_POINTS = [
        zh:"髓會絕骨，故骨髓之病取之；又主項強、半身不遂、膽經之下肢痛。"},
   hook:{en:"The marrow gathers at Xuanzhong — also called Juegu 絕骨.",
         zh:"八會穴：髓會絕骨（懸鐘）。"},
-  img:"art/anatomy/leg-lateral-a.jpg" },
+  img:"" },
 
 { id:"GB37", en:"Guangming", py:"Guāng Míng", zh:"光明",
   ch:{en:"Gallbladder", zh:"足少陽膽經"}, cat:{en:"Connecting point 絡穴", zh:"絡穴"},
@@ -115,7 +250,7 @@ window.AG_POINTS = [
        zh:"膽之絡穴，別走厥陰肝——肝開竅於目，故在小腿而能治目：目視不明、夜盲、目痛，兼治下肢外側痛。"},
   hook:{en:"Its name means brightness. The Liver opens into the eyes, and this is the Gallbladder's link to the Liver.",
         zh:"名曰光明。肝開竅於目，此為膽絡肝之穴。"},
-  img:"art/anatomy/leg-lateral-a.jpg" },
+  img:"" },
 
 { id:"GB40", en:"Qiuxu", py:"Qiū Xū", zh:"丘墟",
   ch:{en:"Gallbladder", zh:"足少陽膽經"}, cat:{en:"Source point 原穴", zh:"原穴"},
@@ -125,7 +260,7 @@ window.AG_POINTS = [
         zh:"疏肝利膽、清濕熱、利踝、疏脅"},
   use:{en:"The Source point of the Gallbladder, so it treats that organ's patterns directly — bitter taste, rib-side pain, sighing. Locally it is the point for a sprained or painful ankle.",
        zh:"膽之原穴，直治膽腑之證：口苦、脅痛、太息。局部則為踝扭傷、踝痛之要穴。"},
-  img:"art/anatomy/leg-lateral-a.jpg" },
+  img:"" },
 
 /* ── leg, anterior ───────────────────────────────────────────── */
 { id:"ST36", en:"Zusanli", py:"Zú Sān Lǐ", zh:"足三里",
@@ -139,7 +274,7 @@ window.AG_POINTS = [
        zh:"補益第一要穴。一切脾胃病皆可取：納差、腹脹、便溏、嘔惡；虛損者尤宜久灸培元。"},
   hook:{en:"For the belly, keep Zusanli — one of the Four Command Points.",
         zh:"四總穴歌：「肚腹三里留」。"},
-  img:"art/anatomy/leg-anterior.jpg" },
+  img:"" },
 
 { id:"ST40", en:"Fenglong", py:"Fēng Lóng", zh:"豐隆",
   ch:{en:"Stomach", zh:"足陽明胃經"}, cat:{en:"Connecting point 絡穴", zh:"絡穴"},
@@ -151,7 +286,7 @@ window.AG_POINTS = [
        zh:"化痰要穴。凡涉痰者皆可取：痰多咳嗽、胸悶、頭重、眩暈，乃至痰蒙心竅。所謂痰，不限有形。"},
   hook:{en:"For phlegm, seek Fenglong.",
         zh:"諸痰皆取豐隆。"},
-  img:"art/anatomy/leg-anterior.jpg" },
+  img:"" },
 
 { id:"ST41", en:"Jiexi", py:"Jiě Xī", zh:"解谿",
   ch:{en:"Stomach", zh:"足陽明胃經"}, cat:{en:"River point 經穴", zh:"經穴"},
@@ -161,7 +296,7 @@ window.AG_POINTS = [
         zh:"清胃經熱、利踝關節、安神、消腫"},
   use:{en:"The local point for ankle pain and for weakness of the foot in dropfoot. Along the channel it also treats a frontal headache and facial swelling.",
        zh:"踝痛、足下垂之局部要穴；循經亦治前額頭痛、面浮。"},
-  img:"art/anatomy/leg-anterior.jpg" },
+  img:"" },
 
 /* ── leg, posterior ──────────────────────────────────────────── */
 { id:"BL40", en:"Weizhong", py:"Wěi Zhōng", zh:"委中",
@@ -175,7 +310,7 @@ window.AG_POINTS = [
        zh:"腰痛遠端要穴，與腰部局部穴相配。急性腰扭傷、血熱皮膚病可刺絡放血。"},
   hook:{en:"For the low back, seek Weizhong — one of the Four Command Points.",
         zh:"四總穴歌：「腰背委中求」。"},
-  img:"art/anatomy/leg-posterior.jpg" },
+  img:"" },
 
 { id:"BL57", en:"Chengshan", py:"Chéng Shān", zh:"承山",
   ch:{en:"Bladder", zh:"足太陽膀胱經"}, cat:{en:"", zh:""},
@@ -185,7 +320,7 @@ window.AG_POINTS = [
         zh:"舒筋活絡、利腰腿、治痔"},
   use:{en:"Calf cramp, low back and leg pain along the Bladder channel, and — classically — haemorrhoids, because the Bladder channel runs through the anal region.",
        zh:"腓腸肌痙攣、腰腿痛（膀胱經循行）；經脈過肛，故亦為治痔要穴。"},
-  img:"art/anatomy/leg-posterior.jpg" },
+  img:"" },
 
 { id:"BL60", en:"Kunlun", py:"Kūn Lún", zh:"崑崙",
   ch:{en:"Bladder", zh:"足太陽膀胱經"}, cat:{en:"River point 經穴", zh:"經穴"},
@@ -197,7 +332,7 @@ window.AG_POINTS = [
        zh:"膀胱經一線之痛皆可取：後頭痛、項強、腰痛、踝痛。經脈自頭至足，故上下皆治。"},
   caution:{en:"Traditionally avoided in pregnancy.",
            zh:"孕婦慎用。"},
-  img:"art/anatomy/leg-posterior.jpg" },
+  img:"" },
 
 /* ── head, lateral ───────────────────────────────────────────── */
 { id:"GB20", en:"Fengchi", py:"Fēng Chí", zh:"風池",
@@ -212,7 +347,7 @@ window.AG_POINTS = [
         zh:"名曰風池：風所聚，亦風所出。"},
   caution:{en:"Needle toward the opposite eye or the tip of the nose, never deeply upward — the brainstem lies beyond.",
            zh:"針尖朝對側目內眥或鼻尖，不可向上深刺，內有延髓。"},
-  img:"art/anatomy/head-lateral.jpg" },
+  img:"" },
 
 { id:"TE17", en:"Yifeng", py:"Yì Fēng", zh:"翳風",
   ch:{en:"Triple Burner", zh:"手少陽三焦經"}, cat:{en:"", zh:""},
@@ -222,7 +357,7 @@ window.AG_POINTS = [
         zh:"聰耳、袪面部之風、通經活絡"},
   use:{en:"The main local point for the ear — tinnitus, deafness, ear pain — and for facial paralysis, where wind has struck the face along the Shaoyang line.",
        zh:"耳病局部主穴：耳鳴、耳聾、耳痛；面癱（風中少陽之絡）亦為要穴。"},
-  img:"art/anatomy/head-lateral.jpg" },
+  img:"" },
 
 { id:"GB8", en:"Shuaigu", py:"Shuài Gǔ", zh:"率谷",
   ch:{en:"Gallbladder", zh:"足少陽膽經"}, cat:{en:"", zh:""},
@@ -232,7 +367,7 @@ window.AG_POINTS = [
         zh:"清頭止痛、和胃止嘔、袪風"},
   use:{en:"The local point for a one-sided headache at the temple — the Shaoyang headache — especially when it comes with nausea, which is the picture of a migraine.",
        zh:"偏頭痛（少陽頭痛）之局部要穴，兼嘔惡者尤宜——即今之偏頭痛。"},
-  img:"art/anatomy/head-lateral.jpg" },
+  img:"" },
 
 { id:"TAIYANG", en:"Taiyang", py:"Tài Yáng", zh:"太陽",
   ch:{en:"Extra point", zh:"經外奇穴"}, cat:{en:"Extra point EX-HN5 奇穴", zh:"經外奇穴 EX-HN5"},
@@ -242,7 +377,7 @@ window.AG_POINTS = [
         zh:"清熱止痛、明目、袪風"},
   use:{en:"The point everyone presses without being taught to — temporal headache and tired, sore eyes. Bleeding it is a traditional method for a stubborn headache with heat.",
        zh:"太陽穴：偏頭痛、目脹目澀，人人自按而不自知。熱盛頭痛久不解者可刺絡放血。"},
-  img:"art/anatomy/head-lateral.jpg" },
+  img:"" },
 
 /* ── points the chapters already use ─────────────────────────── */
 { id:"LU7", en:"Lieque", py:"Liè Quē", zh:"列缺",
@@ -291,7 +426,7 @@ window.AG_POINTS = [
        zh:"下焦祛濕要穴：水腫、身重、便溏、帶下、小便不利。足三里主補，陰陵泉主利，脾虛濕困常二穴並用。"},
   hook:{en:"Yang Mound Spring is GB34 on the outside; Yin Mound Spring is SP9 on the inside. Same height, opposite faces.",
         zh:"外為陽陵泉，內為陰陵泉；高低相當，內外相對。"},
-  img:"art/channel-3.jpg" },
+  img:"" },
 
 /* Ting's medial-leg plate (art/channel-3.jpg) runs SP6 up to SP9, so the two
    Spleen points on it are entered together — SP6 is arguably the most-tested
@@ -376,7 +511,7 @@ window.AG_POINTS = [
         zh:"三陰交會：脾、肝、腎。名即其理。"},
   caution:{en:"Contraindicated in pregnancy — classically paired with LI4 as the points that move too strongly for it.",
            zh:"孕婦禁針。古與合谷並稱，行血力強，孕期忌用。"},
-  img:"art/channel-3.jpg" },
+  img:"" },
 
 { id:"KI3", en:"Taixi", py:"Tài Xī", zh:"太谿",
   ch:{en:"Kidney", zh:"足少陰腎經"},
@@ -389,7 +524,7 @@ window.AG_POINTS = [
        zh:"腎之原穴，腎虛諸證皆取：腰膝痠軟、耳鳴、盜汗、眩暈、夜寐不安。陰陽俱補，此為其特別處。"},
   hook:{en:"The Source point of the Kidney sits where you can feel the pulse behind the ankle.",
         zh:"腎之原穴，在踝後動脈應手處。"},
-  img:"art/channel-3.jpg" }
+  img:"" }
 
 
 ];
