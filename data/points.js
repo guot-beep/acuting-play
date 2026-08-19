@@ -51,7 +51,7 @@ window.AG_POINTS = [
         zh:"募在胸腹，俞在背。中府配肺俞，俞募相配。"},
   caution:{en:"Over the chest — needle obliquely or transversely and never deeply or medially, because the lung lies beneath.",
            zh:"胸部穴位，宜斜刺或平刺，不可深刺、內刺，以防傷肺。"},
-  img:"" },
+  img:"art/points/LU1.jpg" },
 
 { id:"LU2", en:"Yunmen", py:"Yún Mén", zh:"雲門",
   ch:{en:"Lung", zh:"手太陰肺經"}, cat:{en:"", zh:""},
@@ -65,7 +65,7 @@ window.AG_POINTS = [
         zh:"雲門、中府居上，肺經自胸走手。"},
   caution:{en:"Same chest caution as LU1 — shallow, oblique needling only.",
            zh:"同中府，宜淺刺斜刺，不可深刺。"},
-  img:"" },
+  img:"art/points/LU1.jpg" },
 
 { id:"LU3", en:"Tianfu", py:"Tiān Fǔ", zh:"天府",
   ch:{en:"Lung", zh:"手太陰肺經"}, cat:{en:"", zh:""},
@@ -77,7 +77,7 @@ window.AG_POINTS = [
        zh:"善治鼻衄，兼治咳喘。肺開竅於鼻，此其理也。"},
   hook:{en:"The Lung opens into the nose 肺開竅於鼻 — so a Lung point can stop a nosebleed.",
         zh:"「肺開竅於鼻」，故肺經之穴可止鼻衄。"},
-  img:"" },
+  img:"art/points/LU1.jpg" },
 
 { id:"LU4", en:"Xiabai", py:"Xiá Bái", zh:"俠白",
   ch:{en:"Lung", zh:"手太陰肺經"}, cat:{en:"", zh:""},
@@ -89,7 +89,7 @@ window.AG_POINTS = [
        zh:"咳嗽胸滿、上臂內側循經作痛。"},
   hook:{en:"LU3 and LU4 sit one cun apart on the upper arm — the stretch Point Tap's forearm photo cannot show.",
         zh:"天府、俠白相距一寸，皆在上臂，非前臂圖所能載。"},
-  img:"" },
+  img:"art/points/LU1.jpg" },
 
 { id:"LU5", en:"Chize", py:"Chǐ Zé", zh:"尺澤",
   ch:{en:"Lung", zh:"手太陰肺經"}, cat:{en:"Sea point 合穴", zh:"合穴"},
@@ -162,7 +162,7 @@ window.AG_POINTS = [
        zh:"急性咽喉腫痛之要穴，多點刺出血。又主昏厥，井穴之通性也。"},
   hook:{en:"Well points sit at the very tip and are pricked to bleed for acute heat.",
         zh:"井穴在指端，急熱者點刺出血。"},
-  img:"" },
+  img:"art/points/LU11.jpg" },
 
 
 /* ── hand, dorsal ────────────────────────────────────────────── */
@@ -296,7 +296,7 @@ window.AG_POINTS = [
         zh:"清胃經熱、利踝關節、安神、消腫"},
   use:{en:"The local point for ankle pain and for weakness of the foot in dropfoot. Along the channel it also treats a frontal headache and facial swelling.",
        zh:"踝痛、足下垂之局部要穴；循經亦治前額頭痛、面浮。"},
-  img:"" },
+  img:"art/points/ST41.jpg" },
 
 /* ── leg, posterior ──────────────────────────────────────────── */
 { id:"BL40", en:"Weizhong", py:"Wěi Zhōng", zh:"委中",
@@ -320,7 +320,7 @@ window.AG_POINTS = [
         zh:"舒筋活絡、利腰腿、治痔"},
   use:{en:"Calf cramp, low back and leg pain along the Bladder channel, and — classically — haemorrhoids, because the Bladder channel runs through the anal region.",
        zh:"腓腸肌痙攣、腰腿痛（膀胱經循行）；經脈過肛，故亦為治痔要穴。"},
-  img:"" },
+  img:"art/points/BL57.jpg" },
 
 { id:"BL60", en:"Kunlun", py:"Kūn Lún", zh:"崑崙",
   ch:{en:"Bladder", zh:"足太陽膀胱經"}, cat:{en:"River point 經穴", zh:"經穴"},
