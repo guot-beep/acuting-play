@@ -77,9 +77,9 @@ body.nozh .zh{display:none !important}
 .howto .half small{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.18em;opacity:.9}
 
 /* play */
-.hud{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-.hud .rnd{font-family:"Courier New",monospace;font-size:11px;letter-spacing:.18em;color:var(--ink-faint)}
-.hud .sc{font-family:"Courier New",monospace;font-size:15px;color:var(--terra)}
+.srow{padding-right:40px;display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.srow .rnd{font-family:"Courier New",monospace;font-size:11px;letter-spacing:.18em;color:var(--ink-faint)}
+.srow .sc{font-family:"Courier New",monospace;font-size:15px;color:var(--terra)}
 .setname{text-align:center;font-size:13px;color:var(--ink-soft);letter-spacing:.1em;margin-bottom:6px}
 .bar{height:5px;border-radius:3px;background:rgba(51,47,40,.1);overflow:hidden;margin-bottom:10px}
 .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--yin),var(--yang));width:0;transition:width .4s var(--ease)}
@@ -159,10 +159,10 @@ body.nozh .zh{display:none !important}
   @keyframes roomIn{to{transform:scale(1)}}
 }
 </style>
-<link rel="stylesheet" href="desktop.css?v=33">
-<script src="state.js?v=33"></script>
-<script src="data/herbs.js?v=33"></script>
-<script src="hud.js?v=33"></script>
+<link rel="stylesheet" href="desktop.css?v=44">
+<script src="state.js?v=44"></script>
+<script src="data/herbs.js?v=44"></script>
+<script src="hud.js?v=44"></script>
 </head>
 <body data-page="yinyang">
 <div id="app">
@@ -197,7 +197,7 @@ body.nozh .zh{display:none !important}
 
   <!-- 2 · PLAY -->
   <section class="screen" id="s2">
-    <div class="hud"><span class="rnd" id="rnd">SET 1 / 4</span><span class="sc" id="sc">0</span></div>
+    <div class="srow"><span class="rnd" id="rnd">SET 1 / 4</span><span class="sc" id="sc">0</span></div>
     <div class="setname" id="setname"></div>
     <div class="bar"><i id="barfill"></i></div>
     <div class="stage" id="stage">

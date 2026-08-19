@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta name="theme-color" content="#F2EAD8">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="art/icon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="art/icon-apple-180.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="apple-mobile-web-app-title" content="杏林行">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>Sorting 歸類 · Apricot Grove</title>
+<style>
+:root{
+  --paper:#F2EAD8;--paper2:#E7DBBE;--ink:#332F28;--ink-soft:#6E675A;--ink-faint:#9A9182;
+  --sage:#7B8B6F;--sage-deep:#4E5D46;--terra:#C26D4E;--terra-deep:#9D5238;
+  --gold:#B08D3E;--seal:#A63B2A;--white:#FDFBF4;--ok:#4E7A52;--no:#A63B2A;
+  --sh-s:0 2px 6px rgba(51,47,40,.1);--sh:0 5px 16px rgba(51,47,40,.14);--sh-l:0 14px 34px rgba(51,47,40,.22);
+  --ease:cubic-bezier(.22,.9,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none !important}
+html,body{height:100%;max-width:100%;overflow-x:hidden;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{font-family:"Songti TC","Noto Serif TC",Georgia,serif;background:#CFC3A8;color:var(--ink);
+  display:flex;justify-content:center;overflow:hidden}
+#app{position:relative;width:100%;max-width:440px;height:100svh;overflow:hidden;display:flex;flex-direction:column;
+  background:radial-gradient(ellipse 130% 50% at 50% -6%,rgba(255,255,255,.5),transparent 62%),
+    repeating-linear-gradient(0deg,transparent 0 3px,rgba(120,105,80,.028) 3px 4px),
+    repeating-linear-gradient(90deg,transparent 0 3px,rgba(120,105,80,.028) 3px 4px),var(--paper);
+  box-shadow:0 0 44px rgba(51,47,40,.36)}
+.roombg{position:absolute;inset:0;z-index:0;pointer-events:none;background-position:center 58%;
+  background-size:cover;background-repeat:no-repeat;opacity:.82}
+.roombg::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(242,234,216,.92) 0%,rgba(242,234,216,.66) 30%,
+    rgba(242,234,216,.74) 62%,rgba(242,234,216,.95) 88%,var(--paper) 100%)}
+.seal{position:absolute;right:13px;top:calc(11px + env(safe-area-inset-top));z-index:40;width:29px;height:29px;
+  background:var(--seal);color:var(--white);display:flex;align-items:center;justify-content:center;font-size:16px;
+  border-radius:4px;transform:rotate(-3deg);opacity:.85;box-shadow:inset 0 0 0 2px rgba(255,255,255,.3);pointer-events:none}
+.langBtn{position:absolute;left:13px;top:calc(11px + env(safe-area-inset-top));z-index:40;background:var(--white);
+  border:1.5px solid rgba(51,47,40,.14);border-radius:99px;padding:4px 11px;font-size:11px;font-family:inherit;
+  color:var(--ink-soft);cursor:pointer}
+.zh{display:block;font-size:.84em;color:var(--ink-soft);margin-top:4px;line-height:1.65}
+body.nozh .zh{display:none !important}
+.chapline{position:relative;z-index:5;text-align:center;font-family:"Courier New",monospace;font-size:10px;
+  letter-spacing:.34em;color:var(--gold);text-transform:uppercase;padding:calc(14px + env(safe-area-inset-top)) 46px 0}
+.screen{position:absolute;inset:0;z-index:3;display:none;flex-direction:column;
+  padding:calc(42px + env(safe-area-inset-top)) 18px calc(14px + env(safe-area-inset-bottom));
+  overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.screen.on{display:flex;animation:fade .4s var(--ease)}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}}
+
+.mrow{display:flex;gap:13px;align-items:center;background:var(--white);border:1.5px solid rgba(51,47,40,.11);
+  border-radius:16px;padding:13px 15px;box-shadow:var(--sh);margin-bottom:13px}
+.mrow canvas{image-rendering:pixelated;width:60px;height:68px;flex:none;filter:drop-shadow(0 3px 4px rgba(51,47,40,.24))}
+.mrow .mt{flex:1;min-width:0;font-size:14px;line-height:1.75}
+h1.dt{font-size:25px;letter-spacing:.05em;text-align:center;margin-bottom:2px}
+h1.dt .zh{font-size:15px;margin-top:5px}
+.dsub{text-align:center;font-size:12.5px;color:var(--ink-soft);line-height:1.7;margin-bottom:12px}
+.legend{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-bottom:4px}
+.lg{display:flex;align-items:center;gap:6px;background:var(--white);border:1.5px solid rgba(51,47,40,.1);
+  border-radius:11px;padding:7px 10px;font-size:13px;box-shadow:var(--sh-s)}
+.lg i{width:11px;height:11px;border-radius:3px;flex:none}
+.lg small{display:block;font-size:10.5px;color:var(--ink-soft)}
+body.nozh .lg small{display:none}
+
+/* NOT .hud — hud.js owns that class and pins it to the top of the screen,
+   which silently slid this row up under the chapter line. */
+.srow{padding-right:40px;display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;position:relative;z-index:4}
+.srow .rnd{font-family:"Courier New",monospace;font-size:11px;letter-spacing:.16em;color:var(--ink-faint)}
+.srow .sc{font-family:"Courier New",monospace;font-size:15px;color:var(--terra)}
+.bar{height:5px;border-radius:3px;background:rgba(51,47,40,.1);overflow:hidden;margin-bottom:10px;position:relative;z-index:4}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--sage),var(--gold));width:0;transition:width .4s var(--ease)}
+
+.card{background:var(--white);border-radius:20px;border:1.5px solid rgba(51,47,40,.1);box-shadow:var(--sh-l);
+  padding:26px 18px;text-align:center;margin:6px 0 12px;min-height:132px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+/* English leads, the Chinese term sits under it and follows the global 中文
+   switch — the same contract as every other page. A card that shows only a
+   Chinese character to a player with Chinese support off is unreadable. */
+.card .big{font-size:20px;letter-spacing:.02em;line-height:1.55;color:var(--ink)}
+.card .cn{font-size:30px;line-height:1.3;color:var(--ink);margin-top:6px}
+
+.buckets{display:flex;flex-wrap:wrap;gap:8px}
+.bk{flex:1 1 30%;min-width:96px;border:none;border-radius:14px;padding:13px 8px;cursor:pointer;font-family:inherit;
+  color:var(--white);font-size:17px;line-height:1.3;box-shadow:var(--sh);transition:transform .12s,opacity .2s}
+.bk small{display:block;font-family:"Songti TC",serif;font-size:11.5px;opacity:.92;margin-top:3px;letter-spacing:.02em}
+.bk:active{transform:translateY(2px)}
+.bk.dim{opacity:.4}
+.bk.hit{outline:3px solid var(--white);outline-offset:-6px}
+
+.fb{background:var(--white);border-left:4px solid var(--sage);border-radius:11px;padding:12px 14px;font-size:13px;
+  line-height:1.75;box-shadow:var(--sh-s);color:var(--ink-soft);margin-top:11px}
+.fb b{color:var(--ink)}
+.fb.warn{border-left-color:var(--terra)}
+.fb .hd{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.22em;margin-bottom:5px;color:var(--ok)}
+.fb.warn .hd{color:var(--no)}
+
+.btn{width:100%;min-height:52px;border:none;border-radius:14px;cursor:pointer;font-family:inherit;font-size:16.5px;
+  letter-spacing:.12em;background:var(--terra);color:var(--white);box-shadow:0 5px 0 var(--terra-deep),var(--sh);
+  transition:transform .12s,box-shadow .12s;margin-top:11px}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 var(--terra-deep)}
+.btn.ghost{background:var(--white);color:var(--ink);box-shadow:0 5px 0 rgba(51,47,40,.13),var(--sh)}
+.btn.ghost:active{box-shadow:0 2px 0 rgba(51,47,40,.13)}
+.btn small{display:block;font-size:11.5px;letter-spacing:.06em;opacity:.85;margin-top:2px}
+.spacer{flex:1;min-height:6px}
+.res{margin:auto 0;text-align:center;display:flex;flex-direction:column;align-items:center;gap:9px}
+.stars{font-size:38px;color:var(--gold);letter-spacing:.14em}
+.stars .off{opacity:.2}
+.res h2{font-size:24px;letter-spacing:.1em}
+.missed{background:rgba(255,255,255,.6);border:1px dashed rgba(51,47,40,.22);border-radius:12px;padding:11px 13px;
+  max-width:350px;text-align:left;font-size:12.5px;line-height:1.8;color:var(--ink-soft)}
+.missed h4{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.22em;color:var(--terra);margin-bottom:6px}
+.missed li{margin-bottom:6px;list-style:none}
+.note{font-size:10.5px;color:var(--ink-faint);line-height:1.7;text-align:center;margin-top:8px}
+</style>
+<link rel="stylesheet" href="desktop.css?v=44">
+<script src="state.js?v=44"></script>
+<script src="data/mentors.js?v=44"></script>
+<script src="data/sorts.js?v=44"></script>
+<script src="hud.js?v=44"></script>
+</head>
+<body data-page="sort">
+<div id="app">
+  <div class="roombg" id="roombg" aria-hidden="true"></div>
+  <div class="seal" id="seal">歸</div>
+  <button class="langBtn" id="langBtn">中文 ON</button>
+  <div class="chapline">Training Ground<span class="zh"> · 修煉場</span></div>
+
+  <section class="screen on" id="s1">
+    <div class="mrow"><canvas id="mCv" width="16" height="18"></canvas>
+      <div class="mt" id="mLine"></div></div>
+    <h1 class="dt" id="dTitle">—</h1>
+    <p class="dsub" id="dSub"></p>
+    <div class="legend" id="legend"></div>
+    <p class="note" id="howto"></p>
+    <div class="spacer"></div>
+    <button class="btn" id="go">Begin sorting ▸<small id="goSub"></small></button>
+    <button class="btn ghost" id="back1">Back to town 回小鎮</button>
+  </section>
+
+  <section class="screen" id="s2">
+    <div class="srow"><span class="rnd" id="rnd">1 / 1</span><span class="sc" id="sc">0</span></div>
+    <div class="bar"><i id="barfill"></i></div>
+    <div class="card" id="card"></div>
+    <div class="buckets" id="buckets"></div>
+    <div class="fb" id="fb" hidden></div>
+    <button class="btn" id="next" hidden>Next ▸</button>
+    <div class="spacer"></div>
+  </section>
+
+  <section class="screen" id="s3">
+    <div class="res">
+      <div class="stars" id="stars">★★★</div>
+      <h2 id="rt"></h2>
+      <p style="font-size:14px;line-height:1.8" id="rx"></p>
+      <div class="missed" id="missed" hidden><h4>REVIEW 待複習</h4><ul id="missedList"></ul></div>
+      <button class="btn" id="again">Sort again 再分一輪</button>
+      <button class="btn ghost" id="back">Back to town 回小鎮</button>
+      <p class="note">Educational game · TCM study aid, not medical advice<span class="zh">教育用途 · 中醫學習輔助，非醫療建議</span></p>
+    </div>
+  </section>
+</div>
+
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+const S=AG.state;
+AG.bindLangButton($("langBtn"));
+function go(id){document.querySelectorAll(".screen").forEach(s=>s.classList.remove("on"));$(id).classList.add("on");$(id).scrollTop=0}
+function zh(s){return s?'<span class="zh">'+s+'</span>':""}
+function shuffled(a){const b=a.slice();for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));
+  const t=b[i];b[i]=b[j];b[j]=t}return b}
+
+const SETS=window.AG_SORTS||{};
+const KEY=(new URLSearchParams(location.search).get("s")||"").trim();
+const D=SETS[KEY];
+/* which mentor teaches this school */
+const MENTOR={theory:{k:"shu",nm:"Shū Chī",zh:"書癡",seal:"理",scene:"art/scene-hall.jpg"},
+              herb:{k:"yao",nm:"Yào Wēng",zh:"藥翁",seal:"草",scene:"art/scene-garden.jpg"},
+              dx:{k:"jing",nm:"Jìng Gū",zh:"靜姑",seal:"診",scene:"art/scene-clinic.jpg"},
+              needle:{k:"zhen",nm:"Zhēn Yǐn",zh:"針隱",seal:"針",scene:"art/scene-needles.jpg"},
+              daoyin:{k:"xiong",nm:"Xióng Shī",zh:"熊師",seal:"導",scene:"art/scene-garden.jpg"}};
+
+/* a round is drawn from the pile, so a 35-item set stays a 5-minute practice
+   and a replay is not the same 35 cards in the same order */
+const ROUND=16;
+let deck=[], idx=0, right=0, missed=[], locked=false;
+
+if(!D){
+  $("dTitle").textContent="Sorting set not found";
+  $("dSub").innerHTML="This practice is not available yet.<span class=\"zh\">此練習尚未開放。</span>";
+  $("go").hidden=true;
+}else{
+  const M=MENTOR[D.axis]||MENTOR.theory;
+  document.title=D.title.en+" "+D.title.zh+" · Apricot Grove";
+  $("seal").textContent=M.seal;
+  $("roombg").style.backgroundImage='url("'+M.scene+'")';
+  if(window.AG_MENTORS) AG_MENTORS.animate($("mCv"), M.k);
+  $("mLine").innerHTML='<div style="font-family:\'Courier New\',monospace;font-size:10px;letter-spacing:.22em;'
+    +'color:var(--terra);text-transform:uppercase;margin-bottom:5px">'+M.nm+zh(" · "+M.zh)+"</div>"
+    +(D.intro?D.intro.en+zh(D.intro.zh):"");
+  $("dTitle").innerHTML=D.title.en+zh(D.title.zh);
+  $("dSub").innerHTML=(D.blurb?D.blurb.en+zh(D.blurb.zh):"");
+  $("legend").innerHTML=D.buckets.map(b=>
+    '<span class="lg"><i style="background:'+b.c+'"></i><span>'+b.en+zh(b.zh)
+    +(b.sub?'<small>'+b.sub+"</small>":"")+"</span></span>").join("");
+  const n=Math.min(ROUND,D.items.length);
+  $("howto").innerHTML="Read the card, tap the family it belongs to. Every answer explains itself."
+    +zh("讀卡片，按下它所屬的一類。每一題都會說明理由。");
+  $("goSub").textContent=n+" cards"+(D.items.length>n?" drawn from "+D.items.length:"");
+}
+
+function start(){
+  deck=shuffled(D.items).slice(0,Math.min(ROUND,D.items.length));
+  idx=0;right=0;missed=[];
+  go("s2");render();
+}
+function render(){
+  locked=false;
+  const it=deck[idx];
+  $("rnd").textContent=(idx+1)+" / "+deck.length;
+  $("sc").textContent=right;
+  $("barfill").style.width=(idx/deck.length*100)+"%";
+  $("card").innerHTML='<div class="big">'+it.en+"</div>"
+    +(it.zh?'<div class="cn zh">'+it.zh+"</div>":"");
+  $("fb").hidden=true;$("next").hidden=true;
+  const wrap=$("buckets"); wrap.innerHTML="";
+  D.buckets.forEach(b=>{
+    const el=document.createElement("button");
+    el.className="bk"; el.type="button"; el.style.background=b.c;
+    el.innerHTML=b.en+(b.zh?"<small>"+b.zh+"</small>":"");
+    el.onclick=()=>{
+      if(locked) return; locked=true;
+      const ok=(b.k===it.a);
+      const ansB=D.buckets.find(x=>x.k===it.a);
+      if(ok) right++; else missed.push({it:it,ans:ansB});
+      $("sc").textContent=right;
+      wrap.querySelectorAll(".bk").forEach(x=>x.classList.add("dim"));
+      el.classList.remove("dim");
+      [...wrap.querySelectorAll(".bk")].forEach((x,i)=>{if(D.buckets[i].k===it.a){x.classList.remove("dim");x.classList.add("hit")}});
+      const why=it.why?(it.why.en+zh(it.why.zh)):"";
+      $("fb").hidden=false;
+      $("fb").className="fb"+(ok?"":" warn");
+      $("fb").innerHTML='<div class="hd">'+(ok?"CORRECT 正確":"NOT QUITE 再想想")+"</div>"
+        +(ok?"":"<b>"+ansB.en+(ansB.zh?" "+ansB.zh:"")+"</b><br>")+why;
+      $("next").hidden=false;
+      $("next").textContent=(idx+1>=deck.length)?"See result ▸":"Next ▸";
+    };
+    wrap.appendChild(el);
+  });
+}
+function finish(){
+  $("barfill").style.width="100%";
+  const pct=deck.length?right/deck.length:0;
+  const n=pct>=.9?3:pct>=.7?2:1;
+  $("stars").innerHTML=[0,1,2].map(i=>i<n?"★":'<span class="off">★</span>').join("");
+  $("rt").innerHTML=(n===3?"Every card home":n===2?"Solid":"Worth another round")
+    +zh(n===3?"張張歸位":n===2?"扎實":"再分一輪");
+  const axis=D.axis;
+  AG.complete({activity:"sort_"+D.id, completed:true, score:right, stars:n,
+    xpEarned:right*8, skillXp:(function(o){o[axis]=16+n*14;return o})({})});
+  $("rx").innerHTML=(n===3?"No hesitation. A correspondence chart you can sort at speed is one you actually own."
+      :"Read the review before you go — those are the pairs still worth your attention.")
+    +zh(n===3?"沒有猶豫。能快速歸類的對照表，才是真正記住的表。":"走之前看一下複習——那幾組才是還需要你注意的。")
+    +'<br><br><span style="font-family:\'Courier New\',monospace;color:var(--terra);font-size:13px">'
+    +right+" / "+deck.length+" correct · "+axis+" "+(S.stats[axis]||0)+"/4</span>";
+  if(missed.length){
+    $("missed").hidden=false;
+    $("missedList").innerHTML=missed.map(m=>"<li>· <b>"+m.it.en+"</b>"+(m.it.zh?zh(m.it.zh):"")+" → "+m.ans.en
+      +(m.ans.zh?" "+m.ans.zh:"")+"</li>").join("");
+  }else $("missed").hidden=true;
+  go("s3");
+}
+$("next").onclick=()=>{idx++;if(idx>=deck.length)finish();else render()};
+if(D) $("go").onclick=start;
+$("again").onclick=start;
+$("back1").onclick=()=>location.href="index.html";
+$("back").onclick=()=>location.href="index.html";
+</script>
+</body>
+</html>

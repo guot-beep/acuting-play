@@ -350,12 +350,12 @@
     padding:8px;margin-top:4px}
   .disclaimer{font-size:10.5px;color:var(--ink-soft);opacity:.7;line-height:1.6;margin-top:8px}
 </style>
-<link rel="stylesheet" href="desktop.css?v=33">
-<script src="state.js?v=33"></script>
-<script src="data/herbs.js?v=33"></script>
-<script src="hud.js?v=33"></script>
-<script src="data/chapters.js?v=33"></script>
-<script src="data/drills.js?v=33"></script>
+<link rel="stylesheet" href="desktop.css?v=44">
+<script src="state.js?v=44"></script>
+<script src="data/herbs.js?v=44"></script>
+<script src="hud.js?v=44"></script>
+<script src="data/chapters.js?v=44"></script>
+<script src="data/drills.js?v=44"></script>
 </head>
 <body data-page="chapter">
 <div id="app">
@@ -1079,7 +1079,15 @@ const TARGET=CH.target;
 const BODY = TARGET.img || ARM_SRC;
 const BW   = TARGET.w   || 434;
 const BH   = TARGET.h   || 930;
-$("arm").setAttribute("viewBox","0 0 "+BW+" "+BH);
+/* Optional crop window. A tall plate (a whole leg) does not fit a phone, so the
+   stage scrolls — which is fine when the target is near the top and useless when
+   it is at the ankle, because the player has to go looking for a region they have
+   not been shown. A chapter may therefore frame the part of the plate its point
+   lives on: target.view = {x,y,w,h} in plate coordinates. Point coordinates never
+   change — only the window onto them. No view = the whole plate, exactly as before. */
+const VIEW = TARGET.view || {x:0,y:0,w:BW,h:BH};
+const VX=VIEW.x||0, VY=VIEW.y||0, VW=VIEW.w||BW, VH=VIEW.h||BH;
+$("arm").setAttribute("viewBox",VX+" "+VY+" "+VW+" "+VH);
 $("armImg").setAttribute("width",BW);
 $("armImg").setAttribute("height",BH);
 $("armImg").setAttribute("href",BODY);
@@ -1100,7 +1108,7 @@ $("loupeImg").src=BODY;
 /* screen point -> anatomy coordinates */
 function toArm(ev){
   const r=$("arm").getBoundingClientRect();
-  return {x:(ev.clientX-r.left)/r.width*BW, y:(ev.clientY-r.top)/r.height*BH, r:r};
+  return {x:VX+(ev.clientX-r.left)/r.width*VW, y:VY+(ev.clientY-r.top)/r.height*VH, r:r};
 }
 function drawMarker(x,y){
   $("marker").innerHTML=
@@ -1112,15 +1120,15 @@ function drawMarker(x,y){
 /* the fingertip hides the target, so mirror it into a magnifier above the finger */
 function showLoupe(x,y,rect){
   const L=$("loupe"), IMG=$("loupeImg"), SIZE=118, ZOOM=2.6;
-  const scale=rect.width/BW;                  // screen px per anatomy unit
+  const scale=rect.width/VW;                  // screen px per anatomy unit
   const w=BW*scale*ZOOM, h=BH*scale*ZOOM;
   IMG.style.width=w+"px"; IMG.style.height=h+"px";
   IMG.style.left=(SIZE/2 - x*scale*ZOOM)+"px";
   IMG.style.top =(SIZE/2 - y*scale*ZOOM)+"px";
   const st=$("armStage").getBoundingClientRect();
-  let lx=rect.left-st.left + x*scale - SIZE/2;
-  let ly=rect.top -st.top  + y*scale - SIZE - 34;   // sit above the finger
-  if(ly<0) ly=rect.top-st.top + y*scale + 34;       // ...or below, near the top edge
+  let lx=rect.left-st.left + (x-VX)*scale - SIZE/2;
+  let ly=rect.top -st.top  + (y-VY)*scale - SIZE - 34;   // sit above the finger
+  if(ly<0) ly=rect.top-st.top + (y-VY)*scale + 34;  // ...or below, near the top edge
   lx=Math.max(0,Math.min(lx, st.width-SIZE));
   L.style.left=lx+"px"; L.style.top=ly+"px"; L.classList.add("on");
 }
@@ -1128,7 +1136,7 @@ function hideLoupe(){ $("loupe").classList.remove("on"); }
 /* if the needle lands near an edge of the scroll window, ease it back into view */
 function keepMarkerVisible(rect){
   const st=$("armStage"), sr=st.getBoundingClientRect();
-  const y=rect.top + (aim.y/BH)*rect.height;
+  const y=rect.top + ((aim.y-VY)/VH)*rect.height;
   const pad=70;
   if(y < sr.top+pad)        st.scrollTop -= (sr.top+pad - y);
   else if(y > sr.bottom-pad) st.scrollTop += (y - (sr.bottom-pad));

@@ -307,10 +307,11 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
   transition:.3s var(--ease);z-index:80;pointer-events:none}
 .toast.on{opacity:.95;transform:translate(-50%,0)}
 </style>
-<link rel="stylesheet" href="desktop.css?v=33">
-<script src="state.js?v=33"></script>
-<script src="data/herbs.js?v=33"></script>
-<script src="hud.js?v=33"></script>
+<link rel="stylesheet" href="desktop.css?v=44">
+<script src="state.js?v=44"></script>
+<script src="data/herbs.js?v=44"></script>
+<script src="data/chapter-index.js?v=44"></script>
+<script src="hud.js?v=44"></script>
 </head>
 <body data-page="hub">
 <div id="app">
@@ -447,6 +448,7 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
     <p class="note" style="margin-bottom:12px">The Daily Roster is open to everyone. The schools open as the story reaches them.
       <span class="zh">今日診榜人人可去；各流派則隨故事推進而開啟。</span></p>
     <button class="btn" id="storyBtn"><span id="storyLabel">Prologue ▸</span><span style="display:block;font-size:11.5px;letter-spacing:.1em;opacity:.85;margin-top:2px" id="storySub">The First Lesson<span class="zh"> · 第一課</span></span></button>
+    <button class="btn ghost" id="chapBtn" style="margin-top:9px;min-height:44px;font-size:14px">Chapter index<span class="zh"> · 章回目錄</span></button>
   </section>
 
   <div class="scrim" id="scrim"></div>
@@ -567,32 +569,37 @@ const SCHOOLS={
   quoteZh:"「一隻手就夠了。拿針只要一隻手——知道扎在哪，卻要一輩子。」",
   games:[{ic:"🎯",t:"Point Tap 點穴",d:"Find each point on the body. Accuracy beats speed.",go:"PLAY",open:1,file:"acuting-play.html"},
          {ic:"🪡",t:"The Point Hall 點穴堂",d:"Not just where a point is — why you would reach for it, and when you would not.",go:"PLAY",open:1,file:"pointroom.html"},
-         {ic:"〰️",t:"Meridian Flow 經絡流",d:"Trace a channel in the correct order.",go:"SOON",open:0},
-         {ic:"⚡",t:"Point Sprint 特定穴快答",d:"Five-Shu, Yuan, Luo, Xi — 60 seconds.",go:"SOON",open:0}]},
+         {ic:"⚡",t:"Special Points 特定穴",d:"Five Shu, Source, Connecting, Cleft and the Eight Meeting points.",go:"PLAY",open:1,file:"practice.html?d=tedingxue"},
+         {ic:"〰️",t:"Channel Flow 經絡流注",d:"The twelve channels in order, and the four directions they run.",go:"PLAY",open:1,file:"practice.html?d=jingluo"}]},
  theory:{key:"theory",glyph:"理",school:"Foundations 醫理根基",mentor:"Shū Chī · 書癡",sprite:"shu",
   quote:'"Everyone wants to needle. Nobody wants to know why it works. Sit down."',
   quoteZh:"「人人都想扎針，沒人想知道為什麼有效。坐下。」",
   games:[{ic:"☯️",t:"Yin or Yang 陰陽滑卡",d:"Swipe left for Yin, right for Yang. 24 cards.",go:"PLAY",open:1,file:"yinyang.html"},
-         {ic:"🌿",t:"Five Elements 五行陣",d:"Sort the world into Wood, Fire, Earth, Metal, Water.",go:"SOON",open:0},
-         {ic:"🫀",t:"Zang-Fu Match 臟腑配對",d:"Pair each organ with what it governs.",go:"SOON",open:0}]},
+         {ic:"🌿",t:"Five Elements 五行陣",d:"The generating and controlling cycles, and what happens when they tip.",go:"PLAY",open:1,file:"practice.html?d=wuxing"},
+         {ic:"🫀",t:"Zang-Fu Match 臟腑配對",d:"What each organ governs, opens into, and pairs with.",go:"PLAY",open:1,file:"practice.html?d=zangfu"},
+         {ic:"🗂️",t:"Five Element Array 五行陣",d:"Sort organ, tissue, fluid, colour, taste and emotion into their family.",go:"PLAY",open:1,file:"sort.html?s=five_elements"},
+         {ic:"🧩",t:"Zang-Fu Sorting 臟腑歸類",d:"Which organ governs this? Fifteen cards, five families.",go:"PLAY",open:1,file:"sort.html?s=zangfu_match"}]},
  dx:{key:"dx",glyph:"診",school:"Four Examinations 望聞問切",mentor:"Jìng Gū · 靜姑",sprite:"jing",
   quote:'"I lost my eyes at thirty. My fingers have been listening ever since."',
   quoteZh:"「我三十歲時瞎的。從那以後，我的手指一直在聽。」",
-  games:[{ic:"📋",t:"Daily Case 今日病例",d:"Play it any time from the Daily Roster in the town square.",go:"SQUARE",open:0},
-         {ic:"👅",t:"Tongue Reader 舌象判讀",d:"Read the body, the coating, the moisture.",go:"SOON",open:0},
-         {ic:"💗",t:"Pulse Match 脈象配對",d:"Feel the depth, rate and shape.",go:"SOON",open:0}]},
+  games:[{ic:"📋",t:"Daily Case 今日病例",d:"One new case a day, the same one for every player.",go:"PLAY",open:1,file:"dailycase.html"},
+         {ic:"💗",t:"Pulse Reading 脈象判讀",d:"Depth, rate, width, force, shape — five questions, one finger.",go:"PLAY",open:1,file:"practice.html?d=pulse"},
+         {ic:"👅",t:"Tongue Reading 舌象判讀",d:"Body before coating. Colour, thickness, moisture, shape.",go:"PLAY",open:1,file:"practice.html?d=tongue"},
+         {ic:"⚖️",t:"Eight Principles 八綱辨證",d:"Exterior/interior, cold/heat, deficiency/excess.",go:"PLAY",open:1,file:"practice.html?d=bagang"}]},
  daoyin:{key:"daoyin",glyph:"導",school:"Cultivation 導引養生",mentor:"Xióng Shī · 熊師",sprite:"xiong",
   quote:'"Hua Tuo was a physician, and he invented the Five Animal Frolics. Movement is medicine you can take before you are ill."',
   quoteZh:"「華佗是醫家，五禽戲是他創的。動作是一種藥——在你還沒生病之前就能吃的藥。」",
   games:[{ic:"🐯",t:"Five Animal Frolics 五禽戲",d:"Follow tiger, deer, bear, ape and crane in sequence.",go:"PLAY",open:1,file:"wuqinxi.html"},
-         {ic:"🌬️",t:"Breath Rhythm 吐納",d:"Match the breathing rhythm. Slower is harder.",go:"SOON",open:0},
-         {ic:"🧘",t:"Eight Brocades 八段錦",d:"Each movement opens a channel. Learn which.",go:"SOON",open:0}]},
+         {ic:"🧘",t:"Eight Brocades 八段錦",d:"Eight movements, eight intentions. Learn what each one is for.",go:"PLAY",open:1,file:"practice.html?d=baduanjin"},
+         {ic:"🌬️",t:"Six Healing Sounds 六字訣",d:"Six breaths, six organs — the oldest breathing practice in the canon.",go:"PLAY",open:1,file:"practice.html?d=liuzijue"}]},
  herb:{key:"herb",glyph:"草",school:"Materia Medica 本草方藥",mentor:"Yào Wēng · 藥翁",sprite:"yao",
   quote:'"Every plant on that hill wants to tell you something. Most students are too busy talking."',
   quoteZh:"「那座山上每一株草都想告訴你些什麼。多數學生忙著說話。」",
   games:[{ic:"🍵",t:"The Herb Room 藥草間",d:"Each herb tells you what it is good at — and when not to use it.",go:"PLAY",open:1,file:"herbroom.html"},
-         {ic:"⚖️",t:"Formula Build 君臣佐使",d:"Assemble a formula by role.",go:"SOON",open:0},
-         {ic:"🍲",t:"Seasonal Kitchen 節氣食療",d:"Cook for the season and the pattern.",go:"SOON",open:0}]}
+         {ic:"👑",t:"Formula Architecture 君臣佐使",d:"How a formula is built, and how two herbs change each other.",go:"PLAY",open:1,file:"practice.html?d=junchen"},
+         {ic:"🍲",t:"Seasonal Kitchen 節氣食療",d:"Eating with the season — gently, and without overclaiming.",go:"PLAY",open:1,file:"practice.html?d=jieqi"},
+         {ic:"🔥",t:"Warm, Cool or Neutral 藥性歸類",d:"Sort familiar herbs by their nature.",go:"PLAY",open:1,file:"sort.html?s=herb_nature"},
+         {ic:"🗂️",t:"Court of a Formula 君臣佐使歸類",d:"Sort each office by what it does in the pot.",go:"PLAY",open:1,file:"sort.html?s=formula_roles"}]}
 };
 const AXES=[["needle","Needle<span class=\"zh\"> 針道</span>","#7B8B6F"],["theory","Theory<span class=\"zh\"> 醫理</span>","#B08D3E"],
             ["dx","Diagnosis<span class=\"zh\"> 四診</span>","#C26D4E"],["herb","Herbs<span class=\"zh\"> 本草</span>","#8E9E82"],
@@ -689,6 +696,35 @@ function openSheet(key){
     : 'This mentor opens up as the story reaches them.<span class="zh">故事推進到這位導師時，這裡就會開啟。</span>';
   $("scrim").classList.add("on");$("sheet").classList.add("on");
 }
+/* ── chapter index ──
+   Reuses the same sheet as the mentors. A chapter opens once the one before it
+   is finished; finished chapters stay open so a case can be replayed. */
+function openChapters(){
+  $("mSchool").textContent="The Story 主線";
+  $("mName").textContent="Master Shen 參師父";
+  $("mQuote").innerHTML='"Every patient in this grove is a pattern you will meet again. Go back to any of them."'
+    +'<span class="zh">「這裡每一個病人，都是你日後還會再遇到的證。想回去看哪一個都可以。」</span>';
+  canvases.length=0;reg($("hubCv"),S.char);reg($("mCv"),"shen");
+  let openNext=true;
+  $("mGames").innerHTML=CH_IDS.map(id=>{
+    const c=CH_BY_ID[id]||{};
+    const done=chDone(id);
+    const open=done||openNext;
+    if(!done&&openNext)openNext=false;   // only the first unfinished chapter opens
+    return '<button class="gitem'+(open?"":" locked")+'" data-ch="'+id+'">'
+      +'<div class="ic">'+(done?"✓":id)+'</div>'
+      +'<div class="gt"><b>'+chLabel(id)+'</b><small>'+chSub(id)
+      +(c.pattern?'<br><span style="color:var(--gold)">'+c.pattern+'</span>':"")+'</small></div>'
+      +'<div class="go">'+(done?"REPLAY":open?"PLAY":"LOCKED")+' ▸</div></button>';
+  }).join("");
+  $("mGames").querySelectorAll(".gitem").forEach(btn=>{
+    btn.onclick=()=>{location.href="chapter.html?ch="+btn.dataset.ch};
+  });
+  const n=CH_IDS.filter(chDone).length;
+  $("mNote").innerHTML=n+" of "+CH_IDS.length+" chapters finished."
+    +'<span class="zh">已完成 '+n+' / '+CH_IDS.length+' 章。</span>';
+  $("scrim").classList.add("on");$("sheet").classList.add("on");
+}
 function closeSheet(){$("scrim").classList.remove("on");$("sheet").classList.remove("on");
   canvases.length=0;reg($("hubCv"),S.char)}
 $("scrim").onclick=closeSheet;
@@ -735,14 +771,35 @@ function paintModes(){
       b.dataset.m==="beginner" ? "Beginner path 入門路線" : "Student path 學徒路線"); };
   });
 }
-function nextChapter(){ if(!S.flags.prologueDone)return{href:"prologue.html",label:"Prologue ▸",sub:'The First Lesson<span class="zh"> · 第一課</span>'};
-  if(!S.flags.chapter01Done)return{href:"chapter.html?ch=01",label:"Chapter One ▸",sub:"A-Lian's Cough<span class='zh'> · 阿蓮的咳嗽</span>"};
-  if(!S.flags.chapter02Done)return{href:"chapter.html?ch=02",label:"Chapter Two ▸",sub:"The Boatman's Shoulder<span class='zh'> · 船夫的肩背</span>"};
-  if(!S.flags.chapter03Done)return{href:"chapter.html?ch=03",label:"Chapter Three ▸",sub:"The Teahouse Keeper<span class='zh'> · 茶館的柳三娘</span>"};
-  return{href:"chapter.html?ch=03",label:"Replay Chapter Three ▸",sub:'More chapters are being written<span class="zh"> · 後續章節撰寫中</span>'}; }
+/* ── the story list is DATA, not code ──
+   Chapter ids come from data/chapter-index.js — a ~2 KB spine generated from
+   data/chapters.js by tools/mkchapterindex.py. The town only needs each
+   chapter's number, title and pattern; loading the full case file here cost
+   ~73 KB gzipped on the first screen of the app. Already sorted numerically,
+   so "10" lands after "09" rather than first. Add a chapter to chapters.js,
+   re-run the generator, and it appears here — no edit needed on this page. */
+const CH_INDEX=window.AG_CHAPTER_INDEX||[];
+const CH_BY_ID={};CH_INDEX.forEach(c=>{CH_BY_ID[c.id]=c});
+const CH_IDS=CH_INDEX.map(c=>c.id);
+const WORD=["","One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten",
+            "Eleven","Twelve","Thirteen","Fourteen","Fifteen"];
+const chDone=id=>!!S.flags["chapter"+id+"Done"];
+function chLabel(id){const n=+id;return "Chapter "+(WORD[n]||n)}
+function chSub(id){const c=CH_BY_ID[id]||{};
+  return (c.title||"")+"<span class='zh'> · "+(c.titleZh||"")+"</span>"}
+function nextChapter(){
+  if(!S.flags.prologueDone)return{href:"prologue.html",label:"Prologue ▸",sub:'The First Lesson<span class="zh"> · 第一課</span>'};
+  for(const id of CH_IDS){
+    if(!chDone(id))return{href:"chapter.html?ch="+id,label:chLabel(id)+" ▸",sub:chSub(id)};
+  }
+  const last=CH_IDS[CH_IDS.length-1]||"01";
+  return{href:"chapter.html?ch="+last,label:"Replay "+chLabel(last)+" ▸",
+    sub:'Every chapter is open below<span class="zh"> · 下方可回任一章</span>'};
+}
 const storyHref=()=>nextChapter().href;
 $("n-main").onclick=()=>{location.href=storyHref()};
 $("storyBtn").onclick=()=>{location.href=storyHref()};
+$("chapBtn").onclick=openChapters;
 
 /* resume */
 if(S.char){cur=S.char;enterHub()}

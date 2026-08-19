@@ -77,9 +77,9 @@ body.nozh .zh{display:none !important}
 .organ small{font-size:9.5px;font-family:"Courier New",monospace;color:var(--ink-faint);letter-spacing:.1em}
 
 /* play area */
-.hud{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.hud .rnd{font-family:"Courier New",monospace;font-size:11px;letter-spacing:.2em;color:var(--ink-faint)}
-.hud .sc{font-family:"Courier New",monospace;font-size:15px;color:var(--terra)}
+.srow{padding-right:40px;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.srow .rnd{font-family:"Courier New",monospace;font-size:11px;letter-spacing:.2em;color:var(--ink-faint)}
+.srow .sc{font-family:"Courier New",monospace;font-size:15px;color:var(--terra)}
 .callout{text-align:center;font-size:17px;line-height:1.6;min-height:52px;margin-bottom:4px}
 .callout small{display:block;font-size:12.5px;color:var(--ink-soft);margin-top:3px}
 
@@ -170,10 +170,10 @@ body.nozh .zh{display:none !important}
   @keyframes roomIn{to{transform:scale(1)}}
 }
 </style>
-<link rel="stylesheet" href="desktop.css?v=33">
-<script src="state.js?v=33"></script>
-<script src="data/herbs.js?v=33"></script>
-<script src="hud.js?v=33"></script>
+<link rel="stylesheet" href="desktop.css?v=44">
+<script src="state.js?v=44"></script>
+<script src="data/herbs.js?v=44"></script>
+<script src="hud.js?v=44"></script>
 </head>
 <body data-page="daoyin">
 <div id="app">
@@ -207,7 +207,7 @@ body.nozh .zh{display:none !important}
 
   <!-- 2 · SEQUENCE -->
   <section class="screen" id="s2">
-    <div class="hud"><span class="rnd" id="r2">SEQUENCE 1 / 3</span><span class="sc" id="sc2">0</span></div>
+    <div class="srow"><span class="rnd" id="r2">SEQUENCE 1 / 3</span><span class="sc" id="sc2">0</span></div>
     <div class="callout" id="call2"></div>
     <div class="phase watch" id="phase2">WATCH<span class="zh"> 看示範</span></div>
     <div class="breath"><div class="orb" id="orb"></div><span id="brText">get ready</span></div>
@@ -219,7 +219,7 @@ body.nozh .zh{display:none !important}
 
   <!-- 3 · MATCH -->
   <section class="screen" id="s3">
-    <div class="hud"><span class="rnd" id="r3">PAIRING 1 / 5</span><span class="sc" id="sc3">0</span></div>
+    <div class="srow"><span class="rnd" id="r3">PAIRING 1 / 5</span><span class="sc" id="sc3">0</span></div>
     <div class="callout" id="call3"></div>
     <div class="ring"><div class="grid5" id="grid3"></div></div>
     <div class="fb" id="fb3"></div>

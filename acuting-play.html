@@ -71,7 +71,7 @@
   .screen{position:relative;z-index:2;flex:1;display:none;flex-direction:column;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:calc(14px + env(safe-area-inset-top)) 18px calc(20px + env(safe-area-inset-bottom))}
   .screen.active{display:flex}
   /* ---------- HUD ---------- */
-  .hud{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:6px}
+  .srow{padding-right:40px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:6px}
   .chip{
     background:var(--white);border:1.5px solid rgba(58,55,48,.15);border-radius:999px;
     padding:4px 12px;font-size:13px;color:var(--ink-soft);box-shadow:var(--shadow);
@@ -204,10 +204,10 @@
   @keyframes roomIn{to{transform:scale(1)}}
 }
 </style>
-<link rel="stylesheet" href="desktop.css?v=33">
-<script src="state.js?v=33"></script>
-<script src="data/herbs.js?v=33"></script>
-<script src="hud.js?v=33"></script>
+<link rel="stylesheet" href="desktop.css?v=44">
+<script src="state.js?v=44"></script>
+<script src="data/herbs.js?v=44"></script>
+<script src="hud.js?v=44"></script>
 </head>
 <body data-page="points">
 <div id="app">
@@ -225,7 +225,7 @@
 
   <!-- ======== 首頁 / 經絡地圖 ======== -->
   <section id="scr-home" class="screen active">
-    <div class="hud">
+    <div class="srow">
       <div class="chip">🔥 <b id="hud-streak">0</b> days</div>
       <div class="chip">✨ XP <b id="hud-xp">0</b></div>
       <div class="chip">🌿 <b id="hud-cards">0</b> cards</div>

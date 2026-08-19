@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<!-- HTML must always be revalidated: assets are cache-busted with ?v=, but a
+     stale page would keep serving the old ?v= and hide every fix. -->
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta name="theme-color" content="#F2EAD8">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="art/icon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="art/icon-apple-180.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="apple-mobile-web-app-title" content="杏林行">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>Practice 練習 · Apricot Grove</title>
+<style>
+:root{
+  --paper:#F2EAD8;--paper2:#E7DBBE;--ink:#332F28;--ink-soft:#6E675A;--ink-faint:#9A9182;
+  --sage:#7B8B6F;--sage-deep:#4E5D46;--terra:#C26D4E;--terra-deep:#9D5238;
+  --gold:#B08D3E;--seal:#A63B2A;--white:#FDFBF4;
+  --ok:#4E7A52;--no:#A63B2A;
+  --sh-s:0 2px 6px rgba(51,47,40,.1);--sh:0 5px 16px rgba(51,47,40,.14);--sh-l:0 14px 34px rgba(51,47,40,.22);
+  --ease:cubic-bezier(.22,.9,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+/* `hidden` must win over any author display rule */
+[hidden]{display:none !important}
+html,body{height:100%;max-width:100%;overflow-x:hidden;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{font-family:"Songti TC","Noto Serif TC",Georgia,serif;background:#CFC3A8;color:var(--ink);
+  display:flex;justify-content:center;overflow:hidden}
+#app{position:relative;width:100%;max-width:440px;height:100svh;overflow:hidden;display:flex;flex-direction:column;
+  background:radial-gradient(ellipse 130% 50% at 50% -6%,rgba(255,255,255,.5),transparent 62%),
+    repeating-linear-gradient(0deg,transparent 0 3px,rgba(120,105,80,.028) 3px 4px),
+    repeating-linear-gradient(90deg,transparent 0 3px,rgba(120,105,80,.028) 3px 4px),var(--paper);
+  box-shadow:0 0 44px rgba(51,47,40,.36)}
+.roombg{position:absolute;inset:0;z-index:0;pointer-events:none;background-position:center 58%;
+  background-size:cover;background-repeat:no-repeat;opacity:.85}
+.roombg::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(242,234,216,.9) 0%,rgba(242,234,216,.62) 30%,
+    rgba(242,234,216,.7) 62%,rgba(242,234,216,.94) 88%,var(--paper) 100%)}
+.seal{position:absolute;right:13px;top:calc(11px + env(safe-area-inset-top));z-index:40;width:29px;height:29px;
+  background:var(--seal);color:var(--white);display:flex;align-items:center;justify-content:center;font-size:16px;
+  border-radius:4px;transform:rotate(-3deg);opacity:.85;box-shadow:inset 0 0 0 2px rgba(255,255,255,.3);pointer-events:none}
+.langBtn{position:absolute;left:13px;top:calc(11px + env(safe-area-inset-top));z-index:40;background:var(--white);
+  border:1.5px solid rgba(51,47,40,.14);border-radius:99px;padding:4px 11px;font-size:11px;font-family:inherit;
+  color:var(--ink-soft);cursor:pointer}
+.zh{display:block;font-size:.84em;color:var(--ink-soft);margin-top:4px;line-height:1.65}
+body.nozh .zh{display:none !important}
+.chapline{position:relative;z-index:5;text-align:center;font-family:"Courier New",monospace;font-size:10px;
+  letter-spacing:.34em;color:var(--gold);text-transform:uppercase;padding:calc(14px + env(safe-area-inset-top)) 46px 0}
+.screen{position:absolute;inset:0;z-index:3;display:none;flex-direction:column;
+  padding:calc(42px + env(safe-area-inset-top)) 18px calc(14px + env(safe-area-inset-bottom));
+  overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.screen.on{display:flex;animation:fade .4s var(--ease)}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}}
+
+/* mentor row */
+.mrow{display:flex;gap:13px;align-items:center;background:var(--white);border:1.5px solid rgba(51,47,40,.11);
+  border-radius:16px;padding:13px 15px;box-shadow:var(--sh);margin-bottom:13px}
+.mrow canvas{image-rendering:pixelated;width:60px;height:68px;flex:none;filter:drop-shadow(0 3px 4px rgba(51,47,40,.24))}
+.mrow .mt{flex:1;min-width:0;font-size:14px;line-height:1.75}
+.mrow .mt .nm{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.22em;color:var(--terra);
+  text-transform:uppercase;margin-bottom:5px}
+
+h1.dt{font-size:25px;letter-spacing:.05em;text-align:center;margin-bottom:2px}
+h1.dt .zh{font-size:15px;margin-top:5px}
+.dsub{text-align:center;font-size:12.5px;color:var(--ink-soft);line-height:1.7;margin-bottom:12px}
+.howto{background:var(--white);border:1.5px solid rgba(51,47,40,.1);border-radius:15px;padding:13px 15px;
+  box-shadow:var(--sh-s);font-size:13.5px;line-height:1.8}
+.howto b{color:var(--ink)}
+.safety{background:rgba(255,255,255,.62);border:1px dashed rgba(51,47,40,.24);border-radius:12px;
+  padding:10px 12px;font-size:11.5px;line-height:1.75;color:var(--ink-soft);margin-top:10px}
+
+/* play chrome */
+/* NOT .hud — hud.js owns that class and pins it to the top of the screen,
+   which silently slid this row up under the chapter line. */
+.srow{padding-right:40px;display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;position:relative;z-index:4}
+.srow .rnd{font-family:"Courier New",monospace;font-size:11px;letter-spacing:.16em;color:var(--ink-faint)}
+.srow .sc{font-family:"Courier New",monospace;font-size:15px;color:var(--terra)}
+.bar{height:5px;border-radius:3px;background:rgba(51,47,40,.1);overflow:hidden;margin-bottom:12px;position:relative;z-index:4}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--sage),var(--gold));width:0;transition:width .4s var(--ease)}
+.kind{font-family:"Courier New",monospace;font-size:9.5px;letter-spacing:.26em;color:var(--gold);
+  text-transform:uppercase;text-align:center;margin-bottom:7px}
+.q{font-size:16.5px;line-height:1.65;margin-bottom:12px}
+.q .zh{font-size:13.5px}
+
+/* multiple choice */
+.opts{display:flex;flex-direction:column;gap:9px}
+.opt{width:100%;text-align:left;background:var(--white);border:1.5px solid rgba(51,47,40,.12);border-radius:13px;
+  padding:12px 14px;font-family:inherit;font-size:14.5px;line-height:1.6;color:var(--ink);cursor:pointer;
+  box-shadow:var(--sh-s);transition:transform .12s,border-color .18s,background .18s}
+.opt:active{transform:scale(.985)}
+.opt .c{display:block;font-size:12.5px;color:var(--ink-soft);margin-top:3px}
+body.nozh .opt .c{display:none}
+.opt.right{border-color:var(--ok);background:#F1F6EE}
+.opt.wrong{border-color:var(--no);background:#FBF0EE}
+.opt.dim{opacity:.5}
+.opt[disabled]{cursor:default}
+
+/* order + match chips */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:var(--white);border:1.5px solid rgba(51,47,40,.12);border-radius:12px;padding:10px 13px;
+  font-family:inherit;font-size:14px;line-height:1.5;color:var(--ink);cursor:pointer;box-shadow:var(--sh-s);
+  transition:transform .12s,border-color .18s,background .18s,opacity .2s;text-align:left}
+.chip:active{transform:scale(.97)}
+.chip .c{display:block;font-size:12px;color:var(--ink-soft);margin-top:2px}
+body.nozh .chip .c{display:none}
+.chip.done{border-color:var(--ok);background:#F1F6EE;opacity:.55;pointer-events:none}
+.chip.sel{border-color:var(--gold);background:#FBF6E8}
+.chip.shake{animation:shake .34s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.slots{display:flex;flex-direction:column;gap:6px;margin-bottom:11px;min-height:8px}
+.slot{display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.7);border:1px dashed rgba(51,47,40,.2);
+  border-radius:11px;padding:8px 11px;font-size:13.5px;line-height:1.5}
+.slot .n{font-family:"Courier New",monospace;font-size:11px;color:var(--gold);flex:none;width:15px}
+.slot .c{display:block;font-size:11.5px;color:var(--ink-soft)}
+body.nozh .slot .c{display:none}
+.slot.filled{border-style:solid;border-color:rgba(78,122,82,.45);background:#F3F7F1}
+.mgrid{display:flex;gap:9px}
+.mcol{flex:1;display:flex;flex-direction:column;gap:8px;min-width:0}
+.mcol h4{font-family:"Courier New",monospace;font-size:9.5px;letter-spacing:.2em;color:var(--ink-faint);
+  text-align:center;margin-bottom:1px}
+
+/* feedback */
+.fb{background:var(--white);border-left:4px solid var(--sage);border-radius:11px;padding:12px 14px;font-size:13px;
+  line-height:1.75;box-shadow:var(--sh-s);color:var(--ink-soft);margin-top:11px}
+.fb b{color:var(--ink)}
+.fb.warn{border-left-color:var(--terra)}
+.fb .hd{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.22em;margin-bottom:5px;color:var(--ok)}
+.fb.warn .hd{color:var(--no)}
+
+.btn{width:100%;min-height:52px;border:none;border-radius:14px;cursor:pointer;font-family:inherit;font-size:16.5px;
+  letter-spacing:.12em;background:var(--terra);color:var(--white);box-shadow:0 5px 0 var(--terra-deep),var(--sh);
+  transition:transform .12s,box-shadow .12s;margin-top:11px}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 var(--terra-deep)}
+.btn.ghost{background:var(--white);color:var(--ink);box-shadow:0 5px 0 rgba(51,47,40,.13),var(--sh)}
+.btn.ghost:active{box-shadow:0 2px 0 rgba(51,47,40,.13)}
+.btn small{display:block;font-size:11.5px;letter-spacing:.06em;opacity:.85;margin-top:2px}
+.spacer{flex:1;min-height:6px}
+
+/* result */
+.res{margin:auto 0;text-align:center;display:flex;flex-direction:column;align-items:center;gap:9px}
+.stars{font-size:38px;color:var(--gold);letter-spacing:.14em}
+.stars .off{opacity:.2}
+.res h2{font-size:24px;letter-spacing:.1em}
+.gain{background:var(--white);border:2px solid var(--gold);border-radius:16px;padding:13px 17px;box-shadow:var(--sh);max-width:340px}
+.gain .rar{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.24em;color:var(--gold)}
+.gain h3{font-size:18px;margin:3px 0 5px}
+.gain p{font-size:12.5px;color:var(--ink-soft);line-height:1.7}
+.missed{background:rgba(255,255,255,.6);border:1px dashed rgba(51,47,40,.22);border-radius:12px;padding:11px 13px;
+  max-width:350px;text-align:left;font-size:12.5px;line-height:1.75;color:var(--ink-soft)}
+.missed h4{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.22em;color:var(--terra);margin-bottom:6px}
+.missed li{margin-bottom:5px;list-style:none}
+.note{font-size:10.5px;color:var(--ink-faint);line-height:1.7;text-align:center;margin-top:8px}
+</style>
+<link rel="stylesheet" href="desktop.css?v=44">
+<script src="state.js?v=44"></script>
+<script src="data/mentors.js?v=44"></script>
+<script src="data/practice.js?v=44"></script>
+<script src="hud.js?v=44"></script>
+</head>
+<body data-page="practice">
+<div id="app">
+  <div class="roombg" id="roombg" aria-hidden="true"></div>
+  <div class="seal" id="seal">練</div>
+  <button class="langBtn" id="langBtn">中文 ON</button>
+  <div class="chapline" id="chapline">Training Ground<span class="zh"> · 修煉場</span></div>
+
+  <!-- 1 · INTRO -->
+  <section class="screen on" id="s1">
+    <div class="mrow"><canvas id="mCv" width="16" height="18"></canvas>
+      <div class="mt"><div class="nm" id="mNm">—</div><span id="mLine"></span></div></div>
+    <h1 class="dt" id="dTitle">—</h1>
+    <p class="dsub" id="dSub"></p>
+    <div class="howto" id="dHow"></div>
+    <div class="safety" id="dSafety" hidden></div>
+    <div class="spacer"></div>
+    <button class="btn" id="go">Begin ▸<small id="goSub"></small></button>
+    <button class="btn ghost" id="back1">Back to town 回小鎮</button>
+  </section>
+
+  <!-- 2 · PLAY -->
+  <section class="screen" id="s2">
+    <div class="srow"><span class="rnd" id="rnd">1 / 10</span><span class="sc" id="sc">0</span></div>
+    <div class="bar"><i id="barfill"></i></div>
+    <div class="kind" id="kind"></div>
+    <div class="q" id="q"></div>
+    <div id="body"></div>
+    <div class="fb" id="fb" hidden></div>
+    <button class="btn" id="next" hidden>Next ▸</button>
+    <div class="spacer"></div>
+  </section>
+
+  <!-- 3 · RESULT -->
+  <section class="screen" id="s3">
+    <div class="res">
+      <div class="stars" id="stars">★★★</div>
+      <h2 id="rt"></h2>
+      <p style="font-size:14px;line-height:1.8" id="rx"></p>
+      <div class="missed" id="missed" hidden><h4>REVIEW 待複習</h4><ul id="missedList"></ul></div>
+      <div class="gain"><div class="rar">TECHNIQUE CARD · 心法</div>
+        <h3 id="cardH"></h3><p id="cardP"></p></div>
+      <button class="btn" id="again">Practise again 再練一輪</button>
+      <button class="btn ghost" id="back">Back to town 回小鎮</button>
+      <p class="note">Educational game · TCM study aid, not medical advice<span class="zh">教育用途 · 中醫學習輔助，非醫療建議</span></p>
+    </div>
+  </section>
+</div>
+
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+const S=AG.state;
+AG.bindLangButton($("langBtn"));
+function go(id){document.querySelectorAll(".screen").forEach(s=>s.classList.remove("on"));$(id).classList.add("on");
+  const sc=$(id); if(sc) sc.scrollTop=0;}
+
+/* ── which deck ── */
+const DECKS=window.AG_PRACTICE||{};
+const KEY=(new URLSearchParams(location.search).get("d")||"").trim();
+const D=DECKS[KEY];
+if(!D){
+  $("dTitle").textContent="Practice not found";
+  $("dSub").innerHTML="This practice is not available yet.<span class=\"zh\">此練習尚未開放。</span>";
+  $("dHow").innerHTML="Go back to the town and choose another.<span class=\"zh\">請回小鎮另擇一項。</span>";
+  $("go").hidden=true;
+}
+
+/* ── shuffle: Fisher-Yates on a copy, so the source data is never reordered ── */
+function shuffled(a){const b=a.slice();for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));
+  const t=b[i];b[i]=b[j];b[j]=t;}return b;}
+function zh(s){return s?'<span class="zh">'+s+'</span>':"";}
+
+/* ── intro ── */
+if(D){
+  document.title=D.title+" "+D.titleZh+" · Apricot Grove";
+  $("seal").textContent=D.seal||"練";
+  if(D.scene){$("roombg").style.backgroundImage='url("'+D.scene+'")';}
+  const m=D.mentor||{};
+  if(window.AG_MENTORS && m.key) AG_MENTORS.animate($("mCv"), m.key);
+  $("mNm").innerHTML=(m.nm||"")+zh(" · "+(m.nmZh||""));
+  $("mLine").innerHTML=(m.line||"")+zh(m.lineZh||"");
+  $("dTitle").innerHTML=D.title+zh(D.titleZh);
+  $("dSub").innerHTML=(D.sub||"")+zh(D.subZh||"");
+  const kinds={mc:0,order:0,match:0};
+  D.items.forEach(i=>{kinds[i.k]=(kinds[i.k]||0)+1});
+  const bits=[];
+  if(kinds.mc)    bits.push("<b>"+kinds.mc+"</b> choose-one"+(S.zh?"（單選）":""));
+  if(kinds.order) bits.push("<b>"+kinds.order+"</b> put-in-order"+(S.zh?"（排序）":""));
+  if(kinds.match) bits.push("<b>"+kinds.match+"</b> matching"+(S.zh?"（配對）":""));
+  $("dHow").innerHTML="Every answer — right or wrong — comes with the reasoning behind it. That is the part worth reading."
+    +zh("每一題無論答對答錯，都會給出理由。那才是要讀的部分。")
+    +"<br><br>"+bits.join(" · ");
+  if(D.note){$("dSafety").hidden=false;$("dSafety").innerHTML=D.note;}
+  $("goSub").textContent=D.items.length+" questions";
+}
+
+/* ── run ── */
+let idx=0, right=0, missed=[], locked=false;
+const TOTAL=D?D.items.length:0;
+const KINDNAME={mc:"CHOOSE ONE 單選",order:"PUT IN ORDER 排序",match:"MATCH THE PAIRS 配對"};
+
+function paintChrome(){
+  $("rnd").textContent=(idx+1)+" / "+TOTAL;
+  $("sc").textContent=right;
+  $("barfill").style.width=(idx/TOTAL*100)+"%";
+}
+function feedback(ok,html){
+  const f=$("fb");
+  f.hidden=false;
+  f.className="fb"+(ok?"":" warn");
+  f.innerHTML='<div class="hd">'+(ok?"CORRECT 正確":"NOT QUITE 再想想")+'</div>'+html;
+  $("next").hidden=false;
+  $("next").textContent=(idx+1>=TOTAL)?"See result ▸":"Next ▸";
+  f.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+function settle(ok,it){
+  if(locked) return;
+  locked=true;
+  if(ok) right++; else missed.push(it);
+  $("sc").textContent=right;
+}
+
+function render(){
+  locked=false;
+  const it=D.items[idx];
+  paintChrome();
+  $("kind").textContent=KINDNAME[it.k]||"";
+  $("q").innerHTML=it.q+zh(it.qZh);
+  $("fb").hidden=true;
+  $("next").hidden=true;
+  const b=$("body"); b.innerHTML="";
+
+  if(it.k==="mc") renderMc(it,b);
+  else if(it.k==="order") renderOrder(it,b);
+  else renderMatch(it,b);
+}
+
+function renderMc(it,b){
+  const wrap=document.createElement("div"); wrap.className="opts";
+  /* index against the source array so the right answer can be found by identity,
+     not by matching text — a text match broke once on options sharing a prefix */
+  shuffled(it.opts.map((o,i)=>({o:o,i:i}))).forEach(rec=>{
+    const o=rec.o;
+    const el=document.createElement("button");
+    el.className="opt"; el.type="button"; el.dataset.i=rec.i;
+    el.innerHTML=o.t+(o.c?'<span class="c">'+o.c+"</span>":"");
+    el.onclick=()=>{
+      if(locked) return;
+      settle(!!o.ok,it);
+      wrap.querySelectorAll(".opt").forEach(x=>{x.disabled=true;x.classList.add("dim")});
+      el.classList.remove("dim");
+      el.classList.add(o.ok?"right":"wrong");
+      if(!o.ok){
+        /* light up the right one too — being shown the answer is the point */
+        const ci=it.opts.findIndex(x=>x.ok), correct=it.opts[ci];
+        const cel=wrap.querySelector('.opt[data-i="'+ci+'"]');
+        if(cel){cel.classList.remove("dim");cel.classList.add("right")}
+        feedback(false,o.note+'<br><br><b>The answer:</b> '+correct.t+(correct.c?" "+correct.c:"")+"<br>"+correct.note);
+      } else feedback(true,o.note);
+    };
+    wrap.appendChild(el);
+  });
+  b.appendChild(wrap);
+}
+
+function renderOrder(it,b){
+  const slots=document.createElement("div"); slots.className="slots";
+  const pool=document.createElement("div"); pool.className="chips";
+  b.appendChild(slots); b.appendChild(pool);
+  let placed=0, slipped=false;
+  it.seq.forEach((s,i)=>{
+    const sl=document.createElement("div"); sl.className="slot"; sl.id="slot"+i;
+    sl.innerHTML='<span class="n">'+(i+1)+'</span><span class="v">—</span>';
+    slots.appendChild(sl);
+  });
+  shuffled(it.seq.map((s,i)=>({s:s,i:i}))).forEach(o=>{
+    const el=document.createElement("button");
+    el.className="chip"; el.type="button";
+    el.innerHTML=o.s.t+(o.s.c?'<span class="c">'+o.s.c+"</span>":"");
+    el.onclick=()=>{
+      if(locked) return;
+      if(o.i===placed){
+        el.classList.add("done");
+        const sl=$("slot"+placed);
+        sl.classList.add("filled");
+        sl.querySelector(".v").innerHTML=o.s.t+(o.s.c?'<span class="c">'+o.s.c+"</span>":"");
+        placed++;
+        if(placed===it.seq.length){ settle(!slipped,it); feedback(!slipped,it.note); }
+      }else{
+        slipped=true;
+        el.classList.add("shake");
+        setTimeout(()=>el.classList.remove("shake"),360);
+      }
+    };
+    pool.appendChild(el);
+  });
+}
+
+function renderMatch(it,b){
+  const grid=document.createElement("div"); grid.className="mgrid";
+  const L=document.createElement("div"); L.className="mcol";
+  const R=document.createElement("div"); R.className="mcol";
+  grid.appendChild(L); grid.appendChild(R); b.appendChild(grid);
+  let sel=null, done=0, slipped=false;
+  const mk=(txt,sub,i,side)=>{
+    const el=document.createElement("button");
+    el.className="chip"; el.type="button"; el.dataset.i=i;
+    el.innerHTML=txt+(sub?'<span class="c">'+sub+"</span>":"");
+    el.onclick=()=>{
+      if(locked||el.classList.contains("done")) return;
+      if(side==="L"){
+        L.querySelectorAll(".chip").forEach(x=>x.classList.remove("sel"));
+        el.classList.add("sel"); sel=el; return;
+      }
+      if(!sel) return;
+      if(sel.dataset.i===el.dataset.i){
+        sel.classList.remove("sel"); sel.classList.add("done"); el.classList.add("done");
+        sel=null; done++;
+        if(done===it.pairs.length){ settle(!slipped,it); feedback(!slipped,it.note); }
+      }else{
+        slipped=true;
+        el.classList.add("shake"); sel.classList.add("shake");
+        const s=sel;
+        setTimeout(()=>{el.classList.remove("shake");s.classList.remove("shake")},360);
+      }
+    };
+    return el;
+  };
+  const hl=document.createElement("h4"); hl.textContent="TAP ONE"; L.appendChild(hl);
+  const hr=document.createElement("h4"); hr.textContent="THEN ITS PAIR"; R.appendChild(hr);
+  shuffled(it.pairs.map((p,i)=>({p:p,i:i}))).forEach(o=>L.appendChild(mk(o.p.l,o.p.lZh,o.i,"L")));
+  shuffled(it.pairs.map((p,i)=>({p:p,i:i}))).forEach(o=>R.appendChild(mk(o.p.r,o.p.rZh,o.i,"R")));
+}
+
+$("next").onclick=()=>{ idx++; if(idx>=TOTAL) finish(); else render(); };
+$("go").onclick=()=>{ go("s2"); render(); };
+$("back1").onclick=()=>location.href="index.html";
+$("back").onclick=()=>location.href="index.html";
+$("again").onclick=()=>location.reload();
+
+function finish(){
+  $("barfill").style.width="100%";
+  const pct=TOTAL?right/TOTAL:0;
+  const n=pct>=.9?3:pct>=.7?2:1;
+  $("stars").innerHTML=[0,1,2].map(i=>i<n?"★":'<span class="off">★</span>').join("");
+  $("rt").innerHTML=(n===3?"Clean round":n===2?"Solid":"Worth another pass")
+    +zh(n===3?"漂亮":n===2?"扎實":"再走一遍");
+  const axis=D.axis;
+  const rep=AG.complete({activity:"drill_"+D.id, completed:true, score:right, stars:n,
+    xpEarned:right*10, skillXp:(function(o){o[axis]=18+n*16;return o})({})});
+  $("rx").innerHTML=(n===3
+      ? "You did not guess once. That is what it looks like when a category has actually landed."
+      : "Read the review below before you leave — the ones you missed are the only part of this round that is still worth your time.")
+    +zh(n===3?"一次也沒有猜。這就是一個類別真正記住的樣子。"
+             :"走之前先看下面的複習。這一輪裡，只有答錯的那幾題還值得你的時間。")
+    +'<br><br><span style="font-family:\'Courier New\',monospace;color:var(--terra);font-size:13px">'
+    +right+" / "+TOTAL+" correct · "+axis+" "+(S.stats[axis]||0)+"/4</span>";
+  if(missed.length){
+    $("missed").hidden=false;
+    $("missedList").innerHTML=missed.map(m=>"<li>· "+m.q+"</li>").join("");
+  }else $("missed").hidden=true;
+  const c=D.card||{};
+  $("cardH").innerHTML=(c.h||D.title)+zh(c.hZh||"");
+  $("cardP").innerHTML=(c.p||"")+zh(c.pZh||"");
+  go("s3");
+}
+</script>
+</body>
+</html>

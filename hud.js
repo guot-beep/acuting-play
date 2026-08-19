@@ -49,11 +49,15 @@
   body[data-page="yinyang"] .screen,
   body[data-page="prologue"] .screen,
   body[data-page="daily"] .screen,
-  body[data-page="points"] .screen{top:var(--hud-h)}
+  body[data-page="points"] .screen,
+  body[data-page="practice"] .screen,
+  body[data-page="sort"] .screen{top:var(--hud-h)}
   /* page chrome that is absolutely positioned also has to clear the bar */
   .chapline,.r2,#r2,.stage-name{position:relative;z-index:4}
   body[data-page="daoyin"] .screen,
-  body[data-page="yinyang"] .screen{padding-top:26px}
+  body[data-page="yinyang"] .screen,
+  body[data-page="practice"] .screen,
+  body[data-page="sort"] .screen{padding-top:26px}
   /* the HUD's settings tray owns the language switch now */
   .lang-toggle,.langBtn,#langBtn{display:none !important}
   .seal{top:calc(var(--hud-h) + 6px) !important}
