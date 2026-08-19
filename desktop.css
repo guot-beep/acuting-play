@@ -11,7 +11,10 @@
    Still one column, just a roomier one. Portrait iPad, split-view.
    ───────────────────────────────────────────────────────────── */
 @media (min-width: 720px) and (max-width: 899.98px) {
-  #app { max-width: 620px; }
+  /* width, not just max-width: index.html pins `width:min(100%,440px)` inline,
+     and a max-width alone loses to it — which is why the town stayed a phone
+     strip on a laptop while every other page widened. */
+  #app { width: 100%; max-width: 620px; }
   .opt, .card, .bubble, .panel, .mapbox, .bio, .answer { font-size: 1.02em; }
 }
 
@@ -28,6 +31,7 @@
     overflow: hidden;
   }
   #app {
+    width: 100%;
     max-width: 1120px;
     height: min(calc(100svh - 52px), 720px);   /* landscape cabinet, not a tall tower */
     border-radius: 22px;
@@ -86,25 +90,32 @@
   .opt, .card { transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease; }
 
   /* ═══ HUB (index.html) ═══
-     Map on the left as the hero; identity, compass and the story
-     button stacked on the right. */
-  [data-page="hub"] #s4 {
+     Map on the left as the hero; identity, compass and the note on the right.
+
+     These target `.hud-scroll`, not `#s4` directly: hud.js wraps every screen's
+     children into `.hud-scroll` + `.hud-foot`, so the panels are grandchildren
+     of #s4 and a grid declared on #s4 never reached them. That is why the
+     desktop town shipped for weeks as a stack in a narrow column. */
+  [data-page="hub"] #s4 .hud-scroll {
     display: grid;
-    grid-template-columns: minmax(0, 1.35fr) minmax(0, .85fr);
-    grid-template-rows: auto auto auto 1fr;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    grid-template-rows: auto auto 1fr;
     column-gap: 26px;
     align-content: start;
   }
-  [data-page="hub"] #s4 .mapbox {
+  [data-page="hub"] .hud-scroll .mapbox {
     grid-column: 1;
-    grid-row: 1 / -1;
-    align-self: center;      /* the map floats in its column instead of leaving a hole below */
+    grid-row: 1 / span 3;
+    align-self: start;
     margin-bottom: 0;
   }
-  [data-page="hub"] #s4 .topbar   { grid-column: 2; grid-row: 1; }
-  [data-page="hub"] #s4 .panel    { grid-column: 2; grid-row: 2; }
-  [data-page="hub"] #s4 .note     { grid-column: 2; grid-row: 3; max-width: none; }
-  [data-page="hub"] #s4 #storyBtn { grid-column: 2; grid-row: 4; align-self: end; max-width: none; }
+  /* the corner seal sits over the right rail here, so keep the streak clear of it */
+  [data-page="hub"] .hud-scroll .topbar { grid-column: 2; grid-row: 1; padding-right: 46px; }
+  [data-page="hub"] .hud-scroll .panel  { grid-column: 2; grid-row: 2; }
+  [data-page="hub"] .hud-scroll .note   { grid-column: 2; grid-row: 3; max-width: none; align-self: start; }
+  /* the footbar is a right rail on a landscape card — centre its buttons in it
+     instead of leaving them stranded at the top of a tall empty column */
+  [data-page="hub"] #s4 .hud-foot { justify-content: center; }
 
   [data-page="hub"] .topbar canvas { width: 48px; height: 54px; }
   [data-page="hub"] .topbar .stat  { min-width: 58px; }
@@ -191,7 +202,7 @@
    3 · WIDE DESKTOP (≥ 1400px) — a touch more air, nothing more.
    ───────────────────────────────────────────────────────────── */
 @media (min-width: 1400px) {
-  #app { max-width: 1240px; height: min(calc(100svh - 52px), 760px); }
+  #app { width: 100%; max-width: 1240px; height: min(calc(100svh - 52px), 760px); }
 }
 
 /* ─────────────────────────────────────────────────────────────
