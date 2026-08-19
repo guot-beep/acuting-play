@@ -1,11 +1,12 @@
 /* ═══════════════════════════════════════════════════════════════
    Apricot Grove 杏林行 · data/chapter-index.js
-   GENERATED — do not edit. Run tools/mkchapterindex.py after any
-   change to data/chapters.js.
+   GENERATED — do not edit. Run tools/mkindexes.py after changing
+   data/chapters.js.
 
-   Just the spine of each chapter, so the town can draw the story
-   button and the chapter list without downloading every case.
+   Just the spine of each chapter, so the town and the progress
+   page can list them without downloading every case.
    ═══════════════════════════════════════════════════════════════ */
+
 window.AG_CHAPTER_INDEX = [
  {id:"01", title:"A-Lian&#39;s Cough", titleZh:"阿蓮的咳嗽", pattern:"Wind-Cold invading the Lung 風寒襲肺"},
  {id:"02", title:"The Boatman&#39;s Shoulder", titleZh:"船夫的肩背", pattern:"Cold-Damp obstructing the channels 寒濕痹阻經絡"},
