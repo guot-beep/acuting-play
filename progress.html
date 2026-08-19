@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta name="theme-color" content="#F2EAD8">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="art/icon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="art/icon-apple-180.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="apple-mobile-web-app-title" content="杏林行">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>Your Record 修習錄 · Apricot Grove</title>
+<style>
+:root{
+  --paper:#F2EAD8;--paper2:#E7DBBE;--ink:#332F28;--ink-soft:#6E675A;--ink-faint:#9A9182;
+  --sage:#7B8B6F;--sage-deep:#4E5D46;--terra:#C26D4E;--terra-deep:#9D5238;
+  --gold:#B08D3E;--seal:#A63B2A;--white:#FDFBF4;--ok:#4E7A52;
+  --sh-s:0 2px 6px rgba(51,47,40,.1);--sh:0 5px 16px rgba(51,47,40,.14);
+  --ease:cubic-bezier(.22,.9,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none !important}
+html,body{height:100%;max-width:100%;overflow-x:hidden;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{font-family:"Songti TC","Noto Serif TC",Georgia,serif;background:#CFC3A8;color:var(--ink);
+  display:flex;justify-content:center;overflow:hidden}
+#app{position:relative;width:100%;max-width:440px;height:100svh;overflow:hidden;display:flex;flex-direction:column;
+  background:radial-gradient(ellipse 130% 50% at 50% -6%,rgba(255,255,255,.5),transparent 62%),
+    repeating-linear-gradient(0deg,transparent 0 3px,rgba(120,105,80,.028) 3px 4px),
+    repeating-linear-gradient(90deg,transparent 0 3px,rgba(120,105,80,.028) 3px 4px),var(--paper);
+  box-shadow:0 0 44px rgba(51,47,40,.36)}
+.seal{position:absolute;right:13px;top:calc(11px + env(safe-area-inset-top));z-index:40;width:29px;height:29px;
+  background:var(--seal);color:var(--white);display:flex;align-items:center;justify-content:center;font-size:16px;
+  border-radius:4px;transform:rotate(-3deg);opacity:.85;box-shadow:inset 0 0 0 2px rgba(255,255,255,.3);pointer-events:none}
+.langBtn{position:absolute;left:13px;top:calc(11px + env(safe-area-inset-top));z-index:40;background:var(--white);
+  border:1.5px solid rgba(51,47,40,.14);border-radius:99px;padding:4px 11px;font-size:11px;font-family:inherit;
+  color:var(--ink-soft);cursor:pointer}
+.zh{display:block;font-size:.84em;color:var(--ink-soft);margin-top:3px;line-height:1.6}
+body.nozh .zh{display:none !important}
+.chapline{position:relative;z-index:5;text-align:center;font-family:"Courier New",monospace;font-size:10px;
+  letter-spacing:.34em;color:var(--gold);text-transform:uppercase;padding:calc(14px + env(safe-area-inset-top)) 46px 0}
+.screen{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;
+  padding:calc(42px + env(safe-area-inset-top)) 18px calc(14px + env(safe-area-inset-bottom));
+  overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+
+h1{font-size:25px;letter-spacing:.05em;text-align:center;margin-bottom:3px}
+h1 .zh{font-size:15px;margin-top:5px}
+.rankline{text-align:center;font-family:"Courier New",monospace;font-size:11.5px;letter-spacing:.16em;
+  color:var(--terra);margin-bottom:14px}
+
+/* the one thing to do next */
+.next{background:var(--white);border:2px solid var(--gold);border-radius:16px;padding:14px 16px;
+  box-shadow:var(--sh);margin-bottom:16px}
+.next .lbl{font-family:"Courier New",monospace;font-size:9.5px;letter-spacing:.26em;color:var(--gold);
+  text-transform:uppercase;margin-bottom:6px}
+.next b{font-size:16px;display:block;line-height:1.5}
+.next small{display:block;font-size:12.5px;color:var(--ink-soft);margin-top:4px;line-height:1.6}
+.next a{display:block;margin-top:11px;text-align:center;background:var(--terra);color:var(--white);
+  text-decoration:none;border-radius:12px;padding:12px;font-size:15px;letter-spacing:.1em;
+  box-shadow:0 4px 0 var(--terra-deep)}
+.next a:active{transform:translateY(2px);box-shadow:0 2px 0 var(--terra-deep)}
+
+.sec{background:var(--white);border:1.5px solid rgba(51,47,40,.1);border-radius:15px;padding:13px 15px;
+  box-shadow:var(--sh-s);margin-bottom:12px}
+.sec h2{font-size:14px;letter-spacing:.04em;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.sec h2 em{font-style:normal;font-family:"Courier New",monospace;font-size:12px;color:var(--terra);flex:none}
+.sec h2 .zh{display:inline;font-size:12px;margin:0}
+body.nozh .sec h2 .zh{display:none}
+.meter{height:7px;border-radius:4px;background:rgba(51,47,40,.09);overflow:hidden;margin:9px 0 4px}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--sage),var(--gold));
+  transition:width .6s var(--ease)}
+.sec p.hint{font-size:11.5px;color:var(--ink-faint);line-height:1.65;margin-top:6px}
+
+/* axes */
+.axes{display:flex;flex-direction:column;gap:8px;margin-top:9px}
+.ax{display:flex;align-items:center;gap:9px;font-size:13px}
+.ax .nm{flex:0 0 92px;color:var(--ink-soft)}
+.ax .pips{display:flex;gap:3px;flex:1}
+.ax .pips i{flex:1;height:8px;border-radius:2px;background:rgba(51,47,40,.1)}
+.ax .pips i.on{background:var(--sage)}
+.ax .lv{flex:none;font-family:"Courier New",monospace;font-size:11.5px;color:var(--gold)}
+
+/* chip grids */
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+.chip{font-family:"Courier New",monospace;font-size:11px;letter-spacing:.04em;border-radius:7px;
+  padding:4px 7px;border:1px solid rgba(51,47,40,.14);color:var(--ink-faint);background:rgba(255,255,255,.6)}
+.chip.on{background:#EDF3EA;border-color:rgba(78,122,82,.4);color:var(--sage-deep)}
+.rows{display:flex;flex-direction:column;gap:6px;margin-top:9px}
+.row{display:flex;align-items:center;gap:9px;font-size:13px;line-height:1.45}
+.row .tick{flex:none;width:20px;text-align:center;color:var(--ok);font-size:13px}
+.row .tick.off{color:rgba(51,47,40,.18)}
+.row .t{flex:1;min-width:0}
+.row .t small{display:block;font-size:11px;color:var(--ink-faint)}
+.row .st{flex:none;font-size:12px;color:var(--gold);letter-spacing:.06em}
+.row a{color:inherit;text-decoration:none;display:flex;align-items:center;gap:9px;flex:1;min-width:0}
+
+.btn{width:100%;min-height:50px;border:none;border-radius:14px;cursor:pointer;font-family:inherit;font-size:15.5px;
+  letter-spacing:.12em;background:var(--white);color:var(--ink);box-shadow:0 5px 0 rgba(51,47,40,.13),var(--sh);
+  margin-top:6px;text-decoration:none;display:flex;align-items:center;justify-content:center}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(51,47,40,.13)}
+.note{font-size:10.5px;color:var(--ink-faint);line-height:1.7;text-align:center;margin:10px 0 4px}
+</style>
+<link rel="stylesheet" href="desktop.css?v=49">
+<script src="state.js?v=49"></script>
+<script src="data/points.js?v=49"></script>
+<script src="data/herbs.js?v=49"></script>
+<script src="data/chapter-index.js?v=49"></script>
+<script src="data/practice-index.js?v=49"></script>
+<script src="hud.js?v=49"></script>
+</head>
+<body data-page="progress">
+<div id="app">
+  <div class="seal">錄</div>
+  <button class="langBtn" id="langBtn">中文 ON</button>
+  <div class="chapline">Your Record<span class="zh"> · 修習錄</span></div>
+  <section class="screen" id="s1">
+    <h1>Your Record<span class="zh">修習錄</span></h1>
+    <div class="rankline" id="rankline">—</div>
+    <div class="next" id="next"></div>
+    <div id="body"></div>
+    <a class="btn" href="index.html">Back to town 回小鎮</a>
+    <p class="note">Educational game · TCM study aid, not medical advice<span class="zh">教育用途 · 中醫學習輔助，非醫療建議</span></p>
+  </section>
+</div>
+
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+const S=AG.state;
+AG.bindLangButton($("langBtn"));
+const zh=s=>s?'<span class="zh">'+s+'</span>':"";
+const best=a=>S.best[a]||null;
+const stars=n=>n?'★'.repeat(n):'';
+
+/* ── the sources ── */
+const CH   = window.AG_CHAPTER_INDEX||[];
+const PIDX = window.AG_PRACTICE_INDEX||[];
+const PTS  = window.AG_POINTS||[];
+const HERBS= window.AG_HERBS||[];
+
+const chDone = id => !!S.flags["chapter"+id+"Done"];
+const ptDone = id => (S.points||[]).indexOf(id)>=0;
+const hbDone = id => (S.cards||[]).some(c=>c.id===id);
+const prDone = d  => !!best((d.kind==="sort"?"sort_":"drill_")+d.id);
+const prStars= d  => { const b=best((d.kind==="sort"?"sort_":"drill_")+d.id); return b?b.stars:0; };
+
+/* ── header ── */
+const r=AG.rank(), lvl=Math.floor(S.xp/400)+1;
+$("rankline").innerHTML=r.en.toUpperCase()+zh(r.zh)+" · LEVEL "+lvl+" · "+S.xp+" XP · STREAK "+(S.streak||0);
+
+/* ══════════════════════════════════════════════════════════
+   The next smallest action.
+   Not a to-do list — one thing, chosen by what is furthest
+   behind. A player who opens this page tired should be able
+   to close it having done exactly one thing.
+   ══════════════════════════════════════════════════════════ */
+function nextAction(){
+  if(!S.flags.prologueDone)
+    return {t:"Start the prologue", z:"從序章開始", s:"Master Shen is waiting. It takes about five minutes.",
+            zs:"參師父在等你。大約五分鐘。", href:"prologue.html"};
+  const ch=CH.find(c=>!chDone(c.id));
+  if(ch) return {t:"Chapter "+(+ch.id)+" — "+ch.title, z:ch.titleZh,
+                 s:ch.pattern, zs:"", href:"chapter.html?ch="+ch.id};
+  const pt=PTS.find(p=>!ptDone(p.id));
+  if(pt) return {t:"Learn "+pt.en+" "+pt.id, z:pt.zh,
+                 s:"One point in the Point Hall — three questions, about two minutes.",
+                 zs:"點穴堂一穴，三題，約兩分鐘。", href:"pointroom.html"};
+  const pr=PIDX.find(d=>!prDone(d));
+  if(pr) return {t:pr.title, z:pr.titleZh, s:pr.n+" questions you have not tried yet.",
+                 zs:"還沒做過的 "+pr.n+" 題。",
+                 href:(pr.kind==="sort"?"sort.html?s=":"practice.html?d=")+pr.id};
+  const hb=HERBS.find(h=>!hbDone(h.id));
+  if(hb) return {t:"Meet "+hb.en, z:hb.zh, s:"One herb in the Herb Room.",
+                 zs:"藥草間一味藥。", href:"herbroom.html"};
+  const weak=PIDX.filter(d=>prStars(d)<3)[0];
+  if(weak) return {t:"Three stars on "+weak.title, z:weak.titleZh,
+                   s:"Everything is opened. This one is not clean yet.",
+                   zs:"全都開過了。這一組還沒有全對。",
+                   href:(weak.kind==="sort"?"sort.html?s=":"practice.html?d=")+weak.id};
+  return {t:"Today's case", z:"今日病例", s:"You have finished everything else. A new case every day.",
+          zs:"其餘都完成了。每天一則新病例。", href:"dailycase.html"};
+}
+(function(){ const n=nextAction();
+  $("next").innerHTML='<div class="lbl">Next · one thing 下一步</div><b>'+n.t+zh(n.z)+"</b>"
+    +'<small>'+n.s+zh(n.zs)+"</small>"
+    +'<a href="'+n.href+'">Go ▸<span class="zh"> 前往</span></a>';})();
+
+/* ── sections ── */
+function meter(done,total){return '<div class="meter"><i style="width:'+(total?done/total*100:0)+'%"></i></div>';}
+function sec(title,titleZh,done,total,inner,hint){
+  return '<div class="sec"><h2><span>'+title+zh(titleZh)+'</span><em>'+done+" / "+total+"</em></h2>"
+    +meter(done,total)+(inner||"")+(hint?'<p class="hint">'+hint+"</p>":"")+"</div>";
+}
+let html="";
+
+/* five axes */
+const AXES=[["needle","Needle","針道"],["theory","Theory","醫理"],["dx","Diagnosis","四診"],
+            ["herb","Herbs","本草"],["daoyin","Cultivation","導引"]];
+html+='<div class="sec"><h2><span>The Five Axes'+zh("醫者五軸")+'</span><em>'
+  +AXES.reduce((a,x)=>a+(S.stats[x[0]]||0),0)+" / 20</em></h2><div class=\"axes\">"
+  +AXES.map(([k,en,cn])=>{const lv=S.stats[k]||0;
+    return '<div class="ax"><span class="nm">'+en+zh(cn)+'</span><span class="pips">'
+      +[0,1,2,3].map(i=>'<i class="'+(i<lv?"on":"")+'"></i>').join("")
+      +'</span><span class="lv">'+lv+"/4</span></div>";}).join("")
+  +"</div></div>";
+
+/* story */
+html+=sec("The Story","主線故事",CH.filter(c=>chDone(c.id)).length,CH.length,
+  '<div class="rows">'+CH.map(c=>{const b=best("chapter_"+c.id);
+    return '<div class="row"><a href="chapter.html?ch='+c.id+'"><span class="tick'+(chDone(c.id)?"":" off")+'">'
+      +(chDone(c.id)?"✓":"○")+'</span><span class="t">'+(+c.id)+" · "+c.title+zh(c.titleZh)
+      +"<small>"+c.pattern+'</small></span></a><span class="st">'+(b?stars(b.stars):"")+"</span></div>";}).join("")
+  +"</div>");
+
+/* point hall */
+const ptDoneN=PTS.filter(p=>ptDone(p.id)).length;
+html+=sec("The Point Hall","點穴堂",ptDoneN,PTS.length,
+  '<div class="chips">'+PTS.map(p=>'<span class="chip'+(ptDone(p.id)?" on":"")+'" title="'+p.en+'">'+p.id+"</span>").join("")+"</div>",
+  ptDoneN<PTS.length?("Grey means you have not opened that point yet."+(S.zh?"":"")):"Every point visited.");
+
+/* herb room */
+const hbDoneN=HERBS.filter(h=>hbDone(h.id)).length;
+html+=sec("The Herb Room","藥草間",hbDoneN,HERBS.length,
+  '<div class="chips">'+HERBS.map(h=>'<span class="chip'+(hbDone(h.id)?" on":"")+'">'+h.zh+"</span>").join("")+"</div>");
+
+/* practice */
+const prDoneN=PIDX.filter(prDone).length;
+html+=sec("Practice","練習",prDoneN,PIDX.length,
+  '<div class="rows">'+PIDX.map(d=>{const st=prStars(d);
+    const href=(d.kind==="sort"?"sort.html?s=":"practice.html?d=")+d.id;
+    return '<div class="row"><a href="'+href+'"><span class="tick'+(st?"":" off")+'">'+(st?"✓":"○")
+      +'</span><span class="t">'+d.title+zh(d.titleZh)+"<small>"+d.n+" questions · "+d.axis
+      +'</small></span></a><span class="st">'+stars(st)+"</span></div>";}).join("")+"</div>",
+  "Three stars means a clean round. Anything less is worth another pass.");
+
+/* training grounds that are not decks */
+const TRAIN=[["train_point_tap","Point Tap","點穴","acuting-play.html"],
+             ["train_yinyang","Yin or Yang","陰陽滑卡","yinyang.html"],
+             ["train_wuqinxi","Five Animal Frolics","五禽戲","wuqinxi.html"]];
+html+=sec("Training Grounds","修煉場",TRAIN.filter(t=>best(t[0])).length,TRAIN.length,
+  '<div class="rows">'+TRAIN.map(([k,en,cn,f])=>{const b=best(k);
+    return '<div class="row"><a href="'+f+'"><span class="tick'+(b?"":" off")+'">'+(b?"✓":"○")
+      +'</span><span class="t">'+en+zh(cn)+'</span></a><span class="st">'+(b?stars(b.stars):"")+"</span></div>";}).join("")
+  +"</div>");
+
+/* daily case */
+const dc=S.dc||{};
+html+='<div class="sec"><h2><span>Daily Case'+zh("今日病例")+'</span><em>'+(dc.solved||0)+"</em></h2>"
+  +'<p class="hint">Solved '+(dc.solved||0)+" · current streak "+(dc.streak||0)
+  +". A new case every day, the same one for every player."
+  +zh("已解 "+(dc.solved||0)+" 則，連續 "+(dc.streak||0)+" 天。每日一則，全世界同一題。")+"</p></div>";
+
+$("body").innerHTML=html;
+</script>
+</body>
+</html>

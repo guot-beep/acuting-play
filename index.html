@@ -307,11 +307,11 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
   transition:.3s var(--ease);z-index:80;pointer-events:none}
 .toast.on{opacity:.95;transform:translate(-50%,0)}
 </style>
-<link rel="stylesheet" href="desktop.css?v=48">
-<script src="state.js?v=48"></script>
-<script src="data/herbs.js?v=48"></script>
-<script src="data/chapter-index.js?v=48"></script>
-<script src="hud.js?v=48"></script>
+<link rel="stylesheet" href="desktop.css?v=49">
+<script src="state.js?v=49"></script>
+<script src="data/herbs.js?v=49"></script>
+<script src="data/chapter-index.js?v=49"></script>
+<script src="hud.js?v=49"></script>
 </head>
 <body data-page="hub">
 <div id="app">
@@ -449,6 +449,7 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
       <span class="zh">今日診榜人人可去；各流派則隨故事推進而開啟。</span></p>
     <button class="btn" id="storyBtn"><span id="storyLabel">Prologue ▸</span><span style="display:block;font-size:11.5px;letter-spacing:.1em;opacity:.85;margin-top:2px" id="storySub">The First Lesson<span class="zh"> · 第一課</span></span></button>
     <button class="btn ghost" id="chapBtn" style="margin-top:9px;min-height:44px;font-size:14px">Chapter index<span class="zh"> · 章回目錄</span></button>
+    <button class="btn ghost" id="recBtn" style="margin-top:9px;min-height:44px;font-size:14px">Your record<span class="zh"> · 修習錄</span></button>
   </section>
 
   <div class="scrim" id="scrim"></div>
@@ -800,6 +801,7 @@ const storyHref=()=>nextChapter().href;
 $("n-main").onclick=()=>{location.href=storyHref()};
 $("storyBtn").onclick=()=>{location.href=storyHref()};
 $("chapBtn").onclick=openChapters;
+$("recBtn").onclick=()=>{location.href="progress.html"};
 
 /* resume */
 if(S.char){cur=S.char;enterHub()}
