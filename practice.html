@@ -18,9 +18,11 @@
 <title>Practice 練習 · Apricot Grove</title>
 <style>
 :root{
-  --paper:#F2EAD8;--paper2:#E7DBBE;--ink:#332F28;--ink-soft:#6E675A;--ink-faint:#9A9182;
-  --sage:#7B8B6F;--sage-deep:#4E5D46;--terra:#C26D4E;--terra-deep:#9D5238;
+  --paper:#F2EAD8;--paper2:#E7DBBE;--ink:#332F28;--ink-soft:#595349;--ink-faint:#676054;
+  --sage:#7B8B6F;--sage-deep:#4E5D46;--terra:#B15C3D;--terra-deep:#9D5238;
   --gold:#B08D3E;--seal:#A63B2A;--white:#FDFBF4;
+  /* text-safe tier: fills keep their colour, words get a darker one */
+  --line:#9A9182;--gold-ink:#755E29;--terra-ink:#944D33;--sage-ink:#596450;
   --ok:#4E7A52;--no:#A63B2A;
   --sh-s:0 2px 6px rgba(51,47,40,.1);--sh:0 5px 16px rgba(51,47,40,.14);--sh-l:0 14px 34px rgba(51,47,40,.22);
   --ease:cubic-bezier(.22,.9,.3,1);
@@ -50,7 +52,7 @@ body{font-family:"Songti TC","Noto Serif TC",Georgia,serif;background:#CFC3A8;co
 .zh{display:block;font-size:.84em;color:var(--ink-soft);margin-top:4px;line-height:1.65}
 body.nozh .zh{display:none !important}
 .chapline{position:relative;z-index:5;text-align:center;font-family:"Courier New",monospace;font-size:10px;
-  letter-spacing:.34em;color:var(--gold);text-transform:uppercase;padding:calc(14px + env(safe-area-inset-top)) 46px 0}
+  letter-spacing:.34em;color:var(--gold-ink);text-transform:uppercase;padding:calc(14px + env(safe-area-inset-top)) 46px 0}
 .screen{position:absolute;inset:0;z-index:3;display:none;flex-direction:column;
   padding:calc(42px + env(safe-area-inset-top)) 18px calc(14px + env(safe-area-inset-bottom));
   overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
@@ -62,7 +64,7 @@ body.nozh .zh{display:none !important}
   border-radius:16px;padding:13px 15px;box-shadow:var(--sh);margin-bottom:13px}
 .mrow canvas{image-rendering:pixelated;width:60px;height:68px;flex:none;filter:drop-shadow(0 3px 4px rgba(51,47,40,.24))}
 .mrow .mt{flex:1;min-width:0;font-size:14px;line-height:1.75}
-.mrow .mt .nm{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.22em;color:var(--terra);
+.mrow .mt .nm{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.22em;color:var(--terra-ink);
   text-transform:uppercase;margin-bottom:5px}
 
 h1.dt{font-size:25px;letter-spacing:.05em;text-align:center;margin-bottom:2px}
@@ -79,10 +81,10 @@ h1.dt .zh{font-size:15px;margin-top:5px}
    which silently slid this row up under the chapter line. */
 .srow{padding-right:40px;display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;position:relative;z-index:4}
 .srow .rnd{font-family:"Courier New",monospace;font-size:11px;letter-spacing:.16em;color:var(--ink-faint)}
-.srow .sc{font-family:"Courier New",monospace;font-size:15px;color:var(--terra)}
+.srow .sc{font-family:"Courier New",monospace;font-size:15px;color:var(--terra-ink)}
 .bar{height:5px;border-radius:3px;background:rgba(51,47,40,.1);overflow:hidden;margin-bottom:12px;position:relative;z-index:4}
 .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--sage),var(--gold));width:0;transition:width .4s var(--ease)}
-.kind{font-family:"Courier New",monospace;font-size:9.5px;letter-spacing:.26em;color:var(--gold);
+.kind{font-family:"Courier New",monospace;font-size:10.5px;letter-spacing:.26em;color:var(--gold-ink);
   text-transform:uppercase;text-align:center;margin-bottom:7px}
 .q{font-size:16.5px;line-height:1.65;margin-bottom:12px}
 .q .zh{font-size:13.5px}
@@ -109,26 +111,26 @@ body.nozh .opt .c{display:none}
 .chip .c{display:block;font-size:12px;color:var(--ink-soft);margin-top:2px}
 body.nozh .chip .c{display:none}
 .chip.done{border-color:var(--ok);background:#F1F6EE;opacity:.55;pointer-events:none}
-.chip.sel{border-color:var(--gold);background:#FBF6E8}
+.chip.sel{border-color:var(--gold-ink);background:#FBF6E8}
 .chip.shake{animation:shake .34s}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
 .slots{display:flex;flex-direction:column;gap:6px;margin-bottom:11px;min-height:8px}
 .slot{display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.7);border:1px dashed rgba(51,47,40,.2);
   border-radius:11px;padding:8px 11px;font-size:13.5px;line-height:1.5}
-.slot .n{font-family:"Courier New",monospace;font-size:11px;color:var(--gold);flex:none;width:15px}
+.slot .n{font-family:"Courier New",monospace;font-size:11px;color:var(--gold-ink);flex:none;width:15px}
 .slot .c{display:block;font-size:11.5px;color:var(--ink-soft)}
 body.nozh .slot .c{display:none}
 .slot.filled{border-style:solid;border-color:rgba(78,122,82,.45);background:#F3F7F1}
 .mgrid{display:flex;gap:9px}
 .mcol{flex:1;display:flex;flex-direction:column;gap:8px;min-width:0}
-.mcol h4{font-family:"Courier New",monospace;font-size:9.5px;letter-spacing:.2em;color:var(--ink-faint);
+.mcol h4{font-family:"Courier New",monospace;font-size:10.5px;letter-spacing:.2em;color:var(--ink-faint);
   text-align:center;margin-bottom:1px}
 
 /* feedback */
 .fb{background:var(--white);border-left:4px solid var(--sage);border-radius:11px;padding:12px 14px;font-size:13px;
   line-height:1.75;box-shadow:var(--sh-s);color:var(--ink-soft);margin-top:11px}
 .fb b{color:var(--ink)}
-.fb.warn{border-left-color:var(--terra)}
+.fb.warn{border-left-color:var(--terra-ink)}
 .fb .hd{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.22em;margin-bottom:5px;color:var(--ok)}
 .fb.warn .hd{color:var(--no)}
 
@@ -143,24 +145,36 @@ body.nozh .slot .c{display:none}
 
 /* result */
 .res{margin:auto 0;text-align:center;display:flex;flex-direction:column;align-items:center;gap:9px}
-.stars{font-size:38px;color:var(--gold);letter-spacing:.14em}
+.stars{font-size:38px;color:var(--gold-ink);letter-spacing:.14em}
 .stars .off{opacity:.2}
 .res h2{font-size:24px;letter-spacing:.1em}
 .gain{background:var(--white);border:2px solid var(--gold);border-radius:16px;padding:13px 17px;box-shadow:var(--sh);max-width:340px}
-.gain .rar{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.24em;color:var(--gold)}
+.gain .rar{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.24em;color:var(--gold-ink)}
 .gain h3{font-size:18px;margin:3px 0 5px}
 .gain p{font-size:12.5px;color:var(--ink-soft);line-height:1.7}
 .missed{background:rgba(255,255,255,.6);border:1px dashed rgba(51,47,40,.22);border-radius:12px;padding:11px 13px;
   max-width:350px;text-align:left;font-size:12.5px;line-height:1.75;color:var(--ink-soft)}
-.missed h4{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.22em;color:var(--terra);margin-bottom:6px}
+.missed h4{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.22em;color:var(--terra-ink);margin-bottom:6px}
 .missed li{margin-bottom:5px;list-style:none}
 .note{font-size:10.5px;color:var(--ink-faint);line-height:1.7;text-align:center;margin-top:8px}
 </style>
-<link rel="stylesheet" href="desktop.css?v=49">
-<script src="state.js?v=49"></script>
-<script src="data/mentors.js?v=49"></script>
-<script src="data/practice.js?v=49"></script>
-<script src="hud.js?v=49"></script>
+<link rel="stylesheet" href="desktop.css?v=55">
+<script src="state.js?v=55"></script>
+<script src="data/mentors.js?v=55"></script>
+<script>
+/* One deck, not eleven — same reasoning as chapter.html above. */
+(function(){
+  var v = "?v=55";
+  var id = (new URLSearchParams(location.search).get("d") || "").replace(/[^a-z0-9_-]/gi, "");
+  if (!id) id = "wuxing";
+  document.write('<scr' + 'ipt src="data/practice/' + id + '.js' + v + '"></scr' + 'ipt>');
+  /* same guard: an unknown deck id 404s, so fall back to the whole set and let
+     the page show its own "practice not found" screen */
+  document.write('<scr' + 'ipt>if(!window.AG_PRACTICE||!window.AG_PRACTICE["' + id + '"])'
+    + 'document.write(\'<scr\'+\'ipt src="data/practice.js' + v + '"></scr\'+\'ipt>\');</scr' + 'ipt>');
+})();
+</script>
+<script src="hud.js?v=55"></script>
 </head>
 <body data-page="practice">
 <div id="app">
@@ -417,7 +431,7 @@ function finish(){
       : "Read the review below before you leave — the ones you missed are the only part of this round that is still worth your time.")
     +zh(n===3?"一次也沒有猜。這就是一個類別真正記住的樣子。"
              :"走之前先看下面的複習。這一輪裡，只有答錯的那幾題還值得你的時間。")
-    +'<br><br><span style="font-family:\'Courier New\',monospace;color:var(--terra);font-size:13px">'
+    +'<br><br><span style="font-family:\'Courier New\',monospace;color:var(--terra-ink);font-size:13px">'
     +right+" / "+TOTAL+" correct · "+axis+" "+(S.stats[axis]||0)+"/4</span>";
   if(missed.length){
     $("missed").hidden=false;

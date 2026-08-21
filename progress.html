@@ -16,9 +16,11 @@
 <title>Your Record 修習錄 · Apricot Grove</title>
 <style>
 :root{
-  --paper:#F2EAD8;--paper2:#E7DBBE;--ink:#332F28;--ink-soft:#6E675A;--ink-faint:#9A9182;
-  --sage:#7B8B6F;--sage-deep:#4E5D46;--terra:#C26D4E;--terra-deep:#9D5238;
-  --gold:#B08D3E;--seal:#A63B2A;--white:#FDFBF4;--ok:#4E7A52;
+  --paper:#F2EAD8;--paper2:#E7DBBE;--ink:#332F28;--ink-soft:#595349;--ink-faint:#676054;
+  --sage:#7B8B6F;--sage-deep:#4E5D46;--terra:#B15C3D;--terra-deep:#9D5238;
+  --gold:#B08D3E;--seal:#A63B2A;--white:#FDFBF4;
+  /* text-safe tier: fills keep their colour, words get a darker one */
+  --line:#9A9182;--gold-ink:#755E29;--terra-ink:#944D33;--sage-ink:#596450;--ok:#4E7A52;
   --sh-s:0 2px 6px rgba(51,47,40,.1);--sh:0 5px 16px rgba(51,47,40,.14);
   --ease:cubic-bezier(.22,.9,.3,1);
 }
@@ -41,7 +43,7 @@ body{font-family:"Songti TC","Noto Serif TC",Georgia,serif;background:#CFC3A8;co
 .zh{display:block;font-size:.84em;color:var(--ink-soft);margin-top:3px;line-height:1.6}
 body.nozh .zh{display:none !important}
 .chapline{position:relative;z-index:5;text-align:center;font-family:"Courier New",monospace;font-size:10px;
-  letter-spacing:.34em;color:var(--gold);text-transform:uppercase;padding:calc(14px + env(safe-area-inset-top)) 46px 0}
+  letter-spacing:.34em;color:var(--gold-ink);text-transform:uppercase;padding:calc(14px + env(safe-area-inset-top)) 46px 0}
 .screen{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;
   padding:calc(42px + env(safe-area-inset-top)) 18px calc(14px + env(safe-area-inset-bottom));
   overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
@@ -49,12 +51,12 @@ body.nozh .zh{display:none !important}
 h1{font-size:25px;letter-spacing:.05em;text-align:center;margin-bottom:3px}
 h1 .zh{font-size:15px;margin-top:5px}
 .rankline{text-align:center;font-family:"Courier New",monospace;font-size:11.5px;letter-spacing:.16em;
-  color:var(--terra);margin-bottom:14px}
+  color:var(--terra-ink);margin-bottom:14px}
 
 /* the one thing to do next */
 .next{background:var(--white);border:2px solid var(--gold);border-radius:16px;padding:14px 16px;
   box-shadow:var(--sh);margin-bottom:16px}
-.next .lbl{font-family:"Courier New",monospace;font-size:9.5px;letter-spacing:.26em;color:var(--gold);
+.next .lbl{font-family:"Courier New",monospace;font-size:10.5px;letter-spacing:.26em;color:var(--gold-ink);
   text-transform:uppercase;margin-bottom:6px}
 .next b{font-size:16px;display:block;line-height:1.5}
 .next small{display:block;font-size:12.5px;color:var(--ink-soft);margin-top:4px;line-height:1.6}
@@ -66,7 +68,7 @@ h1 .zh{font-size:15px;margin-top:5px}
 .sec{background:var(--white);border:1.5px solid rgba(51,47,40,.1);border-radius:15px;padding:13px 15px;
   box-shadow:var(--sh-s);margin-bottom:12px}
 .sec h2{font-size:14px;letter-spacing:.04em;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
-.sec h2 em{font-style:normal;font-family:"Courier New",monospace;font-size:12px;color:var(--terra);flex:none}
+.sec h2 em{font-style:normal;font-family:"Courier New",monospace;font-size:12px;color:var(--terra-ink);flex:none}
 .sec h2 .zh{display:inline;font-size:12px;margin:0}
 body.nozh .sec h2 .zh{display:none}
 .meter{height:7px;border-radius:4px;background:rgba(51,47,40,.09);overflow:hidden;margin:9px 0 4px}
@@ -81,7 +83,7 @@ body.nozh .sec h2 .zh{display:none}
 .ax .pips{display:flex;gap:3px;flex:1}
 .ax .pips i{flex:1;height:8px;border-radius:2px;background:rgba(51,47,40,.1)}
 .ax .pips i.on{background:var(--sage)}
-.ax .lv{flex:none;font-family:"Courier New",monospace;font-size:11.5px;color:var(--gold)}
+.ax .lv{flex:none;font-family:"Courier New",monospace;font-size:11.5px;color:var(--gold-ink)}
 
 /* chip grids */
 .chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
@@ -94,7 +96,7 @@ body.nozh .sec h2 .zh{display:none}
 .row .tick.off{color:rgba(51,47,40,.18)}
 .row .t{flex:1;min-width:0}
 .row .t small{display:block;font-size:11px;color:var(--ink-faint)}
-.row .st{flex:none;font-size:12px;color:var(--gold);letter-spacing:.06em}
+.row .st{flex:none;font-size:12px;color:var(--gold-ink);letter-spacing:.06em}
 .row a{color:inherit;text-decoration:none;display:flex;align-items:center;gap:9px;flex:1;min-width:0}
 
 .btn{width:100%;min-height:50px;border:none;border-radius:14px;cursor:pointer;font-family:inherit;font-size:15.5px;
@@ -103,13 +105,13 @@ body.nozh .sec h2 .zh{display:none}
 .btn:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(51,47,40,.13)}
 .note{font-size:10.5px;color:var(--ink-faint);line-height:1.7;text-align:center;margin:10px 0 4px}
 </style>
-<link rel="stylesheet" href="desktop.css?v=49">
-<script src="state.js?v=49"></script>
-<script src="data/points.js?v=49"></script>
-<script src="data/herbs.js?v=49"></script>
-<script src="data/chapter-index.js?v=49"></script>
-<script src="data/practice-index.js?v=49"></script>
-<script src="hud.js?v=49"></script>
+<link rel="stylesheet" href="desktop.css?v=55">
+<script src="state.js?v=55"></script>
+<script src="data/points.js?v=55"></script>
+<script src="data/herbs.js?v=55"></script>
+<script src="data/chapter-index.js?v=55"></script>
+<script src="data/practice-index.js?v=55"></script>
+<script src="hud.js?v=55"></script>
 </head>
 <body data-page="progress">
 <div id="app">

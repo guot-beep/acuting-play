@@ -16,9 +16,11 @@
 <title>Sorting 歸類 · Apricot Grove</title>
 <style>
 :root{
-  --paper:#F2EAD8;--paper2:#E7DBBE;--ink:#332F28;--ink-soft:#6E675A;--ink-faint:#9A9182;
-  --sage:#7B8B6F;--sage-deep:#4E5D46;--terra:#C26D4E;--terra-deep:#9D5238;
-  --gold:#B08D3E;--seal:#A63B2A;--white:#FDFBF4;--ok:#4E7A52;--no:#A63B2A;
+  --paper:#F2EAD8;--paper2:#E7DBBE;--ink:#332F28;--ink-soft:#595349;--ink-faint:#676054;
+  --sage:#7B8B6F;--sage-deep:#4E5D46;--terra:#B15C3D;--terra-deep:#9D5238;
+  --gold:#B08D3E;--seal:#A63B2A;--white:#FDFBF4;
+  /* text-safe tier: fills keep their colour, words get a darker one */
+  --line:#9A9182;--gold-ink:#755E29;--terra-ink:#944D33;--sage-ink:#596450;--ok:#4E7A52;--no:#A63B2A;
   --sh-s:0 2px 6px rgba(51,47,40,.1);--sh:0 5px 16px rgba(51,47,40,.14);--sh-l:0 14px 34px rgba(51,47,40,.22);
   --ease:cubic-bezier(.22,.9,.3,1);
 }
@@ -46,7 +48,7 @@ body{font-family:"Songti TC","Noto Serif TC",Georgia,serif;background:#CFC3A8;co
 .zh{display:block;font-size:.84em;color:var(--ink-soft);margin-top:4px;line-height:1.65}
 body.nozh .zh{display:none !important}
 .chapline{position:relative;z-index:5;text-align:center;font-family:"Courier New",monospace;font-size:10px;
-  letter-spacing:.34em;color:var(--gold);text-transform:uppercase;padding:calc(14px + env(safe-area-inset-top)) 46px 0}
+  letter-spacing:.34em;color:var(--gold-ink);text-transform:uppercase;padding:calc(14px + env(safe-area-inset-top)) 46px 0}
 .screen{position:absolute;inset:0;z-index:3;display:none;flex-direction:column;
   padding:calc(42px + env(safe-area-inset-top)) 18px calc(14px + env(safe-area-inset-bottom));
   overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
@@ -71,7 +73,7 @@ body.nozh .lg small{display:none}
    which silently slid this row up under the chapter line. */
 .srow{padding-right:40px;display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;position:relative;z-index:4}
 .srow .rnd{font-family:"Courier New",monospace;font-size:11px;letter-spacing:.16em;color:var(--ink-faint)}
-.srow .sc{font-family:"Courier New",monospace;font-size:15px;color:var(--terra)}
+.srow .sc{font-family:"Courier New",monospace;font-size:15px;color:var(--terra-ink)}
 .bar{height:5px;border-radius:3px;background:rgba(51,47,40,.1);overflow:hidden;margin-bottom:10px;position:relative;z-index:4}
 .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--sage),var(--gold));width:0;transition:width .4s var(--ease)}
 
@@ -95,7 +97,7 @@ body.nozh .lg small{display:none}
 .fb{background:var(--white);border-left:4px solid var(--sage);border-radius:11px;padding:12px 14px;font-size:13px;
   line-height:1.75;box-shadow:var(--sh-s);color:var(--ink-soft);margin-top:11px}
 .fb b{color:var(--ink)}
-.fb.warn{border-left-color:var(--terra)}
+.fb.warn{border-left-color:var(--terra-ink)}
 .fb .hd{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.22em;margin-bottom:5px;color:var(--ok)}
 .fb.warn .hd{color:var(--no)}
 
@@ -108,20 +110,20 @@ body.nozh .lg small{display:none}
 .btn small{display:block;font-size:11.5px;letter-spacing:.06em;opacity:.85;margin-top:2px}
 .spacer{flex:1;min-height:6px}
 .res{margin:auto 0;text-align:center;display:flex;flex-direction:column;align-items:center;gap:9px}
-.stars{font-size:38px;color:var(--gold);letter-spacing:.14em}
+.stars{font-size:38px;color:var(--gold-ink);letter-spacing:.14em}
 .stars .off{opacity:.2}
 .res h2{font-size:24px;letter-spacing:.1em}
 .missed{background:rgba(255,255,255,.6);border:1px dashed rgba(51,47,40,.22);border-radius:12px;padding:11px 13px;
   max-width:350px;text-align:left;font-size:12.5px;line-height:1.8;color:var(--ink-soft)}
-.missed h4{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.22em;color:var(--terra);margin-bottom:6px}
+.missed h4{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.22em;color:var(--terra-ink);margin-bottom:6px}
 .missed li{margin-bottom:6px;list-style:none}
 .note{font-size:10.5px;color:var(--ink-faint);line-height:1.7;text-align:center;margin-top:8px}
 </style>
-<link rel="stylesheet" href="desktop.css?v=49">
-<script src="state.js?v=49"></script>
-<script src="data/mentors.js?v=49"></script>
-<script src="data/sorts.js?v=49"></script>
-<script src="hud.js?v=49"></script>
+<link rel="stylesheet" href="desktop.css?v=55">
+<script src="state.js?v=55"></script>
+<script src="data/mentors.js?v=55"></script>
+<script src="data/sorts.js?v=55"></script>
+<script src="hud.js?v=55"></script>
 </head>
 <body data-page="sort">
 <div id="app">
@@ -201,7 +203,7 @@ if(!D){
   $("roombg").style.backgroundImage='url("'+M.scene+'")';
   if(window.AG_MENTORS) AG_MENTORS.animate($("mCv"), M.k);
   $("mLine").innerHTML='<div style="font-family:\'Courier New\',monospace;font-size:10px;letter-spacing:.22em;'
-    +'color:var(--terra);text-transform:uppercase;margin-bottom:5px">'+M.nm+zh(" · "+M.zh)+"</div>"
+    +'color:var(--terra-ink);text-transform:uppercase;margin-bottom:5px">'+M.nm+zh(" · "+M.zh)+"</div>"
     +(D.intro?D.intro.en+zh(D.intro.zh):"");
   $("dTitle").innerHTML=D.title.en+zh(D.title.zh);
   $("dSub").innerHTML=(D.blurb?D.blurb.en+zh(D.blurb.zh):"");
@@ -266,7 +268,7 @@ function finish(){
   $("rx").innerHTML=(n===3?"No hesitation. A correspondence chart you can sort at speed is one you actually own."
       :"Read the review before you go — those are the pairs still worth your attention.")
     +zh(n===3?"沒有猶豫。能快速歸類的對照表，才是真正記住的表。":"走之前看一下複習——那幾組才是還需要你注意的。")
-    +'<br><br><span style="font-family:\'Courier New\',monospace;color:var(--terra);font-size:13px">'
+    +'<br><br><span style="font-family:\'Courier New\',monospace;color:var(--terra-ink);font-size:13px">'
     +right+" / "+deck.length+" correct · "+axis+" "+(S.stats[axis]||0)+"/4</span>";
   if(missed.length){
     $("missed").hidden=false;

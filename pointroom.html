@@ -31,9 +31,11 @@
 -->
 <style>
 :root{
-  --paper:#F2EAD8;--paper2:#E7DBBE;--ink:#332F28;--ink-soft:#6E675A;--ink-faint:#9A9182;
-  --sage:#7B8B6F;--sage-deep:#4E5D46;--terra:#C26D4E;--terra-deep:#9D5238;
+  --paper:#F2EAD8;--paper2:#E7DBBE;--ink:#332F28;--ink-soft:#595349;--ink-faint:#676054;
+  --sage:#7B8B6F;--sage-deep:#4E5D46;--terra:#B15C3D;--terra-deep:#9D5238;
   --gold:#B08D3E;--seal:#A63B2A;--white:#FDFBF4;
+  /* text-safe tier: fills keep their colour, words get a darker one */
+  --line:#9A9182;--gold-ink:#755E29;--terra-ink:#944D33;--sage-ink:#596450;
   --sh-s:0 2px 6px rgba(51,47,40,.1);--sh:0 5px 16px rgba(51,47,40,.14);--sh-l:0 14px 34px rgba(51,47,40,.22);
   --ease:cubic-bezier(.22,.9,.3,1);
 }
@@ -62,7 +64,7 @@ body.nozh .zh{display:none !important}
   background:linear-gradient(180deg,rgba(242,234,216,.86) 0%,rgba(242,234,216,.66) 40%,rgba(242,234,216,.94) 100%)}
 
 .chapline{position:relative;z-index:5;text-align:center;font-family:"Courier New",monospace;font-size:10px;
-  letter-spacing:.36em;color:var(--gold);text-transform:uppercase;
+  letter-spacing:.36em;color:var(--gold-ink);text-transform:uppercase;
   padding-top:calc(8px + env(safe-area-inset-top));height:calc(26px + env(safe-area-inset-top))}
 .screen{position:absolute;inset:0;z-index:3;display:none;flex-direction:column;
   padding:0 20px;overflow:hidden}
@@ -95,7 +97,7 @@ h2.rt{font-size:25px;letter-spacing:.1em;text-align:center;margin:2px 0 3px}
 .jar img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:11px;display:block;margin-bottom:8px;
   background:var(--paper2)}
 .jar .plate{display:flex;align-items:center;justify-content:center;width:100%;aspect-ratio:1/1;
-  border-radius:11px;background:var(--paper2);color:var(--gold);font-size:40px;margin-bottom:8px}
+  border-radius:11px;background:var(--paper2);color:var(--gold-ink);font-size:40px;margin-bottom:8px}
 .jar b{display:block;font-size:14px;line-height:1.35}
 .jar .py{display:block;font-family:"Courier New",monospace;font-size:10px;letter-spacing:.14em;
   color:var(--ink-faint);margin-top:3px}
@@ -112,7 +114,7 @@ h2.rt{font-size:25px;letter-spacing:.1em;text-align:center;margin:2px 0 3px}
 .portrait{width:min(56vw,208px);aspect-ratio:1/1;object-fit:cover;border-radius:20px;flex:none;
   border:3px solid var(--white);box-shadow:var(--sh-l);background:var(--paper2);
   animation:bob 3.4s ease-in-out infinite}
-.portrait.plate{display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:74px}
+.portrait.plate{display:flex;align-items:center;justify-content:center;color:var(--gold-ink);font-size:74px}
 @keyframes bob{50%{transform:translateY(-6px)}}
 .hname{text-align:center;margin:12px 0 2px;font-size:22px;letter-spacing:.06em}
 .hnature{text-align:center;font-size:12px;line-height:1.7;color:var(--ink-soft);margin-bottom:12px}
@@ -128,7 +130,7 @@ h2.rt{font-size:25px;letter-spacing:.1em;text-align:center;margin:2px 0 3px}
 .dots i.on{background:var(--gold)}
 
 /* ── questions ── */
-.qline{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.28em;color:var(--gold);
+.qline{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.28em;color:var(--gold-ink);
   text-transform:uppercase;text-align:center;margin-bottom:8px}
 .q{font-size:17.5px;line-height:1.7;text-align:center;margin-bottom:14px}
 .q .zh{font-size:13.5px}
@@ -138,14 +140,14 @@ h2.rt{font-size:25px;letter-spacing:.1em;text-align:center;margin:2px 0 3px}
   box-shadow:var(--sh-s);transition:transform .16s var(--ease),border-color .16s;min-height:52px}
 .opt:active{transform:scale(.985)}
 .opt.good{border-color:var(--sage-deep);background:rgba(123,139,111,.12)}
-.opt.bad{border-color:var(--terra);background:rgba(194,109,78,.1)}
+.opt.bad{border-color:var(--terra-ink);background:rgba(194,109,78,.1)}
 .opt.used{cursor:default}
 .opt .zh{font-size:12.5px}
 .fb{display:none;margin-top:12px;background:rgba(255,255,255,.72);border-left:3px solid var(--gold);
   border-radius:0 12px 12px 0;padding:12px 14px;font-size:13.5px;line-height:1.8;color:var(--ink-soft)}
 .fb.show{display:block;animation:fade .3s var(--ease)}
 .fb b{color:var(--ink)}
-.fb.wrong{border-left-color:var(--terra)}
+.fb.wrong{border-left-color:var(--terra-ink)}
 
 /* ── the card ── */
 .card{background:var(--white);border:1.5px solid var(--sage);border-radius:18px;padding:16px;
@@ -154,12 +156,12 @@ h2.rt{font-size:25px;letter-spacing:.1em;text-align:center;margin:2px 0 3px}
   text-transform:uppercase;margin-bottom:9px}
 .card img,.card .plate{width:100%;max-width:320px;aspect-ratio:1/1;object-fit:contain;border-radius:13px;
   margin:0 auto 10px;display:block;background:var(--paper2)}
-.card .plate{display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:60px}
+.card .plate{display:flex;align-items:center;justify-content:center;color:var(--gold-ink);font-size:60px}
 .card h3{font-size:20px;margin-bottom:4px}
 .card .nature{font-size:12px;color:var(--ink-soft);line-height:1.7;margin-bottom:9px}
 .card p{font-size:13.5px;line-height:1.75;color:var(--ink-soft)}
 .score{text-align:center;font-family:"Courier New",monospace;font-size:12.5px;letter-spacing:.14em;
-  color:var(--gold);margin:14px 0 4px}
+  color:var(--gold-ink);margin:14px 0 4px}
 
 .btn{width:100%;min-height:52px;border:none;border-radius:14px;cursor:pointer;font-family:inherit;font-size:16px;
   letter-spacing:.14em;background:var(--terra);color:var(--white);box-shadow:0 5px 0 var(--terra-deep),var(--sh);
@@ -173,7 +175,7 @@ h2.rt{font-size:25px;letter-spacing:.1em;text-align:center;margin:2px 0 3px}
 /* ── added for the Point Hall ── */
 .roombg{background-image:url("art/scene-needles.jpg")}
 .shelfhead{grid-column:1/-1;font-family:"Courier New",monospace;font-size:10px;letter-spacing:.28em;
-  color:var(--gold);text-transform:uppercase;margin:14px 0 -2px;text-align:center}
+  color:var(--gold-ink);text-transform:uppercase;margin:14px 0 -2px;text-align:center}
 .shelfhead:first-child{margin-top:0}
 .jar .code{display:block;font-family:"Courier New",monospace;font-size:11px;letter-spacing:.1em;
   color:var(--terra-deep);margin-bottom:2px}
@@ -181,12 +183,12 @@ h2.rt{font-size:25px;letter-spacing:.1em;text-align:center;margin:2px 0 3px}
 /* which points still need a plate — so Ting can see the gap at a glance
    instead of tapping through 39 cards to find out */
 .jar .noart{display:inline-block;margin-top:6px;padding:2px 8px;border-radius:99px;
-  background:rgba(176,141,62,.14);color:var(--gold);font-family:"Courier New",monospace;
-  font-size:9px;letter-spacing:.14em;text-transform:uppercase}
+  background:rgba(176,141,62,.14);color:var(--gold-ink);font-family:"Courier New",monospace;
+  font-size:10.5px;letter-spacing:.14em;text-transform:uppercase}
 .jar .noart .zh{display:inline;margin:0 0 0 4px;font-family:"Songti TC",serif;
-  font-size:10px;letter-spacing:0;color:var(--gold)}
+  font-size:10px;letter-spacing:0;color:var(--gold-ink)}
 .artcount{text-align:center;font-family:"Courier New",monospace;font-size:10.5px;
-  letter-spacing:.18em;color:var(--gold);margin:10px 0 2px}
+  letter-spacing:.18em;color:var(--gold-ink);margin:10px 0 2px}
 /* the anatomy plate is a wide photograph, so it gets a band rather than a square */
 /* channel plates carry labels and cun marks — cropping them destroys the
    teaching, so they are contained, not covered, and keep their own ratio */
@@ -199,8 +201,8 @@ h2.rt{font-size:25px;letter-spacing:.1em;text-align:center;margin:2px 0 3px}
 .facts{text-align:left;margin-top:10px}
 .fact{border-top:1px solid rgba(51,47,40,.1);padding:9px 2px 0;margin-top:9px}
 .fact:first-child{border-top:none;margin-top:0;padding-top:0}
-.fact b{display:block;font-family:"Courier New",monospace;font-size:9.5px;letter-spacing:.22em;
-  text-transform:uppercase;color:var(--gold);margin-bottom:3px}
+.fact b{display:block;font-family:"Courier New",monospace;font-size:10.5px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--gold-ink);margin-bottom:3px}
 .fact span.v{display:block;font-size:13.5px;line-height:1.75;color:var(--ink-soft)}
 .fact.warn b{color:var(--terra-deep)}
 .fact.warn{background:rgba(194,109,78,.07);border-radius:10px;padding:9px 11px;border-top:none;
@@ -280,11 +282,11 @@ h2.rt{font-size:25px;letter-spacing:.1em;text-align:center;margin:2px 0 3px}
   </section>
 </div>
 
-<script src="state.js?v=49"></script>
-<script src="data/points.js?v=49"></script>
-<script src="data/pointstory.js?v=49"></script>
-<script src="hud.js?v=49"></script>
-<link rel="stylesheet" href="desktop.css?v=49">
+<script src="state.js?v=55"></script>
+<script src="data/points.js?v=55"></script>
+<script src="data/pointstory.js?v=55"></script>
+<script src="hud.js?v=55"></script>
+<link rel="stylesheet" href="desktop.css?v=55">
 <script>
 const $ = id => document.getElementById(id);
 const STORY  = window.AG_POINTSTORY || [];

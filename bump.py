@@ -34,6 +34,9 @@ def main():
     for f in sorted(glob.glob(os.path.join(HERE, "*.html"))):
         s = open(f).read()
         new = PAT.sub(lambda m: '%s="%s?v=%d"' % (m.group("attr"), m.group("file"), v), s)
+        # chapter.html and practice.html build their data src in JS, so the
+        # version lives in a variable rather than an attribute
+        new = re.sub(r'var v = "\?v=[^"]*";', 'var v = "?v=%d";' % v, new)
         if new != s:
             open(f, "w").write(new)
             touched.append(os.path.basename(f))

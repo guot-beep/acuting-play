@@ -21,9 +21,11 @@
 <title>Apricot Grove 杏林行</title>
 <style>
 :root{
-  --paper:#F2EAD8;--paper2:#E7DBBE;--ink:#332F28;--ink-soft:#6E675A;--ink-faint:#9A9182;
-  --sage:#7B8B6F;--sage-deep:#4E5D46;--terra:#C26D4E;--terra-deep:#9D5238;
+  --paper:#F2EAD8;--paper2:#E7DBBE;--ink:#332F28;--ink-soft:#595349;--ink-faint:#676054;
+  --sage:#7B8B6F;--sage-deep:#4E5D46;--terra:#B15C3D;--terra-deep:#9D5238;
   --gold:#B08D3E;--seal:#A63B2A;--white:#FDFBF4;
+  /* text-safe tier: fills keep their colour, words get a darker one */
+  --line:#9A9182;--gold-ink:#755E29;--terra-ink:#944D33;--sage-ink:#596450;
   --sh-s:0 2px 6px rgba(51,47,40,.10);--sh:0 5px 16px rgba(51,47,40,.14);--sh-l:0 12px 32px rgba(51,47,40,.18);
   --ease:cubic-bezier(.22,.9,.3,1);
 }
@@ -67,7 +69,7 @@ body.nozh .zh{display:none !important}
   .panel{padding:9px 11px;margin-bottom:8px}
   .radar-wrap svg{width:112px;height:112px}
   .legend div{font-size:11.5px;gap:5px}
-  .panel h3{font-size:9.5px}
+  .panel h3{font-size:10.5px}
   .mapbox{margin-bottom:8px}
   #s4 .note{display:none}
 }
@@ -81,7 +83,7 @@ body.nozh .node .glyph{display:none}     /* map: Chinese node glyphs */
 .screen.on{opacity:1;pointer-events:auto;transform:none}
 
 /* ── title ── */
-.eyebrow{font-family:"Courier New",monospace;font-size:10.5px;letter-spacing:.42em;color:var(--gold);
+.eyebrow{font-family:"Courier New",monospace;font-size:10.5px;letter-spacing:.42em;color:var(--gold-ink);
   text-transform:uppercase;text-align:center}
 h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;line-height:1.08;margin:6px 0 2px}
 .subtitle{text-align:center;font-size:12.5px;letter-spacing:.28em;color:var(--ink-soft);text-transform:uppercase;
@@ -109,7 +111,7 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
 .card .body{flex:1;min-width:0}
 .card .say{font-size:14.5px;line-height:1.6;color:var(--ink)}
 .card .say .zh{font-size:12.5px}
-.card .who{font-family:"Courier New",monospace;font-size:10.5px;letter-spacing:.2em;color:var(--terra);
+.card .who{font-family:"Courier New",monospace;font-size:10.5px;letter-spacing:.2em;color:var(--terra-ink);
   text-transform:uppercase;margin-top:7px}
 
 /* ── character detail ── */
@@ -118,7 +120,7 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
   animation:float 2.6s ease-in-out infinite}
 @keyframes float{50%{transform:translateY(-5px)}}
 .hero h2{font-size:29px;letter-spacing:.13em;margin-top:4px}
-.hero .role{font-family:"Courier New",monospace;font-size:11px;letter-spacing:.26em;color:var(--gold);text-transform:uppercase}
+.hero .role{font-family:"Courier New",monospace;font-size:11px;letter-spacing:.26em;color:var(--gold-ink);text-transform:uppercase}
 .bio{background:var(--white);border:1.5px solid rgba(51,47,40,.1);border-radius:15px;padding:14px 16px;
   font-size:14px;line-height:1.75;box-shadow:var(--sh);margin:14px 0 12px}
 .bio .zh{font-size:12.5px}
@@ -126,7 +128,7 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
 .trait{flex:1;background:rgba(255,255,255,.65);border:1px solid rgba(51,47,40,.1);border-radius:11px;padding:9px 10px;text-align:center}
 .trait b{display:block;font-size:11px;letter-spacing:.14em;color:var(--ink-soft);font-family:"Courier New",monospace}
 .trait span{font-size:13px;color:var(--ink);display:block;margin-top:3px}
-.trait.up span{color:var(--sage-deep)}.trait.down span{color:var(--terra)}
+.trait.up span{color:var(--sage-deep)}.trait.down span{color:var(--terra-ink)}
 
 /* ── buttons ── */
 .btn{width:100%;min-height:52px;border:none;border-radius:14px;cursor:pointer;font-family:inherit;font-size:16.5px;
@@ -146,13 +148,13 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
 .topbar .nm b{font-size:15px;display:block}
 .topbar .nm small{font-size:11px;color:var(--ink-soft);font-family:"Courier New",monospace;letter-spacing:.1em}
 .stat{text-align:right;font-family:"Courier New",monospace}
-.stat b{display:block;font-size:16px;color:var(--terra)}
-.stat small{font-size:9.5px;letter-spacing:.16em;color:var(--ink-faint)}
+.stat b{display:block;font-size:16px;color:var(--terra-ink)}
+.stat small{font-size:10.5px;letter-spacing:.16em;color:var(--ink-faint)}
 
 /* ── radar ── */
 .panel{background:var(--white);border:1.5px solid rgba(51,47,40,.1);border-radius:16px;padding:13px;
   box-shadow:var(--sh);margin-bottom:12px}
-.panel h3{font-family:"Courier New",monospace;font-size:10.5px;letter-spacing:.3em;color:var(--gold);
+.panel h3{font-family:"Courier New",monospace;font-size:10.5px;letter-spacing:.3em;color:var(--gold-ink);
   text-transform:uppercase;margin-bottom:2px}
 .radar-wrap{display:flex;align-items:center;gap:10px}
 .radar-wrap svg{width:150px;height:150px;flex:none}
@@ -164,7 +166,7 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
   transition:all .9s var(--ease)}
 .rgrid{fill:none;stroke:#D4C9AE;stroke-width:1}
 .rax{stroke:#D4C9AE;stroke-width:1}
-.rlab{font-size:9px;fill:var(--ink-soft);font-family:"Courier New",monospace;letter-spacing:.06em}
+.rlab{font-size:10.5px;fill:var(--ink-soft);font-family:"Courier New",monospace;letter-spacing:.06em}
 
 
 /* ── title screen ──────────────────────────────────────────────────
@@ -190,7 +192,7 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
 .titlecard{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;
   align-items:center;justify-content:center;text-align:center;
   padding:2px 24px calc(16px + env(safe-area-inset-bottom));gap:0}
-#s1 .eyebrow{color:var(--gold)}
+#s1 .eyebrow{color:var(--gold-ink)}
 #s1 .title{font-size:clamp(28px,8.6vw,42px);letter-spacing:.05em;margin:4px 0 0;
   line-height:1.08;max-width:100%;overflow-wrap:break-word}
 #s1 .subtitle{font-size:clamp(15px,4.4vw,19px);letter-spacing:.36em;margin-top:4px}
@@ -263,7 +265,7 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
 .node.daily .ping{stroke:var(--gold)}
 .node.lock circle.pin{stroke:#BDB39B;fill:#F0E9D6}
 .node:active circle.pin{r:15}
-.node text{font-size:9.5px;fill:var(--ink);font-family:"Courier New",monospace;letter-spacing:.1em;text-anchor:middle}
+.node text{font-size:10.5px;fill:var(--ink);font-family:"Courier New",monospace;letter-spacing:.1em;text-anchor:middle}
         .node text.sub{font-size:8.5px;font-family:"Songti TC",serif;letter-spacing:.06em;fill:var(--ink-soft);opacity:.85}
 .node .glyph{font-size:14px;text-anchor:middle;font-family:"Songti TC",serif}
 .node.lock text,.node.lock .glyph,.node.lock text.sub{fill:var(--ink-faint)}
@@ -283,7 +285,7 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
 .mentor canvas{image-rendering:pixelated;width:62px;height:70px;flex:none;filter:drop-shadow(0 3px 4px rgba(51,47,40,.28))}
 .mentor .mi{flex:1}
 .mentor .school{font-size:22px;letter-spacing:.1em}
-.mentor .mname{font-family:"Courier New",monospace;font-size:10.5px;letter-spacing:.2em;color:var(--terra);
+.mentor .mname{font-family:"Courier New",monospace;font-size:10.5px;letter-spacing:.2em;color:var(--terra-ink);
   text-transform:uppercase;margin-top:3px}
 .quote{font-size:14px;line-height:1.75;background:var(--white);border-left:3px solid var(--sage);border-radius:10px;
   padding:11px 13px;box-shadow:var(--sh-s);margin-bottom:13px}
@@ -298,7 +300,7 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
 .gitem .gt{flex:1;min-width:0}
 .gitem .gt b{font-size:14.5px;display:block}
 .gitem .gt small{font-size:11.5px;color:var(--ink-soft);display:block;margin-top:2px;line-height:1.5}
-.gitem .go{font-size:12px;color:var(--terra);font-family:"Courier New",monospace;letter-spacing:.1em}
+.gitem .go{font-size:12px;color:var(--terra-ink);font-family:"Courier New",monospace;letter-spacing:.1em}
 .gitem.locked{opacity:.5;pointer-events:none}
 .gitem.locked .go{color:var(--ink-faint)}
 .note{font-size:11px;color:var(--ink-faint);text-align:center;line-height:1.7;margin-top:10px}
@@ -307,11 +309,11 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
   transition:.3s var(--ease);z-index:80;pointer-events:none}
 .toast.on{opacity:.95;transform:translate(-50%,0)}
 </style>
-<link rel="stylesheet" href="desktop.css?v=49">
-<script src="state.js?v=49"></script>
-<script src="data/herbs.js?v=49"></script>
-<script src="data/chapter-index.js?v=49"></script>
-<script src="hud.js?v=49"></script>
+<link rel="stylesheet" href="desktop.css?v=55">
+<script src="state.js?v=55"></script>
+<script src="data/herbs.js?v=55"></script>
+<script src="data/chapter-index.js?v=55"></script>
+<script src="hud.js?v=55"></script>
 </head>
 <body data-page="hub">
 <div id="app">
@@ -715,7 +717,7 @@ function openChapters(){
     return '<button class="gitem'+(open?"":" locked")+'" data-ch="'+id+'">'
       +'<div class="ic">'+(done?"✓":id)+'</div>'
       +'<div class="gt"><b>'+chLabel(id)+'</b><small>'+chSub(id)
-      +(c.pattern?'<br><span style="color:var(--gold)">'+c.pattern+'</span>':"")+'</small></div>'
+      +(c.pattern?'<br><span style="color:var(--gold-ink)">'+c.pattern+'</span>':"")+'</small></div>'
       +'<div class="go">'+(done?"REPLAY":open?"PLAY":"LOCKED")+' ▸</div></button>';
   }).join("");
   $("mGames").querySelectorAll(".gitem").forEach(btn=>{

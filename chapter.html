@@ -21,9 +21,11 @@
 <title>Chapter One · Apricot Grove 杏林行</title>
 <style>
   :root{
-    --paper:#F2EAD8; --paper2:#E7DBBE; --ink:#3A3730; --ink-soft:#6E675A;
-    --sage:#7B8B6F; --sage-deep:#53634A; --terra:#C26D4E; --gold:#B08D3E;
-    --seal:#A63B2A; --white:#FDFBF4; --shadow:0 4px 14px rgba(58,55,48,.16);
+    --paper:#F2EAD8; --paper2:#E7DBBE; --ink:#3A3730; --ink-soft:#595349;
+    --sage:#7B8B6F; --sage-deep:#53634A; --terra:#B15C3D; --gold:#B08D3E;
+    --seal:#A63B2A; --white:#FDFBF4;
+  /* text-safe tier: fills keep their colour, words get a darker one */
+  --line:#9A9182;--gold-ink:#755E29;--terra-ink:#944D33;--sage-ink:#596450; --shadow:0 4px 14px rgba(58,55,48,.16);
   }
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 /* `hidden` must win. The UA stylesheet's [hidden]{display:none} loses to any
@@ -69,9 +71,9 @@
   .rail{padding-bottom:6px}
   .stage-name{padding-bottom:8px}
   .chapline{position:relative;z-index:5;text-align:center;font-family:"Courier New",monospace;font-size:10px;
-    letter-spacing:.3em;color:var(--gold);text-transform:uppercase;margin-bottom:2px}
+    letter-spacing:.3em;color:var(--gold-ink);text-transform:uppercase;margin-bottom:2px}
   .stage-name{position:relative;z-index:5;text-align:center;font-size:11px;letter-spacing:.34em;
-    color:var(--gold);text-transform:uppercase;font-family:"Courier New",monospace;margin:8px 0 2px}
+    color:var(--gold-ink);text-transform:uppercase;font-family:"Courier New",monospace;margin:8px 0 2px}
 
   .screen{position:relative;z-index:3;flex:1;display:none;flex-direction:column;
     padding:6px 18px calc(16px + env(safe-area-inset-bottom));overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
@@ -114,7 +116,7 @@
     background:var(--white);border:1.5px solid rgba(58,55,48,.14);border-radius:14px;
     padding:14px 16px;box-shadow:var(--shadow);min-height:104px;position:relative
   }
-  .bubble .who{font-size:11.5px;letter-spacing:.2em;color:var(--terra);margin-bottom:5px;text-transform:uppercase;font-family:"Courier New",monospace}
+  .bubble .who{font-size:11.5px;letter-spacing:.2em;color:var(--terra-ink);margin-bottom:5px;text-transform:uppercase;font-family:"Courier New",monospace}
   .bubble .line{font-size:15.5px;line-height:1.75}
   .bubble .zh{display:block;font-size:13px;color:var(--ink-soft);margin-top:6px}
   body.nozh .zh{display:none !important}
@@ -122,7 +124,7 @@
 
   /* ── beginner hints ── */
   .hintbtn{display:block;margin:0 auto 10px;background:none;border:1px dashed rgba(176,141,62,.5);
-    color:var(--gold);border-radius:99px;padding:7px 16px;font-family:inherit;font-size:12.5px;cursor:pointer}
+    color:var(--gold-ink);border-radius:99px;padding:7px 16px;font-family:inherit;font-size:12.5px;cursor:pointer}
   .hintbtn:active{transform:scale(.97)}
   .hintbox{display:none;margin:0 0 12px;padding:11px 14px;border-radius:12px;
     background:rgba(176,141,62,.08);border-left:3px solid var(--gold);
@@ -157,7 +159,7 @@
   .rt-head{padding-right:46px}
   .rt-head{display:flex;align-items:center;gap:12px;margin-bottom:10px}
   .rt-sprite{image-rendering:pixelated;width:44px;height:50px;flex:none}
-  .rt-kicker{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.28em;color:var(--gold)}
+  .rt-kicker{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.28em;color:var(--gold-ink)}
   .rt-title{font-size:20px;letter-spacing:.04em;margin-top:2px}
   .rt-intro{font-size:14px;line-height:1.8;color:var(--ink-soft);margin-bottom:14px}
   .rt-ask{font-size:15px;line-height:1.8;text-align:center;margin:6px 0 14px}
@@ -175,13 +177,13 @@
     box-shadow:var(--shadow);transition:transform .14s ease}
   .rt-sides button:active{transform:scale(.97)}
   .rt-sides button.good{border-color:var(--sage-deep);background:rgba(123,139,111,.16)}
-  .rt-sides button.bad{border-color:var(--terra);background:rgba(194,109,78,.13)}
+  .rt-sides button.bad{border-color:var(--terra-ink);background:rgba(194,109,78,.13)}
   .rt-sides button .zh{display:block;font-size:12.5px;color:var(--ink-soft);margin-top:2px}
   .rt-why{margin-top:12px;font-size:13.5px;line-height:1.75;color:var(--ink-soft);
     min-height:44px;text-align:center;opacity:0;transition:opacity .22s ease}
   .rt-why.show{opacity:1}
   .rt-score{text-align:center;font-family:"Courier New",monospace;font-size:15px;
-    color:var(--terra);margin:6px 0 4px}
+    color:var(--terra-ink);margin:6px 0 4px}
    /* beats inline display:block on generated spans */
   .bubble .tap{position:absolute;right:14px;bottom:9px;font-size:11px;color:var(--ink-soft);opacity:.6;animation:blink 1.4s infinite}
   @keyframes blink{50%{opacity:.15}}
@@ -198,16 +200,16 @@
   .opt small{display:block;color:var(--ink-soft);font-size:12px;margin-top:3px}
   .opt:active{transform:translateY(2px)}
   .opt.used{opacity:.4;pointer-events:none}
-  .opt.good{border-color:var(--sage);background:#EEF4E9;opacity:1;box-shadow:0 0 0 1.5px var(--sage),var(--shadow)}
+  .opt.good{border-color:var(--sage-ink);background:#EEF4E9;opacity:1;box-shadow:0 0 0 1.5px var(--sage),var(--shadow)}
   .opt.bad{border-color:#C9776A;background:#FBEFEC;opacity:1}
   .opt.good::after{content:"✓";float:right;color:var(--sage-deep);font-weight:700;margin-left:8px}
   .opt.bad::after{content:"✕";float:right;color:#B4594A;font-weight:700;margin-left:8px}
-  .opt.pick{border-color:var(--gold);background:#FBF5E6}
+  .opt.pick{border-color:var(--gold-ink);background:#FBF5E6}
 
   /* ---- clue journal ---- */
   .clues{background:rgba(255,255,255,.6);border:1px dashed rgba(58,55,48,.25);border-radius:12px;
     padding:10px 12px;margin-bottom:10px;min-height:52px}
-  .clues h4{font-size:11px;letter-spacing:.24em;color:var(--gold);font-family:"Courier New",monospace;margin-bottom:5px}
+  .clues h4{font-size:11px;letter-spacing:.24em;color:var(--gold-ink);font-family:"Courier New",monospace;margin-bottom:5px}
   .clues ul{list-style:none;display:flex;flex-wrap:wrap;gap:5px}
   .clues li{background:var(--white);border:1px solid rgba(58,55,48,.14);border-radius:99px;
     padding:4px 10px;font-size:12px;color:var(--ink);animation:pop .35s ease}
@@ -220,9 +222,9 @@
   .pulse-box{width:100%;background:var(--white);border:1.5px solid rgba(58,55,48,.14);border-radius:13px;
     padding:12px 12px 8px;box-shadow:var(--shadow)}
   .pulse-box svg{width:100%;height:88px;display:block;overflow:hidden}
-  .depthrow{font-family:"Courier New",monospace;font-size:9.5px;letter-spacing:.16em;color:var(--ink-faint);
+  .depthrow{font-family:"Courier New",monospace;font-size:10.5px;letter-spacing:.16em;color:var(--ink-faint);
     display:flex;gap:7px;align-items:baseline}
-  .depthrow i{font-style:normal;font-size:9px;opacity:.75;letter-spacing:.04em}
+  .depthrow i{font-style:normal;font-size:10.5px;opacity:.75;letter-spacing:.04em}
   .depthrow.top{margin-bottom:2px}
   .depthrow.bot{margin-top:2px;justify-content:flex-end}
   .band-f{fill:#C26D4E;opacity:.07}
@@ -234,7 +236,7 @@
   @keyframes scroll{to{transform:translateX(-170px)}}
   @media (prefers-reduced-motion:reduce){#waveG{animation:none}}
   .fingers{display:flex;justify-content:space-around;margin-top:4px}
-  .fingers span{font-family:"Courier New",monospace;font-size:9.5px;letter-spacing:.14em;color:var(--ink-faint)}
+  .fingers span{font-family:"Courier New",monospace;font-size:10.5px;letter-spacing:.14em;color:var(--ink-faint)}
   .fingers b{display:block;font-family:"Songti TC",serif;font-size:12px;color:var(--ink-soft);letter-spacing:0}
   .finger-hint{text-align:center;font-size:12px;color:var(--ink-soft);margin-top:6px}
 
@@ -303,14 +305,14 @@
     text-shadow:0 2px 0 var(--white),0 3px 10px rgba(58,55,48,.3)}
   .verdict.pop{animation:vpop .95s ease forwards}
   @keyframes vpop{15%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}70%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-62%) scale(1)}}
-  .v-good{color:var(--terra)} .v-ok{color:var(--gold)} .v-bad{color:var(--ink-soft)}
+  .v-good{color:var(--terra-ink)} .v-ok{color:var(--gold-ink)} .v-bad{color:var(--ink-soft)}
 
   /* ---- feedback panel ---- */
   .fb{background:var(--white);border-left:4px solid var(--sage);border-radius:10px;padding:11px 13px;
     font-size:13.5px;line-height:1.65;box-shadow:var(--shadow);margin-top:10px;display:none;color:var(--ink-soft)}
   .fb.show{display:block;animation:pop .4s ease}
   .fb b{color:var(--ink)}
-  .fb.wrong{border-left-color:var(--terra)}
+  .fb.wrong{border-left-color:var(--terra-ink)}
   .cta{
     margin-top:12px;width:100%;min-height:52px;border:none;border-radius:13px;cursor:pointer;
     background:var(--terra);color:var(--white);font-size:17px;letter-spacing:.14em;font-family:inherit;
@@ -325,11 +327,11 @@
   /* ---- ending ---- */
   .end-wrap{display:flex;flex-direction:column;align-items:center;text-align:center;gap:9px;margin:auto 0}
   .end-wrap h2{font-size:27px;letter-spacing:.16em}
-  .stars{font-size:38px;color:var(--gold);letter-spacing:.14em}
+  .stars{font-size:38px;color:var(--gold-ink);letter-spacing:.14em}
   .stars .off{opacity:.2}
   .reward{background:var(--white);border:2px solid var(--gold);border-radius:15px;padding:13px 17px;
     box-shadow:var(--shadow);max-width:310px;animation:pop .6s ease}
-  .reward .rar{font-size:10.5px;letter-spacing:.28em;color:var(--gold);font-family:"Courier New",monospace}
+  .reward .rar{font-size:10.5px;letter-spacing:.28em;color:var(--gold-ink);font-family:"Courier New",monospace}
   .reward h3{font-size:19px;margin:2px 0 3px}
   /* collectible card art — fixed box so nothing shifts when the image loads */
   .cardart{display:block;width:100%;max-width:190px;aspect-ratio:1/1;object-fit:cover;
@@ -341,7 +343,7 @@
     background:radial-gradient(ellipse 90% 70% at 50% 30%,rgba(255,255,255,.7),transparent 70%),
       repeating-linear-gradient(45deg,transparent 0 6px,rgba(120,105,80,.045) 6px 7px),var(--paper);
     box-shadow:0 3px 10px rgba(58,55,48,.16);
-    font-family:"Songti TC","Noto Serif TC",serif;font-size:52px;color:var(--gold);letter-spacing:.06em}
+    font-family:"Songti TC","Noto Serif TC",serif;font-size:52px;color:var(--gold-ink);letter-spacing:.06em}
   .reward p{font-size:12.5px;color:var(--ink-soft);line-height:1.6}
   .support-cta{margin-top:16px;padding:14px;border-radius:13px;background:rgba(123,139,111,.1);
     border:1px solid rgba(110,139,87,.25)}
@@ -350,12 +352,29 @@
     padding:8px;margin-top:4px}
   .disclaimer{font-size:10.5px;color:var(--ink-soft);opacity:.7;line-height:1.6;margin-top:8px}
 </style>
-<link rel="stylesheet" href="desktop.css?v=49">
-<script src="state.js?v=49"></script>
-<script src="data/herbs.js?v=49"></script>
-<script src="hud.js?v=49"></script>
-<script src="data/chapters.js?v=49"></script>
-<script src="data/drills.js?v=49"></script>
+<link rel="stylesheet" href="desktop.css?v=55">
+<script src="state.js?v=55"></script>
+<script src="data/herbs.js?v=55"></script>
+<script src="hud.js?v=55"></script>
+<script>
+/* One chapter, not ten. document.write is deliberate here: it keeps the load
+   synchronous and ordered, so the 1300 lines of engine below still find
+   window.AG_CHAPTERS ready at parse time — no async rewrite, no race. The
+   script is same-origin, so Chrome's document.write intervention does not
+   apply to it. Falls back to the whole file if the id is not one we generated. */
+(function(){
+  var v = "?v=55";
+  var id = (new URLSearchParams(location.search).get("ch") || "01").replace(/[^0-9]/g, "");
+  if (!/^\d{2}$/.test(id)) id = "01";
+  document.write('<scr' + 'ipt src="data/chapters/' + id + '.js' + v + '"></scr' + 'ipt>');
+  /* If that id does not exist the file 404s and nothing is defined, so this
+     guard — still running inside the same parse — pulls the whole set as a
+     safety net. Costs nothing in the normal case. */
+  document.write('<scr' + 'ipt>if(!window.AG_CHAPTERS||!window.AG_CHAPTERS["' + id + '"])'
+    + 'document.write(\'<scr\'+\'ipt src="data/chapters.js' + v + '"></scr\'+\'ipt>\');</scr' + 'ipt>');
+})();
+</script>
+<script src="data/drills.js?v=55"></script>
 </head>
 <body data-page="chapter">
 <div id="app">
@@ -549,8 +568,8 @@
         <div class="rar">TECHNIQUE CARD<span class="zh"> · 心法</span></div>
         <h3 id="cardName"></h3><p id="cardTxt"></p>
       </div>
-      <div class="reward" style="border-color:var(--sage)">
-        <div class="rar" style="color:var(--sage)">HERB CARD<span class="zh"> · 藥草</span></div>
+      <div class="reward" style="border-color:var(--sage-ink)">
+        <div class="rar" style="color:var(--sage-ink)">HERB CARD<span class="zh"> · 藥草</span></div>
         <img id="herbImg" class="cardart" alt="" hidden>
         <div id="herbPlate" class="cardplate" aria-hidden="true" hidden></div>
         <h3 id="herbName"></h3><p id="herbTxt"></p>
@@ -1233,9 +1252,9 @@ function ending(){
            daoyin:'Cultivation <span class="zh">導引</span>'};
   const lv=report.levelUps.map(l=>`${AXN[l.axis]} → ${l.to}/4`).join(" · ");
   $("endText").innerHTML+=
-    `<br><span style="font-family:'Courier New',monospace;color:var(--terra);font-size:14px">Score ${score} / ${maxScore} · +${gained} XP</span>`
+    `<br><span style="font-family:'Courier New',monospace;color:var(--terra-ink);font-size:14px">Score ${score} / ${maxScore} · +${gained} XP</span>`
     +(lv?`<br><span style="font-family:'Courier New',monospace;color:var(--sage-deep);font-size:12.5px">SKILL UP · ${lv}</span>`:"")
-    +(report.newBest?`<br><span style="font-family:'Courier New',monospace;color:var(--gold);font-size:12px">NEW BEST \u2605${n}</span>`:"")
+    +(report.newBest?`<br><span style="font-family:'Courier New',monospace;color:var(--gold-ink);font-size:12px">NEW BEST \u2605${n}</span>`:"")
     +(retreats?`<br><span style="font-family:'Courier New',monospace;color:var(--sage-deep);font-size:12px">RETREAT \u00b7 ${retreats} lesson${retreats>1?"s":""} taken \u00b7 +${rtBonus} XP</span>`:"")
     +(report.newUnlocks.length?`<br><br><b>A new door in town is open to you now.</b><span class="zh" style="display:block;margin-top:4px">鎮上又有一扇門為你而開。</span>`:"");
 }

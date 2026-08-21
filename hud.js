@@ -60,6 +60,38 @@
   body[data-page="practice"] .screen,
   body[data-page="sort"] .screen,
   body[data-page="progress"] .screen{padding-top:26px}
+
+  /* ══════════ the moment ══════════
+     XP ticked up invisibly and an axis levelled up with nothing on screen to
+     mark it. The system was already returning levelUps and newUnlocks from
+     AG.complete and nobody was reading them. This reads them, everywhere,
+     without any page having to opt in. */
+  .ag-cel{position:absolute;left:50%;top:calc(var(--hud-h) + 10px);transform:translate(-50%,-22px);
+    /* top, not bottom: the bottom of every screen is where the buttons live, and a
+       card that hides "Next" is worse than no card at all. Narrow enough to clear
+       the corner seal. */
+    z-index:95;width:min(296px,76%);background:var(--white,#FDFBF4);border:1.5px solid rgba(51,47,40,.12);
+    border-left:5px solid var(--gold,#B08D3E);border-radius:15px;padding:13px 15px 13px 14px;
+    box-shadow:0 14px 34px rgba(51,47,40,.26);opacity:0;pointer-events:none;
+    transition:opacity .34s ease,transform .44s cubic-bezier(.22,.9,.3,1);display:flex;gap:12px;align-items:center}
+  .ag-cel.on{opacity:1;transform:translate(-50%,0);pointer-events:auto;cursor:pointer}
+  .ag-cel .seal-mark{flex:none;width:38px;height:38px;border-radius:5px;background:var(--seal,#A63B2A);
+    color:#FDFBF4;display:flex;align-items:center;justify-content:center;font-size:20px;transform:rotate(-4deg);
+    box-shadow:inset 0 0 0 2px rgba(255,255,255,.28)}
+  .ag-cel .cel-t{flex:1;min-width:0;display:block}
+  .ag-cel .cel-k{display:block;font-family:"Courier New",monospace;font-size:10.5px;letter-spacing:.22em;
+    color:var(--gold-ink,#755E29);text-transform:uppercase;margin-bottom:3px}
+  .ag-cel .cel-n{display:block;font-size:15.5px;line-height:1.4;color:var(--ink,#332F28)}
+  .ag-cel .cel-n small{display:block;font-size:12px;color:var(--ink-soft,#595349);margin-top:2px;line-height:1.5}
+  .ag-cel .pips{display:flex;gap:3px;margin-top:7px}
+  .ag-cel .pips i{width:20px;height:6px;border-radius:2px;background:rgba(51,47,40,.12)}
+  .ag-cel .pips i.on{background:var(--sage,#7B8B6F)}
+  .ag-cel .pips i.new{background:var(--gold,#B08D3E);animation:agPip .5s ease}
+  @keyframes agPip{from{transform:scaleX(.2);opacity:.3}}
+  @media (prefers-reduced-motion:reduce){
+    .ag-cel{transition:opacity .2s}
+    .ag-cel .pips i.new{animation:none}
+  }
   /* the HUD's settings tray owns the language switch now */
   .lang-toggle,.langBtn,#langBtn{display:none !important}
   .seal{top:calc(var(--hud-h) + 6px) !important}
@@ -85,9 +117,9 @@
   .hud-btn .zh{font-family:"Songti TC","Noto Serif TC",serif;font-size:12px;color:var(--ink-soft,#5E594E)}
   body.nozh .hud-btn .zh{display:none}
   .hud-spacer{flex:1}
-  .hud-xp{font-family:"Courier New",monospace;font-size:11px;color:var(--gold,#B08D3E);
+  .hud-xp{font-family:"Courier New",monospace;font-size:11px;color:var(--gold-ink,#755E29);
     letter-spacing:.08em;white-space:nowrap;padding:0 2px}
-  .hud-xp b{color:var(--terra,#C26D4E);font-size:13px}
+  .hud-xp b{color:var(--terra-ink,#944D33);font-size:13px}
 
   /* the tray that slides up.
      Four independent ways out — the ✕ top-right, the Close row at the foot,
@@ -126,7 +158,7 @@
   body.nozh .tray-done .zh{display:none}
   .tray h4{padding-right:48px}
   .tray h4{font-family:"Courier New",monospace;font-size:10.5px;letter-spacing:.28em;
-    color:var(--gold,#B08D3E);text-transform:uppercase;margin:0 0 10px}
+    color:var(--gold-ink,#755E29);text-transform:uppercase;margin:0 0 10px}
   .tray h4 .zh{font-family:"Songti TC",serif;letter-spacing:.06em}
   .tray-row{display:flex;align-items:center;justify-content:space-between;gap:12px;
     padding:11px 0;border-bottom:1px solid rgba(58,55,48,.08);font-size:14.5px}
@@ -134,8 +166,8 @@
   .tray-row small{display:block;font-size:11.5px;color:var(--ink-faint,#8A8578);margin-top:2px}
   .tray-toggle{min-width:78px;height:34px;border-radius:99px;border:1.5px solid rgba(58,55,48,.16);
     background:var(--white,#fff);font-family:inherit;font-size:12.5px;color:var(--ink,#3A3730);cursor:pointer}
-  .tray-toggle.on{background:rgba(123,139,111,.18);border-color:var(--sage-deep,#6E8B57);color:var(--sage-deep,#6E8B57)}
-  .tray-toggle.danger{color:var(--terra,#C26D4E);border-color:rgba(194,109,78,.4)}
+  .tray-toggle.on{background:rgba(123,139,111,.18);border-color:var(--sage-deep,#4E5D46);color:var(--sage-deep,#4E5D46)}
+  .tray-toggle.danger{color:var(--terra-ink,#944D33);border-color:rgba(194,109,78,.4)}
   .tray-toggle.danger.solid{background:var(--terra,#C26D4E);color:#fff;border-color:transparent}
   .resetbox{display:none;margin-top:10px;padding:12px 14px;border-radius:12px;
     background:rgba(194,109,78,.08);border-left:3px solid var(--terra,#C26D4E);
@@ -186,7 +218,7 @@
     font-size:22px;margin-bottom:5px}
   .herbcell b{display:block;font-size:11px;line-height:1.3}
   .herbcell .zh{display:block;font-size:10.5px;color:var(--ink-soft,#5E594E);margin-top:1px}
-  .herbcell .qm.plate{background:rgba(176,141,62,.12);color:var(--gold,#B08D3E);
+  .herbcell .qm.plate{background:rgba(176,141,62,.12);color:var(--gold-ink,#755E29);
     font-family:"Songti TC",serif;font-size:26px}
   .herbcell.locked{border-style:dashed;background:rgba(58,55,48,.03)}
   .herbcell.locked b{color:var(--ink-faint,#8A8578);letter-spacing:.14em}
@@ -196,7 +228,7 @@
     font-size:13px;line-height:1.7;color:var(--ink-soft,#5E594E)}
   .herbdetail.on{display:block;animation:reactIn .26s ease}
   .herbdetail b{color:var(--ink,#3A3730);font-size:15px}
-  .herbdetail i{color:var(--gold,#B08D3E);font-style:normal;font-size:12.5px}
+  .herbdetail i{color:var(--gold-ink,#755E29);font-style:normal;font-size:12.5px}
   .herbdetail p{margin-top:6px}
   .herbdetail .nat{font-family:"Courier New",monospace;font-size:11.5px;color:var(--ink-faint,#8A8578)}
   /* sprite-sheet animation — 8 frames in one 90 KB image, driven by steps().
@@ -325,7 +357,7 @@
       var cards = chapters.map(function(k){
         var b=best[k];
         return '<div class="tray-card"><span class="ic">牌</span>Chapter '+k.slice(-2)
-             + '<small style="display:block;color:var(--gold)">'+"★".repeat(b.stars||0)+'</small></div>';
+             + '<small style="display:block;color:var(--gold-ink,#755E29)">'+"★".repeat(b.stars||0)+'</small></div>';
       });
       var codex = herbCodex();
       var halls = NODES.map(function(n){
@@ -533,6 +565,89 @@
       };
     });
   }
+
+
+  /* ══════════ celebration queue ══════════
+     Wraps AG.complete once, on every page, so a level-up or an unlock always
+     gets a moment — instead of a number quietly changing in the corner.
+     Non-blocking on purpose: it never covers a button and never needs a tap. */
+  var AXIS_NAME = {
+    needle:{en:"Needle Way", zh:"針道"},   theory:{en:"Foundations", zh:"醫理"},
+    dx:{en:"Four Examinations", zh:"四診"}, herb:{en:"Materia Medica", zh:"本草"},
+    daoyin:{en:"Cultivation", zh:"導引"}
+  };
+  var UNLOCK_NAME = {
+    needle:{en:"The Needle Way is open", zh:"經絡針道已開"},
+    theory:{en:"Foundations is open", zh:"醫理根基已開"},
+    dx:{en:"The Four Examinations are open", zh:"望聞問切已開"},
+    herb:{en:"Materia Medica is open", zh:"本草方藥已開"},
+    daoyin:{en:"Cultivation is open", zh:"導引養生已開"}
+  };
+  var celQ = [], celBusy = false, celEl = null;
+
+  function celNode(){
+    if (celEl) return celEl;
+    var host = D.getElementById("app") || D.body;
+    celEl = D.createElement("div");
+    celEl.className = "ag-cel";
+    celEl.setAttribute("role", "status");
+    celEl.onclick = function(){ celHide(); };
+    host.appendChild(celEl);
+    return celEl;
+  }
+  function celHide(){
+    if (!celEl) return;
+    celEl.classList.remove("on");
+    setTimeout(function(){ celBusy = false; celNext(); }, 380);
+  }
+  function celNext(){
+    if (celBusy || !celQ.length) return;
+    celBusy = true;
+    var c = celQ.shift(), el = celNode();
+    el.innerHTML =
+      '<span class="seal-mark">' + c.glyph + '</span>'
+      + '<span class="cel-t"><span class="cel-k">' + c.kind + '</span>'
+      + '<span class="cel-n">' + c.title
+      + (c.sub ? '<small>' + c.sub + '</small>' : '') + '</span>'
+      + (c.pips || '') + '</span>';
+    /* let the page paint its own ending first — this is a footnote, not an interruption */
+    setTimeout(function(){ el.classList.add("on"); }, 60);
+    setTimeout(celHide, 4200);
+  }
+  function celPush(c){ celQ.push(c); celNext(); }
+
+  function pipsFor(to){
+    var out = '<span class="pips">';
+    for (var i = 1; i <= 4; i++)
+      out += '<i class="' + (i < to ? "on" : (i === to ? "on new" : "")) + '"></i>';
+    return out + '</span>';
+  }
+
+  (function hookComplete(){
+    if (!global.AG || !global.AG.complete || global.AG.__celHooked) return;
+    var inner = global.AG.complete;
+    global.AG.complete = function(){
+      var out = inner.apply(global.AG, arguments);
+      try {
+        (out.newUnlocks || []).forEach(function(k){
+          var n = UNLOCK_NAME[k]; if (!n) return;
+          celPush({ kind: "A door opens 新的門", glyph: "開",
+                    title: n.en + zhSpan(n.zh), sub: "" });
+        });
+        (out.levelUps || []).forEach(function(l){
+          var a = AXIS_NAME[l.axis] || { en: l.axis, zh: "" };
+          celPush({ kind: "Level up 進階", glyph: "進",
+                    title: a.en + zhSpan(a.zh),
+                    sub: "Level " + l.from + " → " + l.to,
+                    pips: pipsFor(l.to) });
+        });
+      } catch (e) { /* a celebration must never break the thing it celebrates */ }
+      if (global.AG.hudRefresh) { try { global.AG.hudRefresh(); } catch (e) {} }
+      return out;
+    };
+    global.AG.__celHooked = true;
+  })();
+  function zhSpan(t){ return t ? '<span class="zh"> ' + t + '</span>' : ''; }
 
   function paintXp(){
     var e=D.getElementById("hudXp"); if(!e) return;

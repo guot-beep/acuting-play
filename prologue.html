@@ -20,9 +20,11 @@
 <title>The First Lesson · Apricot Grove Prologue</title>
 <style>
 :root{
-  --paper:#F2EAD8;--paper2:#E7DBBE;--ink:#332F28;--ink-soft:#6E675A;--ink-faint:#9A9182;
-  --sage:#7B8B6F;--sage-deep:#4E5D46;--terra:#C26D4E;--terra-deep:#9D5238;
+  --paper:#F2EAD8;--paper2:#E7DBBE;--ink:#332F28;--ink-soft:#595349;--ink-faint:#676054;
+  --sage:#7B8B6F;--sage-deep:#4E5D46;--terra:#B15C3D;--terra-deep:#9D5238;
   --gold:#B08D3E;--seal:#A63B2A;--white:#FDFBF4;
+  /* text-safe tier: fills keep their colour, words get a darker one */
+  --line:#9A9182;--gold-ink:#755E29;--terra-ink:#944D33;--sage-ink:#596450;
   --sh-s:0 2px 6px rgba(51,47,40,.10);--sh:0 5px 16px rgba(51,47,40,.14);--sh-l:0 12px 32px rgba(51,47,40,.2);
   --ease:cubic-bezier(.22,.9,.3,1);
 }
@@ -56,7 +58,7 @@ body.nozh .zh{display:none !important}
 @media (prefers-reduced-motion:reduce){.rain{display:none}}
 
 .chapline{position:relative;z-index:5;text-align:center;font-family:"Courier New",monospace;font-size:10px;
-  letter-spacing:.4em;color:var(--gold);text-transform:uppercase;padding-top:calc(14px + env(safe-area-inset-top))}
+  letter-spacing:.4em;color:var(--gold-ink);text-transform:uppercase;padding-top:calc(14px + env(safe-area-inset-top))}
 .screen{position:absolute;inset:0;z-index:3;display:none;flex-direction:column;
   padding:calc(44px + env(safe-area-inset-top)) 20px calc(18px + env(safe-area-inset-bottom));overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
 .screen.on{display:flex;animation:fadeIn .45s var(--ease)}
@@ -72,7 +74,7 @@ body.nozh .zh{display:none !important}
 .actor span{font-size:10.5px;color:var(--ink-soft);letter-spacing:.1em}
 .bubble{background:var(--white);border:1.5px solid rgba(51,47,40,.12);border-radius:16px;padding:15px 17px;
   box-shadow:var(--sh);min-height:118px;position:relative}
-.bubble .who{font-family:"Courier New",monospace;font-size:10.5px;letter-spacing:.22em;color:var(--terra);
+.bubble .who{font-family:"Courier New",monospace;font-size:10.5px;letter-spacing:.22em;color:var(--terra-ink);
   text-transform:uppercase;margin-bottom:6px}
 .bubble .line{font-size:16px;line-height:1.8;min-height:1.8em}
 .bubble .line.narr{font-style:italic;color:var(--ink-soft)}
@@ -83,7 +85,7 @@ body.nozh .zh{display:none !important}
 .teach{background:var(--white);border:2px solid var(--gold);border-radius:17px;padding:16px;box-shadow:var(--sh-l);
   margin:auto 0;animation:pop .5s var(--ease)}
 @keyframes pop{from{transform:scale(.93);opacity:0}}
-.teach .tag{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.3em;color:var(--gold);
+.teach .tag{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.3em;color:var(--gold-ink);
   text-transform:uppercase;text-align:center}
 .teach h2{font-size:23px;text-align:center;letter-spacing:.1em;margin:4px 0 12px}
 .teach ul{list-style:none;display:flex;flex-direction:column;gap:11px}
@@ -100,7 +102,7 @@ body.nozh .zh{display:none !important}
   box-shadow:var(--sh);text-align:center;margin-bottom:8px}
 .taskbar .what{font-size:12px;color:var(--ink-soft);letter-spacing:.16em;font-family:"Courier New",monospace;text-transform:uppercase}
 .taskbar .target{font-size:24px;margin-top:2px}
-.taskbar .target small{display:block;font-size:12.5px;color:var(--gold);font-family:"Courier New",monospace;margin-top:1px}
+.taskbar .target small{display:block;font-size:12.5px;color:var(--gold-ink);font-family:"Courier New",monospace;margin-top:1px}
 .armwrap{position:relative;flex:1;display:flex;justify-content:center;min-height:0}
 .armwrap svg{height:100%;max-height:48dvh;border-radius:14px;touch-action:manipulation}
 .pt-dot{fill:var(--seal);stroke:#fff;stroke-width:2;opacity:0;transition:opacity .3s}
@@ -116,16 +118,16 @@ body.nozh .zh{display:none !important}
   font-weight:700;letter-spacing:.1em;opacity:0;pointer-events:none;text-shadow:0 2px 0 var(--white),0 3px 10px rgba(51,47,40,.28)}
 .verdict.pop2{animation:vp .95s ease forwards}
 @keyframes vp{15%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}70%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-64%) scale(1)}}
-.v-good{color:var(--terra)}.v-ok{color:var(--gold)}.v-bad{color:var(--ink-soft)}
+.v-good{color:var(--terra-ink)}.v-ok{color:var(--gold-ink)}.v-bad{color:var(--ink-soft)}
 .fb{background:var(--white);border-left:4px solid var(--sage);border-radius:11px;padding:12px 14px;font-size:13.5px;
   line-height:1.7;box-shadow:var(--sh-s);margin-top:9px;color:var(--ink-soft);display:none}
 .fb.on{display:block;animation:pop .4s var(--ease)}
 .fb b{color:var(--ink)}
-.fb.warn{border-left-color:var(--terra)}
+.fb.warn{border-left-color:var(--terra-ink)}
 
 /* training */
 .trainhead{text-align:center;margin-bottom:12px}
-.trainhead .tag{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.34em;color:var(--terra);text-transform:uppercase}
+.trainhead .tag{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.34em;color:var(--terra-ink);text-transform:uppercase}
 .trainhead h2{font-size:25px;letter-spacing:.11em;margin-top:3px}
 .trainhead p{font-size:13.5px;color:var(--ink-soft);line-height:1.7;margin-top:6px}
 .reps{display:flex;justify-content:center;gap:6px;margin:10px 0}
@@ -148,15 +150,15 @@ body.nozh .zh{display:none !important}
 .endwrap h2{font-size:26px;letter-spacing:.14em;line-height:1.4}
 .card-reward{background:var(--white);border:2px solid var(--gold);border-radius:16px;padding:14px 18px;
   box-shadow:var(--sh);max-width:320px;animation:pop .6s var(--ease)}
-.card-reward .rar{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.28em;color:var(--gold)}
+.card-reward .rar{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.28em;color:var(--gold-ink)}
 .card-reward h3{font-size:19px;margin:3px 0 4px}
 .card-reward p{font-size:12.5px;color:var(--ink-soft);line-height:1.65}
 .note{font-size:10.5px;color:var(--ink-faint);line-height:1.7;text-align:center;margin-top:8px}
 </style>
-<link rel="stylesheet" href="desktop.css?v=49">
-<script src="state.js?v=49"></script>
-<script src="data/herbs.js?v=49"></script>
-<script src="hud.js?v=49"></script>
+<link rel="stylesheet" href="desktop.css?v=55">
+<script src="state.js?v=55"></script>
+<script src="data/herbs.js?v=55"></script>
+<script src="hud.js?v=55"></script>
 </head>
 <body data-page="prologue">
 <div id="app">
@@ -481,7 +483,7 @@ function ending(){
     '"What you just touched is not a point on a chart. It is the place where you can feel that a person is still alive."<br><br>'+
     '"Never forget which of those two you are treating."'+
     (S.zh?'<span class="zh"><b>參老：</b>「不錯。現在聽剩下的一半。」<br><br>「你剛才摸到的，不是圖上的一個穴。那是你能感覺到一個人還活著的地方。」<br><br>「別忘了你治的是哪一個。」</span>':'')+
-    `<br><br><span style="font-family:'Courier New',monospace;color:var(--terra);font-size:13.5px">+${rep.xpEarned} XP</span>`+
+    `<br><br><span style="font-family:'Courier New',monospace;color:var(--terra-ink);font-size:13.5px">+${rep.xpEarned} XP</span>`+
     `<br><span style="font-family:'Courier New',monospace;color:var(--ink-faint);font-size:11.5px">Total ${rep.xp} XP \u00b7 Needle<span class="zh"> 針道</span> ${S.stats.needle}/4</span>`;
   go("s-end");
 }

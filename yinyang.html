@@ -20,10 +20,12 @@
 <title>Yin or Yang 陰陽滑卡 · Apricot Grove</title>
 <style>
 :root{
-  --paper:#F2EAD8;--paper2:#E7DBBE;--ink:#332F28;--ink-soft:#6E675A;--ink-faint:#9A9182;
-  --sage:#7B8B6F;--sage-deep:#4E5D46;--terra:#C26D4E;--terra-deep:#9D5238;
+  --paper:#F2EAD8;--paper2:#E7DBBE;--ink:#332F28;--ink-soft:#595349;--ink-faint:#676054;
+  --sage:#7B8B6F;--sage-deep:#4E5D46;--terra:#B15C3D;--terra-deep:#9D5238;
   --gold:#B08D3E;--seal:#A63B2A;--white:#FDFBF4;
-  --yin:#4A5560;--yang:#C98A32;
+  /* text-safe tier: fills keep their colour, words get a darker one */
+  --line:#9A9182;--gold-ink:#755E29;--terra-ink:#944D33;--sage-ink:#596450;
+  --yin:#4A5560;--yang:#9A6A26;
   --sh-s:0 2px 6px rgba(51,47,40,.1);--sh:0 5px 16px rgba(51,47,40,.14);--sh-l:0 14px 34px rgba(51,47,40,.22);
   --ease:cubic-bezier(.22,.9,.3,1);
 }
@@ -48,7 +50,7 @@ body{font-family:"Songti TC","Noto Serif TC",Georgia,serif;background:#CFC3A8;co
 .zh{display:block;font-size:.84em;color:var(--ink-soft);margin-top:4px;line-height:1.65}
 body.nozh .zh{display:none !important}
 .chapline{position:relative;z-index:5;text-align:center;font-family:"Courier New",monospace;font-size:10px;
-  letter-spacing:.36em;color:var(--gold);text-transform:uppercase;padding-top:calc(14px + env(safe-area-inset-top))}
+  letter-spacing:.36em;color:var(--gold-ink);text-transform:uppercase;padding-top:calc(14px + env(safe-area-inset-top))}
 .screen{position:absolute;inset:0;z-index:3;display:none;flex-direction:column;
   padding:calc(42px + env(safe-area-inset-top)) 20px calc(16px + env(safe-area-inset-bottom));overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
 .screen.on{display:flex;animation:fade .42s var(--ease)}
@@ -59,7 +61,7 @@ body.nozh .zh{display:none !important}
   border-radius:16px;padding:13px 15px;box-shadow:var(--sh);margin-bottom:14px}
 .mrow canvas{image-rendering:pixelated;width:64px;height:72px;flex:none;filter:drop-shadow(0 3px 4px rgba(51,47,40,.24))}
 .mrow .mt{flex:1;font-size:14.5px;line-height:1.75}
-.mrow .mt .nm{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.24em;color:var(--terra);
+.mrow .mt .nm{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.24em;color:var(--terra-ink);
   text-transform:uppercase;margin-bottom:5px}
 
 /* taiji */
@@ -79,7 +81,7 @@ body.nozh .zh{display:none !important}
 /* play */
 .srow{padding-right:40px;display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
 .srow .rnd{font-family:"Courier New",monospace;font-size:11px;letter-spacing:.18em;color:var(--ink-faint)}
-.srow .sc{font-family:"Courier New",monospace;font-size:15px;color:var(--terra)}
+.srow .sc{font-family:"Courier New",monospace;font-size:15px;color:var(--terra-ink)}
 .setname{text-align:center;font-size:13px;color:var(--ink-soft);letter-spacing:.1em;margin-bottom:6px}
 .bar{height:5px;border-radius:3px;background:rgba(51,47,40,.1);overflow:hidden;margin-bottom:10px}
 .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--yin),var(--yang));width:0;transition:width .4s var(--ease)}
@@ -98,10 +100,10 @@ body.nozh .zh{display:none !important}
 .card.back{transform:scale(.93) translateY(12px);opacity:.55;box-shadow:var(--sh);z-index:1}
 .card.front{z-index:3}
 .card.dragging{transition:none;cursor:grabbing}
-.card .cat{font-family:"Courier New",monospace;font-size:9.5px;letter-spacing:.26em;color:var(--gold);text-transform:uppercase}
+.card .cat{font-family:"Courier New",monospace;font-size:10.5px;letter-spacing:.26em;color:var(--gold-ink);text-transform:uppercase}
 .card .zhbig{font-size:40px;letter-spacing:.06em;line-height:1.2}
 .card .enb{font-size:15px;color:var(--ink-soft);text-align:center;line-height:1.5}
-.card .py{font-family:"Courier New",monospace;font-size:11px;color:var(--gold);letter-spacing:.08em}
+.card .py{font-family:"Courier New",monospace;font-size:11px;color:var(--gold-ink);letter-spacing:.08em}
 .stamp{position:absolute;top:16px;font-family:"Courier New",monospace;font-size:15px;letter-spacing:.2em;
   border:2.5px solid;border-radius:8px;padding:3px 9px;opacity:0;transition:opacity .12s}
 .stamp.l{left:14px;transform:rotate(-13deg);color:var(--yin);border-color:var(--yin)}
@@ -112,15 +114,15 @@ body.nozh .zh{display:none !important}
   color:var(--white);letter-spacing:.14em;transition:transform .12s}
 .swipeBtn small{display:block;font-family:"Songti TC",serif;font-size:14px;letter-spacing:.1em;opacity:.9;margin-top:1px}
 .swipeBtn.yin{background:var(--yin);box-shadow:0 5px 0 #333c45}
-.swipeBtn.yang{background:var(--yang);box-shadow:0 5px 0 #a06d21}
+.swipeBtn.yang{background:var(--yang);box-shadow:0 5px 0 #6F4C1B}
 .swipeBtn:active{transform:translateY(3px)}
 .swipeBtn.yin:active{box-shadow:0 2px 0 #333c45}
-.swipeBtn.yang:active{box-shadow:0 2px 0 #a06d21}
+.swipeBtn.yang:active{box-shadow:0 2px 0 #6F4C1B}
 
 .fb{background:var(--white);border-left:4px solid var(--sage);border-radius:11px;padding:11px 13px;font-size:13.5px;
   line-height:1.7;box-shadow:var(--sh-s);color:var(--ink-soft);margin-top:9px;min-height:46px;display:flex;align-items:center}
 .fb b{color:var(--ink)}
-.fb.warn{border-left-color:var(--terra)}
+.fb.warn{border-left-color:var(--terra-ink)}
 .fb.idle{opacity:.55;justify-content:center;font-size:12.5px}
 
 .btn{width:100%;min-height:52px;border:none;border-radius:14px;cursor:pointer;font-family:inherit;font-size:16.5px;
@@ -131,16 +133,16 @@ body.nozh .zh{display:none !important}
 .btn small{display:block;font-size:11.5px;letter-spacing:.08em;opacity:.85;margin-top:2px}
 
 .res{margin:auto 0;text-align:center;display:flex;flex-direction:column;align-items:center;gap:9px}
-.stars{font-size:40px;color:var(--gold);letter-spacing:.14em}
+.stars{font-size:40px;color:var(--gold-ink);letter-spacing:.14em}
 .stars .off{opacity:.2}
 .res h2{font-size:26px;letter-spacing:.13em}
 .gain{background:var(--white);border:2px solid var(--gold);border-radius:16px;padding:13px 18px;box-shadow:var(--sh);max-width:320px}
-.gain .rar{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.26em;color:var(--gold)}
+.gain .rar{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.26em;color:var(--gold-ink)}
 .gain h3{font-size:19px;margin:3px 0 4px}
 .gain p{font-size:12.5px;color:var(--ink-soft);line-height:1.65}
 .missed{background:rgba(255,255,255,.6);border:1px dashed rgba(51,47,40,.22);border-radius:12px;padding:10px 12px;
   max-width:330px;text-align:left;font-size:12.5px;line-height:1.7;color:var(--ink-soft)}
-.missed h4{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.24em;color:var(--terra);margin-bottom:5px}
+.missed h4{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.24em;color:var(--terra-ink);margin-bottom:5px}
 .note{font-size:10.5px;color:var(--ink-faint);line-height:1.7;text-align:center;margin-top:8px}
 
 /* ── the room this practice happens in ──
@@ -159,10 +161,10 @@ body.nozh .zh{display:none !important}
   @keyframes roomIn{to{transform:scale(1)}}
 }
 </style>
-<link rel="stylesheet" href="desktop.css?v=49">
-<script src="state.js?v=49"></script>
-<script src="data/herbs.js?v=49"></script>
-<script src="hud.js?v=49"></script>
+<link rel="stylesheet" href="desktop.css?v=55">
+<script src="state.js?v=55"></script>
+<script src="data/herbs.js?v=55"></script>
+<script src="hud.js?v=55"></script>
 </head>
 <body data-page="yinyang">
 <div id="app">
@@ -370,7 +372,7 @@ function result(){
     :'<b>Shu Chi:</b> "Look again at the ones you missed. Each mistake is a place your map is still blank."')
     +(S.zh?(n===3?'<span class="zh"><b>書癡：</b>「你沒有猶豫。很好——陰陽不是謎題，是一種看事情的習慣。」</span>'
                  :'<span class="zh"><b>書癡：</b>「再看一次錯的那幾張。每個錯處，都是你地圖上還空白的地方。」</span>'):"")
-    +`<br><br><span style="font-family:'Courier New',monospace;color:var(--terra);font-size:13.5px">${g.right} / ${TOTAL} correct · Theory<span class="zh"> 醫理</span> ${S.stats.theory}/4</span>`;
+    +`<br><br><span style="font-family:'Courier New',monospace;color:var(--terra-ink);font-size:13.5px">${g.right} / ${TOTAL} correct · Theory<span class="zh"> 醫理</span> ${S.stats.theory}/4</span>`;
   if(g.missed.length){
     $("missed").style.display="block";
     $("missedList").innerHTML=g.missed.map(c=>`<b>${c.zh} ${c.en}</b> → ${c.a==="yin"?"陰":"陽"}<br>`).join("");

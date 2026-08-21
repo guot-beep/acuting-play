@@ -20,9 +20,11 @@
 <title>Five Animal Frolics 五禽戲 · Apricot Grove</title>
 <style>
 :root{
-  --paper:#F2EAD8;--paper2:#E7DBBE;--ink:#332F28;--ink-soft:#6E675A;--ink-faint:#9A9182;
-  --sage:#7B8B6F;--sage-deep:#4E5D46;--terra:#C26D4E;--terra-deep:#9D5238;
-  --gold:#B08D3E;--seal:#A63B2A;--white:#FDFBF4;--sky:#8A9BB0;
+  --paper:#F2EAD8;--paper2:#E7DBBE;--ink:#332F28;--ink-soft:#595349;--ink-faint:#676054;
+  --sage:#7B8B6F;--sage-deep:#4E5D46;--terra:#B15C3D;--terra-deep:#9D5238;
+  --gold:#B08D3E;--seal:#A63B2A;--white:#FDFBF4;
+  /* text-safe tier: fills keep their colour, words get a darker one */
+  --line:#9A9182;--gold-ink:#755E29;--terra-ink:#944D33;--sage-ink:#596450;--sky:#8A9BB0;
   --sh-s:0 2px 6px rgba(51,47,40,.1);--sh:0 5px 16px rgba(51,47,40,.14);--sh-l:0 12px 32px rgba(51,47,40,.2);
   --ease:cubic-bezier(.22,.9,.3,1);
 }
@@ -47,7 +49,7 @@ body{font-family:"Songti TC","Noto Serif TC",Georgia,serif;background:#CFC3A8;co
 .zh{display:block;font-size:.84em;color:var(--ink-soft);margin-top:4px;line-height:1.65}
 body.nozh .zh{display:none !important}
 .chapline{position:relative;z-index:5;text-align:center;font-family:"Courier New",monospace;font-size:10px;
-  letter-spacing:.36em;color:var(--gold);text-transform:uppercase;padding-top:calc(14px + env(safe-area-inset-top))}
+  letter-spacing:.36em;color:var(--gold-ink);text-transform:uppercase;padding-top:calc(14px + env(safe-area-inset-top))}
 .screen{position:absolute;inset:0;z-index:3;display:none;flex-direction:column;
   padding:calc(42px + env(safe-area-inset-top)) 20px calc(16px + env(safe-area-inset-bottom));overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
 .screen.on{display:flex;animation:fade .42s var(--ease)}
@@ -58,7 +60,7 @@ body.nozh .zh{display:none !important}
   border-radius:16px;padding:13px 15px;box-shadow:var(--sh);margin-bottom:14px}
 .mrow canvas{image-rendering:pixelated;width:64px;height:72px;flex:none;filter:drop-shadow(0 3px 4px rgba(51,47,40,.26))}
 .mrow .mt{flex:1;font-size:14.5px;line-height:1.75}
-.mrow .mt .nm{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.24em;color:var(--terra);
+.mrow .mt .nm{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.24em;color:var(--terra-ink);
   text-transform:uppercase;margin-bottom:5px}
 
 /* learn cards */
@@ -70,16 +72,16 @@ body.nozh .zh{display:none !important}
 .acard canvas{image-rendering:pixelated;width:52px;height:52px;flex:none}
 .acard .ai{flex:1;min-width:0}
 .acard .ai b{font-size:16px;display:block}
-.acard .ai .py{font-family:"Courier New",monospace;font-size:11px;color:var(--gold);letter-spacing:.1em}
+.acard .ai .py{font-family:"Courier New",monospace;font-size:11px;color:var(--gold-ink);letter-spacing:.1em}
 .acard .ai small{display:block;font-size:12.5px;color:var(--ink-soft);line-height:1.55;margin-top:3px}
 .organ{flex:none;background:var(--paper2);border-radius:9px;padding:6px 9px;text-align:center}
 .organ b{display:block;font-size:15px;color:var(--sage-deep)}
-.organ small{font-size:9.5px;font-family:"Courier New",monospace;color:var(--ink-faint);letter-spacing:.1em}
+.organ small{font-size:10.5px;font-family:"Courier New",monospace;color:var(--ink-faint);letter-spacing:.1em}
 
 /* play area */
 .srow{padding-right:40px;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
 .srow .rnd{font-family:"Courier New",monospace;font-size:11px;letter-spacing:.2em;color:var(--ink-faint)}
-.srow .sc{font-family:"Courier New",monospace;font-size:15px;color:var(--terra)}
+.srow .sc{font-family:"Courier New",monospace;font-size:15px;color:var(--terra-ink)}
 .callout{text-align:center;font-size:17px;line-height:1.6;min-height:52px;margin-bottom:4px}
 .callout small{display:block;font-size:12.5px;color:var(--ink-soft);margin-top:3px}
 
@@ -94,7 +96,7 @@ body.nozh .zh{display:none !important}
 .phase{font-family:"Courier New",monospace;font-size:12px;letter-spacing:.3em;text-align:center;
   padding:7px 0;margin-bottom:6px;border-radius:9px;transition:.25s}
 .phase.watch{background:rgba(124,143,160,.16);color:#5B6E86}
-.phase.turn{background:rgba(194,109,78,.16);color:var(--terra)}
+.phase.turn{background:rgba(194,109,78,.16);color:var(--terra-ink)}
 .phase .zh{font-family:"Songti TC",serif;letter-spacing:.06em}
 .howto{background:var(--white);border:1.5px solid rgba(51,47,40,.1);border-radius:15px;
   padding:14px 16px;margin-bottom:12px;font-size:13.5px;line-height:1.75;color:var(--ink-soft);
@@ -113,13 +115,13 @@ body.nozh .zh{display:none !important}
 .beast b{font-size:14.5px}
 .beast small{font-family:"Songti TC",serif;font-size:11px;letter-spacing:.04em;color:var(--ink-faint)}
 .beast:active{transform:scale(.95)}
-.beast.lit{border-color:var(--gold);box-shadow:0 0 0 4px rgba(176,141,62,.2),var(--sh);transform:translateY(-4px)}
+.beast.lit{border-color:var(--gold-ink);box-shadow:0 0 0 4px rgba(176,141,62,.2),var(--sh);transform:translateY(-4px)}
 .beast.lit canvas{transform:scale(1.16)}
-.beast.good{border-color:var(--sage);box-shadow:0 0 0 4px rgba(123,139,111,.22),var(--sh)}
-.beast.bad{border-color:var(--terra);box-shadow:0 0 0 4px rgba(194,109,78,.2),var(--sh)}
+.beast.good{border-color:var(--sage-ink);box-shadow:0 0 0 4px rgba(123,139,111,.22),var(--sh)}
+.beast.bad{border-color:var(--terra-ink);box-shadow:0 0 0 4px rgba(194,109,78,.2),var(--sh)}
 .beast.dim{opacity:.4}
 .beast .num{position:absolute;top:5px;right:7px;font-family:"Courier New",monospace;font-size:11px;
-  color:var(--gold);opacity:0;transition:opacity .2s}
+  color:var(--gold-ink);opacity:0;transition:opacity .2s}
 .beast.numbered .num{opacity:1}
 
 .dots{display:flex;justify-content:center;gap:6px;margin:9px 0 4px}
@@ -133,7 +135,7 @@ body.nozh .zh{display:none !important}
 .fb.on{display:block;animation:pop .35s var(--ease)}
 @keyframes pop{from{transform:scale(.96);opacity:0}}
 .fb b{color:var(--ink)}
-.fb.warn{border-left-color:var(--terra)}
+.fb.warn{border-left-color:var(--terra-ink)}
 
 .btn{width:100%;min-height:52px;border:none;border-radius:14px;cursor:pointer;font-family:inherit;font-size:16.5px;
   letter-spacing:.14em;background:var(--terra);color:var(--white);box-shadow:0 5px 0 var(--terra-deep),var(--sh);
@@ -145,7 +147,7 @@ body.nozh .zh{display:none !important}
 
 /* result */
 .res{margin:auto 0;text-align:center;display:flex;flex-direction:column;align-items:center;gap:9px}
-.stars{font-size:40px;color:var(--gold);letter-spacing:.14em}
+.stars{font-size:40px;color:var(--gold-ink);letter-spacing:.14em}
 .stars .off{opacity:.2}
 .res h2{font-size:26px;letter-spacing:.13em}
 .gain{background:var(--white);border:2px solid var(--sky);border-radius:16px;padding:13px 18px;box-shadow:var(--sh);max-width:320px}
@@ -170,10 +172,10 @@ body.nozh .zh{display:none !important}
   @keyframes roomIn{to{transform:scale(1)}}
 }
 </style>
-<link rel="stylesheet" href="desktop.css?v=49">
-<script src="state.js?v=49"></script>
-<script src="data/herbs.js?v=49"></script>
-<script src="hud.js?v=49"></script>
+<link rel="stylesheet" href="desktop.css?v=55">
+<script src="state.js?v=55"></script>
+<script src="data/herbs.js?v=55"></script>
+<script src="hud.js?v=55"></script>
 </head>
 <body data-page="daoyin">
 <div id="app">
@@ -444,7 +446,7 @@ function result(){
      :'<b>Master Xiong:</b> "Again tomorrow. These animals are patient; so should you be."')
     +(S.zh?(n===3?'<span class="zh"><b>熊師：</b>「你沒有去想順序。這就對了——記住的是身體，不是腦袋。」</span>'
                  :'<span class="zh"><b>熊師：</b>「明天再來一次。這些禽獸有的是耐心，你也該有。」</span>'):"")
-    +`<br><br><span style="font-family:'Courier New',monospace;color:var(--terra);font-size:13.5px">Score ${score} / ${max} · Cultivation 導引 ${S.stats.daoyin}/4</span>`;
+    +`<br><br><span style="font-family:'Courier New',monospace;color:var(--terra-ink);font-size:13.5px">Score ${score} / ${max} · Cultivation 導引 ${S.stats.daoyin}/4</span>`;
   go("s4");
 }
 $("again").onclick=()=>location.reload();
