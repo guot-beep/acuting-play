@@ -21,10 +21,10 @@ window.AG_SORTS = {
     intro:{en:"\"This chart is the floor everything else stands on,\" says Shu Chi. \"Learn it once and half of diagnosis becomes reading.\"",
            zh:"「這張表是一切的地基。」書癡說，「背熟一次，往後半部診斷就只是閱讀。」"},
     buckets:[
-      {k:"wood",  en:"Wood",  zh:"木", sub:"Liver 肝",   c:"#6E8B57"},
-      {k:"fire",  en:"Fire",  zh:"火", sub:"Heart 心",   c:"#C0392B"},
-      {k:"earth", en:"Earth", zh:"土", sub:"Spleen 脾",  c:"#B08D3E"},
-      {k:"metal", en:"Metal", zh:"金", sub:"Lung 肺",    c:"#8A8F86"},
+      {k:"wood",  en:"Wood",  zh:"木", sub:"Liver 肝",   c:"#566F44"},
+      {k:"fire",  en:"Fire",  zh:"火", sub:"Heart 心",   c:"#A6291D"},
+      {k:"earth", en:"Earth", zh:"土", sub:"Spleen 脾",  c:"#8C7031"},
+      {k:"metal", en:"Metal", zh:"金", sub:"Lung 肺",    c:"#6C7268"},
       {k:"water", en:"Water", zh:"水", sub:"Kidney 腎",  c:"#4A5560"}
     ],
     items:[
@@ -80,11 +80,11 @@ window.AG_SORTS = {
     intro:{en:"\"A student who knows where the Spleen is has learned anatomy,\" says Shu Chi. \"A physician knows what it does.\"",
            zh:"「知道脾在哪裡的，學的是解剖。」書癡說，「知道脾在做什麼的，才是醫者。」"},
     buckets:[
-      {k:"heart",  en:"Heart",  zh:"心", sub:"Monarch 君主",     c:"#C0392B"},
-      {k:"spleen", en:"Spleen", zh:"脾", sub:"Acquired Root 後天之本", c:"#B08D3E"},
-      {k:"lung",   en:"Lung",   zh:"肺", sub:"Canopy 華蓋",      c:"#8A8F86"},
+      {k:"heart",  en:"Heart",  zh:"心", sub:"Monarch 君主",     c:"#A6291D"},
+      {k:"spleen", en:"Spleen", zh:"脾", sub:"Acquired Root 後天之本", c:"#8C7031"},
+      {k:"lung",   en:"Lung",   zh:"肺", sub:"Canopy 華蓋",      c:"#6C7268"},
       {k:"kidney", en:"Kidney", zh:"腎", sub:"Congenital Root 先天之本", c:"#4A5560"},
-      {k:"liver",  en:"Liver",  zh:"肝", sub:"General 將軍",     c:"#6E8B57"}
+      {k:"liver",  en:"Liver",  zh:"肝", sub:"General 將軍",     c:"#566F44"}
     ],
     items:[
       {en:"Governs blood and houses the spirit", zh:"主血脈、藏神", a:"heart", why:{en:"Palpitations, insomnia and dream-disturbed sleep follow from this.", zh:"故心病見心悸、失眠、多夢。"}},
@@ -115,8 +115,8 @@ window.AG_SORTS = {
     intro:{en:"\"Function comes later,\" says Yao Weng. \"First tell me whether it warms or cools. Get that wrong and everything after it is wrong.\"",
            zh:"「功效以後再說。」藥翁道，「先告訴我它是溫的還是涼的。這一步錯了，後面全錯。」"},
     buckets:[
-      {k:"warm", en:"Warm / Hot", zh:"溫熱", sub:"warms, moves, disperses cold", c:"#C26D4E"},
-      {k:"cool", en:"Cool / Cold", zh:"寒涼", sub:"clears, drains, cools heat", c:"#5B6E86"},
+      {k:"warm", en:"Warm / Hot", zh:"溫熱", sub:"warms, moves, disperses cold", c:"#A2523A"},
+      {k:"cool", en:"Cool / Cold", zh:"寒涼", sub:"clears, drains, cools heat", c:"#4B5C71"},
       {k:"neutral", en:"Neutral", zh:"平", sub:"neither — safe for long use", c:"#8E9E82"}
     ],
     items:[
@@ -143,10 +143,10 @@ window.AG_SORTS = {
     intro:{en:"\"Anyone can throw eight herbs in a pot,\" says Yao Weng. \"Tell me which one is in charge.\"",
            zh:"「誰都能把八味藥丟進鍋裡。」藥翁說，「你告訴我哪一味說了算。」"},
     buckets:[
-      {k:"jun",  en:"Sovereign", zh:"君", sub:"treats the main pattern", c:"#C0392B"},
-      {k:"chen", en:"Minister",  zh:"臣", sub:"assists the sovereign",   c:"#B08D3E"},
-      {k:"zuo",  en:"Assistant", zh:"佐", sub:"treats branches · restrains harshness", c:"#6E8B57"},
-      {k:"shi",  en:"Envoy",     zh:"使", sub:"guides · harmonises",     c:"#5B6E86"}
+      {k:"jun",  en:"Sovereign", zh:"君", sub:"treats the main pattern", c:"#A6291D"},
+      {k:"chen", en:"Minister",  zh:"臣", sub:"assists the sovereign",   c:"#8C7031"},
+      {k:"zuo",  en:"Assistant", zh:"佐", sub:"treats branches · restrains harshness", c:"#566F44"},
+      {k:"shi",  en:"Envoy",     zh:"使", sub:"guides · harmonises",     c:"#4B5C71"}
     ],
     items:[
       {en:"The herb that directly treats the main pattern, in the largest dose", zh:"針對主證、用量最重者", a:"jun",
