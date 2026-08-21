@@ -19,6 +19,9 @@ fs.readdirSync(DIR).filter(f=>f.endsWith('.js')).sort().forEach(f=>{
 fs.readdirSync('/home/claude/site').filter(f=>f.endsWith('.html')).forEach(f=>{
   const s=fs.readFileSync('/home/claude/site/'+f,'utf8');
   const loaded=[...s.matchAll(/<script src="(data\/[a-z0-9_.-]+\.js)/g)].map(m=>m[1].replace('data/',''));
+  /* chapter.html and practice.html build their data src in JS so they can ship
+     one chapter / one deck instead of the whole set — count those too */
+  [...s.matchAll(/data\/(chapters|practice)\//g)].forEach(m=>loaded.push(m[1]+'.js'));
   [...s.matchAll(/window\.(AG_[A-Z_]+)/g)].map(m=>m[1]).forEach(g=>{
     if(!owner[g]) bad.push(f+' reads window.'+g+' which no data file defines');
     else if(loaded.indexOf(owner[g])<0) bad.push(f+' reads window.'+g+' but does not load data/'+owner[g]);

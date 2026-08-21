@@ -5,7 +5,12 @@ const BASE='file:///home/claude/site/';
   const ctx=await b.newContext({viewport:{width:390,height:780}});
   const pg=await ctx.newPage();
   const errs=[]; pg.on('pageerror',e=>errs.push(String(e)));
-  pg.on('console',m=>{if(m.type()==='error')errs.push('console: '+m.text())});
+  /* A deliberately bad deck id is *meant* to miss data/practice/<id>.js — that
+     404 is the fallback firing, not a fault. Everything else still counts. */
+  const expected404=/net::ERR_FILE_NOT_FOUND|Failed to load resource/;
+  pg.on('console',m=>{if(m.type()==='error' && !(ignore404 && expected404.test(m.text())))
+    errs.push('console: '+m.text())});
+  let ignore404=false;
   let fail=0;
   const ok=(c,m)=>{console.log((c?'  ✅ ':'  ✗ ')+m); if(!c)fail++;};
 
@@ -23,10 +28,12 @@ const BASE='file:///home/claude/site/';
 
   /* ── 2 · unknown deck degrades gracefully ── */
   errs.length=0;
-  await pg.goto(BASE+'practice.html?d=nosuchdeck'); await pg.waitForTimeout(150);
+  ignore404=true;
+  await pg.goto(BASE+'practice.html?d=nosuchdeck'); await pg.waitForTimeout(400);
   ok(await pg.$eval('#dTitle',e=>e.textContent.includes('not found')),'unknown deck shows a message, not a crash');
   ok(await pg.$eval('#go',e=>e.hidden),'unknown deck hides the Begin button');
   ok(errs.length===0,'unknown deck throws nothing'+(errs[0]?' ('+errs[0]+')':''));
+  ignore404=false;
 
   /* ── 3 · index: chapter index lists every chapter in data ── */
   errs.length=0;
