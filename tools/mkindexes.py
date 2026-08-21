@@ -3,7 +3,13 @@
 Generates the small index files the town and the progress page read.
 
 data/chapter-index.js   ~2 KB   from data/chapters.js    (192 KB)
-data/practice-index.js  ~1 KB   from data/practice.js    (140 KB) + data/sorts.js
+data/practice-index.js  ~2 KB   from data/practice.js    (140 KB) + data/sorts.js
+data/chapters/NN.js     ~7 KB each   one chapter per file
+data/practice/<id>.js   ~5 KB each   one deck per file
+
+A player reads one chapter and plays one deck at a time. Shipping all ten
+chapters to read chapter 7, or all eleven decks to answer eleven questions
+about the pulse, is most of the weight of those pages for nothing.
 
 Neither index.html nor progress.html needs the content of a chapter or a
 practice deck — only its title and shape. Loading the full files on the first
@@ -75,3 +81,46 @@ for i, r in enumerate(rows):
 out.append("];")
 open(os.path.join(D, "practice-index.js"), "w", encoding="utf-8").write("\n".join(out) + "\n")
 print("  data/practice-index.js  %d practice decks + %d sorting sets" % (len(decks), len(sorts)))
+
+
+# ── one file per chapter, one per practice deck ─────────────────────
+# The whole-file sources stay the authoring format; these are built from them,
+# so there is still exactly one place to edit a chapter.
+import shutil
+
+def split(src, glob_name, out_dir, keys_expr, item_expr, global_name, head_note):
+    d = os.path.join(D, out_dir)
+    if os.path.isdir(d):
+        shutil.rmtree(d)
+    os.makedirs(d)
+    keys = read(src, keys_expr)
+    for k in keys:
+        body = subprocess.run(
+            ["node", "-e",
+             "global.window={};require(process.argv[1]);"
+             "var k=process.argv[2];"
+             "process.stdout.write(JSON.stringify(%s));" % item_expr,
+             os.path.join(D, src), k],
+            capture_output=True, text=True)
+        if body.returncode:
+            sys.exit("could not split %s[%s]:\n%s" % (src, k, body.stderr))
+        txt = ("/* GENERATED from data/%s by tools/mkindexes.py — do not edit.\n"
+               "   %s */\n"
+               "window.%s = window.%s || {};\n"
+               "window.%s[%s] = %s;\n"
+               % (src, head_note, global_name, global_name, global_name,
+                  json.dumps(k), body.stdout))
+        open(os.path.join(d, "%s.js" % k), "w", encoding="utf-8").write(txt)
+    total = sum(os.path.getsize(os.path.join(d, f)) for f in os.listdir(d))
+    print("  data/%s/  %d files, %d KB total, biggest %d KB"
+          % (out_dir, len(keys), total // 1024,
+             max(os.path.getsize(os.path.join(d, f)) for f in os.listdir(d)) // 1024))
+
+split("chapters.js", None, "chapters",
+      "Object.keys(window.AG_CHAPTERS)",
+      "window.AG_CHAPTERS[k]", "AG_CHAPTERS",
+      "chapter.html loads only the one it was asked for")
+split("practice.js", None, "practice",
+      "Object.keys(window.AG_PRACTICE)",
+      "window.AG_PRACTICE[k]", "AG_PRACTICE",
+      "practice.html loads only the deck in the url")
