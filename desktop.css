@@ -185,6 +185,45 @@
   [data-page="chapter"] #s-end .end-wrap > .reward    { grid-column: auto; max-width: none; align-self: stretch; }
   [data-page="chapter"] #s-end .end-wrap > .cta       { max-width: 420px; }
 
+  /* ═══ THE TWO HALLS (pointroom.html, herbroom.html) ═══
+     The wall ships as two columns because that is right on a phone. On a
+     1400px screen two columns of 42 points is twenty-one rows of scrolling
+     for something that is meant to be scanned at a glance, so the shelf
+     widens instead of the jars. The section headings span the full width,
+     which is what keeps the shelves readable as shelves. */
+  [data-page="pointroom"] .shelf,
+  [data-page="herbroom"]  .shelf {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .shelf .shelfhead { grid-column: 1 / -1; }
+  .shelf .jar { min-height: 92px; }
+
+  /* ═══ THE RECORD (progress.html) ═══
+     Twenty chapters in one column is a long scroll on a landscape card. */
+  [data-page="progress"] .rows {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 22px;
+    row-gap: 6px;
+  }
+  /* a five-axis bar stretched across 1120px reads as a progress bar for the
+     page, not for the axis — hold the meters to a sensible measure */
+  [data-page="progress"] .axes,
+  [data-page="progress"] .meter { max-width: 760px; }
+  [data-page="progress"] .sec h2 { max-width: 760px; }
+
+  /* ═══ REVIEW (review.html) ═══ */
+  [data-page="review"] .rvlist {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    max-width: 880px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  [data-page="review"] .rvlist .rvsrc { grid-column: 1 / -1; }
+
   /* ═══ DAILY CASE ═══ */
   .sharegrid, .share { max-width: 660px; margin-left: auto; margin-right: auto; }
 
@@ -203,6 +242,9 @@
    ───────────────────────────────────────────────────────────── */
 @media (min-width: 1400px) {
   #app { width: 100%; max-width: 1240px; height: min(calc(100svh - 52px), 760px); }
+  /* same specificity as the 900px rule above, or that one wins */
+  [data-page="pointroom"] .shelf,
+  [data-page="herbroom"]  .shelf { grid-template-columns: repeat(5, minmax(0, 1fr)); }
 }
 
 /* ─────────────────────────────────────────────────────────────
