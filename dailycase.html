@@ -125,11 +125,11 @@ body.nozh .zh{display:none !important}
   transition:.3s var(--ease);z-index:80;pointer-events:none}
 .toast.on{opacity:.95;transform:translate(-50%,0)}
 </style>
-<link rel="stylesheet" href="desktop.css?v=74">
-<script src="state.js?v=74"></script>
-<script src="data/herbs.js?v=74"></script>
-<script src="hud.js?v=74"></script>
-<script src="data/daily-cases.js?v=74"></script>
+<link rel="stylesheet" href="desktop.css?v=76">
+<script src="state.js?v=76"></script>
+<script src="data/herbs.js?v=76"></script>
+<script src="hud.js?v=76"></script>
+<script src="data/daily-cases.js?v=76"></script>
 </head>
 <body data-page="daily">
 <div id="app">
@@ -257,6 +257,13 @@ function answer(i,btn){
   if(G.locked)return;G.locked=true;
   const c=CASES[G.ci],q=c.q[G.step],o=q.o[i];
   G.marks.push(o.ok?1:0);
+  /* review queue 溫故 — the daily case is the one thing a student does every
+     day, so its questions belong in the queue too. Keyed on the pattern name
+     and the question, never on the case index, because inserting a case in
+     the middle would otherwise scramble every stored key. */
+  try{ if(window.AG&&AG.review) AG.review.mark(
+    "d:"+AG.review.slot(c.p)+":"+AG.review.slot(q.t), !!o.ok,
+    {lbl:"Daily Case \u00b7 "+q.t, sub:c.p, href:"dailycase.html"}); }catch(e){}
   $("opts").querySelectorAll(".opt").forEach((b,n)=>{b.classList.add("used");
     if(q.o[n].ok)b.classList.add("good");else if(n===i)b.classList.add("bad")});
   $("fb").className="fb on"+(o.ok?"":" warn");

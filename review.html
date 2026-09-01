@@ -174,9 +174,9 @@ body.nozh .slot .c{display:none}
 .rvempty{background:var(--white);border-radius:15px;padding:18px 16px;text-align:center;
   font-size:13.5px;line-height:1.8;color:var(--ink-soft);box-shadow:var(--sh-s)}
 </style>
-<link rel="stylesheet" href="desktop.css?v=74">
-<script src="state.js?v=74"></script>
-<script src="hud.js?v=74"></script>
+<link rel="stylesheet" href="desktop.css?v=76">
+<script src="state.js?v=76"></script>
+<script src="hud.js?v=76"></script>
 </head>
 <body data-page="review">
 <div id="app">
@@ -221,8 +221,8 @@ body.nozh .slot .c{display:none}
   </section>
 </div>
 
-<script src="data/chapter-index.js?v=74"></script>
-<script src="data/practice-index.js?v=74"></script>
+<script src="data/chapter-index.js?v=76"></script>
+<script src="data/practice-index.js?v=76"></script>
 <script>
 /* ══════════════════════════════════════════════════════════════
    Review 溫故 — the second meeting
@@ -317,6 +317,17 @@ async function rebuild(entry){
     return { key: entry.key, q: q.q, qZh: q.cq || "",
              src: entry.lbl || ("Point Hall · " + owner), sub: entry.sub || "",
              opts: q.opts.map(o => ({ t:o.t, c:o.c, ok:!!o.ok, note:o.note })) };
+  }
+
+  if (src === "d"){
+    await need("data/daily-cases.js");
+    const cs = (window.AG_CASES || []).filter(c => AG.review.slot(c.p) === owner)[0];
+    if (!cs) return null;
+    const q = (cs.q || []).filter(x => AG.review.slot(x.t) === slot)[0];
+    if (!q) return null;
+    return { key: entry.key, q: q.t, qZh: q.z || "",
+             src: entry.lbl || "Daily Case", sub: entry.sub || cs.p,
+             opts: q.o.map(o => ({ t:o.a, c:"", ok:!!o.ok, note:o.n })) };
   }
 
   return null;   // sorting sets and multi-select prescriptions link out instead
