@@ -105,13 +105,13 @@ body.nozh .sec h2 .zh{display:none}
 .btn:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(51,47,40,.13)}
 .note{font-size:10.5px;color:var(--ink-faint);line-height:1.7;text-align:center;margin:10px 0 4px}
 </style>
-<link rel="stylesheet" href="desktop.css?v=77">
-<script src="state.js?v=77"></script>
-<script src="data/points.js?v=77"></script>
-<script src="data/herbs.js?v=77"></script>
-<script src="data/chapter-index.js?v=77"></script>
-<script src="data/practice-index.js?v=77"></script>
-<script src="hud.js?v=77"></script>
+<link rel="stylesheet" href="desktop.css?v=78">
+<script src="state.js?v=78"></script>
+<script src="data/points.js?v=78"></script>
+<script src="data/herbs.js?v=78"></script>
+<script src="data/chapter-index.js?v=78"></script>
+<script src="data/practice-index.js?v=78"></script>
+<script src="hud.js?v=78"></script>
 </head>
 <body data-page="progress">
 <div id="app">
@@ -281,6 +281,27 @@ html+='<div class="sec"><h2><span>Daily Case'+zh("今日病例")+'</span><em>'+(
   +zh("已解 "+(dc.solved||0)+" 則，連續 "+(dc.streak||0)+" 天。每日一則，全世界同一題。")+"</p></div>";
 
 $("body").innerHTML=html;
+</script>
+<!-- Cloudflare Web Analytics — cookieless, no personal data, ~2KB.
+     Counts visits and pages so we can see whether anyone is playing and where
+     they stop. It identifies no one: there are no accounts on this site and
+     progress never leaves the player's own browser. The token is public by
+     design — it appears in the page source of every site that uses it. -->
+<script>
+/* Injected only on the live host. Opened from file:// or localhost — the test
+   suite, a local copy — the request would fail slowly on every page load AND
+   count our own page loads as visitors, so it is simply never created there. */
+(function () {
+  var h = location.hostname;
+  if (!/^https?:$/.test(location.protocol)) return;
+  if (h === "localhost" || h === "127.0.0.1" || h === "") return;
+  var s = document.createElement("script");
+  s.type = "module";
+  s.defer = true;
+  s.src = "https://static.cloudflareinsights.com/beacon.min.js";
+  s.setAttribute("data-cf-beacon", '{"token": "638c70912f564e788ffa919d304e9166"}');
+  document.body.appendChild(s);
+})();
 </script>
 </body>
 </html>

@@ -119,11 +119,11 @@ body.nozh .lg small{display:none}
 .missed li{margin-bottom:6px;list-style:none}
 .note{font-size:10.5px;color:var(--ink-faint);line-height:1.7;text-align:center;margin-top:8px}
 </style>
-<link rel="stylesheet" href="desktop.css?v=77">
-<script src="state.js?v=77"></script>
-<script src="data/mentors.js?v=77"></script>
-<script src="data/sorts.js?v=77"></script>
-<script src="hud.js?v=77"></script>
+<link rel="stylesheet" href="desktop.css?v=78">
+<script src="state.js?v=78"></script>
+<script src="data/mentors.js?v=78"></script>
+<script src="data/sorts.js?v=78"></script>
+<script src="hud.js?v=78"></script>
 </head>
 <body data-page="sort">
 <div id="app">
@@ -285,6 +285,27 @@ if(D) $("go").onclick=start;
 $("again").onclick=start;
 $("back1").onclick=()=>location.href="index.html";
 $("back").onclick=()=>location.href="index.html";
+</script>
+<!-- Cloudflare Web Analytics — cookieless, no personal data, ~2KB.
+     Counts visits and pages so we can see whether anyone is playing and where
+     they stop. It identifies no one: there are no accounts on this site and
+     progress never leaves the player's own browser. The token is public by
+     design — it appears in the page source of every site that uses it. -->
+<script>
+/* Injected only on the live host. Opened from file:// or localhost — the test
+   suite, a local copy — the request would fail slowly on every page load AND
+   count our own page loads as visitors, so it is simply never created there. */
+(function () {
+  var h = location.hostname;
+  if (!/^https?:$/.test(location.protocol)) return;
+  if (h === "localhost" || h === "127.0.0.1" || h === "") return;
+  var s = document.createElement("script");
+  s.type = "module";
+  s.defer = true;
+  s.src = "https://static.cloudflareinsights.com/beacon.min.js";
+  s.setAttribute("data-cf-beacon", '{"token": "638c70912f564e788ffa919d304e9166"}');
+  document.body.appendChild(s);
+})();
 </script>
 </body>
 </html>

@@ -174,9 +174,9 @@ body.nozh .slot .c{display:none}
 .rvempty{background:var(--white);border-radius:15px;padding:18px 16px;text-align:center;
   font-size:13.5px;line-height:1.8;color:var(--ink-soft);box-shadow:var(--sh-s)}
 </style>
-<link rel="stylesheet" href="desktop.css?v=77">
-<script src="state.js?v=77"></script>
-<script src="hud.js?v=77"></script>
+<link rel="stylesheet" href="desktop.css?v=78">
+<script src="state.js?v=78"></script>
+<script src="hud.js?v=78"></script>
 </head>
 <body data-page="review">
 <div id="app">
@@ -221,8 +221,8 @@ body.nozh .slot .c{display:none}
   </section>
 </div>
 
-<script src="data/chapter-index.js?v=77"></script>
-<script src="data/practice-index.js?v=77"></script>
+<script src="data/chapter-index.js?v=78"></script>
+<script src="data/practice-index.js?v=78"></script>
 <script>
 /* ══════════════════════════════════════════════════════════════
    Review 溫故 — the second meeting
@@ -462,6 +462,27 @@ $("again").onclick = () => location.reload();
 $("back1").onclick = $("back3").onclick = () => { location.href = "index.html"; };
 
 boot();
+</script>
+<!-- Cloudflare Web Analytics — cookieless, no personal data, ~2KB.
+     Counts visits and pages so we can see whether anyone is playing and where
+     they stop. It identifies no one: there are no accounts on this site and
+     progress never leaves the player's own browser. The token is public by
+     design — it appears in the page source of every site that uses it. -->
+<script>
+/* Injected only on the live host. Opened from file:// or localhost — the test
+   suite, a local copy — the request would fail slowly on every page load AND
+   count our own page loads as visitors, so it is simply never created there. */
+(function () {
+  var h = location.hostname;
+  if (!/^https?:$/.test(location.protocol)) return;
+  if (h === "localhost" || h === "127.0.0.1" || h === "") return;
+  var s = document.createElement("script");
+  s.type = "module";
+  s.defer = true;
+  s.src = "https://static.cloudflareinsights.com/beacon.min.js";
+  s.setAttribute("data-cf-beacon", '{"token": "638c70912f564e788ffa919d304e9166"}');
+  document.body.appendChild(s);
+})();
 </script>
 </body>
 </html>
