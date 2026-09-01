@@ -1,6 +1,11 @@
 const {chromium}=require(process.env.PW||'playwright');
 const BASE='file:///home/claude/site/';
-const DECKS=['wuxing','zangfu','pulse','tongue','bagang','tedingxue','jingluo','junchen','jieqi','baduanjin','liuzijue'];
+/* Read the deck list from the data, not from a list kept by hand — the hand-
+   written one silently stopped covering decks added after it was written. */
+const fs=require('fs'), vm=require('vm');
+const box={window:{}}; vm.createContext(box);
+vm.runInContext(fs.readFileSync('/home/claude/site/data/practice.js','utf8'), box);
+const DECKS=Object.keys(box.window.AG_PRACTICE).sort();
 (async()=>{
   const b=await chromium.launch({executablePath:process.env.CHROME||'/opt/pw-browsers/chromium'});
   const ctx=await b.newContext({viewport:{width:390,height:780}});
