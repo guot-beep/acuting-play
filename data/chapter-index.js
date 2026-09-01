@@ -24,5 +24,8 @@ window.AG_CHAPTER_INDEX = [
  {id:"14", title:"Fire Above, Dryness Below", titleZh:"上面是火，下面是乾", pattern:"Heart and Kidney Failing to Communicate 心腎不交"},
  {id:"15", title:"The Fifth Watch", titleZh:"五更", pattern:"Spleen and Kidney Yang Deficiency 脾腎陽虛"},
  {id:"16", title:"The Colour on His Sleeve", titleZh:"袖上的顏色", pattern:"Liver Fire Insulting the Lung 肝火犯肺"},
- {id:"17", title:"The Thread She Cannot See", titleZh:"看不見的線", pattern:"Heart and Liver Blood Deficiency 心肝血虛"}
+ {id:"17", title:"The Thread She Cannot See", titleZh:"看不見的線", pattern:"Heart and Liver Blood Deficiency 心肝血虛"},
+ {id:"18", title:"The Stone in His Chest", titleZh:"胸中的石頭", pattern:"Heart Blood Stasis 心血瘀阻"},
+ {id:"19", title:"The Knee in the Wet Season", titleZh:"梅雨裡的膝", pattern:"Damp-Heat Obstructing the Channels 濕熱痹阻"},
+ {id:"20", title:"The Side of His Head", titleZh:"頭之一側", pattern:"Blood Stasis Headache on the Shaoyang Channel 瘀血頭痛 · 少陽經"}
 ];

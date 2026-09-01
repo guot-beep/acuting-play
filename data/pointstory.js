@@ -1999,5 +1999,167 @@ window.AG_POINTSTORY = [
   ],
   card:{en:"Shangqiu SP5 — River point of the Spleen, in the hollow in front of and below the inner ankle bone. Resolves damp and treats the medial ankle. As the Metal point on an Earth channel it is the Spleen's child point, for draining excess.",
         zh:"商丘，脾之經穴，內踝前下方凹陷中。化濕，兼治內踝。為土經之金穴，即脾之子穴，實則瀉之。"} }
+,
+
+/* ══════════════ ADDED WITH CHAPTERS 15–18 ══════════════ */
+
+{ id:"KI7", region:"leg",
+  beats:[
+    {en:"A ferryman is back for a third visit. The daybreak diarrhoea has eased, but both ankles still hold the mark of a finger, and he passes clear water four times a night.",
+     zh:"一船家三診。五更之瀉已減，然兩踝按之猶留凹痕，夜溺清長四次。"},
+    {en:"Shen Yi finds Taixi behind the inner ankle bone, then measures two cun straight up, to the front edge of the heel cord, and rests her thumb there.",
+     zh:"沈醫師先取內踝後之太谿，直上二寸，至跟腱前緣，以拇指按之。"},
+    {en:"\"Taixi fills the well,\" she says. \"Fuliu moves the water. When the yang is low and the fluid has stopped, you often want the second more than the first.\"",
+     zh:"「太谿實其井，復溜行其水。陽衰而水停者，多取後者甚於前者。」"}
+  ],
+  qs:[
+    {q:"Why choose Fuliu rather than Taixi in a patient with pitting oedema and chronic loose stool?",
+     cq:"下肢凹陷性水腫兼久瀉者，何以捨太谿而取復溜？",
+     opts:[
+      {t:"Because KI7 specifically warms Kidney yang and moves standing water, while KI3 tonifies whatever the Kidney lacks without that particular action",
+       c:"復溜專溫腎陽而行停水；太谿補其所虧，而無此專功",ok:true,
+       note:"<b>Correct.</b> Both are Kidney points and both are correct answers to <i>Kidney deficiency</i>. The difference is what each one <b>does</b>: KI3 太谿, the Source point, restores whatever the organ is short of — yin or yang alike. KI7 復溜 is the point that moves water. When fluid has stopped, reach for the second."},
+      {t:"Because KI3 is contraindicated in yang deficiency",
+       c:"陽虛者忌太谿",ok:false,
+       note:"It is not. KI3 太谿 is unusual precisely because it serves Kidney yin and Kidney yang alike — which is why it appears in two chapters for opposite patterns."},
+      {t:"Because KI7 is a Source point and KI3 is not",
+       c:"復溜為原穴，太谿非是",ok:false,
+       note:"The other way round. KI3 太谿 is the Source point 原穴 of the Kidney; KI7 復溜 is the River point 經穴."}
+     ]},
+    {q:"Fuliu is also the classical point for sweating disorders. What is its usual partner, and what does the pair do?",
+     cq:"復溜又為汗證要穴。其常配為何？二者相配何用？",
+     opts:[
+      {t:"Hegu LI4 — the pair regulates sweating in either direction, promoting sweat or stopping it depending on technique",
+       c:"配合谷。二穴相配，發汗止汗，隨手法而異其向",ok:true,
+       note:"<b>Correct.</b> <b>復溜配合谷</b> is the classical sweating pair. Reduce LI4 and reinforce KI7 to stop sweating; reinforce LI4 and reduce KI7 to promote it. One pair, two directions — decided by technique, not by point choice."},
+      {t:"Zusanli ST36 — the pair builds qi so the pores close",
+       c:"配足三里，補氣而固腠理",ok:false,
+       note:"ST36 does build the qi that secures the exterior, and it is a reasonable adjunct. But the named classical pair for sweating is <b>LI4 with KI7</b>."},
+      {t:"Sanyinjiao SP6 — the pair enriches yin so night sweats stop",
+       c:"配三陰交，滋陰以止盜汗",ok:false,
+       note:"A sensible combination for night sweats, and not the classical sweating pair. Learn <b>合谷、復溜</b> as a unit."}
+     ]},
+    {q:"A patient has oedema of the legs, but also a greasy yellow coat, dark scanty urine and a slippery rapid pulse. Is KI7 still your point?",
+     cq:"下肢水腫而見苔黃膩、小便短赤、脈滑數者，猶取復溜否？",
+     opts:[
+      {t:"No — that is damp-heat, and KI7 warms. Warming a damp-heat pattern concentrates the heat inside the damp",
+       c:"不取。此濕熱也，而復溜性溫。溫其濕則助其中之熱",ok:true,
+       note:"<b>Correct, and this is the caution that matters.</b> KI7 復溜 answers oedema <i>from yang deficiency</i> — pale, cold, slow pulse, clear urine. Oedema with heat signs is a different pattern and wants draining and cooling, not warming. The symptom is the same; the mechanism decides the point."},
+      {t:"Yes — oedema is oedema, and KI7 moves water whatever the cause",
+       c:"仍取。水腫即水腫，復溜行水，不論其因",ok:false,
+       note:"Treating the symptom rather than the mechanism. Two patients with swollen ankles can need opposite treatments; that difference is the whole of pattern differentiation."},
+      {t:"Yes, but only with strong reducing technique",
+       c:"仍取，惟當重瀉",ok:false,
+       note:"Technique cannot reverse a point's nature. If the pattern is damp-heat, choose points that drain damp and clear heat — SP9 陰陵泉 among them."}
+     ]}
+  ],
+  card:{en:"Fuliu KI7, two cun above Taixi on the front edge of the heel cord. Warms Kidney yang and moves standing water; with Hegu it is the sweating pair. Taixi fills the well, Fuliu moves the water.",
+        zh:"復溜，太谿上二寸，跟腱前緣。溫腎陽、行停水；配合谷為汗證之對。太谿實其井，復溜行其水。"} },
+
+{ id:"HT7", region:"hand",
+  beats:[
+    {en:"A young mother sits with her hands in her lap. She sleeps, she says, but dreams all night and wakes as tired as she lay down. She keeps forgetting why she has come into a room.",
+     zh:"一少婦手置膝上而坐。自言能寐，然終夜多夢，醒如未睡。每入一室，輒忘其所為而來。"},
+    {en:"Shen Yi turns the wrist palm upward and finds the crease at its little-finger end, in the hollow just off the tendon, at the near edge of the small round bone.",
+     zh:"沈醫師翻其掌，於腕橫紋尺側端、筋旁凹陷、豌豆骨上緣取之。"},
+    {en:"\"Blood is the house the spirit sleeps in,\" she says. \"When the house is thin the spirit wanders all night. This is the door of that house.\"",
+     zh:"「血者，神之舍也。舍薄則神夜遊。此其門也。」"}
+  ],
+  qs:[
+    {q:"Shenmen is the first point named for insomnia. Why?",
+     cq:"失眠首取神門，何也？",
+     opts:[
+      {t:"It is the Source point of the Heart, and the Heart houses the spirit — so it settles the spirit whether the Heart is empty or hot",
+       c:"心之原穴，心藏神，故心之虛實皆能安其神",ok:true,
+       note:"<b>Correct.</b> A Source point 原穴 restores whatever its organ is short of, which is why HT7 神門 appears in blood deficiency, in yin deficiency and in Heart fire alike. The point stays the same; the <b>technique</b> changes — reinforce for the empty, reduce for the full."},
+      {t:"It is the Connecting point of the Heart",
+       c:"心之絡穴",ok:false,
+       note:"The Connecting point 絡穴 of the Heart is <b>Tongli HT5</b>. HT7 神門 is the Source and Stream point."},
+      {t:"It is a local point over the heart",
+       c:"心之局部穴",ok:false,
+       note:"It is at the wrist. Its reach to the Heart comes from the channel, not from proximity."}
+     ]},
+    {q:"A patient has palpitations, forgetting and dream-disturbed sleep, and also dry eyes, numb hands and scanty pale periods. Is HT7 enough on its own?",
+     cq:"心悸、健忘、多夢，兼目乾、手麻、經少色淡者，但取神門足乎？",
+     opts:[
+      {t:"No — the second list is Liver blood, so the treatment must nourish blood as well as settle the spirit",
+       c:"不足。後者屬肝血，故安神之外，尚須養血",ok:true,
+       note:"<b>Correct.</b> Sort a blood-deficient patient's symptoms into two columns: <b>mind</b> — palpitations, insomnia, dreaming, forgetting — is the Heart; <b>eyes, sinews, nails, menses</b> is the Liver. HT7 answers the first column. Blood-producing and blood-nourishing points answer the second."},
+      {t:"Yes — settling the spirit resolves everything downstream",
+       c:"足矣。神安則餘症自解",ok:false,
+       note:"Dry eyes and numb hands are not downstream of an unsettled spirit. They are Liver blood failing to reach the tissues it moistens."},
+      {t:"No — you should replace HT7 with a Liver point",
+       c:"不足，當以肝穴代之",ok:false,
+       note:"Not replace — add. Both organs are short of the same substance and both need treating."}
+     ]},
+    {q:"What must you watch for when needling a blood-deficient patient at points like this?",
+     cq:"血虛之人針此類穴，當防何事？",
+     opts:[
+      {t:"Fainting — treat her lying down, use gentle stimulation, keep the room warm and watch her colour",
+       c:"防暈針。當令臥而受之，手法宜輕，室宜溫，且時察其面色",ok:true,
+       note:"<b>Correct, and this is a clean-needle-technique matter, not a refinement.</b> The set-up for fainting is a depleted patient, sitting or standing, first treatment, strong manipulation, an empty stomach. If it happens: withdraw the needles, lie the patient flat, raise the legs, keep her warm, and stay with her."},
+      {t:"Bleeding at the point",
+       c:"防出血",ok:false,
+       note:"Worth a moment's pressure on withdrawal at any point, but not the specific risk that blood deficiency raises."},
+      {t:"Nothing in particular — HT7 is a shallow, safe point",
+       c:"無所特防。神門淺而安",ok:false,
+       note:"The point is safe. The <b>patient</b> is the consideration, and that is the distinction to keep: safety is judged from the person, not only from the location."}
+     ]}
+  ],
+  card:{en:"Shenmen HT7, the Gate of the Spirit — at the ulnar end of the wrist crease, at the near edge of the pisiform. Source point of the Heart, for palpitations, insomnia and forgetting. Blood houses the spirit; this is the door.",
+        zh:"神門，腕橫紋尺側端，豌豆骨上緣。心之原穴，主心悸、失眠、健忘。血舍神，此其戶也。"} },
+
+{ id:"PC4", region:"hand",
+  beats:[
+    {en:"A steward is brought in holding his chest. The pain came suddenly, stabs in one fixed spot, and travels down the inside of his left arm. His lips are dusky.",
+     zh:"一掌櫃扶胸而入。痛作於卒然，如刺而固定一處，引及左臂內側。其唇色青暗。"},
+    {en:"Shen Yi sends the boy for a physician before she touches him. Then she measures five cun above the wrist crease, between the two tendons.",
+     zh:"沈醫師先遣藥童請醫，而後始診。乃量腕橫紋上五寸，兩筋之間。"},
+    {en:"\"Cleft points are for what is sudden and what is severe,\" she says. \"On the yin channels they are also for blood. This one is both at once.\"",
+     zh:"「郄穴主暴主急。陰經之郄，兼主血證。此穴則二者俱備。」"}
+  ],
+  qs:[
+    {q:"What is the rule that makes PC4 the point for a sudden severe chest pain?",
+     cq:"郄門所以主胸中暴痛者，其例為何？",
+     opts:[
+      {t:"Cleft points treat acute and painful conditions; on the yin channels they also treat bleeding",
+       c:"郄穴主急症痛症；陰經郄穴兼主血證",ok:true,
+       note:"<b>Correct, and it is one rule with two faces.</b> LU6 孔最, the Lung's cleft point, uses the <b>blood</b> half — it is the point for coughing blood. PC4 郄門 uses the <b>pain</b> half — sudden severe chest pain. Learn the rule once and both points follow from it."},
+      {t:"Cleft points are where the channel qi enters the organ",
+       c:"郄穴者，經氣入臟之處",ok:false,
+       note:"That describes no standard category. Cleft points 郄穴 are where qi and blood gather deeply — hence their use in acute, severe conditions."},
+      {t:"It is the Source point of the Pericardium",
+       c:"心包之原穴",ok:false,
+       note:"The Source point 原穴 of the Pericardium is <b>Daling PC7</b>. PC4 郄門 is the cleft point 郄穴."}
+     ]},
+    {q:"How do you decide between PC4 and PC6 in a patient with chest complaints?",
+     cq:"胸中之病，郄門與內關，何以取捨？",
+     opts:[
+      {t:"PC6 for the ongoing picture — chest oppression, nausea, palpitations. PC4 for the acute episode of severe pain",
+       c:"內關治其常：胸悶、噁心、心悸。郄門治其暴：卒發劇痛",ok:true,
+       note:"<b>Correct.</b> PC6 內關 is the everyday workhorse: Connecting point, confluent point of the Yin Wei, broad in what it covers. PC4 郄門 is the specialist for the acute event. In practice they are often used together, each doing its own job."},
+      {t:"PC4 always, since it is the deeper point",
+       c:"恆取郄門，以其為深",ok:false,
+       note:"Depth is not the criterion. Category and indication are: cleft point for the acute, connecting point for the ongoing."},
+      {t:"They are interchangeable — both are Pericardium points",
+       c:"二者可互代，同為心包之穴",ok:false,
+       note:"Same channel, different categories, different jobs. Treating points on one channel as interchangeable is what a point list looks like before it becomes knowledge."}
+     ]},
+    {q:"A patient describes crushing chest pain that comes on climbing stairs and eases with rest, and it has been worsening for a fortnight. What comes first?",
+     cq:"胸痛如壓，登階而作，得息則緩，且旬日以來日甚。當先何為？",
+     opts:[
+      {t:"Referral for medical assessment — that description needs a physician the same day, whatever pattern you can also name",
+       c:"先轉介求醫。此等見症，當日即須就醫，縱能辨其證亦然",ok:true,
+       note:"<b>Correct, and this is not a point question at all.</b> Chest pain brought on by exertion and relieved by rest, and getting worse, is the description that must be referred — urgently. Pattern differentiation tells you how to treat; screening tells you <b>whether</b> to treat here. Screening comes first, is documented, and is repeated at every visit."},
+      {t:"Needle PC4 first to relieve the pain, then refer",
+       c:"先針郄門以止其痛，而後轉介",ok:false,
+       note:"Relieving the pain of a warning sign can delay the assessment that matters. Refer first. You may treat alongside medical care once that is under way."},
+      {t:"Take a full tongue and pulse record and decide next visit",
+       c:"詳錄舌脈，俟下診而定",ok:false,
+       note:"There may not be a next visit. Documentation is good practice and it is not a substitute for acting on a red flag today."}
+     ]}
+  ],
+  card:{en:"Ximen PC4, five cun above the wrist crease between the tendons. Cleft point of the Pericardium, for sudden severe chest pain and palpitations. Cleft points: the acute and the painful — and on yin channels, blood.",
+        zh:"郄門，腕橫紋上五寸，兩筋之間。心包之郄穴，主心胸暴痛、心悸。郄穴主急主痛；陰經之郄，兼主血。"} }
 
 ];

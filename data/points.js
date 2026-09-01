@@ -550,7 +550,20 @@ window.AG_POINTS = [
        zh:"神不安者首取之：心悸、失眠、多夢、健忘、驚惶易驚。以其為原穴，心之虛實皆可取——血虛與心火俱用之，所異者手法耳。"},
   hook:{en:"Gate of the Spirit. Blood houses the spirit; this is the door to the house.",
         zh:"神門者，神之門也。血舍神，此其戶。"},
-  img:"art/points/HT7.jpg" }
+  img:"art/points/HT7.jpg" },
+
+{ id:"PC4", en:"Ximen", py:"Xì Mén", zh:"郄門",
+  ch:{en:"Pericardium", zh:"手厥陰心包經"},
+  cat:{en:"Cleft point 郄穴", zh:"郄穴"},
+  where:{en:"Five cun above the wrist crease, on the line joining PC3 and PC7, between the tendons of palmaris longus and flexor carpi radialis.",
+         zh:"腕橫紋上五寸，曲澤與大陵連線上，掌長肌腱與橈側腕屈肌腱之間。"},
+  acts:{en:"Invigorates blood and opens the chest · settles the spirit and stops palpitations · relieves sudden severe chest pain",
+        zh:"活血寬胸、寧心定悸、止暴發心胸痛"},
+  use:{en:"The point for the acute episode: sudden severe pain in the chest, palpitations with an irregular beat, panic. Cleft points treat what is acute and painful, and on the yin channels they also treat blood — LU6 uses the blood half of that rule for coughing blood, PC4 uses the pain half for a blocked Heart.",
+       zh:"主急發之證：心胸暴痛、心悸脈結代、驚恐。郄穴主急症痛症，陰經郄穴兼主血證——孔最用其血之半以治咳血，郄門用其痛之半以治心痹。"},
+  hook:{en:"Five cun above the crease. When the chest seizes, this is the Pericardium's emergency door.",
+        zh:"腕上五寸。心胸暴痛，此心包之急門。"},
+  img:"art/points/PC4.jpg" }
 
 
 ];
