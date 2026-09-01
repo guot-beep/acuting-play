@@ -20,7 +20,7 @@ window.AG_PRACTICE_INDEX = [
  {id:"baduanjin", kind:"practice", axis:"daoyin", title:"Eight Brocades", titleZh:"八段錦", n:10},
  {id:"liuzijue", kind:"practice", axis:"daoyin", title:"Six Healing Sounds", titleZh:"六字訣", n:10},
  {id:"fuhe", kind:"practice", axis:"dx", title:"Combined Patterns", titleZh:"複合臟腑病證", n:12},
- {id:"cnt", kind:"practice", axis:"needle", title:"Clean Needle Technique", titleZh:"潔針技術", n:12},
+ {id:"anquan", kind:"practice", axis:"needle", title:"Needling Safety", titleZh:"針刺安全", n:13},
  {id:"five_elements", kind:"sort", axis:"theory", title:"Five Element Array", titleZh:"五行陣", n:35},
  {id:"zangfu_match", kind:"sort", axis:"theory", title:"What Each Organ Governs", titleZh:"臟腑所主", n:15},
  {id:"herb_nature", kind:"sort", axis:"herb", title:"Warm or Cool?", titleZh:"藥性寒溫", n:12},
