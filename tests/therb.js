@@ -28,7 +28,10 @@ const r=await p.evaluate(()=>{
   (C||[]).forEach(ch=>{
     const rw=ch.reward||{}; const e=byId[rw.herbId];
     if(!e){ problems.push(`ch${ch.id}: herbId "${rw.herbId}" is not in the codex`); return; }
-    if(e.en!==rw.herbEn) problems.push(`ch${ch.id}: reward says "${rw.herbEn}" but codex id "${rw.herbId}" is "${e.en}"`);
+    // compare what the reader sees: &#39; and ' render identically, so decode
+    // the common entities before deciding the two names disagree.
+    const plain = t => String(t).replace(/&#39;/g,"'").replace(/&amp;/g,'&').replace(/&quot;/g,'"');
+    if(plain(e.en)!==plain(rw.herbEn)) problems.push(`ch${ch.id}: reward says "${rw.herbEn}" but codex id "${rw.herbId}" is "${e.en}"`);
     if(e.zh!==rw.herbZh) problems.push(`ch${ch.id}: reward zh "${rw.herbZh}" vs codex "${e.zh}"`);
     const own=[e.img,e.plate].filter(Boolean);
     if(rw.herbImg && own.length && own.indexOf(rw.herbImg)<0)
