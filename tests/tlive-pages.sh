@@ -4,11 +4,17 @@
 # a page that references hud.js?v=50 while the host still serves v=49 is exactly
 # how a "fixed" bug reappears on someone's phone.
 H="${HOST:-https://play.acuting.com}"
-PAGES="index.html progress.html practice.html sort.html pointroom.html herbroom.html
-       chapter.html dailycase.html prologue.html wuqinxi.html yinyang.html acuting-play.html"
+# derived from the pages actually in the working copy, so a page added
+# tomorrow is checked tonight — the hand-written list used to go stale.
+PAGES=$(cd "$(dirname "$0")/.." && ls *.html | tr '\n' ' ')
 fail=0; checked=0
 for pg in $PAGES; do
+  code=$(curl -s -o /dev/null -w '%{http_code}' -H 'Cache-Control: no-cache' "$H/$pg")
   body=$(curl -s -H 'Cache-Control: no-cache' "$H/$pg")
+  # A page that is in the working copy but not on the host used to pass quietly:
+  # GitHub Pages answers a missing page with its own 404 document, which is not
+  # empty, so the old emptiness check never fired.
+  if [ "$code" != "200" ]; then echo "  ✗ $pg is not on the host (HTTP $code)"; fail=$((fail+1)); continue; fi
   if [ -z "$body" ]; then echo "  ✗ $pg did not load"; fail=$((fail+1)); continue; fi
   # Real attributes only. chapter.html and practice.html build their data src
   # inside a document.write, and a loose pattern happily matched the JS string

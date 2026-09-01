@@ -22,6 +22,10 @@ fs.readdirSync('/home/claude/site').filter(f=>f.endsWith('.html')).forEach(f=>{
   /* chapter.html and practice.html build their data src in JS so they can ship
      one chapter / one deck instead of the whole set — count those too */
   [...s.matchAll(/data\/(chapters|practice)\//g)].forEach(m=>loaded.push(m[1]+'.js'));
+  /* review.html injects a <script> only when something from that file is
+     actually due, so the filename appears as a plain string. A typo in the
+     name still fails here, which is the part worth keeping. */
+  [...s.matchAll(/["']data\/([a-z0-9_.-]+\.js)["']/g)].forEach(m=>loaded.push(m[1]));
   [...s.matchAll(/window\.(AG_[A-Z_]+)/g)].map(m=>m[1]).forEach(g=>{
     if(!owner[g]) bad.push(f+' reads window.'+g+' which no data file defines');
     else if(loaded.indexOf(owner[g])<0) bad.push(f+' reads window.'+g+' but does not load data/'+owner[g]);

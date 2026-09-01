@@ -9,7 +9,8 @@ const B='file:///home/claude/site/';
 const PAGES=[['index.html',null],['progress.html',null],['practice.html?d=pulse','#go'],
              ['sort.html?s=five_elements','#go'],['pointroom.html',null],['herbroom.html',null],
              ['chapter.html?ch=09',null],['dailycase.html',null],['yinyang.html',null],
-             ['wuqinxi.html',null],['acuting-play.html',null],['prologue.html',null]];
+             ['wuqinxi.html',null],['acuting-play.html',null],['prologue.html',null],
+             ['review.html',null]];
 (async()=>{
 const b=await chromium.launch({executablePath:process.env.CHROME||'/opt/pw-browsers/chromium'});
 let bad=[], checked=0;
