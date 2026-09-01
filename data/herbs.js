@@ -66,6 +66,7 @@ window.AG_HERBS = [
      Rule for every entry: a named plate beats a confident mistake. */
   { id:"gouqi", en:"Goji Berry", py:"Gǒu Qǐ Zǐ", zh:"枸杞子",
     img:"art/herb-gouqi.jpg",
+    plate:"art/card-gouqi.jpg",
     nature:"Sweet, neutral · Liver, Kidney",
     natureZh:"甘、平 · 歸肝腎經",
     fact:"Nourishes Liver and Kidney yin and brightens the eyes — the classic pairing for tired vision.",
@@ -81,6 +82,7 @@ window.AG_HERBS = [
 
   { id:"fuling", en:"Poria", py:"Fú Líng", zh:"茯苓",
     img:"art/herb-fuling.jpg",
+    plate:"art/card-fuling.jpg",
     nature:"Sweet, bland, neutral · Heart, Spleen, Kidney",
     natureZh:"甘、淡、平 · 歸心脾腎經",
     fact:"Drains damp without draining strength, and quiets the spirit. Bland-percolating, so gentle enough for long use.",
