@@ -181,7 +181,19 @@ PLATES = [
          subtitle="HT 7   (with LU 9 and PC 6 for orientation)",
          caption="HT7 on the wrist crease at the ulnar end, on the radial side of the flexor carpi ulnaris tendon, in the depression at the proximal border of the pisiform. LU9 sits at the radial end of the same crease.",
          outfile="HT7.jpg"),
+    # ── PC4 · mid palmar forearm ── the pericardium line, with PC6 and the
+    #    wrist crease as the two landmarks a student actually measures from
+    dict(base="art/body-forearm-palmar.jpg",
+         crop=(88, 300, 312, 690), scale=2.6,
+         points=[(199, 447, "PC 4", "Ximen", "r"),
+                 (201, 570, "PC 6", "Neiguan", "r"),
+                 (140, 652, "LU 9", "Taiyuan", "l")],
+         title="Pericardium Channel · Forearm",
+         subtitle="PC 4   (with PC 6 and LU 9 for orientation)",
+         caption="PC4 five cun above the wrist crease on the line joining PC3 and PC7, between the tendons of palmaris longus and flexor carpi radialis. PC6 sits two cun above the crease on the same line. LU9 marks the radial end of the crease itself.",
+         outfile="PC4.jpg"),
 ]
+
 
 
 if __name__ == "__main__":
