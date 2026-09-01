@@ -358,10 +358,10 @@
     padding:8px;margin-top:4px}
   .disclaimer{font-size:10.5px;color:var(--ink-soft);opacity:.7;line-height:1.6;margin-top:8px}
 </style>
-<link rel="stylesheet" href="desktop.css?v=76">
-<script src="state.js?v=76"></script>
-<script src="data/herbs.js?v=76"></script>
-<script src="hud.js?v=76"></script>
+<link rel="stylesheet" href="desktop.css?v=77">
+<script src="state.js?v=77"></script>
+<script src="data/herbs.js?v=77"></script>
+<script src="hud.js?v=77"></script>
 <script>
 /* One chapter, not ten. document.write is deliberate here: it keeps the load
    synchronous and ordered, so the 1300 lines of engine below still find
@@ -369,7 +369,7 @@
    script is same-origin, so Chrome's document.write intervention does not
    apply to it. Falls back to the whole file if the id is not one we generated. */
 (function(){
-  var v = "?v=76";
+  var v = "?v=77";
   var id = (new URLSearchParams(location.search).get("ch") || "01").replace(/[^0-9]/g, "");
   if (!/^\d{2}$/.test(id)) id = "01";
   document.write('<scr' + 'ipt src="data/chapters/' + id + '.js' + v + '"></scr' + 'ipt>');
@@ -380,7 +380,7 @@
     + 'document.write(\'<scr\'+\'ipt src="data/chapters.js' + v + '"></scr\'+\'ipt>\');</scr' + 'ipt>');
 })();
 </script>
-<script src="data/drills.js?v=76"></script>
+<script src="data/drills.js?v=77"></script>
 </head>
 <body data-page="chapter">
 <div id="app">
