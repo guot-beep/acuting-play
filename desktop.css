@@ -142,8 +142,19 @@
     width: min(560px, 90%);
     border-radius: 20px;
     opacity: 0;
+    /* On the phone a closed sheet is pushed off the bottom of the screen, so it
+       covers nothing. Centring it for desktop parks it over the middle of the
+       card, where opacity:0 hides it from the eye but NOT from the mouse — an
+       invisible 560px panel swallowing every click on the town beneath it.
+       It has to stay in the layout to animate, so the pointer is what we turn
+       off. Same rule the scrim has always had. */
+    pointer-events: none;
   }
-  [data-page="hub"] .sheet.on { transform: translate(-50%, 50%) scale(1); opacity: 1; }
+  [data-page="hub"] .sheet.on {
+    transform: translate(-50%, 50%) scale(1);
+    opacity: 1;
+    pointer-events: auto;
+  }
 
   /* ═══ CHAPTER ENGINE (chapter.html) ═══
      The dialogue screen splits: cast left, speech right.
@@ -276,10 +287,16 @@
     transform: translate(-50%, 50%) scale(.96);
     opacity: 0;
     box-shadow: 0 26px 70px rgba(58, 55, 48, .38);
+    /* Exactly the bug described above the hub sheet, and this one cost more:
+       a closed Retreat sat invisibly over the centre of the card and ate every
+       click on the answer buttons, so the whole story mode was unplayable on a
+       laptop while looking completely normal. */
+    pointer-events: none;
   }
   .retreat.on {
     transform: translate(-50%, 50%) scale(1);
     opacity: 1;
+    pointer-events: auto;
   }
   /* the buttons inside a centred dialog should not stretch to full width */
   .rt-inner { padding: 24px 26px 26px; }
