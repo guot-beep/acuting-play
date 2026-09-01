@@ -155,10 +155,10 @@ body.nozh .zh{display:none !important}
 .card-reward p{font-size:12.5px;color:var(--ink-soft);line-height:1.65}
 .note{font-size:10.5px;color:var(--ink-faint);line-height:1.7;text-align:center;margin-top:8px}
 </style>
-<link rel="stylesheet" href="desktop.css?v=73">
-<script src="state.js?v=73"></script>
-<script src="data/herbs.js?v=73"></script>
-<script src="hud.js?v=73"></script>
+<link rel="stylesheet" href="desktop.css?v=74">
+<script src="state.js?v=74"></script>
+<script src="data/herbs.js?v=74"></script>
+<script src="hud.js?v=74"></script>
 </head>
 <body data-page="prologue">
 <div id="app">
@@ -487,7 +487,10 @@ function ending(){
     `<br><span style="font-family:'Courier New',monospace;color:var(--ink-faint);font-size:11.5px">Total ${rep.xp} XP \u00b7 Needle<span class="zh"> 針道</span> ${S.stats.needle}/4</span>`;
   go("s-end");
 }
-$("nextChap").onclick=()=>location.href="chapter1.html";
+/* straight to the chapter — chapter1.html is only a redirect shim, kept for
+   old bookmarks, and the extra hop cost a page load on the most important
+   transition in the game. */
+$("nextChap").onclick=()=>location.href="chapter.html?ch=01";
 $("hubBtn").onclick=()=>location.href="index.html";
 </script>
 </body>
