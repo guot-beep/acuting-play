@@ -3,10 +3,16 @@
    every chapter reward must resolve to a real codex entry, the names must
    agree, and no two different herbs may share the same image file. */
 const { chromium } = require(process.env.PW||'playwright');
+const fs = require('fs'), vm = require('vm');
+const ALL_CHAPTERS = (function(){ const sb={window:{}};
+  vm.runInNewContext(fs.readFileSync('/home/claude/site/data/chapters.js','utf8'), sb);
+  return sb.window.AG_CHAPTERS; })();
 (async()=>{
 const b=await chromium.launch({executablePath:process.env.CHROME||'/opt/pw-browsers/chromium'});
 const p=await b.newPage();
 await p.goto('file:///home/claude/site/chapter.html?ch=01'); await p.waitForTimeout(500);
+/* hand the page the full set: the page itself only ever loads one chapter now */
+await p.evaluate(all=>{ window.AG_CHAPTERS = all; }, ALL_CHAPTERS);
 const r=await p.evaluate(()=>{
   const H=window.AG_HERBS||[];
   const CH=window.AG_CHAPTERS||{};
@@ -46,4 +52,20 @@ const bad=await p.evaluate(async()=>{
   return out;
 });
 if(bad.length) console.log('  ✗ missing files: '+bad.join(', '));
+/* Every image a chapter reward or a codex entry points at must exist on disk.
+   Two chapter rewards once shipped pointing at card art that had never been
+   drawn — the pages loaded, the reward card was a blank box, and only the
+   post-deploy live check found it. */
+{
+  const miss=[];
+  const all=await p.evaluate(()=>{
+    const out=[];
+    (window.AG_HERBS||[]).forEach(h=>{ if(h.img)out.push(h.img); if(h.plate)out.push(h.plate); });
+    Object.values(window.AG_CHAPTERS||{}).forEach(c=>{ if(c.reward&&c.reward.herbImg)out.push(c.reward.herbImg); });
+    return [...new Set(out)];
+  });
+  all.forEach(f=>{ if(!fs.existsSync('/home/claude/site/'+f)) miss.push(f); });
+  if(miss.length){ miss.forEach(m=>console.log('  ✗ referenced but not on disk: '+m)); process.exitCode=1; }
+  else console.log('  ✅ all '+all.length+' herb and reward images exist on disk');
+}
 await b.close();})();
