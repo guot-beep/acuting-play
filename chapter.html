@@ -358,10 +358,10 @@
     padding:8px;margin-top:4px}
   .disclaimer{font-size:10.5px;color:var(--ink-soft);opacity:.7;line-height:1.6;margin-top:8px}
 </style>
-<link rel="stylesheet" href="desktop.css?v=65">
-<script src="state.js?v=65"></script>
-<script src="data/herbs.js?v=65"></script>
-<script src="hud.js?v=65"></script>
+<link rel="stylesheet" href="desktop.css?v=70">
+<script src="state.js?v=70"></script>
+<script src="data/herbs.js?v=70"></script>
+<script src="hud.js?v=70"></script>
 <script>
 /* One chapter, not ten. document.write is deliberate here: it keeps the load
    synchronous and ordered, so the 1300 lines of engine below still find
@@ -369,7 +369,7 @@
    script is same-origin, so Chrome's document.write intervention does not
    apply to it. Falls back to the whole file if the id is not one we generated. */
 (function(){
-  var v = "?v=65";
+  var v = "?v=70";
   var id = (new URLSearchParams(location.search).get("ch") || "01").replace(/[^0-9]/g, "");
   if (!/^\d{2}$/.test(id)) id = "01";
   document.write('<scr' + 'ipt src="data/chapters/' + id + '.js' + v + '"></scr' + 'ipt>');
@@ -380,7 +380,7 @@
     + 'document.write(\'<scr\'+\'ipt src="data/chapters.js' + v + '"></scr\'+\'ipt>\');</scr' + 'ipt>');
 })();
 </script>
-<script src="data/drills.js?v=65"></script>
+<script src="data/drills.js?v=70"></script>
 </head>
 <body data-page="chapter">
 <div id="app">
@@ -817,6 +817,24 @@ function reactTo(stage){
 }
 function clearReact(stage){const el=$(stage+"React"); if(el) el.className="react";}
 
+/* ── review queue 溫故 ─────────────────────────────────────────────
+   Every reasoning answer is scheduled for a second meeting: wrong today,
+   back tomorrow; right today, back in 1 → 3 → 7 → 16 days. The key is
+   built from the chapter id and the stage name, never from an array
+   index, so it stays stable when the data is edited. Wrapped in try/catch
+   because a review queue must never be able to break a chapter. */
+const RV_LABEL={look:"Tongue",pulse:"Pulse",dx:"Pattern",rx:"Points",tech:"Technique",safety:"Screening"};
+function rvMark(stage, ok){
+  try{
+    if(!window.AG || !AG.review) return;
+    AG.review.mark("c:"+CH.id+":"+stage, !!ok, {
+      lbl:"Chapter "+CH.id+" · "+(RV_LABEL[stage.replace(/[0-9]+$/,"")]||stage),
+      sub: CH.pattern || "",
+      href:"chapter.html?ch="+CH.id
+    });
+  }catch(e){}
+}
+
 /* record a wrong answer; returns true if a Retreat should be offered */
 function slipped(stage){
   wrongTotal++; wrongStreak++;
@@ -987,7 +1005,7 @@ $("lookOpts").querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
   const o=LOOK_V[+b.dataset.i];maxScore+=15;
   $("lookOpts").querySelectorAll(".opt").forEach(x=>x.classList.add("used"));
   b.classList.add(o.ok?"good":"bad");
-  if(o.ok){score+=15;addClue(o.clue);scored("look")}else{addClue((LOOK_V.find(x=>x.ok)||{}).clue);slipped("look")}
+  if(o.ok){score+=15;addClue(o.clue);scored("look")}else{addClue((LOOK_V.find(x=>x.ok)||{}).clue);slipped("look")}rvMark("look",o.ok);
   $("lookFb").className="fb show"+(o.ok?"":" wrong");$("lookFb").innerHTML=o.note;
   $("lookNext").style.display="block";
 });
@@ -1010,7 +1028,7 @@ $("pulseOpts").querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
   const o=PULSE_V[+b.dataset.i];maxScore+=15;
   $("pulseOpts").querySelectorAll(".opt").forEach(x=>x.classList.add("used"));
   b.classList.add(o.ok?"good":"bad");
-  if(o.ok){score+=15;addClue(o.clue);scored("pulse")}else{addClue((PULSE_V.find(x=>x.ok)||{}).clue);slipped("pulse")}
+  if(o.ok){score+=15;addClue(o.clue);scored("pulse")}else{addClue((PULSE_V.find(x=>x.ok)||{}).clue);slipped("pulse")}rvMark("pulse",o.ok);
   $("pulseFb").className="fb show"+(o.ok?"":" wrong");$("pulseFb").innerHTML=o.note;
   $("pulseNext").style.display="block";
 });
@@ -1034,7 +1052,7 @@ function startSafety(){
   $("safeOpts").querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
     const o=S2.opts[+b.dataset.i]; if(b.classList.contains("used")) return;
     maxScore+=15; b.classList.add("used",o.ok?"good":"bad");
-    if(o.ok){score+=15;safePicked++;scored("dx")}else{slipped("dx")}
+    if(o.ok){score+=15;safePicked++;scored("dx")}else{slipped("dx")}rvMark("safety",o.ok);
     $("safeFb").className="fb show"+(o.ok?"":" wrong");
     $("safeFb").innerHTML=o.note;
     if(safePicked>=2||!o.ok) $("safeNext").style.display="block";
@@ -1058,7 +1076,7 @@ function startDx(){renderClues();const s=DX[dxStep];
   $("dxOpts").querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
     const o=dxView[+b.dataset.i];maxScore+=20;
     $("dxOpts").querySelectorAll(".opt").forEach(x=>x.classList.add("used"));
-    b.classList.add(o.ok?"good":"bad");if(o.ok){score+=20;scored("dx")}else{slipped("dx")}
+    b.classList.add(o.ok?"good":"bad");if(o.ok){score+=20;scored("dx")}else{slipped("dx")}rvMark("dx"+dxStep,o.ok);
     $("dxFb").className="fb show"+(o.ok?"":" wrong");$("dxFb").innerHTML=o.note;
     $("dxNext").style.display="block";
   });
@@ -1084,7 +1102,7 @@ $("rxNext").onclick=()=>{
   maxScore+=30;const right=picked.filter(i=>RX[i].ok).length;score+=right*10;
   $("rxOpts").querySelectorAll(".opt").forEach((b,i)=>{b.classList.add("used");
     if(RX[i].ok)b.classList.add("good");else if(picked.includes(i))b.classList.add("bad")});
-  if(right===3)scored("rx");else slipped("rx");
+  if(right===3)scored("rx");else slipped("rx");rvMark("rx",right===3);
   $("rxFb").className="fb show"+(right===3?"":" wrong");
   $("rxFb").innerHTML=`<b>${right}/3 correct.</b><br><br>`+RX.filter(o=>o.ok).map(o=>`<b>${o.t}</b> — ${o.note}`).join("<br><br>")+
     (picked.some(i=>!RX[i].ok)?"<br><br>"+picked.filter(i=>!RX[i].ok).map(i=>`<b>${RX[i].t}</b> — ${RX[i].note}`).join("<br><br>"):"");
@@ -1216,7 +1234,7 @@ function showTech(){
   $("techOpts").querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
     const o=techView[+b.dataset.i];maxScore+=20;
     $("techOpts").querySelectorAll(".opt").forEach(x=>x.classList.add("used"));
-    b.classList.add(o.ok?"good":"bad");if(o.ok){score+=20;scored("needle")}else{slipped("needle")}
+    b.classList.add(o.ok?"good":"bad");if(o.ok){score+=20;scored("needle")}else{slipped("needle")}rvMark("tech",o.ok);
     $("needleFb").className="fb show"+(o.ok?"":" wrong");$("needleFb").innerHTML=o.note;
     $("needleNext").style.display="block";
   });

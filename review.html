@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<!-- HTML must always be revalidated: assets are cache-busted with ?v=, but a
+     stale page would keep serving the old ?v= and hide every fix. -->
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta name="theme-color" content="#F2EAD8">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="art/icon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="art/icon-apple-180.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="apple-mobile-web-app-title" content="杏林行">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>Review 溫故 · Apricot Grove</title>
+<style>
+:root{
+  --paper:#F2EAD8;--paper2:#E7DBBE;--ink:#332F28;--ink-soft:#595349;--ink-faint:#676054;
+  --sage:#7B8B6F;--sage-deep:#4E5D46;--terra:#B15C3D;--terra-deep:#9D5238;
+  --gold:#B08D3E;--seal:#A63B2A;--white:#FDFBF4;
+  /* text-safe tier: fills keep their colour, words get a darker one */
+  --line:#9A9182;--gold-ink:#755E29;--terra-ink:#944D33;--sage-ink:#596450;
+  --ok:#4E7A52;--no:#A63B2A;
+  --sh-s:0 2px 6px rgba(51,47,40,.1);--sh:0 5px 16px rgba(51,47,40,.14);--sh-l:0 14px 34px rgba(51,47,40,.22);
+  --ease:cubic-bezier(.22,.9,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+/* `hidden` must win over any author display rule */
+[hidden]{display:none !important}
+html,body{height:100%;max-width:100%;overflow-x:hidden;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{font-family:"Songti TC","Noto Serif TC",Georgia,serif;background:#CFC3A8;color:var(--ink);
+  display:flex;justify-content:center;overflow:hidden}
+#app{position:relative;width:100%;max-width:440px;height:100svh;overflow:hidden;display:flex;flex-direction:column;
+  background:radial-gradient(ellipse 130% 50% at 50% -6%,rgba(255,255,255,.5),transparent 62%),
+    repeating-linear-gradient(0deg,transparent 0 3px,rgba(120,105,80,.028) 3px 4px),
+    repeating-linear-gradient(90deg,transparent 0 3px,rgba(120,105,80,.028) 3px 4px),var(--paper);
+  box-shadow:0 0 44px rgba(51,47,40,.36)}
+.roombg{position:absolute;inset:0;z-index:0;pointer-events:none;background-position:center 58%;
+  background-size:cover;background-repeat:no-repeat;opacity:.85}
+.roombg::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(242,234,216,.9) 0%,rgba(242,234,216,.62) 30%,
+    rgba(242,234,216,.7) 62%,rgba(242,234,216,.94) 88%,var(--paper) 100%)}
+.seal{position:absolute;right:13px;top:calc(11px + env(safe-area-inset-top));z-index:40;width:29px;height:29px;
+  background:var(--seal);color:var(--white);display:flex;align-items:center;justify-content:center;font-size:16px;
+  border-radius:4px;transform:rotate(-3deg);opacity:.85;box-shadow:inset 0 0 0 2px rgba(255,255,255,.3);pointer-events:none}
+.langBtn{position:absolute;left:13px;top:calc(11px + env(safe-area-inset-top));z-index:40;background:var(--white);
+  border:1.5px solid rgba(51,47,40,.14);border-radius:99px;padding:4px 11px;font-size:11px;font-family:inherit;
+  color:var(--ink-soft);cursor:pointer}
+.zh{display:block;font-size:.84em;color:var(--ink-soft);margin-top:4px;line-height:1.65}
+body.nozh .zh{display:none !important}
+.chapline{position:relative;z-index:5;text-align:center;font-family:"Courier New",monospace;font-size:10px;
+  letter-spacing:.34em;color:var(--gold-ink);text-transform:uppercase;padding:calc(14px + env(safe-area-inset-top)) 46px 0}
+.screen{position:absolute;inset:0;z-index:3;display:none;flex-direction:column;
+  padding:calc(42px + env(safe-area-inset-top)) 18px calc(14px + env(safe-area-inset-bottom));
+  overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.screen.on{display:flex;animation:fade .4s var(--ease)}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}}
+
+/* mentor row */
+.mrow{display:flex;gap:13px;align-items:center;background:var(--white);border:1.5px solid rgba(51,47,40,.11);
+  border-radius:16px;padding:13px 15px;box-shadow:var(--sh);margin-bottom:13px}
+.mrow canvas{image-rendering:pixelated;width:60px;height:68px;flex:none;filter:drop-shadow(0 3px 4px rgba(51,47,40,.24))}
+.mrow .mt{flex:1;min-width:0;font-size:14px;line-height:1.75}
+.mrow .mt .nm{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.22em;color:var(--terra-ink);
+  text-transform:uppercase;margin-bottom:5px}
+
+h1.dt{font-size:25px;letter-spacing:.05em;text-align:center;margin-bottom:2px}
+h1.dt .zh{font-size:15px;margin-top:5px}
+.dsub{text-align:center;font-size:12.5px;color:var(--ink-soft);line-height:1.7;margin-bottom:12px}
+.howto{background:var(--white);border:1.5px solid rgba(51,47,40,.1);border-radius:15px;padding:13px 15px;
+  box-shadow:var(--sh-s);font-size:13.5px;line-height:1.8}
+.howto b{color:var(--ink)}
+.safety{background:rgba(255,255,255,.62);border:1px dashed rgba(51,47,40,.24);border-radius:12px;
+  padding:10px 12px;font-size:11.5px;line-height:1.75;color:var(--ink-soft);margin-top:10px}
+
+/* play chrome */
+/* NOT .hud — hud.js owns that class and pins it to the top of the screen,
+   which silently slid this row up under the chapter line. */
+.srow{padding-right:40px;display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;position:relative;z-index:4}
+.srow .rnd{font-family:"Courier New",monospace;font-size:11px;letter-spacing:.16em;color:var(--ink-faint)}
+.srow .sc{font-family:"Courier New",monospace;font-size:15px;color:var(--terra-ink)}
+.bar{height:5px;border-radius:3px;background:rgba(51,47,40,.1);overflow:hidden;margin-bottom:12px;position:relative;z-index:4}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--sage),var(--gold));width:0;transition:width .4s var(--ease)}
+.kind{font-family:"Courier New",monospace;font-size:10.5px;letter-spacing:.26em;color:var(--gold-ink);
+  text-transform:uppercase;text-align:center;margin-bottom:7px}
+.q{font-size:16.5px;line-height:1.65;margin-bottom:12px}
+.q .zh{font-size:13.5px}
+
+/* multiple choice */
+.opts{display:flex;flex-direction:column;gap:9px}
+.opt{width:100%;text-align:left;background:var(--white);border:1.5px solid rgba(51,47,40,.12);border-radius:13px;
+  padding:12px 14px;font-family:inherit;font-size:14.5px;line-height:1.6;color:var(--ink);cursor:pointer;
+  box-shadow:var(--sh-s);transition:transform .12s,border-color .18s,background .18s}
+.opt:active{transform:scale(.985)}
+.opt .c{display:block;font-size:12.5px;color:var(--ink-soft);margin-top:3px}
+body.nozh .opt .c{display:none}
+.opt.right{border-color:var(--ok);background:#F1F6EE}
+.opt.wrong{border-color:var(--no);background:#FBF0EE}
+.opt.dim{opacity:.5}
+.opt[disabled]{cursor:default}
+
+/* order + match chips */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:var(--white);border:1.5px solid rgba(51,47,40,.12);border-radius:12px;padding:10px 13px;
+  font-family:inherit;font-size:14px;line-height:1.5;color:var(--ink);cursor:pointer;box-shadow:var(--sh-s);
+  transition:transform .12s,border-color .18s,background .18s,opacity .2s;text-align:left}
+.chip:active{transform:scale(.97)}
+.chip .c{display:block;font-size:12px;color:var(--ink-soft);margin-top:2px}
+body.nozh .chip .c{display:none}
+.chip.done{border-color:var(--ok);background:#F1F6EE;opacity:.55;pointer-events:none}
+.chip.sel{border-color:var(--gold-ink);background:#FBF6E8}
+.chip.shake{animation:shake .34s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.slots{display:flex;flex-direction:column;gap:6px;margin-bottom:11px;min-height:8px}
+.slot{display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.7);border:1px dashed rgba(51,47,40,.2);
+  border-radius:11px;padding:8px 11px;font-size:13.5px;line-height:1.5}
+.slot .n{font-family:"Courier New",monospace;font-size:11px;color:var(--gold-ink);flex:none;width:15px}
+.slot .c{display:block;font-size:11.5px;color:var(--ink-soft)}
+body.nozh .slot .c{display:none}
+.slot.filled{border-style:solid;border-color:rgba(78,122,82,.45);background:#F3F7F1}
+.mgrid{display:flex;gap:9px}
+.mcol{flex:1;display:flex;flex-direction:column;gap:8px;min-width:0}
+.mcol h4{font-family:"Courier New",monospace;font-size:10.5px;letter-spacing:.2em;color:var(--ink-faint);
+  text-align:center;margin-bottom:1px}
+
+/* feedback */
+.fb{background:var(--white);border-left:4px solid var(--sage);border-radius:11px;padding:12px 14px;font-size:13px;
+  line-height:1.75;box-shadow:var(--sh-s);color:var(--ink-soft);margin-top:11px}
+.fb b{color:var(--ink)}
+.fb.warn{border-left-color:var(--terra-ink)}
+.fb .hd{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.22em;margin-bottom:5px;color:var(--ok)}
+.fb.warn .hd{color:var(--no)}
+
+.btn{width:100%;min-height:52px;border:none;border-radius:14px;cursor:pointer;font-family:inherit;font-size:16.5px;
+  letter-spacing:.12em;background:var(--terra);color:var(--white);box-shadow:0 5px 0 var(--terra-deep),var(--sh);
+  transition:transform .12s,box-shadow .12s;margin-top:11px}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 var(--terra-deep)}
+.btn.ghost{background:var(--white);color:var(--ink);box-shadow:0 5px 0 rgba(51,47,40,.13),var(--sh)}
+.btn.ghost:active{box-shadow:0 2px 0 rgba(51,47,40,.13)}
+.btn small{display:block;font-size:11.5px;letter-spacing:.06em;opacity:.85;margin-top:2px}
+.spacer{flex:1;min-height:6px}
+
+/* result */
+.res{margin:auto 0;text-align:center;display:flex;flex-direction:column;align-items:center;gap:9px}
+.stars{font-size:38px;color:var(--gold-ink);letter-spacing:.14em}
+.stars .off{opacity:.2}
+.res h2{font-size:24px;letter-spacing:.1em}
+.gain{background:var(--white);border:2px solid var(--gold);border-radius:16px;padding:13px 17px;box-shadow:var(--sh);max-width:340px}
+.gain .rar{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.24em;color:var(--gold-ink)}
+.gain h3{font-size:18px;margin:3px 0 5px}
+.gain p{font-size:12.5px;color:var(--ink-soft);line-height:1.7}
+.missed{background:rgba(255,255,255,.6);border:1px dashed rgba(51,47,40,.22);border-radius:12px;padding:11px 13px;
+  max-width:350px;text-align:left;font-size:12.5px;line-height:1.75;color:var(--ink-soft)}
+.missed h4{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.22em;color:var(--terra-ink);margin-bottom:6px}
+.missed li{margin-bottom:5px;list-style:none}
+.note{font-size:10.5px;color:var(--ink-faint);line-height:1.7;text-align:center;margin-top:8px}
+</style>
+<style>
+/* review-only additions — everything else is inherited from the shared shell */
+.rvhead{text-align:center;margin-bottom:10px}
+.rvbig{font-family:"Courier New",monospace;font-size:38px;color:var(--terra-ink);line-height:1}
+.rvsrc{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.24em;color:var(--gold-ink);
+  text-transform:uppercase;margin-bottom:4px}
+.rvsub{font-size:12px;color:var(--ink-soft);margin-bottom:12px}
+.rvlist{display:flex;flex-direction:column;gap:9px;margin:12px 0}
+.rvcard{display:block;text-align:left;background:var(--white);border:1.5px solid rgba(51,47,40,.12);
+  border-radius:13px;padding:12px 14px;font-family:inherit;font-size:14px;color:var(--ink);
+  text-decoration:none;box-shadow:var(--sh-s);cursor:pointer;width:100%}
+.rvcard b{display:block;font-size:14.5px;margin-bottom:2px}
+.rvcard span{display:block;font-size:12px;color:var(--ink-soft)}
+.rvempty{background:var(--white);border-radius:15px;padding:18px 16px;text-align:center;
+  font-size:13.5px;line-height:1.8;color:var(--ink-soft);box-shadow:var(--sh-s)}
+</style>
+<link rel="stylesheet" href="desktop.css?v=70">
+<script src="state.js?v=70"></script>
+<script src="hud.js?v=70"></script>
+</head>
+<body data-page="review">
+<div id="app">
+  <div class="seal" id="seal">溫</div>
+  <button class="langBtn" id="langBtn">中文 ON</button>
+  <div class="chapline" id="chapline">Review<span class="zh"> · 溫故</span></div>
+
+  <!-- ═══ 1 · what is due ═══ -->
+  <section class="screen on" id="s1">
+    <div class="rvhead">
+      <div class="rvbig" id="dueN">0</div>
+      <p class="dsub" id="dueLine">nothing waiting</p>
+    </div>
+    <div class="howto" id="how"></div>
+    <button class="btn" id="go" hidden>Begin ▸<small>開始溫故</small></button>
+    <div class="rvlist" id="linkouts"></div>
+    <button class="btn ghost" id="back1">Back to town 回小鎮</button>
+    <p class="note">Wrong today, back tomorrow. Right today, back in 1, 3, 7 then 16 days.
+      <span class="zh">今日錯者，明日再見；今日對者，一、三、七、十六日後再見。</span></p>
+  </section>
+
+  <!-- ═══ 2 · play ═══ -->
+  <section class="screen" id="s2">
+    <div class="srow"><span class="rnd" id="rnd">1 / 1</span><span class="sc" id="sc">0</span></div>
+    <div class="bar"><i id="barfill"></i></div>
+    <div class="rvsrc" id="src"></div>
+    <p class="q" id="q"></p>
+    <div class="opts" id="opts"></div>
+    <div class="fb" id="fb" hidden></div>
+    <button class="btn" id="next" hidden>Next ▸</button>
+  </section>
+
+  <!-- ═══ 3 · done ═══ -->
+  <section class="screen" id="s3">
+    <div class="rvhead">
+      <div class="rvbig" id="doneN">0</div>
+      <p class="dsub" id="doneLine"></p>
+    </div>
+    <div class="howto" id="doneNote"></div>
+    <button class="btn" id="again" hidden>Anything still due ▸<small>再看一輪</small></button>
+    <button class="btn ghost" id="back3">Back to town 回小鎮</button>
+  </section>
+</div>
+
+<script src="data/chapter-index.js?v=70"></script>
+<script src="data/practice-index.js?v=70"></script>
+<script>
+/* ══════════════════════════════════════════════════════════════
+   Review 溫故 — the second meeting
+
+   The queue lives in state.js. This page's only job is to turn a due
+   key back into the question it came from, ask it again, and report
+   the answer to AG.review.mark().
+
+   Keys look like  c:11:dx1 | p:zangfu:1a2b3c | h:LI4:1a2b3c | s:wuxing:1a2b3c
+   The source file is loaded ONLY if something from it is actually due —
+   a quiet day loads nothing at all.
+
+   Some items cannot honestly be replayed as a single question: a
+   three-point prescription, a sequencing drill, a bucket sort. Those are
+   not faked into multiple choice; they are listed as a link back to
+   where they live. Pretending would teach the wrong thing.
+   ══════════════════════════════════════════════════════════════ */
+const $ = id => document.getElementById(id);
+const zh = t => t ? '<span class="zh">' + t + "</span>" : "";
+AG.applyLang && AG.applyLang();
+AG.bindLangButton && AG.bindLangButton($("langBtn"));
+
+const CHIDX = window.AG_CHAPTER_INDEX || {};
+const PRIDX = window.AG_PRACTICE_INDEX || {};
+
+/* ── load a data file once, on demand ── */
+const loaded = {};
+function need(src){
+  if (loaded[src]) return loaded[src];
+  loaded[src] = new Promise(function(resolve){
+    const s = document.createElement("script");
+    s.src = src;
+    s.onload = () => resolve(true);
+    s.onerror = () => resolve(false);      // a missing file must not hang the page
+    document.head.appendChild(s);
+  });
+  return loaded[src];
+}
+
+/* ── rebuild one due key into a playable question, or null ── */
+const CH_STAGE = { look:"look", pulse:"pulse", tech:"tech" };
+
+async function rebuild(entry){
+  const parts = entry.key.split(":");
+  const src = parts[0], owner = parts[1], slot = parts.slice(2).join(":");
+
+  if (src === "c"){
+    const id = String(owner).replace(/[^0-9]/g, "");
+    if (!/^\d{2}$/.test(id)) return null;
+    await need("data/chapters/" + id + ".js");
+    const CH = (window.AG_CHAPTERS || {})[id];
+    if (!CH) return null;
+    let opts = null, prompt = "";
+    if (CH_STAGE[slot] && CH[CH_STAGE[slot]]){
+      opts = CH[CH_STAGE[slot]];
+      prompt = slot === "look" ? "What does the tongue show?"
+             : slot === "pulse" ? "What is the pulse?"
+             : "Which technique?";
+    } else if (/^dx\d+$/.test(slot)){
+      const n = +slot.slice(2);
+      const step = (CH.dx || [])[n];
+      if (!step) return null;
+      opts = step.opts;
+      prompt = String(step.ask || "").replace(/<small[\s\S]*?<\/small>/g, "");
+    } else if (slot === "safety" && CH.safety){
+      opts = CH.safety.opts;
+      prompt = (CH.safety.ask && CH.safety.ask.en) || "Is this safe to keep evaluating here?";
+    }
+    if (!opts || !opts.length) return null;
+    return { key: entry.key, q: prompt, qZh: "",
+             src: entry.lbl || ("Chapter " + id), sub: entry.sub || (CH.pattern || ""),
+             opts: opts.map(o => ({ t:o.t, c:o.c, ok:!!o.ok, note:o.note })) };
+  }
+
+  if (src === "p"){
+    await need("data/practice/" + owner + ".js");
+    const D = (window.AG_PRACTICE || {})[owner];
+    if (!D) return null;
+    const it = (D.items || []).filter(x => x.k === "mc" && AG.review.slot(x.q) === slot)[0];
+    if (!it) return null;
+    return { key: entry.key, q: it.q, qZh: it.qZh || "",
+             src: entry.lbl || ("Practice · " + D.title), sub: entry.sub || D.titleZh || "",
+             opts: it.opts.map(o => ({ t:o.t, c:o.c, ok:!!o.ok, note:o.note })) };
+  }
+
+  if (src === "h"){
+    await need("data/pointstory.js");
+    const st = (window.AG_POINTSTORY || []).filter(x => x.id === owner)[0];
+    if (!st) return null;
+    const q = (st.qs || []).filter(x => AG.review.slot(x.q) === slot)[0];
+    if (!q) return null;
+    return { key: entry.key, q: q.q, qZh: q.cq || "",
+             src: entry.lbl || ("Point Hall · " + owner), sub: entry.sub || "",
+             opts: q.opts.map(o => ({ t:o.t, c:o.c, ok:!!o.ok, note:o.note })) };
+  }
+
+  return null;   // sorting sets and multi-select prescriptions link out instead
+}
+
+/* ── build the session ── */
+let QUEUE = [], LINKS = [], idx = 0, right = 0;
+
+async function boot(){
+  const due = AG.review.due(24);
+  const built = [];
+  for (const e of due){
+    let q = null;
+    try { q = await rebuild(e); } catch (err) { q = null; }
+    if (q) built.push(q); else LINKS.push(e);
+  }
+  QUEUE = built;
+
+  const total = due.length;
+  $("dueN").textContent = total;
+  $("dueLine").innerHTML = total === 0
+    ? 'nothing waiting today' + zh("今日無待溫之題")
+    : (total === 1 ? "one question is due" : total + " questions are due") + zh("今日待溫 " + total + " 題");
+
+  $("how").innerHTML = total === 0
+    ? nextLine()
+    : "<b>These are questions you have met before.</b> Answer them again — the ones you miss come back tomorrow, "
+      + "the ones you get right move further away." + zh("此皆曾遇之題。再答一次：錯者明日復見，對者則漸行漸遠。");
+
+  $("go").hidden = QUEUE.length === 0;
+  if (QUEUE.length) $("go").innerHTML = "Begin ▸<small>" + QUEUE.length + " question" + (QUEUE.length>1?"s":"") + " · 開始溫故</small>";
+
+  paintLinks();
+}
+
+function nextLine(){
+  const n = AG.review.nextDay();
+  if (n === null) return "Nothing is scheduled yet. Play a chapter, a practice deck or the Point Hall and the questions you meet will start appearing here."
+    + zh("尚無排程。走一章故事、練一副牌，或入點穴堂，所遇之題自會列於此。");
+  const days = n - AG.review.dayNumber();
+  return "Nothing is due today. The next question comes back "
+    + (days <= 1 ? "tomorrow" : "in " + days + " days") + "."
+    + zh("今日無題。下一題於" + (days <= 1 ? "明日" : days + "日後") + "復見。");
+}
+
+function paintLinks(){
+  if (!LINKS.length){ $("linkouts").innerHTML = ""; return; }
+  $("linkouts").innerHTML =
+    '<div class="rvsrc">Go back to these</div>'
+    + LINKS.map(e => '<a class="rvcard" href="' + (e.href || "index.html") + '">'
+        + "<b>" + (e.lbl || e.key) + "</b>"
+        + (e.sub ? "<span>" + e.sub + "</span>" : "") + "</a>").join("");
+}
+
+/* ── play ── */
+function show(id){
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("on"));
+  $(id).classList.add("on");
+  $(id).scrollTop = 0;
+}
+
+function render(){
+  const it = QUEUE[idx];
+  $("rnd").textContent = (idx + 1) + " / " + QUEUE.length;
+  $("sc").textContent = right;
+  $("barfill").style.width = (idx / QUEUE.length * 100) + "%";
+  $("src").innerHTML = it.src + (it.sub ? " · " + it.sub : "");
+  $("q").innerHTML = it.q + zh(it.qZh);
+  $("fb").hidden = true;
+  $("next").hidden = true;
+
+  let locked = false;
+  const shuffled = it.opts.map((o, i) => ({ o:o, i:i }));
+  for (let i = shuffled.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    const t = shuffled[i]; shuffled[i] = shuffled[j]; shuffled[j] = t;
+  }
+  $("opts").innerHTML = "";
+  shuffled.forEach(rec => {
+    const o = rec.o;
+    const el = document.createElement("button");
+    el.className = "opt"; el.type = "button";
+    el.innerHTML = o.t + (o.c ? '<span class="c">' + o.c + "</span>" : "");
+    el.onclick = () => {
+      if (locked) return;
+      locked = true;
+      if (o.ok) right++;
+      try { AG.review.mark(it.key, !!o.ok); } catch (e) {}
+      $("opts").querySelectorAll(".opt").forEach(x => { x.disabled = true; x.classList.add("dim"); });
+      el.classList.remove("dim");
+      el.classList.add(o.ok ? "right" : "wrong");
+      if (!o.ok){
+        const correct = it.opts.filter(x => x.ok)[0];
+        [...$("opts").querySelectorAll(".opt")].forEach(x => {
+          if (correct && x.textContent.indexOf(correct.t) === 0){ x.classList.remove("dim"); x.classList.add("right"); }
+        });
+        $("fb").className = "fb warn";
+        $("fb").innerHTML = '<div class="hd">NOT QUITE 再想想</div>' + (o.note || "")
+          + (correct ? "<br><br><b>The answer:</b> " + correct.t + "<br>" + (correct.note || "") : "");
+      } else {
+        $("fb").className = "fb";
+        $("fb").innerHTML = '<div class="hd">CORRECT 正確</div>' + (o.note || "");
+      }
+      $("fb").hidden = false;
+      $("sc").textContent = right;
+      $("next").textContent = (idx + 1 >= QUEUE.length) ? "See result ▸" : "Next ▸";
+      $("next").hidden = false;
+    };
+    $("opts").appendChild(el);
+  });
+}
+
+$("next").onclick = () => { idx++; if (idx >= QUEUE.length) finish(); else render(); };
+
+function finish(){
+  const c = AG.review.counts();
+  $("doneN").textContent = right + " / " + QUEUE.length;
+  $("doneLine").innerHTML = "answered correctly" + zh("答對之數");
+  $("doneNote").innerHTML =
+    (right === QUEUE.length
+      ? "<b>All of them.</b> Those questions move further away now."
+      : "<b>The ones you missed come back tomorrow.</b> That is the whole point of the queue — you meet a thing again on the day you were about to forget it.")
+    + zh(right === QUEUE.length ? "全對。此數題自此漸疏。" : "所錯者明日復見。此即溫故之意：將忘之時，恰與之重逢。")
+    + "<br><br>Tracked: " + c.tracked + " · still shaky: " + c.shaky + " · retired: " + c.retired
+    + zh("已錄 " + c.tracked + " 題 · 未穩 " + c.shaky + " 題 · 已熟 " + c.retired + " 題");
+  $("again").hidden = AG.review.counts().due === 0;
+  show("s3");
+}
+
+$("go").onclick = () => { idx = 0; right = 0; show("s2"); render(); };
+$("again").onclick = () => location.reload();
+$("back1").onclick = $("back3").onclick = () => { location.href = "index.html"; };
+
+boot();
+</script>
+</body>
+</html>

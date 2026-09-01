@@ -47,7 +47,8 @@
       },
       cards: [],                // herb cards collected
       points: [],               // point ids learned in the Point Hall 點穴堂
-      mastery: {},              // pointId -> repetitions (spaced repetition seed)
+      mastery: {},              // pointId -> repetitions, for the Lung point-tap game
+      review: {},               // review queue 溫故 — see the review block below
       streak: 0, lastDay: "",   // overall play streak
       dc: { streak: 0, last: "", solved: 0, results: {} }   // daily case
     };
@@ -70,7 +71,7 @@
     // shallow merge known top-level keys
     Object.keys(s).forEach(function (k) {
       if (raw[k] === undefined) return;
-      if (k === "stats" || k === "skillXp" || k === "flags" || k === "best" || k === "unlocks" || k === "dc") {
+      if (k === "stats" || k === "skillXp" || k === "flags" || k === "best" || k === "unlocks" || k === "dc" || k === "review") {
         if (raw[k] && typeof raw[k] === "object") s[k] = Object.assign(s[k], raw[k]);
       } else s[k] = raw[k];
     });
@@ -216,6 +217,122 @@
     return out;
   }
 
+
+  /* ══════════════════════════════════════════════════════════════
+     Review queue 溫故 — spaced repetition over reasoning questions
+
+     Why: a board student's real problem is not meeting a question once,
+     it is meeting it again on the day they were about to forget it.
+     Every reasoning question the player answers is scheduled here.
+     A wrong answer comes back tomorrow; a right answer spaces out
+     1 → 3 → 7 → 16 days, and after that the item retires.
+
+     Key format  "<src>:<owner>:<slot>"
+       c:11:dx1     chapter 11, second differentiation step
+       p:zangfu:04  practice deck "zangfu", item 4
+       h:LI4:2      Point Hall visit for LI4, third question
+       s:wuxing:03  sorting set "wuxing", item 3
+
+     Entry (short field names — this lives in localStorage)
+       n    how many times in a row it has been answered correctly, 0..4
+       d    the day number it next falls due
+       miss how many times it has ever been missed
+       lbl  what to show the player          e.g. "Chapter 11 · Pattern"
+       sub  the smaller line under it        e.g. "肝脾不和"
+       href where to go to meet it again     e.g. "chapter.html?ch=11"
+
+     Nothing here reads or writes the page. The engines call mark();
+     progress.html and review.html read due() and counts().
+     ══════════════════════════════════════════════════════════════ */
+  var REVIEW_STEPS = [1, 3, 7, 16];   // days until the next sighting
+  var REVIEW_MAX = REVIEW_STEPS.length;
+
+  function dayNumber(key) {
+    var p = String(key || gameDayKey()).split("-");
+    var t = Date.UTC(+p[0], (+p[1]) - 1, +p[2]);
+    return isNaN(t) ? 0 : Math.floor(t / 864e5);
+  }
+
+  /* A stable slot id for one question, derived from its own text rather
+     than its position in an array — so reordering a deck does not scramble
+     the queue, and rewriting a question correctly resets it. */
+  function reviewSlot(text) {
+    var t = String(text || ""), h = 5381, i = 0;
+    for (; i < t.length; i++) h = ((h * 33) ^ t.charCodeAt(i)) >>> 0;
+    return h.toString(36).slice(0, 7);
+  }
+
+  /* record one answer. ok=false schedules it for tomorrow, ok=true pushes
+     it out along REVIEW_STEPS. meta is only stored the first time and when
+     it changes, so a label rewrite in the data reaches old saves too. */
+  function reviewMark(key, ok, meta) {
+    if (!key) return null;
+    if (!state.review || typeof state.review !== "object") state.review = {};
+    var e = state.review[key] || { n: 0, d: 0, miss: 0 };
+    var today = dayNumber();
+
+    if (ok) {
+      e.n = Math.min(REVIEW_MAX, (e.n || 0) + 1);
+      e.d = today + REVIEW_STEPS[Math.min(e.n, REVIEW_MAX) - 1];
+    } else {
+      e.n = 0;
+      e.miss = (e.miss || 0) + 1;
+      e.d = today + 1;
+    }
+    if (meta) {
+      if (meta.lbl) e.lbl = meta.lbl;
+      if (meta.sub) e.sub = meta.sub;
+      if (meta.href) e.href = meta.href;
+    }
+    state.review[key] = e;
+    save();
+    return e;
+  }
+
+  /* items due today or overdue. Never-mastered items come first, then the
+     ones that have waited longest — so a short session hits the weak ones. */
+  function reviewDue(limit) {
+    var today = dayNumber(), out = [];
+    var r = state.review || {};
+    Object.keys(r).forEach(function (k) {
+      var e = r[k];
+      if (!e || e.n >= REVIEW_MAX) return;          // retired
+      if ((e.d || 0) > today) return;               // not yet
+      out.push({ key: k, n: e.n || 0, d: e.d || 0, miss: e.miss || 0,
+                 lbl: e.lbl || "", sub: e.sub || "", href: e.href || "" });
+    });
+    out.sort(function (a, b) {
+      if (a.n !== b.n) return a.n - b.n;             // shakiest first
+      if (a.d !== b.d) return a.d - b.d;             // then longest overdue
+      return a.key < b.key ? -1 : 1;
+    });
+    return (limit && limit > 0) ? out.slice(0, limit) : out;
+  }
+
+  function reviewCounts() {
+    var today = dayNumber(), r = state.review || {};
+    var c = { tracked: 0, due: 0, shaky: 0, retired: 0, missedEver: 0 };
+    Object.keys(r).forEach(function (k) {
+      var e = r[k]; if (!e) return;
+      c.tracked++;
+      if ((e.miss || 0) > 0) c.missedEver++;
+      if (e.n >= REVIEW_MAX) { c.retired++; return; }
+      if ((e.n || 0) === 0) c.shaky++;
+      if ((e.d || 0) <= today) c.due++;
+    });
+    return c;
+  }
+
+  /* when does the next item come back? null if nothing is scheduled. */
+  function reviewNextDay() {
+    var r = state.review || {}, best = null;
+    Object.keys(r).forEach(function (k) {
+      var e = r[k]; if (!e || e.n >= REVIEW_MAX) return;
+      if (best === null || (e.d || 0) < best) best = (e.d || 0);
+    });
+    return best;
+  }
+
   var RANKS = [
     { en: "Apprentice", zh: "學徒" }, { en: "Student", zh: "醫學生" },
     { en: "Practitioner", zh: "醫士" }, { en: "Physician", zh: "醫師" },
@@ -236,6 +353,8 @@
     isBeginner: function(){ return state.mode === "beginner"; },
     gameDayNumber: gameDayNumber, gameDayKey: gameDayKey, bumpPlayStreak: bumpPlayStreak,
     complete: complete, axisLevel: axisLevel, rank: rank,
-    unlocked: function (k) { return !!state.unlocks[k]; }
+    unlocked: function (k) { return !!state.unlocks[k]; },
+    review: { mark: reviewMark, due: reviewDue, counts: reviewCounts, slot: reviewSlot,
+              nextDay: reviewNextDay, dayNumber: dayNumber, STEPS: REVIEW_STEPS }
   };
 })(window);

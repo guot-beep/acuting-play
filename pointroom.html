@@ -282,11 +282,11 @@ h2.rt{font-size:25px;letter-spacing:.1em;text-align:center;margin:2px 0 3px}
   </section>
 </div>
 
-<script src="state.js?v=65"></script>
-<script src="data/points.js?v=65"></script>
-<script src="data/pointstory.js?v=65"></script>
-<script src="hud.js?v=65"></script>
-<link rel="stylesheet" href="desktop.css?v=65">
+<script src="state.js?v=70"></script>
+<script src="data/points.js?v=70"></script>
+<script src="data/pointstory.js?v=70"></script>
+<script src="hud.js?v=70"></script>
+<link rel="stylesheet" href="desktop.css?v=70">
 <script>
 const $ = id => document.getElementById(id);
 const STORY  = window.AG_POINTSTORY || [];
@@ -410,6 +410,11 @@ function paintQ(){
 function answer(i){
   const q = S.story.qs[S.qi], o = q.opts[i];
   if (o.ok) S.right++;
+  /* review queue 溫故 — a point you could not explain comes back tomorrow */
+  try{ if(window.AG&&AG.review){ const p=byId[S.story.id]||{};
+    AG.review.mark("h:"+S.story.id+":"+AG.review.slot(q.q), !!o.ok,
+      {lbl:"Point Hall \u00b7 "+S.story.id, sub:(p.en||"")+(p.zh?" "+p.zh:""),
+       href:"pointroom.html?p="+S.story.id}); } }catch(e){}
   $("qOpts").querySelectorAll(".opt").forEach(function(btn, n){
     btn.onclick = null; btn.classList.add("used");
     if (q.opts[n].ok) btn.classList.add("good");
@@ -472,6 +477,13 @@ $("shelfBtn").onclick = $("leaveBtn").onclick = function(){ paintShelf(); setScr
 $("homeBtn").onclick = function(){ location.href = "index.html"; };
 
 paintShelf();
+
+/* deep link: pointroom.html?p=LI4 opens that point's visit straight away,
+   which is how the review queue sends a player back to a point they missed. */
+(function(){
+  const want=(new URLSearchParams(location.search).get("p")||"").trim().toUpperCase();
+  if(want && STORY.some(s=>s.id===want)) visit(want);
+})();
 </script>
 </body>
 </html>

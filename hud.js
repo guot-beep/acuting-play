@@ -52,6 +52,7 @@
   body[data-page="points"] .screen,
   body[data-page="practice"] .screen,
   body[data-page="sort"] .screen,
+  body[data-page="review"] .screen,
   body[data-page="progress"] .screen{top:var(--hud-h)}
   /* page chrome that is absolutely positioned also has to clear the bar */
   .chapline,.r2,#r2,.stage-name{position:relative;z-index:4}
@@ -59,6 +60,7 @@
   body[data-page="yinyang"] .screen,
   body[data-page="practice"] .screen,
   body[data-page="sort"] .screen,
+  body[data-page="review"] .screen,
   body[data-page="progress"] .screen{padding-top:26px}
 
   /* ══════════ the moment ══════════
