@@ -943,5 +943,213 @@ fuhe:{
  note:"These five are the fastest marks on the paper. Each is a single distinctive finding that no neighbouring pattern shares, so when one appears the answer is settled before you have read the rest of the stem. 此五者，卷上得分最速者也。各為一證所獨有，鄰證不與；見其一，未讀其餘而答已定。"}
 
 ]}
+,
+
+/* ══════════════════════════════════════════════════════════════
+   CNT — Clean Needle Technique
+
+   Ting's own list of study areas names CNT beside the theory subjects,
+   and it is the one where a wrong answer has consequences outside an
+   examination hall. So this deck stays on the settled principles —
+   hand hygiene, single use, the sharps container, the needle count,
+   and what to do when something goes wrong — and it says plainly that
+   it is revision, not certification. The CCAOM manual and her course
+   are the authority; this is a place to keep the reasoning warm.
+   ══════════════════════════════════════════════════════════════ */
+cnt:{
+  id:"cnt", axis:"needle", seal:"潔", scene:"art/scene-treatment.jpg",
+  title:"Clean Needle Technique", titleZh:"潔針技術",
+  sub:"The habits that make a treatment safe — and what to do when it is not",
+  subZh:"使治療安全之常法，及其不安全時之應對",
+  mentor:{key:"shen", nm:"Master Shen", nmZh:"參師父",
+    line:"\"A physician is judged by the worst thing that happens in the room, not the best. Learn the worst things first.\"",
+    lineZh:"「醫者之高下，不在其最善之時，而在其最壞之時。故當先識其最壞者。」"},
+  card:{h:"Safety Is a Habit, Not a Decision", hZh:"安全在習不在斷",
+    p:"Nothing in clean needle technique is decided in the moment. Hands are washed because that is what happens before touching a patient, not because this patient looks unwell. Needles are counted out and counted back because that is the routine, not because this treatment used a lot. The habits exist so that on the day something does go wrong — a faint, a stuck needle, a bleed — you are already standing in a clean field with your hands washed and your count correct. This deck is revision for study. It does not replace the CCAOM Clean Needle Technique course, your programme's clinical training, or your supervisor.",
+    pZh:"潔針之事，無一決於臨時。洗手者，觸病人之前所必為，非因此人似有恙。針數出入必計者，例也，非因此次用針獨多。立此諸習，正為他日有變之時——暈針、滯針、出血——其手已淨，其場已潔，其數已明。本組為溫習所設，不能代 CCAOM 潔針課程、臨床訓練，或你的指導老師。"},
+  items:[
+
+{k:"mc", q:"When must hands be washed in relation to a treatment?",
+ qZh:"洗手當在治療之何時？",
+ opts:[
+  {t:"Before and after every patient, and again after any contact with blood or body fluid",
+   c:"每一病人之前後皆洗，遇血或體液後再洗",ok:1,
+   note:"Both ends, every time. Before protects the patient from what your hands carry; after protects you and the next patient. Gloves do not replace washing — hands are washed before gloves go on and after they come off, because gloves can tear and hands are contaminated when they are removed. 前後皆洗，無一例外。前者護病人，後者護己及其次者。手套不能代洗手：戴前洗、脫後亦洗，以套可破，且脫時手必受染。"},
+  {t:"Before the treatment only",c:"惟治療之前",ok:0,
+   note:"Then you carry whatever was on the patient to the next patient, the door handle and your own face. The after is not optional. 若然，則以此人之所染，遺於次者、遺於門把、遺於己面。後洗非可省之事。"},
+  {t:"Only if the patient appears unwell",c:"惟病人似有疾者洗之",ok:0,
+   note:"You cannot see who is carrying what, which is the entire reason standard precautions treat every patient the same way. 誰有所染，望之不可知；標準防護之所以一視同仁，其理正在此。"},
+  {t:"Gloves make washing unnecessary",c:"戴手套則不必洗",ok:0,
+   note:"Gloves are an addition, never a substitute. 手套為加，非為代。"}]},
+
+{k:"mc", q:"A needle has been inserted, withdrawn after two minutes, and looks perfectly clean. What happens to it?",
+ qZh:"一針已刺、二分鐘後起出，其形潔淨如新。當如何處置？",
+ opts:[
+  {t:"Straight into the sharps container — filiform needles are single use, always",
+   c:"即入利器盒——毫針一次性使用，無有例外",ok:1,
+   note:"Single use is absolute and it is not about how the needle looks. A needle that has entered skin has been in contact with blood and tissue whether or not anything is visible, and no cleaning available in a treatment room makes it safe again. It goes into the sharps container at the point of use, not into a tray to be carried across the room. 一次性使用為絕對之則，且不視其外觀。針已入膚，即與血肉相接，見與不見皆然；診間所能為之清潔，無一能復其安。當即就地入利器盒，不可置盤中而攜之過室。"},
+  {t:"Wipe it with alcohol and it can be used again on the same patient",
+   c:"以酒精拭之，同一病人可再用",ok:0,
+   note:"Not even on the same patient. Wiping does not sterilise, and a needle tip is microscopically damaged by a single insertion — a re-used needle is both contaminated and blunt. 雖同一人亦不可。拭非滅菌；且針尖一入即微損，再用者既染且鈍。"},
+  {t:"Autoclave it at the end of the day",c:"日終高壓滅菌後再用",ok:0,
+   note:"Modern filiform needles are manufactured single-use and are not designed to be reprocessed. This is settled practice, not a preference. 今之毫針，製為一次性，不為再處理而設。此為定法，非取捨之事。"},
+  {t:"Recap it and dispose of it later",c:"復套針管，稍後棄之",ok:0,
+   note:"Recapping by hand is the classic way practitioners stick themselves. If a needle must be covered, a one-handed scoop technique or a capping device is used — never two hands, and never later when the routine has moved on. 以手復套，正醫者自刺之常因。若必須加蓋，當以單手撥套或器械為之——不可雙手，亦不可延至事過境遷之時。"}]},
+
+{k:"mc", q:"Why are needles counted before insertion and again after removal?",
+ qZh:"何以下針之前與起針之後，必計其數？",
+ opts:[
+  {t:"So that a needle left in the patient is found before they leave the room",
+   c:"使遺留於身者，於病人離室之前即得",ok:1,
+   note:"A retained needle is a real and preventable event, and it happens most easily in the places you cannot see — under a drape, in the hair, on the back of a patient who is dressing. The count is the only thing that reliably catches it. Say the number out loud at the start and check it at the end; a count kept in your head is not a count. 遺針之事誠有，且可防。其最易者，在目所不及之處：布下、髮中、更衣之背後。惟計數可恃以察之。始則出聲言其數，終則核之；藏於心中者，不成其為計。"},
+  {t:"To record how many needles were used for billing",
+   c:"為記其數以便計費",ok:0,
+   note:"Records matter, but that is not what the count is for. The count is a safety check with a specific failure it prevents. 記錄誠有其用，然計數非為此。計數者，安全之核也，所防者有其一定。"},
+  {t:"To make sure the treatment used enough points",
+   c:"以確認取穴之數足夠",ok:0,
+   note:"The number of points is a clinical decision made before the needles come out of the packet. 取穴之數，於開包之前已定，屬臨證之斷。"},
+  {t:"It is only necessary for treatments longer than 30 minutes",
+   c:"惟留針逾三十分鐘者需之",ok:0,
+   note:"Duration has nothing to do with it. A needle can be missed in a five-minute treatment. 與時之長短無涉。五分鐘之治，亦可遺針。"}]},
+
+{k:"mc", q:"A first-time patient goes pale, sweaty and says she feels faint while the needles are in. What do you do first?",
+ qZh:"初診病人留針之際，面色蒼白、汗出，自言欲暈。當先何為？",
+ opts:[
+  {t:"Withdraw the needles immediately, lie her flat, raise the legs, keep her warm, and stay with her",
+   c:"即起針，令其平臥，抬其足，保暖，且守其側",ok:1,
+   note:"Needles out first — you cannot manage a fainting patient who is still pinned. Then flat with the legs raised so blood returns to the head, warmth, loosened clothing, and someone with her the whole time. Do not leave the room to fetch anything. Note the pattern that produced it: a first treatment, an anxious or depleted patient, an empty stomach, sitting or standing, strong stimulation — every one of those is preventable, which is why the first treatment is given lying down. 先起針——針猶在身，無以救其暈。次令平臥而抬足，使血歸於上；保暖、寬衣，且始終有人在側。勿離室取物。當察其所由：初診、其人怯或虛、空腹、坐立受針、手法過重——皆可預防，故初診宜臥而受之。"},
+  {t:"Add a needle at Renzhong DU26 before doing anything else",
+   c:"先於人中 DU26 加一針",ok:0,
+   note:"DU26 is a revival point and it appears in every textbook for this — but the first actions are mechanical: needles out, patient flat, legs up. Position and airway before points, always. 人中誠為回蘇之穴，諸書皆載。然所當先者為形勢之事：起針、平臥、抬足。體位與呼吸，恆在取穴之先。"},
+  {t:"Ask her to sit up slowly and sip water",
+   c:"令其緩緩坐起，飲少許水",ok:0,
+   note:"Sitting up is the wrong direction — it takes blood away from the head, which is what is already short. Flat first; sitting comes much later, and slowly. 坐起者其向適反：血本不足於上，坐則益去之。當先平臥；坐起在後，且宜徐緩。"},
+  {t:"Leave the room to get your supervisor",
+   c:"離室去請指導老師",ok:0,
+   note:"Call for help without leaving. A fainting patient with needles in should never be alone. 當呼人而不當離。留針而暈者，不可獨處。"}]},
+
+{k:"match", q:"Match each needling accident to its first response.",
+ qZh:"針刺意外，各配其首要處置。",
+ pairs:[
+  {l:"Fainting 暈針",lZh:"暈針",r:"Needles out, lie flat, legs up, keep warm",rZh:"起針、平臥、抬足、保暖"},
+  {l:"Stuck needle 滯針",lZh:"滯針",r:"Stop, let the muscle relax, massage around it — never force",rZh:"停手、令肌鬆、按其周圍——不可強拔"},
+  {l:"Bent needle 彎針",lZh:"彎針",r:"Do not rotate; withdraw slowly along the bend",rZh:"勿捻轉；順其彎徐徐退出"},
+  {l:"Broken needle 斷針",lZh:"斷針",r:"Keep the patient still, do not let them move, refer for removal",rZh:"令其勿動，速求取出"},
+  {l:"Haematoma 血腫",lZh:"血腫",r:"Press, then cold first, warmth and gentle massage later",rZh:"先按壓、先冷敷，後乃溫敷輕揉"}],
+ note:"The through-line: in every one of these, the first move is to stop and stabilise, not to pull. Force is what turns a stuck needle into a broken one and a bent needle into tissue damage. 其貫者一義：凡此諸事，所先在止而安之，不在拔。強力者，能使滯針成斷針，使彎針而傷肉。"},
+
+{k:"mc", q:"Which of these is the reason needling over the upper back and chest is treated with particular caution?",
+ qZh:"背上部及胸部行針，何以尤當謹慎？",
+ opts:[
+  {t:"The risk of pneumothorax if a needle passes between the ribs into the pleura",
+   c:"針入肋間及胸膜，有氣胸之虞",ok:1,
+   note:"The most serious common accident in acupuncture, and it is a matter of angle and depth rather than of point choice. Over the thorax needles are angled obliquely or transversely and kept shallow, and the patient is asked to breathe normally rather than hold a breath. Warning signs afterwards — sudden chest pain, breathlessness, a dry cough, worsening rather than settling — are an emergency, not a wait-and-see. 針術諸事故中，此最重而不罕，且其關在角度與深淺，不在取穴。凡胸背之穴，宜斜刺、平刺而淺，並令病人常息而勿屏氣。其後若見胸痛驟作、氣促、乾咳，且漸重而不減者，即為急症，不可觀望。"},
+  {t:"The skin there is thicker and the needle may bend",
+   c:"其膚較厚，針易彎",ok:0,
+   note:"Not the concern, and not true. The concern is what lies under the ribs. 非其所慮，且不然。所慮者在肋下之物。"},
+  {t:"Those points are less effective",
+   c:"其穴效力較弱",ok:0,
+   note:"Efficacy is a different question entirely from safety. 效與安，二事也。"},
+  {t:"Patients find that area more painful",
+   c:"其處病人尤覺痛",ok:0,
+   note:"Comfort matters, but it is not why the caution exists. 舒適誠當顧，然此非其戒之所由。"}]},
+
+{k:"mc", q:"What is a clean field, in practice?",
+ qZh:"所謂潔淨區，於實務為何？",
+ opts:[
+  {t:"A designated clean surface holding only what the treatment needs, set up before the patient is touched and not re-entered with contaminated hands",
+   c:"預設之潔面，惟置本次所需之物，於觸病人之前備妥，手既染則不復入",ok:1,
+   note:"The whole idea is a boundary you set once and then respect. Everything needed goes onto it before you start — needles, cotton, sharps container within reach — so that mid-treatment you are never reaching across a patient with used hands to find something. The commonest breach is small and habitual: touching your phone, your hair or a doorknob and then returning to the tray. 其義在立一界而後守之。凡所需者，未始之前悉置其上——針、棉、利器盒俱在手可及之處——則治中不至以已染之手越病人而取物。破界之事多細而成習：觸手機、觸髮、觸門把，而復及於盤。"},
+  {t:"A room that has been mopped that morning",
+   c:"當日晨間已拖過之室",ok:0,
+   note:"Room cleaning matters and is a different thing. The clean field is the small working surface and the discipline around it. 室之潔誠當為，然非此。潔淨區者，其小小之工作面，及守之之律也。"},
+  {t:"Any surface covered with a paper towel",
+   c:"凡覆以紙巾之面",ok:0,
+   note:"The barrier is part of it; the discipline is the rest. A covered tray that you keep touching with contaminated hands is not a clean field. 覆之者，其一端耳；其餘在律。覆之而屢以染手觸之，非潔淨區也。"},
+  {t:"The area of skin that has been swabbed",
+   c:"已消毒之皮膚",ok:0,
+   note:"That is skin preparation — related, and not the same thing. 此為皮膚之準備，相關而非一事。"}]},
+
+{k:"mc", q:"A patient tells you she is eleven weeks pregnant. Which is the correct general stance?",
+ qZh:"病人自言妊娠十一週。其大體之則為何？",
+ opts:[
+  {t:"Treat with specific caution — certain points and the lower abdomen and lumbosacral area are traditionally avoided, and it is discussed with her and documented",
+   c:"當特加謹慎——某些穴位及下腹、腰骶部依傳統當避，且須與之相商並記錄",ok:1,
+   note:"Pregnancy does not rule out acupuncture, but it changes the point selection and the record-keeping. Points classically avoided include LI4 合谷, SP6 三陰交, BL60 崑崙, BL67 至陰 and LR3 太衝, along with the lower abdomen, the lumbosacral region and strong stimulation generally. Confirm the pregnancy is known to her own care provider, and work within your scope and your programme's rules — this is one of the areas where a supervisor is consulted, not worked around. 妊娠非針之禁，然取穴與記錄皆當改。古來所避者：合谷、三陰交、崑崙、至陰、太衝，並下腹、腰骶及重手法。當確認其已為醫者所知，並守自身執業範圍與課程之規——此正當請教指導老師之處，非可自行變通者。"},
+  {t:"Acupuncture is entirely contraindicated in pregnancy",
+   c:"妊娠絕對禁針",ok:0,
+   note:"Too broad, and it is not the standard position. Acupuncture is widely used in pregnancy with adjusted point selection. 其說太過，非通行之見。妊娠用針者甚眾，特改其取穴耳。"},
+  {t:"Only the first trimester requires care",
+   c:"惟首三月須慎",ok:0,
+   note:"The cautions apply throughout, and some change as the pregnancy progresses. 諸戒通乎全程，且隨月而有所變。"},
+  {t:"It makes no difference to point selection",
+   c:"於取穴無所改",ok:0,
+   note:"It does, and this is examined directly as well as mattering clinically. 其改甚明，且既為考點，亦關臨證。"}]},
+
+{k:"mc", q:"Which is the correct handling of the sharps container?",
+ qZh:"利器盒之處置，何者為是？",
+ opts:[
+  {t:"Rigid, puncture-resistant, kept within arm's reach of the treatment, and replaced before it is full",
+   c:"堅硬、耐穿刺，置於治療處伸手可及，未滿之前即更換",ok:1,
+   note:"Within reach is the part that gets skipped and the part that prevents injuries — a needle carried across a room is a needle that can be dropped or brushed against someone. Replace at the fill line rather than at the brim; overfilling forces needles down and is a common source of sticks. 「伸手可及」一項最易忽略，而防傷正賴之：針既攜之過室，則可墜、可觸人。當及其標線而換，勿俟其滿溢；滿而強按，正刺傷之常因。"},
+  {t:"Any lidded plastic tub is acceptable",
+   c:"凡有蓋之塑膠桶皆可",ok:0,
+   note:"It must be puncture-resistant and purpose-made. A needle goes through a soft container and through whoever is carrying it. 必用耐穿刺之專器。軟器者，針能透之，並透持之者。"},
+  {t:"Filled to the top before replacing, to reduce waste",
+   c:"裝至盡滿而後換，以省其費",ok:0,
+   note:"Overfilling is a recognised cause of needlestick injury. 過滿為針刺傷之公認原因。"},
+  {t:"Kept at the reception desk so one container serves the clinic",
+   c:"置於櫃檯，一器供全診間",ok:0,
+   note:"That guarantees needles are carried through the building. Point of use, every time. 若然，則針必攜行於堂室之間。當就地棄之，無一例外。"}]},
+
+{k:"mc", q:"Which skin should not be needled?",
+ qZh:"何等皮膚不可行針？",
+ opts:[
+  {t:"Skin that is infected, ulcerated, broken, or over an undiagnosed lump",
+   c:"感染、潰瘍、破損之膚，及未明之腫塊上",ok:1,
+   note:"Needling through infected skin drives the infection deeper; needling broken or ulcerated skin cannot be done into a clean field at all; and an undiagnosed lump is something to refer, not to needle. Also avoided: directly into scars that are fresh, into varicose veins, and through clothing. 針透感染之膚，則其邪益深；破潰之處，本不能成潔淨區；未明之腫塊，當轉介而不當針。他所當避者：新瘢之上、靜脈曲張之處，及隔衣行針。"},
+  {t:"Only skin with visible bruising",
+   c:"惟見瘀青者",ok:0,
+   note:"Bruised skin is one to work around, and it is far from the only one. 瘀青誠當避，然非止於此。"},
+  {t:"Skin that has been washed with soap",
+   c:"以皂洗過之膚",ok:0,
+   note:"Clean skin is what you want. 潔膚正所欲也。"},
+  {t:"Any skin on the abdomen",
+   c:"凡腹部之膚",ok:0,
+   note:"The abdomen is needled routinely, with attention to depth and to what lies beneath. 腹部為常針之處，特當顧其深淺及其下所在耳。"}]},
+
+{k:"mc", q:"You are pricked by a used needle while clearing up. What is the sequence?",
+ qZh:"收拾之際，為用過之針所刺。當依何序？",
+ opts:[
+  {t:"Wash the site with soap and water, report it immediately, and follow your clinic's exposure protocol — do not decide on your own that it was minor",
+   c:"以皂與水洗其處，即刻報告，依診間之暴露處置流程行事——勿自斷其為小事",ok:1,
+   note:"Wash, report, follow the protocol. The reporting is the part students skip, out of embarrassment or because the stick felt trivial — and it is the part that matters, because post-exposure decisions are time-sensitive and are not yours to make alone. Do not squeeze the wound and do not use bleach on skin. 洗、報、依流程。學生所每略者在「報」，或以為愧，或以為傷微——而此正其要，蓋暴露後之處置有其時限，且非一人所可獨斷。勿擠其創，勿以漂白劑施於膚。"},
+  {t:"Squeeze the site hard to force blood out, then carry on",
+   c:"用力擠出其血，而後續其事",ok:0,
+   note:"Squeezing is not recommended and it does not remove risk. Wash and report. 擠壓非所宜，且不能去其險。當洗而報之。"},
+  {t:"Apply alcohol and say nothing if the needle was your own patient's",
+   c:"以酒精塗之；若為自己病人之針，可不言",ok:0,
+   note:"Whose patient it was does not change the exposure or the protocol. Report every time. 針屬何人之病人，於暴露與流程無所改。凡遇必報。"},
+  {t:"Wait to see whether symptoms develop",
+   c:"俟其有症而後處置",ok:0,
+   note:"Post-exposure management is time-sensitive; waiting removes the options that work. 暴露後之處置有時限，俟之則失其可行者。"}]},
+
+{k:"mc", q:"Which statement about this deck is correct?",
+ qZh:"關於本組，下列何者為是？",
+ opts:[
+  {t:"It is revision for a course you still have to take and pass — the manual, the course and your supervisor are the authority",
+   c:"此為溫習之用，其課仍須修習考取——手冊、課程與指導老師方為所依",ok:1,
+   note:"Correct, and worth saying out loud once. Clean needle technique is certified through a formal course with its own current manual, and clinical practice is governed by your programme and your jurisdiction. A quiz can keep the reasoning warm between sessions; it cannot certify anything, and it can go out of date. When this deck and your course differ, your course is right. 是，且此語當明言一次。潔針之術，由正式課程與其現行手冊認證；臨床所行，則受課程與所在司法管轄所規。習題可使其理不冷，然不能代其認證，且可過時。若本組與課程有異，以課程為是。"},
+  {t:"Passing this deck means you can practise clean needle technique unsupervised",
+   c:"通過本組即可獨立行潔針之術",ok:0,
+   note:"It does not, and nothing in a game could. 不能。凡遊戲所為，皆不足以此。"},
+  {t:"These principles vary so much by clinic that they cannot be studied",
+   c:"諸則因診間而異，故不可學",ok:0,
+   note:"The core principles are settled and examinable; local procedure sits on top of them. 其大本已定，且為考點；地方之規行於其上。"},
+  {t:"CNT is only relevant once you are already in clinic",
+   c:"潔針之事，入臨床而後與己相關",ok:0,
+   note:"It is examined before clinic and it shapes how you learn to handle a needle from the first one. 其考在入臨床之前，且自第一針起，即定你持針之習。"}]}
+
+]}
 
 };
