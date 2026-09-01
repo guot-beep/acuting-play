@@ -21,5 +21,8 @@ window.AG_CHAPTER_INDEX = [
  {id:"11", title:"The Scribe Who Could Not Eat", titleZh:"寫不完的帳與吃不下的飯", pattern:"Liver invading the Spleen 肝脾不和"},
  {id:"12", title:"The Weaver's Winter Cough", titleZh:"織坊的冬咳", pattern:"Lung and Spleen Qi Deficiency 肺脾氣虛"},
  {id:"13", title:"The Dyer's Failing Sight", titleZh:"染坊師傅的眼睛", pattern:"Liver and Kidney Yin Deficiency 肝腎陰虛"},
- {id:"14", title:"Fire Above, Dryness Below", titleZh:"上面是火，下面是乾", pattern:"Heart and Kidney Failing to Communicate 心腎不交"}
+ {id:"14", title:"Fire Above, Dryness Below", titleZh:"上面是火，下面是乾", pattern:"Heart and Kidney Failing to Communicate 心腎不交"},
+ {id:"15", title:"The Fifth Watch", titleZh:"五更", pattern:"Spleen and Kidney Yang Deficiency 脾腎陽虛"},
+ {id:"16", title:"The Colour on His Sleeve", titleZh:"袖上的顏色", pattern:"Liver Fire Insulting the Lung 肝火犯肺"},
+ {id:"17", title:"The Thread She Cannot See", titleZh:"看不見的線", pattern:"Heart and Liver Blood Deficiency 心肝血虛"}
 ];

@@ -524,7 +524,33 @@ window.AG_POINTS = [
        zh:"腎之原穴，腎虛諸證皆取：腰膝痠軟、耳鳴、盜汗、眩暈、夜寐不安。陰陽俱補，此為其特別處。"},
   hook:{en:"The Source point of the Kidney sits where you can feel the pulse behind the ankle.",
         zh:"腎之原穴，在踝後動脈應手處。"},
-  img:"art/points/KI3.jpg" }
+  img:"art/points/KI3.jpg" },
+
+{ id:"KI7", en:"Fuliu", py:"Fù Liū", zh:"復溜",
+  ch:{en:"Kidney", zh:"足少陰腎經"},
+  cat:{en:"River point 經穴", zh:"經穴"},
+  where:{en:"Two cun directly above KI3, on the anterior border of the Achilles tendon.",
+         zh:"太谿直上二寸，跟腱前緣。"},
+  acts:{en:"Warms Kidney yang · moves water and reduces swelling · stops chronic diarrhoea · secures the exterior and regulates sweating",
+        zh:"溫腎陽、利水消腫、止久瀉、固表止汗"},
+  use:{en:"The point when Kidney yang has gone low and water has stopped moving with it — pitting oedema of the legs, daybreak diarrhoea, cold aching low back, clear copious night urination. Also the classic point for sweating disorders, in either direction: it stops night sweats and, paired with LI4, it is the standard combination for promoting or stopping sweat.",
+       zh:"腎陽既衰而水停不行者取之：下肢凹陷性水腫、五更泄瀉、腰膝冷痛、夜尿清長。又為汗證要穴，止盜汗；配合谷，為發汗止汗之常法。"},
+  hook:{en:"Two cun above Taixi. Where Taixi restores whatever the Kidney lacks, Fuliu is the one that moves the water.",
+        zh:"太谿上二寸。太谿補其所虧，復溜專主行水。"},
+  img:"art/points/KI7.jpg" },
+
+{ id:"HT7", en:"Shenmen", py:"Shén Mén", zh:"神門",
+  ch:{en:"Heart", zh:"手少陰心經"},
+  cat:{en:"Source point · Stream point 原穴、輸穴", zh:"原穴、輸穴"},
+  where:{en:"At the ulnar end of the wrist crease, on the radial side of the flexor carpi ulnaris tendon, in the depression at the proximal border of the pisiform.",
+         zh:"腕橫紋尺側端，尺側腕屈肌腱之橈側，豌豆骨上緣凹陷中。"},
+  acts:{en:"Calms the spirit · settles palpitations · clears Heart heat · benefits sleep and memory",
+        zh:"安神定悸、清心熱、助眠益智"},
+  use:{en:"The first point to reach for when the spirit is unsettled — palpitations, insomnia, dream-disturbed sleep, poor memory, anxiety, being easily startled. Because it is the Source point it serves the Heart whether the trouble is deficiency or heat, so it appears in blood deficiency and in Heart fire alike; the technique is what changes.",
+       zh:"神不安者首取之：心悸、失眠、多夢、健忘、驚惶易驚。以其為原穴，心之虛實皆可取——血虛與心火俱用之，所異者手法耳。"},
+  hook:{en:"Gate of the Spirit. Blood houses the spirit; this is the door to the house.",
+        zh:"神門者，神之門也。血舍神，此其戶。"},
+  img:"art/points/HT7.jpg" }
 
 
 ];
