@@ -623,6 +623,54 @@
     return out + '</span>';
   }
 
+
+  /* ══════════ collection milestones ══════════
+     Reaching 39 points or 20 herbs used to produce exactly nothing. These fire
+     once each — the flag is written into the save, so a milestone never repeats
+     and never fires retroactively for progress made before it existed. */
+  var MILESTONES = [
+    { key:"pts10",  test:function(S){ return (S.points||[]).length >= 10; },
+      glyph:"穴", t:"Ten points learned", z:"已識十穴", s:"The Point Hall is starting to fill." , zs:"點穴堂漸有其形。"},
+    { key:"pts25",  test:function(S){ return (S.points||[]).length >= 25; },
+      glyph:"穴", t:"Twenty-five points", z:"二十五穴", s:"More than half the hall.", zs:"堂中過半矣。"},
+    { key:"ptsAll", test:function(S){ return (S.points||[]).length >= ((global.AG_POINTS||[]).length || 39); },
+      glyph:"堂", t:"Every point in the hall", z:"點穴堂圓滿", s:"You have visited all of them.", zs:"諸穴皆已親歷。"},
+    { key:"herb5",  test:function(S){ return (S.cards||[]).length >= 5; },
+      glyph:"草", t:"Five herbs in the bag", z:"囊中五味", s:"The codex is opening.", zs:"本草漸開。"},
+    { key:"herbAll",test:function(S){ return (S.cards||[]).length >= ((global.AG_HERBS||[]).length || 20); },
+      glyph:"囊", t:"The whole materia medica", z:"本草圓滿", s:"Every herb has spoken to you.", zs:"諸藥皆已與你言。"},
+    { key:"ch03",   test:function(S){ return chapterCount(S) >= 3; },
+      glyph:"卷", t:"Three chapters closed", z:"三章已了", s:"The schools are opening behind you.", zs:"諸流派次第開啟。"},
+    { key:"ch07",   test:function(S){ return chapterCount(S) >= 7; },
+      glyph:"卷", t:"Seven chapters closed", z:"七章已了", s:"Single-organ patterns are behind you.", zs:"單臟之證，已在身後。"},
+    { key:"chAll",  test:function(S){ return chapterCount(S) >= chapterTotal(); },
+      glyph:"醫", t:"Every chapter closed", z:"全卷已了", s:"Master Shen has nothing left to set you.", zs:"參師父再無案可付。"}
+  ];
+  function chapterTotal(){
+    var idx = global.AG_CHAPTER_INDEX;
+    return (idx && idx.length) ? idx.length : 14;
+  }
+  function chapterCount(S){
+    var n = 0, f = S.flags || {};
+    Object.keys(f).forEach(function(k){ if (/^chapter\d+Done$/.test(k) && f[k]) n++; });
+    return n;
+  }
+  function checkMilestones(){
+    var S = global.AG.state;
+    S.flags = S.flags || {};
+    MILESTONES.forEach(function(m){
+      var flag = "mile_" + m.key;
+      if (S.flags[flag]) return;
+      var hit = false;
+      try { hit = m.test(S); } catch (e) { hit = false; }
+      if (!hit) return;
+      S.flags[flag] = true;
+      celPush({ kind:"Milestone 里程", glyph:m.glyph,
+                title:m.t + zhSpan(m.z), sub:m.s + (global.AG.state.zh ? " " + m.zs : "") });
+    });
+    try { global.AG.save(); } catch (e) {}
+  }
+
   (function hookComplete(){
     if (!global.AG || !global.AG.complete || global.AG.__celHooked) return;
     var inner = global.AG.complete;
@@ -642,6 +690,7 @@
                     pips: pipsFor(l.to) });
         });
       } catch (e) { /* a celebration must never break the thing it celebrates */ }
+      try { checkMilestones(); } catch (e) { /* never break the activity */ }
       if (global.AG.hudRefresh) { try { global.AG.hudRefresh(); } catch (e) {} }
       return out;
     };
