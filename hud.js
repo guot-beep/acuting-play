@@ -430,7 +430,13 @@
         + '<div class="resetrow"><button class="tray-toggle" id="rsNo">Keep my progress</button>'
         + '<button class="tray-toggle danger solid" id="rsYes">Erase and start over</button></div></div>'
         + '<p class="tray-empty" style="margin-top:12px">Apricot Grove is an educational game. Cases are fictional teaching examples and not medical advice.'
-        + '<span class="zh"> 本遊戲為教學用途，病案為虛構教學範例，不構成醫療建議。</span></p>');
+        + '<span class="zh"> 本遊戲為教學用途，病案為虛構教學範例，不構成醫療建議。</span></p>'
+        /* Said out loud, in the one place a person looks for it. Once you start
+           counting visits you owe the player a plain sentence about what is and
+           is not collected — and here all three sentences happen to be good news. */
+        + '<p class="tray-empty" style="margin-top:8px">No cookies, no accounts, no personal data. '
+        + 'Your progress is saved on this device only. Visits are counted anonymously, so we know whether anyone is playing.'
+        + '<span class="zh"> 不使用 cookie，不需帳號，不收集個人資料。進度只存在這台裝置上。造訪次數以匿名方式計算，僅用於了解是否有人在玩。</span></p>');
       /* 催更 · the wish panel. Chips and free text feed the same one field,
          so the form stays a single short-answer question. */
       if(WISH_FORM){
