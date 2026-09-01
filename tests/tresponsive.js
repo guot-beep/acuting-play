@@ -32,6 +32,27 @@ ok(!desk.sealOverlap,'desktop: the corner seal no longer sits on the streak');
 ok(!desk.hOverflow,'desktop: nothing overflows the card');
 const tab=await measure(820,1180);
 ok(tab.app===620,'tablet: 620px column (got '+tab.app+')');
+
+/* The two halls ship a two-column wall because that is right on a phone.
+   With 42 points on the wall, two columns on a 1440px screen is twenty-one
+   rows of scrolling for a thing meant to be scanned — so the shelf has to
+   widen with the card. */
+const cols=async(url,w)=>{
+  const p=await b.newPage({viewport:{width:w,height:900}});
+  await p.goto('file:///home/claude/site/'+url); await p.waitForTimeout(600);
+  const n=await p.evaluate(()=>{
+    const el=document.getElementById('shelf'); if(!el) return -1;
+    return getComputedStyle(el).gridTemplateColumns.split(' ').filter(Boolean).length;});
+  const over=await p.evaluate(()=>document.documentElement.scrollWidth>document.documentElement.clientWidth+1);
+  await p.close(); return {n,over};
+};
+for(const url of ['pointroom.html','herbroom.html']){
+  const ph=await cols(url,390), de=await cols(url,1000), wi=await cols(url,1440);
+  ok(ph.n===2, url+' on a phone: two columns (got '+ph.n+')');
+  ok(de.n>=4, url+' on a desktop: at least four columns (got '+de.n+')');
+  ok(wi.n>=de.n, url+' on a wide screen: no narrower than desktop (got '+wi.n+' vs '+de.n+')');
+  ok(!ph.over && !de.over && !wi.over, url+': never scrolls sideways');
+}
 await b.close();
 console.log(fail?('\n'+fail+' FAILURES'):'\nresponsive layout holds at phone, tablet and desktop');
 process.exit(fail?1:0);})();
