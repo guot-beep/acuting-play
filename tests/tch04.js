@@ -1,10 +1,29 @@
-/* The needle stage is the only place the new per-chapter body plate is used,
-   so drive straight to it rather than clicking through the whole encounter. */
+/* The needle stage is the only place a chapter's body plate is used, so drive
+   straight to it rather than clicking through the whole encounter.
+
+   Data-driven on purpose: the expected plate and window are read out of
+   data/chapters.js, so a chapter added tomorrow is covered today. The earlier
+   version listed chapters by hand and quietly stopped testing new ones. */
 const { chromium } = require(process.env.PW||'playwright');
+const fs = require('fs'), vm = require('vm');
+
+const sandbox = { window:{} };
+vm.createContext(sandbox);
+vm.runInContext(fs.readFileSync('/home/claude/site/data/chapters.js','utf8'), sandbox);
+const CH = sandbox.window.AG_CHAPTERS;
+
+const cases = Object.keys(CH).sort().map(id=>{
+  const t = CH[id].target || {};
+  if (!t.img) return { ch:id, href:'data', vb:'0 0 434 930' };      // built-in forearm
+  const v = t.view;
+  return { ch:id, href:t.img,
+           vb: v ? `${v.x} ${v.y} ${v.w} ${v.h}` : `0 0 ${t.w} ${t.h}` };
+});
+
 (async()=>{
 const b=await chromium.launch({executablePath:process.env.CHROME||'/opt/pw-browsers/chromium'});
 const bad=[];
-async function check(ch, expectHref, expectVB, shot){
+async function check({ch, href:expectHref, vb:expectVB}){
   const p=await b.newPage({viewport:{width:390,height:844}});
   p.on('pageerror',e=>bad.push(`ch${ch}: JS error ${e}`));
   await p.goto(`file:///home/claude/site/chapter.html?ch=${ch}`);
@@ -29,21 +48,10 @@ async function check(ch, expectHref, expectVB, shot){
     const ok=await p.evaluate(s=>new Promise(r=>{const im=new Image();im.onload=()=>r(true);im.onerror=()=>r(false);im.src=s}), i.href);
     if(!ok) bad.push(`ch${ch}: body image ${i.href} failed to load`);
   }
-  if(shot) await p.screenshot({path:shot});
   await p.close();
 }
-await check('04','art/body-leg-anterior.jpg','0 0 434 1159','/tmp/ch04-needle.png');
-await check('05','art/body-leg-medial.jpg','0 0 434 1159','/tmp/ch05-needle.png');
-await check('06','art/body-head-lateral.jpg','0 0 434 1159','/tmp/ch06-needle.png');
-await check('07','art/body-forearm-palmar.jpg','0 0 434 1159',null);
-await check('08','art/body-forearm-palmar.jpg','0 0 434 1159',null);
-await check('09','art/body-leg-medial.jpg','0 560 434 599','/tmp/ch09-needle.png');
-await check('10','art/body-leg-medial.jpg','0 560 434 599','/tmp/ch10-needle.png');
-await check('11','art/body-leg-anterior.jpg','96 700 280 459',null);
-await check('12','art/body-leg-anterior.jpg','76 300 290 480',null);
-await check('13','art/body-leg-medial.jpg','40 660 300 420',null);
-await check('14','art/body-forearm-palmar.jpg','60 400 310 400',null);
-await check('01','data','0 0 434 930',null);
+for (const c of cases) await check(c);
+await b.close();
 if(bad.length){ bad.forEach(x=>console.log('  ✗ '+x)); process.exitCode=1; }
-else console.log('  ✅ every chapter plate loads with the right window and a target marker (ch01, 04–14)');
-await b.close();})();
+else console.log(`  ✅ every chapter plate loads with the right window and a target marker (${cases.length} chapters)`);
+})();
