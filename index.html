@@ -309,11 +309,11 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
   transition:.3s var(--ease);z-index:80;pointer-events:none}
 .toast.on{opacity:.95;transform:translate(-50%,0)}
 </style>
-<link rel="stylesheet" href="desktop.css?v=59">
-<script src="state.js?v=59"></script>
-<script src="data/herbs.js?v=59"></script>
-<script src="data/chapter-index.js?v=59"></script>
-<script src="hud.js?v=59"></script>
+<link rel="stylesheet" href="desktop.css?v=61">
+<script src="state.js?v=61"></script>
+<script src="data/herbs.js?v=61"></script>
+<script src="data/chapter-index.js?v=61"></script>
+<script src="hud.js?v=61"></script>
 </head>
 <body data-page="hub">
 <div id="app">
@@ -776,7 +776,7 @@ function paintModes(){
 }
 /* ── the story list is DATA, not code ──
    Chapter ids come from data/chapter-index.js — a ~2 KB spine generated from
-   data/chapters.js by tools/mkchapterindex.py. The town only needs each
+   data/chapters.js by tools/mkindexes.py. The town only needs each
    chapter's number, title and pattern; loading the full case file here cost
    ~73 KB gzipped on the first screen of the app. Already sorted numerically,
    so "10" lands after "09" rather than first. Add a chapter to chapters.js,
