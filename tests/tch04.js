@@ -39,7 +39,11 @@ await check('07','art/body-forearm-palmar.jpg','0 0 434 1159',null);
 await check('08','art/body-forearm-palmar.jpg','0 0 434 1159',null);
 await check('09','art/body-leg-medial.jpg','0 560 434 599','/tmp/ch09-needle.png');
 await check('10','art/body-leg-medial.jpg','0 560 434 599','/tmp/ch10-needle.png');
+await check('11','art/body-leg-anterior.jpg','96 700 280 459',null);
+await check('12','art/body-leg-anterior.jpg','76 300 290 480',null);
+await check('13','art/body-leg-medial.jpg','40 660 300 420',null);
+await check('14','art/body-forearm-palmar.jpg','60 400 310 400',null);
 await check('01','data','0 0 434 930',null);
 if(bad.length){ bad.forEach(x=>console.log('  ✗ '+x)); process.exitCode=1; }
-else console.log('  ✅ ch04 anterior leg · ch05 medial leg · ch06 head · ch01 still the forearm');
+else console.log('  ✅ every chapter plate loads with the right window and a target marker (ch01, 04–14)');
 await b.close();})();

@@ -58,6 +58,35 @@ r=await p.evaluate(()=>{const e=document.querySelector('.ag-cel');return e?e.cla
 ok(!r,'an ordinary completion stays quiet');
 await p.close();
 
+/* 6 · collection milestones fire once, and only once */
+({p,errs}=await page('pointroom.html'));
+await p.evaluate(()=>{const S=AG.state;S.points=[];S.cards=[];S.flags={};AG.save();
+  S.points=window.AG_POINTS.slice(0,12).map(x=>x.id);AG.save();
+  AG.complete({activity:"m1",completed:true,score:1,stars:1,xpEarned:5});});
+await p.waitForTimeout(400);
+r=await p.evaluate(()=>{const e=document.querySelector('.ag-cel');
+  return {on:e?e.classList.contains('on'):false, txt:e?e.textContent:'',
+          flag:!!AG.state.flags.mile_pts10};});
+ok(r.on && /Ten points/.test(r.txt),'passing ten points fires a milestone');
+ok(r.flag,'the milestone is written into the save so it cannot repeat');
+/* fire another completion — the same milestone must not come back */
+await p.evaluate(()=>{document.querySelector('.ag-cel').classList.remove('on');
+  AG.complete({activity:"m2",completed:true,score:1,stars:1,xpEarned:5});});
+await p.waitForTimeout(400);
+r=await p.evaluate(()=>{const e=document.querySelector('.ag-cel');return e?e.classList.contains('on'):false;});
+ok(!r,'the same milestone does not fire twice');
+ok(errs.length===0,'milestones throw nothing'+(errs[0]?': '+errs[0]:''));
+await p.close();
+
+/* 7 · finishing the collection fires the completion milestone */
+({p,errs}=await page('pointroom.html'));
+await p.evaluate(()=>{const S=AG.state;S.flags={};S.points=window.AG_POINTS.map(x=>x.id);AG.save();
+  AG.complete({activity:"m3",completed:true,score:1,stars:1,xpEarned:5});});
+await p.waitForTimeout(500);
+r=await p.evaluate(()=>document.querySelector('.ag-cel').textContent);
+ok(/point/i.test(r),'completing the Point Hall is marked: "'+r.replace(/\s+/g,' ').slice(0,60)+'"');
+await p.close();
+
 await b.close();
 console.log(fail?('\n'+fail+' FAILURES'):'\nprogress is visible when it happens and silent when it does not');
 process.exit(fail?1:0);})();
