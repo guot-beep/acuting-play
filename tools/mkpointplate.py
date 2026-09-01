@@ -158,7 +158,31 @@ PLATES = [
          subtitle="BL 57",
          caption="In the depression at the apex of the inverted V, where the two bellies of gastrocnemius meet — roughly 8 cun below Weizhong BL40. Found most easily with the calf tensed.",
          outfile="BL57.jpg"),
+    # ── KI3 / KI7 · medial ankle ── one plate carries both, because KI7 is
+    #    defined off KI3 (2 cun directly above it) and the pair is easier to
+    #    hold than either point alone
+    dict(base="art/body-leg-medial.jpg",
+         crop=(46, 700, 268, 918), scale=3.6,
+         points=[(178, 722, "SP 6", "Sanyinjiao", "r"),
+                 (102, 780, "KI 7", "Fuliu", "l"),
+                 (113, 868, "KI 3", "Taixi", "l")],
+         title="Kidney Channel · Medial Ankle",
+         subtitle="KI 3 · KI 7   (with SP 6 for orientation)",
+         caption="KI3 between the tip of the medial malleolus and the Achilles tendon. KI7 two cun directly above KI3, on the anterior border of the Achilles tendon. SP6 is three cun above the tip of the malleolus, just behind the medial border of the tibia.",
+         outfile="KI7.jpg"),
+
+    # ── HT7 · palmar wrist ── the Heart Source point, sited off the pisiform
+    dict(base="art/body-forearm-palmar.jpg",
+         crop=(96, 560, 300, 726), scale=3.8,
+         points=[(201, 570, "PC 6", "Neiguan", "r"),
+                 (236, 656, "HT 7", "Shenmen", "r"),
+                 (140, 652, "LU 9", "Taiyuan", "l")],
+         title="Heart Channel · Palmar Wrist",
+         subtitle="HT 7   (with LU 9 and PC 6 for orientation)",
+         caption="HT7 on the wrist crease at the ulnar end, on the radial side of the flexor carpi ulnaris tendon, in the depression at the proximal border of the pisiform. LU9 sits at the radial end of the same crease.",
+         outfile="HT7.jpg"),
 ]
+
 
 if __name__ == "__main__":
     for spec in PLATES:
