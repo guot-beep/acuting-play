@@ -104,7 +104,7 @@ window.AG_CALIB = [
            zh:"足背，第一、二蹠骨結合部之前凹陷中。"} },
 
   { id:"ST40", cun:8, zh:"豐隆", py:"Fēnglóng", img:"art/body-leg-anterior.jpg", w:434, h:1159,
-    x:162, y:552, chs:["12"], verified:false,
+    x:162, y:552, chs:["12","26"], verified:false,
     where:{en:"8 cun below ST35 Dubi, two finger-breadths lateral to the anterior crest of the tibia.",
            zh:"犢鼻下八寸，脛骨前緣外二橫指。"} },
 

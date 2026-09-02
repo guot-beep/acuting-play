@@ -232,5 +232,13 @@ window.AG_HERBS = [
     nature:"Acrid, sweet, very hot · Kidney, Spleen, Heart, Liver",
     natureZh:"辛、甘、大熱 · 歸腎脾心肝經",
     fact:"Supplements the fire of the gate of vitality, warms the channels and disperses cold, stops cold pain, and leads fire back down to its source. For deep yang depletion: cold limbs, a weak aching low back and knees, a deep slow pulse. Note that it is the bark and not the twig — Guizhi releases the exterior, Rougui warms the interior. Very hot and dispersing, so it is contraindicated in yin deficiency with heat, in active bleeding, and in pregnancy.",
-    factZh:"補火助陽、溫經散寒、散寒止痛、引火歸元。主腎陽虛衰：畏寒肢冷、腰膝痠軟、脈沉遲。桂枝為枝以解表，肉桂為皮以溫裡，勿混。大熱之品，陰虛火旺、出血、孕婦忌用。" }
+    factZh:"補火助陽、溫經散寒、散寒止痛、引火歸元。主腎陽虛衰：畏寒肢冷、腰膝痠軟、脈沉遲。桂枝為枝以解表，肉桂為皮以溫裡，勿混。大熱之品，陰虛火旺、出血、孕婦忌用。" },
+
+  { id:"zhuru", en:"Bamboo Shavings", py:"Zhú Rú", zh:"竹茹",
+    img:"art/herb-zhuru.jpg",
+    plate:"art/card-zhuru.jpg",
+    nature:"Sweet, slightly cold · Lung, Stomach, Gallbladder",
+    natureZh:"甘、微寒 · 歸肺胃膽經",
+    fact:"Clears heat and transforms phlegm, settles restlessness, and descends rebellious Stomach qi to stop vomiting. It is the herb of Wen Dan Tang, for a mind that cannot settle when phlegm and heat are tangled together — sleeplessness, palpitations, being easily startled, a bitter mouth and a greasy yellow coat. Being cool and descending, it is not the herb for vomiting that comes from cold in the stomach.",
+    factZh:"清熱化痰、除煩止嘔。溫膽湯之要藥，主痰熱互結、心神不寧：不寐、心悸、易驚、口苦、苔黃膩。性涼而降，胃寒作嘔者不宜。" }
 ];

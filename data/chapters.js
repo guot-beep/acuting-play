@@ -3342,4 +3342,157 @@ window.AG_CHAPTERS = {
 ]
   }
 
+,"26": {
+    id:"26", title:"The Man Who Would Not Sleep", titleZh:"不肯睡的人",
+    patient:{name:"Fang the grain broker 糧行方老闆", sprite:"man"},
+    scene:{img:"art/scene-treatment.jpg", key:"night"},
+    pattern:"Phlegm-Fire Harassing the Heart 痰火擾心",
+    principle:"clear heat, transform phlegm, and settle the spirit",
+    tongue:"red body with a thick greasy yellow coating",
+    pulseNote:{en:"Rolling smoothly under the finger like beads on a tray, and hurrying — and it has force.",zh:"往來流利如珠走盤，數而有力"},
+    needleAsk:{en:"Needle <b>F&#275;ngl&#243;ng ST40</b>. Tap its exact location.",zh:"行針 — 點出穴位精確位置"},
+    target:{id:"ST40",zh:"豐隆",py:"F&#275;ngl&#243;ng",x:162,y:552,
+      img:"art/body-leg-anterior.jpg", w:434, h:1159,
+      view:{x:66,y:420,w:280,h:320},
+      decoys:[{x:180,y:552},{x:162,y:480},{x:162,y:624},{x:134,y:552},{x:198,y:500}],
+      note:"<b>豐隆 F&#275;ngl&#243;ng ST40</b> — 8 cun below ST35 D&#250;b&#237;, two finger-breadths lateral to the anterior crest of the tibia, level with Ti&#225;ok&#466;u ST38 and one finger-breadth lateral to it. The Luo-connecting point of the Stomach, and the principal point for phlegm anywhere in the body. You have needled it before for damp-phlegm; today the phlegm has heat in it and has gone upward to the spirit — same point, different company.<br>犢鼻下八寸，脛骨前緣外二橫指，與條口平而在其外一橫指。胃之絡穴，通身化痰之要穴。前此取之以治痰濕；今痰中有熱而上擾神明——穴同而所配異。"},
+    safety:{
+      ask:{en:"Sleeplessness, agitation and speech that his family calls strange. Screen him before anything else.",
+           zh:"不寐、躁動，而家人言其語異。此當先於一切而篩查。"},
+      lead:{en:"Whenever the presenting complaint involves the mind, the screening comes first and it is not optional.",
+            zh:"凡主訴涉及神志者，篩查當先，且無可省。"},
+      opts:[
+ {t:"Ask him directly whether he has had any thoughts of harming himself or anyone else",
+  c:"直接問其有無傷己或傷人之念",ok:1,
+  note:"Correct, and ask it plainly and without flinching — asking does not plant the idea, and not asking leaves you guessing about the one thing that changes everything. If the answer is yes, or if you are unsure, the next step is urgent professional help the same day, not a course of treatment. Fang says no, and his family confirms he has not spoken of it.<br><b>Safe to continue, alongside a physician.</b><br>當直問而勿迴避——問之不生其念，不問則於最要之事惟有臆度。若其答為是，或己有疑，則當日即求專業之助，非施一療程之事。方老闆言無，其家人亦言未嘗聞之。可續，然當與醫者並治。"},
+ {t:"Ask how many nights he has actually gone without sleep, and whether anything has changed suddenly",
+  c:"問其實際幾夜未眠，並問是否有驟然之變",ok:1,
+  note:"Correct. Several nights with no sleep at all, or a sudden change in someone who was well a week ago, is a picture that needs medical assessment promptly — some causes are physical and treatable, and pattern differentiation cannot see them. His has come on over five weeks since his warehouse burned, and he sleeps two or three hours most nights.<br><b>Safe to continue.</b><br>連數夜全不能寐，或一週前尚安而今驟變者，當即求醫評估：其因或屬形質之病而可治，非辨證所能見。今其病起於五週前倉廩之火，每夜猶得二三時之寐。可續。"},
+ {t:"Ask whether he has a fever, and whether he knows where he is and what day it is",
+  c:"問其有無發熱，並問其知身在何處、今為何日否",ok:1,
+  note:"Correct, and this is the one most easily skipped because it feels like it belongs to another kind of medicine. Confusion with fever is not a pattern to differentiate at leisure; it is a reason to send someone for medical assessment now. He has no fever and answers both questions without hesitation.<br><b>Safe to continue.</b><br>此問最易略，以其若屬他家之醫。然神昏而兼發熱者，非可從容辨證之證，乃即當送醫者也。今其人無熱，二問皆應答無滯。可續。"},
+ {t:"Skip it — a greasy yellow coat and a slippery rapid pulse already name the pattern",
+  c:"不必篩查，苔黃膩、脈滑數，其證已明",ok:0,
+  note:"The pattern may well be phlegm-fire. Screening is not asking what the pattern is; it is asking whether this person is safe to treat only here, this week. A tongue cannot answer that, and with the mind involved the cost of being wrong is not a slow recovery.<br>其證或誠屬痰火。篩查所問者非「何證」，乃「此人本旬可否但治於此」。舌不能答此問；而神志之病，誤之所失，非徒愈之遲而已。"}]
+    },
+    hints:{
+ ask:{en:"Ask what he tastes, and ask what happens when a door closes behind him.",zh:"問其口中何味，並問門聲忽作之時何如。"},
+ look:{en:"Two pathogens on one tongue. Name both before you weigh them.",zh:"一舌而二邪。先並名之，而後權其輕重。"},
+ pulse:{en:"Two qualities, and a third thing your finger must judge: is there force?",zh:"二象之外，指下尚須決一事：有力否？"},
+ dx:{en:"Phlegm alone is dull. Fire alone is dry. What does the pair do that neither does?",zh:"單痰則昏，單火則燥。二者相合，所為何事？"},
+ rx:{en:"Treat the phlegm where it is made, not only where it has gone.",zh:"治痰當治其所生，不獨治其所至。"},
+ tech:{en:"Nothing here is empty. Be careful what you say to him while you needle.",zh:"此案無虛。然行針之際，出言尤當謹。"}
+},
+    reactions:[
+ {who:"patient",en:"Fang talks quickly and does not stop, and twice loses the thread of his own sentence.",zh:"方老闆語速甚急而不能止，兩度自失其語序。"},
+ {who:"master",en:"Master Shen lets him finish. He does not interrupt once, and he does not write anything down yet.",zh:"參師父任其說完，一語未打斷，亦未即書。"},
+ {who:"boy",en:"The herb boy closes the shutter gently rather than letting it swing.",zh:"藥童輕掩窗板，不令其自撞。"},
+ {who:"patient",en:"\"Five weeks. The warehouse burned and I have not slept since. My wife says I am not myself.\"",zh:"「五週了。倉廩燒了之後就沒睡過。內人說我不像我了。」"},
+ {who:"master",en:"\"Notice that I asked him the difficult questions first and he answered all of them. That was the examination, and it came before the tongue.\"",zh:"「當察：我先問其難問者，而彼一一應之。此即診也，且先於望舌。」"},
+ {who:"master",en:"\"Now look at the coat. Then tell me which of the two things on it arrived first.\"",zh:"「今視其苔。且言其上二物，孰先至？」"}
+],
+    remedy:{ask:"excess_def",look:"cold_heat",pulse:"cold_heat",dx:"excess_def",rx:"channel_organ",tech:"excess_def"},
+    reward:{cardEn:"Phlegm With Fire In It",cardZh:"痰火擾心 · 痰熱互結",cardTxt:"Phlegm and fire behave differently on their own, and differently again together. Phlegm alone is heavy, turbid and slow — it dulls: a foggy head, a heavy body, a thick greasy coat, a slippery pulse. Fire alone is fast, dry and upward — it agitates: thirst for cold drinks, a red face, constipation, a rapid forceful pulse. Phlegm with heat inside it is sticky <i>and</i> agitated, and it rises, so it reaches the Heart, which houses the spirit. The result is a specific picture that neither pathogen produces alone: sleeplessness with vivid disturbing dreams, palpitations, being startled by small sounds, restlessness that will not settle, a bitter mouth, sometimes rapid or disordered speech — over a thick greasy yellow coat and a slippery rapid pulse that has force. And the practical rule for treating it: 脾為生痰之源，肺為貯痰之器 — the Spleen is the source that makes phlegm and the Lung is the vessel that stores it. Clearing the phlegm you can see, without treating the Spleen that keeps making it, buys weeks and not months.",herbId:"zhuru",herbEn:"Bamboo Shavings",herbZh:"竹茹",herbImg:"art/card-zhuru.jpg",sprite:"art/sprite-renshen-jump.webp",herbTxt:"Sweet and slightly cold, entering Lung, Stomach and Gallbladder. It clears heat and transforms phlegm at the same time — which is precisely why it fits phlegm-heat rather than phlegm alone or heat alone — settles restlessness, and descends rebellious Stomach qi to stop vomiting. It is the herb of Wen Dan Tang for a mind that cannot settle. Being cool and descending, it is not for vomiting that comes from cold in the stomach."},
+    endings:{
+      three:["Seven weeks on he sleeps five or six hours and his wife says he is himself again. He kept seeing the physician as well, which you asked him to do at the first visit.<br><b>Master Shen:</b> \"You screened him before you diagnosed him, you named both pathogens instead of the louder one, and you treated the Spleen that was making the phlegm. Three separate pieces of restraint. That is the chapter.\"","七週之後，每夜得五六時之寐，內人言其復如其人。他也一直看著醫者——那是你初診時囑其為之的。<br><b>參師父：</b>「你先篩而後診，並舉二邪而不獨舉其響者，且治其生痰之脾。三事皆有所守。此本章之旨也。」"],
+      two:["He sleeps better. He still startles, and the coat is still greasy.<br><b>Master Shen:</b> \"You cleared the heat and the sleep followed. Now go back and ask where the phlegm is being made, because it has not stopped being made.\"","寐已稍安，而猶易驚，其苔仍膩。<br><b>參師父：</b>「你清其熱而寐隨之。今且回頭問：痰生於何處？其所生者未嘗止也。」"],
+      one:["No change, and his wife is frightened.<br><b>Master Shen:</b> \"Then say out loud what you missed. And whatever it was — you send him to a physician today, and you say so to her yourself, in words she can repeat.\"","無所改，而其內人甚恐。<br><b>參師父：</b>「且明言你所失者為何。然無論所失者何——今日即令其就醫，且當面告其內人，用她能複述之語。」"],
+      titles:["Fang Sleeps Through the Night","Fang Sleeps Until the Fourth Watch","Fang Sits Up Again"]
+    },
+    script: [
+ {w:"master",en:"A complaint about the mind. Screen him first, and ask the hard questions plainly — you will find people answer them.",cn:"病涉神志者，先篩其危，且直問其難問者——人多肯答。"},
+ {w:"patient",en:"I broke grain at the north market. The warehouse burned five weeks ago and took the year with it.",cn:"我在北市做糧行。五週前倉廩失火，一年的貨都燒了。"},
+ {w:"patient",en:"I cannot sleep. When I do I dream badly and wake with my heart going. A door closing makes me jump out of my chair.",cn:"睡不著。睡著了就多夢，醒來心跳得厲害。門一響，人就從椅子上彈起來。"},
+ {w:"patient",en:"My mouth is bitter from the morning. There is phlegm in my throat all day and I cough it up thick and yellow.",cn:"從早上就口苦。喉中終日有痰，咳出來稠而黃。"},
+ {w:"master",en:"Startled, sleepless, bitter, thick yellow phlegm. Two pathogens and one place they have gone. Name all three.",cn:"易驚、不寐、口苦、痰稠黃。二邪而一所至之處。三者當並名之。"}
+],
+    qa: [
+ {q:"How do you sleep, and what happens when you do?",cq:"寐何如？寐則何如？",good:1,
+  a:"Two or three hours, in pieces. Vivid bad dreams, and I wake with my heart pounding.",ca:"斷斷續續二三個時辰。夢多而惡，醒則心悸。",
+  clue:{en:"Broken sleep with vivid disturbing dreams and waking palpitations",zh:"寐少而斷，多惡夢，醒則心悸"},note:"Sleeplessness is not one symptom, and the shape of it names the pattern. <b>Cannot fall asleep, mind racing</b> points to fire — Heart fire, or Liver fire. <b>Falls asleep, wakes at three or four with heat and night sweats</b> points to yin deficiency. <b>Dream-disturbed sleep with palpitations in a pale, tired patient</b> points to Heart blood deficiency. <b>Vivid disturbing dreams, startling, restlessness, over a greasy coat</b> points to phlegm-fire — the spirit is not empty, it is being harassed. Ask what the sleep is <i>like</i>, not only whether it happens. 不寐非一證，其形即其證名。<b>難以入寐、思慮紛紜</b>者，火也，心火肝火之屬。<b>能寐而四更即醒，兼熱兼盜汗</b>者，陰虛。<b>多夢兼悸而人面白神疲</b>者，心血虛。<b>惡夢紛紜、易驚、躁擾，而苔膩</b>者，痰火——神非空虛，乃為所擾。當問寐之<b>狀</b>，不獨問其有無。"},
+ {q:"What does your mouth taste like, and what is the phlegm like?",cq:"口中何味？其痰何如？",good:1,
+  a:"Bitter, worst in the morning. The phlegm is thick and yellow and hard to bring up.",ca:"苦，晨間最甚。痰稠而黃，咯之不易。",
+  clue:{en:"Bitter mouth; thick yellow phlegm",zh:"口苦；痰稠色黃"},note:"Two findings and each names one pathogen. <b>Thick, yellow, hard to expectorate</b> phlegm is phlegm that has been heated — thin, clear, copious phlegm is cold. <b>A bitter mouth</b> is heat, usually Gallbladder or Liver, and here it is also part of the Shaoyang picture that Wen Dan Tang addresses. Together they say phlegm-heat rather than phlegm-damp, and that single distinction reverses half the prescription. 二證各名一邪。痰<b>稠、黃、難咯</b>者，痰之被熱煎者也；痰清稀而多者則屬寒。<b>口苦</b>主熱，多屬膽與肝，於此亦溫膽湯所主少陽之候。合之則為痰熱而非痰濕——但此一辨，而方之半已易。"},
+ {q:"You said a door closing makes you jump. Is that new?",cq:"君言門響則驚。此為新有之事否？",good:1,
+  a:"Entirely new. I used to sleep through my own children shouting.",ca:"全然是新的。從前孩子在旁邊吵，我照睡不誤。",
+  clue:{en:"New-onset startle response, five weeks",zh:"易驚為新起，已五週"},note:"<i>Easily startled</i> 易驚 is one of the defining symptoms of phlegm-fire harassing the Heart, and establishing that it is <i>new</i> is what makes it a finding rather than a temperament. The Heart houses the spirit; when something turbid and hot reaches it, the spirit loses its anchor and reacts to small stimuli as if they were large ones. Note also that he is telling you the date of onset, and it matches the fire. 「易驚」為痰火擾心之定證，而必先確其為<b>新起</b>，方為病候而非性情。心藏神，濁而熱者上擾之，則神失其守，遇小動而應如大動。且其人自道發病之日，正與火災相合。"},
+ {q:"Are you thirsty? And what do you want to drink?",cq:"渴否？欲何飲？",good:1,
+  a:"Yes, cold water, and a lot of it. My bowels have been dry too — every three days.",ca:"渴，喜冷飲而量多。大便亦乾，三日一行。",
+  clue:{en:"Thirst for large cold drinks; dry stool every third day",zh:"渴喜冷飲而量多；大便乾，三日一行"},note:"These two confirm that the heat is <b>full</b> rather than empty, and that matters because it decides whether you drain or fill. Real thirst for cold water in quantity, dry bound stool, a forceful pulse and a thick coat are the excess-heat set. Empty heat gives small warm sips, a peeled tongue and a thin rapid pulse. Two patients can both be hot and need opposite prescriptions. 二者所證者，其熱為<b>實</b>而非虛，而此判所以決其當瀉當補。真渴引冷而量多、便燥結、脈有力、苔厚，實熱之全。虛熱則喜溫飲而少、舌剝、脈細數。二人俱熱，而其方相反。"},
+ {q:"Do your family say your speech has changed?",cq:"家人言君之語有異否？",good:1,
+  a:"My wife says I talk too fast and jump between things. I know I do it. I cannot slow down.",ca:"內人說我語速太快，話頭亂跳。我自己知道，卻慢不下來。",
+  clue:{en:"Rapid, tangential speech, with insight retained",zh:"語速急、話題跳躍，而自知之"},note:"Asked because it belongs in the record, and answered in a way that is itself reassuring: he knows he is doing it. That retained insight, together with the negative screening answers, is why this case stays here rather than becoming an urgent referral — and none of it excuses failing to ask again next week. Record what the family says in their words; they see the change you cannot, because you did not know him before. 此問當入病歷，而其答本身即一慰：其人自知之。此一分自知，合以篩查諸陰性之答，故本案可續而非急轉——然不足以免下旬之再問。家人之言，當錄其原語：彼所見之變，你不能見，以你未識其舊也。"},
+ {q:"Is there anything that helps, even a little?",cq:"有何事稍能使之緩者？",good:1,
+  a:"Walking. If I walk the river path at night I can sometimes come home and sleep an hour.",ca:"走路。夜裡沿江走一趟，回來有時能睡一個時辰。",
+  clue:{en:"Movement gives partial relief",zh:"行走則稍安"},note:"Worth asking in every case and especially this one. Practically, it hands you something to build on that costs the patient nothing and that he already believes in — and in a pattern where something turbid is stuck and stirring, movement genuinely helps disperse it. It also tells you he is still able to act on his own behalf, which is a clinical observation as much as a hopeful one. 凡診宜問，本案尤宜。其用有二：一者得一可憑之法，不費病家分文，而彼已自信之；二者濁邪內結而擾者，動則有助於其散。且知其人尚能自為其計——此亦診中之所見，非徒可喜之言。"}
+],
+    look: [
+ {t:"Red body with a thick greasy yellow coating",c:"舌紅，苔黃厚膩",ok:1,clue:{en:"Red tongue, thick greasy yellow coat",zh:"舌紅苔黃厚膩"},
+  note:"Correct, and this tongue is two statements laid on top of each other. <b>Greasy</b> 膩 — a coat that looks as though oil has been rubbed in and cannot be scraped away — is phlegm or damp: something substantial has gathered. <b>Yellow</b> is heat. <b>Thick</b> says there is a lot of it. And the red body says the heat has reached the tissue, not only the coat. Which of the two pathogens leads shows in the proportions: more yellow than greasy is heat leading, more greasy than yellow is phlegm leading. His is thick and unmistakably both. 是，此舌二語相疊。<b>膩</b>者苔如油塗，刮之不去，主痰主濕：有形之邪已聚。<b>黃</b>者主熱。<b>厚</b>者言其多。而舌體紅，則熱已入於形質，不獨在苔。二邪孰勝，觀其分：黃勝於膩者熱重，膩勝於黃者痰重。今其苔厚，而二者俱顯。"},
+ {t:"Red with no coating",c:"舌紅無苔",ok:0,
+  note:"Empty heat from yin deficiency, and the exact opposite reading. A missing coat means missing substance; his has too much. Both patients cannot sleep and the prescriptions are opposites. 陰虛虛熱之舌，其讀適反。無苔者形質已虧；今其人有餘。二者俱不寐，而其方相反。"},
+ {t:"Pale with a thin white coat",c:"舌淡，苔薄白",ok:0,
+  note:"Heart blood deficiency — the dream-disturbed sleep of an empty vessel, in a pale tired patient with a thin pulse. Nothing about this tongue is empty. 心血虛也：其多夢由於血不養神，其人面白神疲而脈細。今此舌無一虛候。"},
+ {t:"Swollen and pale with a white greasy coat",c:"舌淡胖，苔白膩",ok:0,
+  note:"Phlegm-damp without heat — half right, and the missing half is the one that decides the temperature of the prescription. White greasy is cold or neutral damp; yellow greasy is damp or phlegm that has been heated. 痰濕而無熱：得其半，而所失之半，正定方之寒溫者。白膩者寒濕，黃膩者濕痰之被熱者。"}
+],
+    pulse: [
+ {t:"Slippery, rapid and forceful 滑數有力",ok:1,clue:{en:"Slippery rapid forceful pulse",zh:"脈滑數有力"},
+  note:"Correct, and all three words are doing work. <b>Slippery</b> — rolling smoothly under the finger like beads on a tray — says something substantial has accumulated: phlegm, damp or food. <b>Rapid</b> says heat. <b>Forceful</b> says the pattern is excess and the body still has strength to push against the pathogen, which is what tells you to drain rather than to fill. Take all three every time; a pulse reported as one word has thrown away most of what your finger measured. 是，三字各有所司。<b>滑</b>者往來流利如珠走盤，主有形之積：痰、濕、食。<b>數</b>者主熱。<b>有力</b>者，其證為實而正氣尚能與邪相搏，此所以決其當瀉而不當補。三者宜每診並取；以一字報脈者，指下所得，已棄其大半。"},
+ {t:"Thin and rapid 細數",ok:0,
+  note:"Insufficiency with heat — yin deficiency. Thin and slippery are opposite sensations: one is a thread, the other is beads. And his has force. 不足而兼熱，陰虛之脈。細與滑，指下之感適反：一如絲，一如珠。且其脈有力。"},
+ {t:"Wiry 弦",ok:0,
+  note:"Liver constraint, ascending Liver yang, or pain. Wiry is straight and taut like a pressed string; slippery rolls. There is Liver involvement here — the bitter mouth, the shock that started it — but the pulse leads with the substantial accumulation. 肝鬱、肝陽上亢，或主痛。弦者端直如按弦，滑者流利如走珠。本案誠有肝之涉——口苦、驚恐所發——然其脈以有形之積為主。"},
+ {t:"Knotted 結",ok:0,
+  note:"A pausing pulse in a patient with palpitations is a finding to record and count, and it is right to check for it. His does not pause. 心悸而脈有歇止者，當記而計其數，察之為是。今其脈不歇。"}
+],
+    dx: [
+ {ask:'Step 1 — is this phlegm, or fire, or both? And what tells you?<br><small class="zh" style="color:var(--ink-soft)">第一步：此屬痰？屬火？抑或痰火並見？何以知之？</small>',
+  opts:[{t:"Both, tangled together — greasy coat and slippery pulse for the phlegm, yellow coat, rapid pulse, bitter mouth, thick yellow phlegm and cold thirst for the fire",c:"痰火互結 — 苔膩脈滑屬痰；苔黃、脈數、口苦、痰稠黃、渴喜冷飲屬火",ok:1,
+         note:"Correct, and naming both is the diagnosis rather than a hedge. Each pathogen has its own evidence and neither list is short. Learn what each does <i>alone</i>, so that you can recognise the pair: <b>phlegm alone</b> is heavy, turbid, slow — a foggy head, a heavy body, a greasy white coat, a slippery pulse, and a patient who is dulled rather than agitated. <b>Fire alone</b> is fast, dry, upward — thirst for cold drinks, a red face, constipation, a rapid forceful pulse, and a patient who is agitated but whose tongue coat is thin. He has both lists at once, which is why he is sticky and agitated at the same time. 是，並舉二邪者，其診也，非兩可也。二邪各有其據，而其列俱不短。當先知其<b>各自為病</b>之狀，而後可識其合：<b>單痰</b>者重濁而遲——頭昏如裹、身重、苔白膩、脈滑，其人昏而不躁。<b>單火</b>者速、燥而上——渴引冷、面赤、便結、脈數有力，其人躁而苔薄。今二列並見，故其人既黏且擾。"},
+        {t:"Phlegm alone",c:"單屬痰",ok:0,
+         note:"Then explain the yellow coat, the rapid pulse, the bitter mouth, the thick yellow phlegm and the thirst for cold water. Phlegm alone dulls a person; it does not make them jump at doors. 若然，則苔黃、脈數、口苦、痰稠黃、渴引冷，何以解之？單痰者昏其人，不能使之聞門而驚。"},
+        {t:"Fire alone",c:"單屬火",ok:0,
+         note:"Then explain the thick greasy coat and the slippery pulse. Fire dries; it does not pile material onto a tongue. Absence and excess are the two things a coat can show you, and this one shows excess. 若然，則苔厚膩、脈滑，何以解之？火主燥，不當使苔積於舌。苔之所示，不外有餘與不足，而此示其有餘。"},
+        {t:"Neither — this is grief after a fire, and it will pass",c:"二者皆非 — 火災之後傷於情志，久當自解",ok:0,
+         note:"The shock is real and belongs in the record — it is the reason he is here and the reason movement helps. But a pattern is what the body is doing now, and his body has a thick yellow greasy coat and a forceful slippery rapid pulse. Naming a cause is not the same as declining to treat what it produced. 驚恐誠有其事，且當入病歷——其所以來者在此，其所以行走而安者亦在此。然證者，身之今所為也；而其身今見苔黃厚膩、脈滑數有力。言其因，非所以辭其果。"}]},
+ {ask:'Step 2 — where have the two of them gone, and how do you know?<br><small class="zh" style="color:var(--ink-soft)">第二步：二邪所至者何處？何以知之？</small>',
+  opts:[{t:"To the Heart, which houses the spirit — the evidence is the sleeplessness, the vivid dreams, the palpitations, the startling and the restlessness",c:"上擾於心 — 心藏神。其據為不寐、多夢、心悸、易驚、躁擾",ok:1,
+         note:"Correct. Phlegm is heavy and sinks, and fire is light and rises; phlegm with fire in it is carried upward by the fire, and what is above is the Heart. <i>The Heart houses the spirit</i> 心藏神, so a turbid, hot thing reaching it produces exactly this set: disturbed sleep, vivid dreams, palpitations, startling at small sounds, restlessness, sometimes rapid or disordered speech. Note that the symptoms are of a spirit being <i>harassed</i>, not a spirit going hungry — the harassed patient is agitated and has a thick coat; the underfed one is pale and tired with a thin pulse and no coat to speak of. 是。痰性重而沉，火性輕而升；痰挾火則為火所載而上行，而其上者心也。心藏神，故濁而熱者及之，則見此一組之候：寐亂、多夢、心悸、聞聲而驚、躁擾，或語速紊亂。當察其為神受<b>擾</b>而非神失<b>養</b>：受擾者躁而苔厚，失養者面白神疲、脈細而苔幾無。"},
+        {t:"To the Lung, because he is coughing up phlegm",c:"在肺，以其咳痰故",ok:0,
+         note:"The Lung is where phlegm is stored 肺為貯痰之器, and yes he coughs it up. But coughing phlegm does not disturb sleep, cause palpitations or make a man jump at a closing door. The Lung is where the phlegm sits; the Heart is where the trouble is. 肺為貯痰之器，其咳痰誠然。然咳痰不能亂其寐、致其悸、使之聞門而驚。肺者痰之所居，心者病之所在。"},
+        {t:"To the Liver, because the illness began with a shock",c:"在肝，以其病起於驚故",ok:0,
+         note:"The Liver is genuinely involved — the bitter mouth, the emotional trigger — and a complete prescription will address it. But the presenting picture is of a disturbed spirit, and the spirit is housed in the Heart. Name where the illness <i>is</i> before you name what set it off. 肝誠有涉——口苦、情志之因——完方亦當及之。然今所見者神之被擾，而神藏於心。當先名其病<b>所在</b>，而後言其所<b>由起</b>。"},
+        {t:"To the Stomach, because ST40 is a Stomach point",c:"在胃，以豐隆為胃經之穴故",ok:0,
+         note:"That is reasoning backwards from the treatment to the diagnosis. ST40 is chosen because it is the great phlegm point, not because the Stomach is the seat. Decide the pattern first, then choose the needle. 此由治而反推其診也。取豐隆者，以其為化痰之要穴，非以病在胃。當先定其證，而後擇其針。"}]},
+ {ask:'Step 3 — you will clear the phlegm you can see. What stops it coming straight back?<br><small class="zh" style="color:var(--ink-soft)">第三步：目前之痰可清矣。然何以使其不復生？</small>',
+  opts:[{t:"Treat the Spleen — 脾為生痰之源，肺為貯痰之器: the Spleen makes phlegm and the Lung stores it, so the source has to be addressed or it refills",c:"治脾 — 脾為生痰之源，肺為貯痰之器。不治其源，則痰復聚",ok:1,
+         note:"Correct, and this couplet is worth carrying out of the chapter whole. The Spleen transforms fluids; when it cannot, the unmoved fluid thickens into phlegm — so the Spleen is the source 生痰之源. The Lung, sitting above, is where phlegm collects and is coughed from — the vessel 貯痰之器. Clear the vessel and the source keeps filling it. This is why formulas for phlegm almost always contain something for the Spleen, why Erchen Tang is built the way it is, and why a patient who is treated only for what is in the throat improves for a fortnight and then returns. In this case there is a second half to the same question: what he does at night. Whatever is making the phlegm includes five weeks of not sleeping and eating badly. 是。此二句宜全記而出。脾主運化水濕，不運則水停而聚為痰，故脾為生痰之源；肺居其上，痰聚而咳出於此，故為貯痰之器。清其器而源不絕，則器復盈。故化痰之方多兼理脾，二陳湯之所以為二陳者在此；而但治咽中之痰者，旬日見效而後必復。本案此問尚有其半：其夜之所為也。生其痰者，五週之不寐與失於飲食，皆與焉。"},
+        {t:"Nothing stops it — phlegm always returns",c:"無可為者 — 痰終必復",ok:0,
+         note:"Then no phlegm pattern would ever resolve, and they routinely do. The couplet exists precisely because the tradition worked out where phlegm comes from. 若然，則痰證終不可愈，而實則常愈。此二句之立，正以古人已究其所自來。"},
+        {t:"Treat the Kidney, since it governs water",c:"治腎，以其主水故",ok:0,
+         note:"True of water metabolism at the deepest level, and relevant in chronic phlegm in an older or depleted patient. He is neither, and there is no Kidney evidence: no weak back, no nocturia, no deep chi pulse. Treat the level the evidence is on. 論水之化，其本誠在腎，而老人久病之痰亦當及之。今其人非老非虛，且無腎候：腰不痠、無夜尿、尺脈不沉。當治其有據之層。"},
+        {t:"Give a stronger phlegm-clearing prescription",c:"投更峻之化痰劑",ok:0,
+         note:"Stronger draining in a patient who is already being drained empties the middle burner, and an empty middle burner makes <i>more</i> phlegm. The answer to phlegm that keeps coming back is almost never a bigger dose. 攻之既久而復增其峻，則中焦益虛；中虛則痰愈生。痰之屢復者，其解鮮在增其量。"}]}
+],
+    rx: [
+ {id:"ST40",t:"F&#275;ngl&#243;ng ST40 豐隆",ok:1,note:"The Luo-connecting point of the Stomach and the principal point for phlegm anywhere in the body — the one needle every phlegm prescription starts from. You used it in chapter twelve for damp-phlegm with no heat; the point has not changed, the company has. That is worth noticing: a point is a tool, and what it does depends on what you put beside it and how you handle it. 胃之絡穴，通身化痰之要穴，凡治痰者皆自此始。第十二章曾用之以治無熱之痰濕；穴未嘗易，所易者其配耳。此宜留意：穴者器也，其所為，繫於所配與所行之法。"},
+ {id:"HT7",t:"Sh&#233;nm&#233;n HT7 神門",ok:1,note:"The Source point of the Heart and its Stream point, and the standard needle for settling the spirit — its very name is the Spirit Gate. Since the spirit is what is being harassed here, treating the Heart directly belongs beside treating the phlegm that is harassing it. Used with reducing method today, since the pattern is full. 心之原穴、輸穴，安神之常法，其名即「神門」。今所擾者神也，故治心與化痰當並行。本案為實，故用瀉法。"},
+ {id:"PC5",t:"Ji&#257;nsh&#464; PC5 間使",ok:1,note:"On the Pericardium channel, five cun above the wrist crease. Classically indicated for phlegm obstructing the Heart orifices with disordered spirit — it is one of the few points whose traditional indications name phlegm and the spirit in the same line, which is exactly this pattern. Pairs naturally with ST40. 心包經，腕橫紋上五寸。古主痰迷心竅、神志失常——其主治明言痰與神於一語之中者，穴中不多，而正合本證。與豐隆相配為常。"},
+ {id:"ST36",t:"Z&#250;s&#257;nl&#464; ST36 足三里",ok:0,note:"Tempting, because the Spleen is the source of phlegm and this is the point for the middle burner — and in the recovery stage it will be right. But today the pattern is full and hot, and ST36 supplements. Clear the excess first; rebuild the source afterwards, when the coat has thinned. 此誘人：脾為生痰之源，而此為調中焦之要穴——俟其復期，用之誠是。然今其證實而熱，而足三里主補。當先去其實，俟苔漸薄而後培其源。"},
+ {id:"KI3",t:"T&#224;ix&#299; KI3 太谿",ok:0,note:"The Source point of the Kidney, for enriching yin or warming yang. There is no Kidney evidence and nothing here is empty; supplementing a full hot pattern feeds the pathogen. 腎之原穴，或滋其陰，或溫其陽。本案無腎候，亦無虛；實熱而補之，是養其邪。"},
+ {id:"LU7",t:"Li&#232;qu&#275; LU7 列缺",ok:0,note:"For the head and nape, and the Lung&#39;s Luo point. The Lung does store the phlegm — but LU7&#39;s indications are the exterior, the head and the throat, not phlegm obstructing the spirit. 主頭項，肺之絡穴。肺誠為貯痰之器——然列缺所主在表、在頭、在咽，非痰之迷神者。"}
+],
+    tech: [
+ {t:"Reducing method, no moxa, and a quiet room",c:"瀉法，禁灸，且宜靜室",ok:1,
+  note:"<b>Correct, and the third clause is not decoration.</b> Reducing, because every finding is full: a thick coat, a forceful slippery rapid pulse, real thirst, bound stool. No moxa, because there is heat — warming phlegm-heat concentrates the fire inside it. And the room: a patient who startles at a closing door is being asked to lie still with needles in him, which takes trust. Work slowly, say what you are about to do before you do it, do not stand behind him, and keep the room quiet. Handling is part of technique, and in a spirit-disturbance case it is a larger part than usual. 三者俱是，而第三句非為妝點。瀉者，通案皆實：苔厚、脈滑數有力、真渴、便結。禁灸者，有熱也：溫其痰熱則助其中之火。至於「靜室」：聞門而驚之人，今令其臥而受針，此須其信。當緩其手，先告而後行，勿立其後，室宜靜。手法者，治之一端；而神志之病，其分尤重。"},
+ {t:"Reducing method, with moxa to transform the phlegm",c:"瀉法，加灸以化其痰",ok:0,
+  note:"Moxa does transform phlegm and it is right for cold phlegm-damp. Here the phlegm has fire in it, and warming the outside of that concentrates what is inside. When phlegm and heat travel together, the heat decides whether warmth is allowed. 灸誠能化痰，寒痰濕者宜之。今痰中有火，溫其外者助其內。凡痰熱並見，可溫與否，決於熱。"},
+ {t:"Reinforcing method — he is exhausted after five weeks without sleep",c:"補法 — 五週不寐，其人已憊",ok:0,
+  note:"Exhausted is not empty, and this is the trap the chapter is built around. Read the three: a thick greasy coat, a forceful pulse, real thirst for cold water. Every one says excess. Supplementing here feeds the phlegm and the fire both. 憊非即虛，本章所設之陷正在於此。察其三：苔厚膩、脈有力、真渴引冷——皆言其實。補之則痰火俱得其養。"},
+ {t:"Strong stimulation to break the pattern open",c:"重刺激以破其結",ok:0,
+  note:"Reducing is right; brutality is not. A patient whose spirit is already agitated does not need a violent treatment, and strong stimulation in someone who startles easily can end the therapeutic relationship in one session. Firm, unhurried, explained. 瀉法誠是，而暴則非。神既被擾，不宜暴治；易驚之人而重刺激者，一診之間，醫患之信可盡。當堅定而從容，且先告而後行。"}
+]
+  }
+
 };

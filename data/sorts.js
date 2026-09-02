@@ -166,5 +166,71 @@ window.AG_SORTS = {
       {en:"Present in the largest dose and named in the formula's title", zh:"用量最大，且多以之名方", a:"jun",
        why:{en:"Ma Huang Tang is named for its sovereign; so is Gui Zhi Tang.", zh:"如麻黃湯、桂枝湯，皆以君藥名方。"}}
     ]
+  },
+
+/* ─────────────────────────── THREE KINDS OF HEAT ──────────────────
+   Eight chapters turn on this distinction and students collapse it
+   constantly: heat is not one thing, and the three kinds want three
+   different prescriptions. Full heat is drained. Empty heat is filled.
+   Damp-heat is given a way out. Cool an empty patient as if the fire
+   were full and you take away what was already short. */
+
+  heat_three: {
+    id:"heat_three", axis:"dx", school:"dx",
+    title:{en:"Three Kinds of Heat", zh:"三種熱"},
+    blurb:{en:"Full heat, empty heat, damp-heat. Same word, three patterns, three opposite prescriptions. Sort each finding.",
+           zh:"實熱、虛熱、濕熱。同名一「熱」，而證有三、方相反。將每一見證歸位。"},
+    intro:{en:"\"Anyone can say a patient is hot,\" says Jing Niang. \"Tell me which kind, and I will know what you are about to prescribe — and whether it will help.\"",
+           zh:"「說病人有熱，誰都會說。」靜娘道，「說出是哪一種，我就知道你要開什麼方——也知道那方管不管用。」"},
+    buckets:[
+      {k:"shi",  en:"Full heat", zh:"實熱", sub:"a fire that is lit — drain it", c:"#A6291D"},
+      {k:"xu",   en:"Empty heat", zh:"虛熱", sub:"water has fallen — fill it", c:"#8C6A3E"},
+      {k:"shire",en:"Damp-heat", zh:"濕熱", sub:"heat inside something sticky — give it an exit", c:"#6B7A42"}
+    ],
+    items:[
+      {en:"Night sweating that stops the moment she wakes", zh:"盜汗：寐中汗出，醒則即止", a:"xu",
+       why:{en:"盜汗. In sleep the yang gathers inward and there is not enough yin to hold it, so fluid is pushed out. Daytime sweating at rest 自汗 is the qi-deficiency counterpart.", zh:"寐則陽入於陰，陰不足以斂之，故津隨之而泄。晝日靜而汗出者為自汗，屬氣虛，二者當別。"}},
+      {en:"Heat in the palms, the soles and the centre of the chest", zh:"五心煩熱", a:"xu",
+       why:{en:"五心煩熱 — two palms, two soles, the chest. Local, low-grade and late in the day. Full heat is felt over the whole body.", zh:"兩手心、兩足心、心胸。其熱局而不壯，且多見於午後。實熱則遍身而壯。"}},
+      {en:"Two red patches high on the cheeks, on an otherwise pale face", zh:"兩顴潮紅，而面色本白", a:"xu",
+       why:{en:"顴紅. Empty fire floating upward on a body that is not hot. A whole red face is full heat — count how much of the face is red.", zh:"虛火上浮，而身不熱。滿面通紅者實熱。當察其赤者，居面之幾分。"}},
+      {en:"A red tongue with the coat peeled away, or no coat at all", zh:"舌紅，苔剝或無苔", a:"xu",
+       why:{en:"The coat is made by stomach qi steaming fluids upward; when yin is depleted there is not enough to make one. A missing coat means missing substance.", zh:"苔者胃氣蒸津上潮而成。陰虧則無以化苔。無苔者，形質已虧。"}},
+      {en:"A pulse thin as a thread, and fast", zh:"脈細數", a:"xu",
+       why:{en:"細 says the vessel is not full — substance is short. 數 says heat. The pairing is what makes it specific.", zh:"細者脈中無物以充之，數者主熱。二者相合，其指乃確。"}},
+      {en:"Dry mouth all day, but wants only a few warm sips", zh:"口乾終日，而喜少飲、喜溫飲", a:"xu",
+       why:{en:"Enough to wet the mouth, not enough to fill the stomach — fluids are short rather than being boiled away.", zh:"僅足潤口而不欲滿其胃：津少也，非為熱所煎。"}},
+      {en:"Steady weight loss over months, with no appetite change", zh:"數月形體漸消，而納食如常", a:"xu",
+       why:{en:"Substance is being spent faster than it is made. Full heat burns hard and briefly; it does not usually wear a person down over months.", zh:"耗過於生也。實熱者暴而短，鮮能歷月而漸削其形。"}},
+
+      {en:"High fever with no aversion to cold at all", zh:"壯熱而全不惡寒", a:"shi",
+       why:{en:"No chills means the pathogen is no longer on the surface. Interior heat, and full — a new exterior pattern would still bring aversion to cold.", zh:"不惡寒者，邪已離表。裡熱而實。新感在表者，猶當惡寒。"}},
+      {en:"Great thirst for cold water, and a lot of it", zh:"大渴引冷，飲而量多", a:"shi",
+       why:{en:"Heat is boiling fluids away and the body is replacing them in volume. Contrast the small warm sips of empty heat.", zh:"熱灼其津，故求之以量。與虛熱之喜溫少飲，適成對照。"}},
+      {en:"The whole face flushed red", zh:"滿面通紅", a:"shi",
+       why:{en:"General, not local. Two red cheeks on a pale face is empty fire floating; a whole red face is a fire that is lit.", zh:"其赤遍而不局。面白而獨兩顴赤者，虛火上浮；滿面赤者，實火也。"}},
+      {en:"A red tongue under a thick, dry yellow coat", zh:"舌紅，苔黃厚而乾", a:"shi",
+       why:{en:"Thick means there is plenty of material and it is simply hot — the opposite finding from a peeled tongue. Dry rather than greasy rules out damp.", zh:"苔厚者其中有物而但熱耳，與剝苔適反。乾而不膩，則非濕。"}},
+      {en:"A pulse that overflows under the finger, fast and forceful", zh:"脈洪數有力", a:"shi",
+       why:{en:"洪 — surging, coming full and going weaker. Force is the discriminator: empty heat is fast but thin and yielding.", zh:"洪者來盛去衰，滔滔滿指。決之者在有力無力：虛熱之脈，數而細軟。"}},
+      {en:"Constipation with dry, hard, bound stool", zh:"大便秘結，燥硬難下", a:"shi",
+       why:{en:"Heat has dried the intestines. Compare damp-heat, where the stool is sticky and unfinished rather than hard.", zh:"熱灼腸津故也。濕熱者便黏滯不爽，而非燥結，二者當別。"}},
+      {en:"Restless agitation, sometimes with disordered speech", zh:"煩躁不寧，甚則譫語", a:"shi",
+       why:{en:"Full heat disturbing the spirit. It is loud and it is fast — empty heat produces a thin, late restlessness instead.", zh:"實熱擾神，其勢急而躁。虛熱之煩則薄而遲，多在午後入夜。"}},
+
+      {en:"A greasy yellow coat that cannot be scraped off", zh:"苔黃膩，刮之不去", a:"shire",
+       why:{en:"Yellow is the heat, greasy is the damp — the fastest two-pathogen read on the whole tongue.", zh:"黃者其熱，膩者其濕。舌診之中，二邪並見之最捷者。"}},
+      {en:"Thirsty, but no desire to actually drink", zh:"口渴而不欲飲", a:"shire",
+       why:{en:"渴不欲飲. Damp is already blocking the middle and holding fluid where it is not wanted, so the mouth is dry while the body has no room for more.", zh:"濕阻中焦，水停不化，故口雖乾而身無所容。"}},
+      {en:"Sticky stool that never feels finished", zh:"大便黏滯，解而不爽", a:"shire",
+       why:{en:"Damp is turbid and clinging. Full heat gives hard bound stool instead; the texture is the tell.", zh:"濕性濁膩而黏著。實熱則燥結。其質即其辨。"}},
+      {en:"Sweating, and the fever does not break", zh:"汗出而熱不解", a:"shire",
+       why:{en:"Sweat clears heat, but damp is sticky and stays, so the heat rebuilds behind it. This single observation often names damp-heat rather than plain heat.", zh:"汗能泄熱，而濕黏滯不去，熱復生於其後。但憑此一觀，多足別濕熱與單熱。"}},
+      {en:"A heavy, encumbered body and limbs, worse in humid weather", zh:"身重困倦，遇陰濕尤甚", a:"shire",
+       why:{en:"Damp is heavy and sinks. Weather that makes a patient worse is diagnostic data, not superstition.", zh:"濕性重濁而下趨。病隨天時而甚者，此為據，非為誕。"}},
+      {en:"A pulse that rolls smoothly like beads on a tray, and hurries", zh:"脈滑數", a:"shire",
+       why:{en:"滑 says something substantial has accumulated — damp, phlegm or food. 數 says heat. Together, the standard damp-heat pulse.", zh:"滑者主有形之積：濕、痰、食。數者主熱。合之為濕熱之常脈。"}}
+    ]
   }
+
 };

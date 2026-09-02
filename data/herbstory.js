@@ -1195,4 +1195,51 @@ window.AG_HERBSTORY = [
           zh:"補火助陽、溫經散寒止痛、引火歸元。是皮非枝。孕婦、出血、陰虛火旺者忌。"} }
 
 
+,
+
+  /* ══════ 竹茹 · the cool green shaving that quiets a rattling mind ══════ */
+  { id:"zhuru",
+    beats:[
+      {en:"A curl of pale green shaving unrolls itself on the counter, light as a ribbon.<br><b>Bamboo Shavings:</b> \"Sweet, slightly cold. Lung, Stomach, Gallbladder. I am the inner skin of the bamboo, scraped off the culm.\"",
+       zh:"一卷淡青色的刨屑在檯上舒展開來，輕如絲帶。<br><b>竹茹：</b>「甘、微寒，歸肺胃膽。我是竹之中皮，自竿上刮下來的。」"},
+      {en:"<b>Bamboo Shavings:</b> \"I clear heat and I transform phlegm — but the pairing is the point. Phlegm alone is heavy and dull. Heat alone is loud and dry. Phlegm <i>with</i> heat in it is sticky and agitated at the same time, and it goes upward and disturbs the spirit.\"",
+       zh:"<b>竹茹：</b>「我清熱、化痰——而所貴在其合。單痰者重濁而昏；單熱者躁而燥。痰中有熱者，既黏且擾，其性上逆而動神。」"},
+      {en:"<b>Bamboo Shavings:</b> \"That patient cannot sleep, startles at a door closing, tastes bitter in the morning, and has a greasy yellow coat. Wen Dan Tang is where they send for me.\"",
+       zh:"<b>竹茹：</b>「其人不寐，聞門聲即驚，晨起口苦，苔黃而膩。溫膽湯者，召我之方也。」"},
+      {en:"<b>Bamboo Shavings:</b> \"I also settle a stomach that keeps sending things back up — but only when the reason is heat. A cold stomach vomiting clear fluid does not want me; give it ginger and leave me on the shelf.\"",
+       zh:"<b>竹茹：</b>「我亦能降胃之上逆——然惟其因於熱者。胃寒而嘔清水者不須我；與之生薑，而置我於架上可也。」"}
+    ],
+    qs:[
+      {q:"What is Bamboo Shavings' core action?",
+       cq:"竹茹之核心功效為何？",
+       opts:[
+        {t:"Clears heat and transforms phlegm, and settles restlessness", c:"清熱化痰、除煩",
+         ok:1, note:"<b>Correct.</b> Both halves at once — which is why it suits phlegm-heat rather than phlegm alone or heat alone.<span class=\"zh\">清熱與化痰並行，故所主為痰熱，而非單痰或單熱。</span>"},
+        {t:"Warms the middle and disperses cold", c:"溫中散寒",
+         ok:0, note:"That is the opposite direction. Bamboo Shavings is cool.<span class=\"zh\">其向適反。竹茹性涼。</span>"},
+        {t:"Supplements qi and raises the yang", c:"補氣升陽",
+         ok:0, note:"It clears and descends; it does not fill and lift.<span class=\"zh\">其功在清在降，不在補在升。</span>"}]},
+      {q:"A man sleeps badly, startles easily, tastes bitter on waking, and has a red tongue with a greasy yellow coat and a slippery rapid pulse. Which reading fits?",
+       cq:"其人寐差、易驚、晨起口苦，舌紅苔黃膩，脈滑數。當作何解？",
+       opts:[
+        {t:"Phlegm-fire harassing the Heart 痰火擾心", c:"痰火擾心", ok:1,
+         note:"<b>Correct.</b> Greasy coat says phlegm, yellow and rapid say heat, and the spirit symptoms say where the two of them have gone.<span class=\"zh\">苔膩主痰，苔黃脈數主熱，而神志之證言其所擾之處。</span>"},
+        {t:"Heart blood deficiency 心血虛", c:"心血虛", ok:0,
+         note:"That patient is pale with a thin pulse and a tongue with no thick coat at all — the sleeplessness of an empty vessel, not a rattling one.<span class=\"zh\">彼者面白、脈細、苔不厚膩。其不寐由於空，非由於擾。</span>"},
+        {t:"Kidney yang deficiency 腎陽虛", c:"腎陽虛", ok:0,
+         note:"Cold limbs, a pale wet tongue and a deep slow pulse. Nothing here is cold.<span class=\"zh\">彼者肢冷、舌淡滑、脈沉遲。本案無一寒候。</span>"}]},
+      {q:"When should Bamboo Shavings not be used?",
+       cq:"何時不宜用竹茹？",
+       opts:[
+        {t:"In vomiting or nausea that comes from cold in the stomach", c:"胃寒作嘔者",
+         ok:1, note:"<b>Correct.</b> It stops vomiting by cooling and descending, so in a cold stomach it deepens the cold. Ginger is the herb for that patient.<span class=\"zh\">其止嘔以清以降，投於胃寒則益其寒。彼當與生薑。</span>"},
+        {t:"In a bitter mouth with a greasy yellow coat", c:"口苦苔黃膩者", ok:0,
+         note:"That is exactly what it is for.<span class=\"zh\">此正其所主。</span>"},
+        {t:"In anyone who cannot sleep", c:"凡不寐者", ok:0,
+         note:"Sleeplessness has many causes; this herb is for the phlegm-heat kind. Ask what the tongue coat looks like before deciding.<span class=\"zh\">不寐之因非一，此藥所主為痰熱者。當先察其苔而後定。</span>"}]}
+    ],
+    card:{en:"Clears heat, transforms phlegm and settles restlessness; descends rebellious Stomach qi to stop vomiting. Not for vomiting from cold in the stomach.",
+          zh:"清熱化痰除煩、降逆止嘔。胃寒作嘔者不宜。"} }
+
+
 ];
