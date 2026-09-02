@@ -13,7 +13,7 @@ window.AG_PRACTICE_INDEX = [
  {id:"pulse", kind:"practice", axis:"dx", title:"Pulse Reading", titleZh:"脈象判讀", n:11},
  {id:"tongue", kind:"practice", axis:"dx", title:"Tongue Reading", titleZh:"舌象判讀", n:11},
  {id:"bagang", kind:"practice", axis:"dx", title:"Eight Principles", titleZh:"八綱辨證", n:11},
- {id:"tedingxue", kind:"practice", axis:"needle", title:"Special Point Categories", titleZh:"特定穴", n:11},
+ {id:"tedingxue", kind:"practice", axis:"needle", title:"Special Point Categories", titleZh:"特定穴", n:19},
  {id:"jingluo", kind:"practice", axis:"needle", title:"Channel Flow", titleZh:"經絡流注", n:10},
  {id:"junchen", kind:"practice", axis:"herb", title:"Formula Architecture", titleZh:"君臣佐使", n:10},
  {id:"jieqi", kind:"practice", axis:"herb", title:"Seasonal Kitchen", titleZh:"節氣食療", n:10},
