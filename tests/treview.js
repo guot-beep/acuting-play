@@ -2,7 +2,7 @@
 
    Four things have to hold or the feature is worse than not having it:
      1. the schedule behaves     wrong → tomorrow, right → 1,3,7,16, then retire
-     2. every engine records     chapter, practice, Point Hall, sorting
+     2. every engine records     chapter, practice, Point Hall, sorting, daily case
      3. the page rebuilds items  from a key alone, loading only what it needs
      4. nothing can break        a bad key, an empty queue, a deleted deck */
 const { chromium } = require(process.env.PW||'playwright');
@@ -71,6 +71,17 @@ const page=async(url)=>{ const p=await b.newPage({viewport:{width:390,height:844
   if(!hk.some(k=>k.startsWith('h:LI4:'))) bad.push('Point Hall answer was not recorded, got '+JSON.stringify(hk));
   await ph.close();
 
+  const dc=await page('dailycase.html');
+  await dc.evaluate(()=>{ AG.state.review={}; AG.state.dc={streak:0,last:'',solved:0,results:{}}; AG.save(); });
+  await dc.reload(); await dc.waitForTimeout(600);
+  await dc.evaluate(()=>{ const s=document.getElementById('startBtn'); if(s) s.click(); });
+  await dc.waitForTimeout(300);
+  await dc.evaluate(()=>{ const o=document.querySelector('#opts .opt'); if(o) o.click(); });
+  await dc.waitForTimeout(250);
+  const dk=await dc.evaluate(()=>Object.keys(AG.state.review));
+  if(!dk.some(k=>k.startsWith('d:'))) bad.push('daily case answer was not recorded, got '+JSON.stringify(dk));
+  await dc.close();
+
   const so=await page('sort.html?s=five_elements');
   await so.evaluate(()=>{ AG.state.review={}; AG.save(); const g=document.getElementById('go'); if(g) g.click(); });
   await so.waitForTimeout(350);
@@ -87,8 +98,16 @@ const page=async(url)=>{ const p=await b.newPage({viewport:{width:390,height:844
   const slot=await p.evaluate(()=>AG.review.slot(D.items.filter(x=>x.k==='mc')[0].q));
   await p.close();
 
+  const d0=await page('review.html');
+  const dkey=await d0.evaluate(async ()=>{
+    await new Promise(res=>{const s=document.createElement('script');s.src='data/daily-cases.js';s.onload=res;document.head.appendChild(s);});
+    const c=window.AG_CASES[2], q=c.q[1];
+    return 'd:'+AG.review.slot(c.p)+':'+AG.review.slot(q.t);
+  });
+  await d0.close();
+
   const r=await page('review.html');
-  await r.evaluate(([slot])=>{
+  await r.evaluate(([slot,dkey])=>{
     const d=AG.review.dayNumber();
     AG.state.review={
       'c:15:look'   :{n:0,d:d,miss:1,lbl:'Chapter 15 · Tongue',sub:'x',href:'chapter.html?ch=15'},
@@ -98,18 +117,19 @@ const page=async(url)=>{ const p=await b.newPage({viewport:{width:390,height:844
       'h:LI4:1aadw7q':{n:0,d:d,miss:1,lbl:'Point Hall · LI4',sub:'x',href:'pointroom.html?p=LI4'},
       's:five_elements:zzz':{n:0,d:d,miss:1,lbl:'Sorting',sub:'x',href:'sort.html?s=five_elements'},
       'nonsense'    :{n:0,d:d,miss:1,lbl:'Broken',sub:'',href:''},
-      ['p:pulse:'+slot]:{n:0,d:d,miss:1,lbl:'Practice · Pulse',sub:'',href:'practice.html?d=pulse'}
+      ['p:pulse:'+slot]:{n:0,d:d,miss:1,lbl:'Practice · Pulse',sub:'',href:'practice.html?d=pulse'},
+      [dkey]:{n:0,d:d,miss:1,lbl:'Daily Case',sub:'',href:'dailycase.html'}
     };
     AG.save();
-  },[slot]);
+  },[slot,dkey]);
   await r.reload(); await r.waitForTimeout(1600);
   const seen=await r.evaluate(()=>({
     due:document.getElementById('dueN').textContent,
     queue:QUEUE.map(q=>q.key),
     links:LINKS.map(l=>l.key)
   }));
-  if(seen.due!=='8') bad.push('review page should show 8 due, showed '+seen.due);
-  ['c:15:look','c:16:dx1','c:18:safety','h:LI4:1aadw7q','p:pulse:'+slot].forEach(k=>{
+  if(seen.due!=='9') bad.push('review page should show 9 due, showed '+seen.due);
+  ['c:15:look','c:16:dx1','c:18:safety','h:LI4:1aadw7q','p:pulse:'+slot,dkey].forEach(k=>{
     if(!seen.queue.includes(k)) bad.push('review page could not rebuild '+k);
   });
   ['c:12:rx','s:five_elements:zzz','nonsense'].forEach(k=>{
@@ -147,5 +167,5 @@ const page=async(url)=>{ const p=await b.newPage({viewport:{width:390,height:844
 
 await b.close();
 if(bad.length){ bad.forEach(x=>console.log('  ✗ '+x)); process.exitCode=1; }
-else console.log('  ✅ review queue: schedule, four engines recording, rebuild, link-outs, empty state');
+else console.log('  ✅ review queue: schedule, five engines recording, rebuild, link-outs, empty state');
 })();

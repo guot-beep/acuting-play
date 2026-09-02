@@ -6,7 +6,11 @@ const sbox={window:{}}; vm.runInNewContext(fs.readFileSync(R+'data/chapters.js',
 const C=sbox.window.AG_CHAPTERS;
 const sb2={window:{}}; vm.runInNewContext(fs.readFileSync(R+'data/chapter-index.js','utf8'),sb2);
 const IDX=sb2.window.AG_CHAPTER_INDEX;
-const want=Object.keys(C).sort((a,b)=>(+a)-(+b));
+/* A chapter with hold:true is finished but not cleared to ship — usually
+   because its needling coordinate has not been checked against a textbook.
+   It is meant to be missing from the index; tests/tcalib.js is what makes
+   sure it is being held for a stated reason rather than forgotten. */
+const want=Object.keys(C).filter(id=>!C[id].hold).sort((a,b)=>(+a)-(+b));
 const bad=[];
 if(IDX.map(x=>x.id).join(',')!==want.join(',')) bad.push('ids differ: index has ['+IDX.map(x=>x.id)+'], chapters.js has ['+want+']');
 IDX.forEach(x=>{const c=C[x.id]; if(!c){bad.push(x.id+' not in chapters.js');return}

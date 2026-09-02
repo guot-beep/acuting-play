@@ -13,6 +13,15 @@ const load=f=>{const s={window:{}};vm.runInNewContext(fs.readFileSync(R+f,'utf8'
 const allCh=load('data/chapters.js').AG_CHAPTERS;
 let drift=[];
 for(const id of Object.keys(allCh)){
+  /* A held chapter is deliberately not split out — no file means no way to
+     reach it by url either, which is the point of holding it. What the test
+     checks instead is that the file really is gone. */
+  const path=R+'data/chapters/'+id+'.js';
+  if(allCh[id].hold){
+    if(fs.existsSync(path)) drift.push('chapter '+id+' is held but still shipped as a file');
+    continue;
+  }
+  if(!fs.existsSync(path)){ drift.push('chapter '+id+' has no split file'); continue; }
   const one=load('data/chapters/'+id+'.js').AG_CHAPTERS[id];
   if(JSON.stringify(one)!==JSON.stringify(allCh[id])) drift.push('chapter '+id);
 }
