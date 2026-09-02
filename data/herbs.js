@@ -240,5 +240,13 @@ window.AG_HERBS = [
     nature:"Sweet, slightly cold · Lung, Stomach, Gallbladder",
     natureZh:"甘、微寒 · 歸肺胃膽經",
     fact:"Clears heat and transforms phlegm, settles restlessness, and descends rebellious Stomach qi to stop vomiting. It is the herb of Wen Dan Tang, for a mind that cannot settle when phlegm and heat are tangled together — sleeplessness, palpitations, being easily startled, a bitter mouth and a greasy yellow coat. Being cool and descending, it is not the herb for vomiting that comes from cold in the stomach.",
-    factZh:"清熱化痰、除煩止嘔。溫膽湯之要藥，主痰熱互結、心神不寧：不寐、心悸、易驚、口苦、苔黃膩。性涼而降，胃寒作嘔者不宜。" }
+    factZh:"清熱化痰、除煩止嘔。溫膽湯之要藥，主痰熱互結、心神不寧：不寐、心悸、易驚、口苦、苔黃膩。性涼而降，胃寒作嘔者不宜。" },
+
+  { id:"chaihu", en:"Bupleurum Root", py:"Chái Hú", zh:"柴胡",
+    img:"art/herb-chaihu.jpg",
+    plate:"art/card-chaihu.jpg",
+    nature:"Bitter, acrid, slightly cold · Liver, Gallbladder, Triple Burner, Pericardium",
+    natureZh:"苦、辛、微寒 · 歸肝膽三焦心包經",
+    fact:"Three functions, and each one anchors a different classical formula. It harmonises Shaoyang and resolves alternating chills and fever — the chief herb of Xiao Chai Hu Tang. It courses the Liver and relieves constraint — in Xiao Yao San for rib-side fullness, sighing and a wiry pulse. And it raises sunken yang qi — in Buzhong Yiqi Tang, where it lifts alongside Sheng Ma while Astragalus and Ginseng do the supplementing. Being acrid and ascending, it is used cautiously where Liver yang is rising or yin is depleted with heat.",
+    factZh:"一藥三用，各為一方之樞。和解少陽、退寒熱往來，小柴胡湯之君。疏肝解鬱，逍遙散用之以治脅脹、太息、脈弦。升舉陽氣，補中益氣湯中與升麻同升，而黃耆、人參主其補。性辛升散，肝陽上亢、陰虛火旺者慎用。" }
 ];

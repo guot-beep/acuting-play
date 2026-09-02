@@ -3495,4 +3495,138 @@ window.AG_CHAPTERS = {
 ]
   }
 
+,"27": {
+    id:"27", title:"Everything Wants to Go Down", titleZh:"往下墜",
+    patient:{name:"Auntie Fang the laundress 漿洗方嫂", sprite:"girl"},
+    scene:{img:"art/scene-treatment.jpg", key:"day"},
+    pattern:"Sinking of Middle Qi 中氣下陷",
+    principle:"tonify the middle, boost the qi, and raise what has fallen",
+    tongue:"pale with tooth marks at the edges, thin white coating",
+    pulseNote:{en:"Weak under the finger, and it fades further the harder you press.",zh:"脈弱，重按益虛"},
+    needleAsk:{en:"Needle <b>Z&#250;s&#257;nl&#464; ST36</b>. Tap its exact location.",zh:"行針 — 點出穴位精確位置"},
+    target:{id:"ST36",zh:"足三里",py:"Z&#250;s&#257;nl&#464;",x:180,y:337,
+      img:"art/body-leg-anterior.jpg", w:434, h:1159,
+      view:{x:80,y:210,w:260,h:300},
+      decoys:[{x:150,y:337},{x:180,y:280},{x:180,y:394},{x:212,y:337},{x:180,y:232}],
+      note:"<b>足三里 Z&#250;s&#257;nl&#464; ST36</b> — 3 cun below D&#250;b&#237; ST35, one middle-finger breadth lateral to the anterior crest of the tibia. The Sea point and Lower Sea point of the Stomach, and the best-known tonifying point in the book. You met it in your first month for a weak Spleen; today the same weakness has gone one stage further and started to sink, and the point is needled with moxa and with lifting in mind.<br>犢鼻下三寸，脛骨前緣外一橫指（中指）。胃之合穴、下合穴，書中補虛第一要穴。初旬曾取之以治脾虛；今其虛更進一層而始下陷，故行針當加灸，且意在升提。"},
+    hints:{
+ ask:{en:"She will describe a direction before she describes a symptom. Listen for it.",zh:"其人未言病狀，先言其向。當聽之。"},
+ look:{en:"Look at the edges of the tongue, not the coat.",zh:"察其舌邊，不在其苔。"},
+ pulse:{en:"Press harder and see what happens.",zh:"重按之，觀其何如。"},
+ dx:{en:"Deficiency is a state. Sinking is what deficiency does when nobody catches it.",zh:"虛者其態，陷者虛而無人扶之所致。"},
+ rx:{en:"Fill first, lift second. Lifting an empty sack lifts nothing.",zh:"先填而後升。舉一空囊，無所舉也。"},
+ tech:{en:"There is a direction in the needle here, not only a method.",zh:"此案針中有向，不獨有法。"}
+},
+    reactions:[
+ {who:"patient",en:"Auntie Fang sits on the very edge of the stool, and it takes her two tries.",zh:"方嫂坐在凳緣，起坐兩次方定。"},
+ {who:"master",en:"Master Shen offers her a cup of warm water first and asks nothing for a while.",zh:"參師父先與一盞溫水，久而不問。"},
+ {who:"boy",en:"The herb boy leaves and closes the door behind him without being asked.",zh:"藥童自退，且掩門而出，不待人言。"},
+ {who:"patient",en:"\"It is hard to say. Everything feels like it is going down. Has done since the last baby, and that was six years ago.\"",zh:"「難說。就是覺得什麼都往下墜。自打生完老三就這樣，六年了。」"},
+ {who:"master",en:"\"She gave you the word before she gave you a symptom. Write down the word.\"",zh:"「她先給了你一個字，才給你一個症。把那個字記下來。」"},
+ {who:"master",en:"\"Now ask her what makes it worse by the end of the day, and ask it plainly.\"",zh:"「今問其何以日暮而甚，且當直問。」"}
+],
+    remedy:{ask:"excess_def",look:"excess_def",pulse:"excess_def",dx:"excess_def",rx:"channel_organ",tech:"excess_def"},
+    reward:{cardEn:"Deficiency, and Then Sinking",cardZh:"氣虛與氣陷 · 中氣下陷",cardTxt:"Qi deficiency and sinking qi are the same shortage at two stages, and the second is named for what it does rather than for what it lacks. Qi holds things in place — 固攝 — so when there is not enough of it, and nobody catches it in time, things start to descend: a dragging heaviness in the lower abdomen worse by evening and worse on standing, organ prolapse, chronic diarrhoea that has run for years, sometimes bleeding that will not stop because the qi cannot hold the blood. On top of that sit all the ordinary qi-deficiency signs — tiredness worse on exertion, a low voice, poor appetite, a pale toothmarked tongue, a weak pulse. The treatment has two halves and the order matters: supplement first with Astragalus and Ginseng, then give the direction with Sheng Ma and Bupleurum. Buzhong Yiqi Tang is built exactly that way, and the reason is one sentence — lifting an empty sack lifts nothing.",herbId:"chaihu",herbEn:"Bupleurum Root",herbZh:"柴胡",herbImg:"art/card-chaihu.jpg",sprite:"art/sprite-renshen-jump.webp",herbTxt:"Bitter, acrid and slightly cold, entering Liver, Gallbladder, Triple Burner and Pericardium. Three functions, three famous formulas: it harmonises Shaoyang for alternating chills and fever (Xiao Chai Hu Tang), it courses the Liver and relieves constraint (Xiao Yao San), and — the one students forget — it raises sunken yang qi, which is why it appears here in Buzhong Yiqi Tang beside Sheng Ma while Astragalus and Ginseng do the filling. Acrid and ascending, so it is used cautiously where Liver yang is already rising or yin is depleted with heat."},
+    endings:{
+      three:["Ten weeks. The dragging is much better by evening, the bowels have settled, and she has stopped standing at the tub for nine hours without sitting down — which she says was the hardest part of the advice.<br><b>Master Shen:</b> \"You filled before you lifted, and you told her to sit down. One of those is in the book.\"","十週。日暮之墜感大減，大便已調，且不復於盆前立九個時辰而不坐——她說這是醫囑裡最難做到的一條。<br><b>參師父：</b>「你先補而後升，又囑其坐。二者之中，惟其一在書上。」"],
+      two:["Better, and the dragging still comes back by evening.<br><b>Master Shen:</b> \"You supplemented. Good, and not finished — go back and ask what direction the treatment was supposed to have.\"","已減，而日暮猶墜。<br><b>參師父：</b>「補是矣，而未竟。且回頭問：此治當有何向？」"],
+      one:["No better, and she says she felt light-headed after the treatment.<br><b>Master Shen:</b> \"Then you lifted an empty sack. Read what sits before the lifting herbs in that formula, and why it sits first.\"","不見其效，且言治後頭暈。<br><b>參師父：</b>「是舉空囊也。且觀彼方之中，升藥之前列者為何，並思其何以在前。」"],
+      titles:["Auntie Fang Sits Down","Auntie Fang Gets Through the Morning","Auntie Fang Stands at the Tub"]
+    },
+    script: [
+ {w:"master",en:"You treated a weak Spleen in your first month. This is the same shortage one stage further on, and it has a name of its own.",cn:"初旬治過脾虛。此同一虛而更進一層，別有其名。"},
+ {w:"patient",en:"I take in washing. I stand at the tub from before dawn until the light goes.",cn:"我替人漿洗。天未亮就站在盆前，站到天黑。"},
+ {w:"patient",en:"There is a dragging, bearing-down feeling low down. Worst by evening, and worst when I have been standing.",cn:"小腹墜脹下沉，日暮最甚，站久尤甚。"},
+ {w:"patient",en:"And the bowels have been loose for years. Not painful. Just never formed, and worse if I get tired.",cn:"大便溏了好些年，不痛，就是總不成形，累了更甚。"},
+ {w:"master",en:"Bearing-down, worse standing, worse by evening, worse with tiredness. Four times she has told you the same thing. Name it.",cn:"下墜、久立則甚、日暮則甚、勞則甚。四言而同指一事。當名之。"}
+],
+    qa: [
+ {q:"When is the dragging worst, and what makes it better?",cq:"其墜何時最甚？何以則減？",good:1,
+  a:"By evening, and after standing. It is almost gone when I wake, and lying down helps within minutes.",ca:"日暮，及久立之後。晨起幾無，臥則數刻即減。",
+  clue:{en:"Bearing-down worse by evening and on standing, relieved by lying down",zh:"下墜日暮及久立則甚，臥則減"},note:"The defining rhythm of sinking qi, and it is diagnostic on its own. Qi is spent through the day, so the holding weakens as the day goes on; standing adds gravity to a hold that is already failing; lying down removes it. Compare damp-heat pouring downward, which is heavy and hot and does not care what hour it is, and blood stasis, which is fixed and stabbing. Ask about the <i>time of day</i> — few questions separate as much for as little. 氣陷之定律，一問可診。氣日耗而漸不能固，故日暮而甚；久立則益之以重，故甚；臥則去其重，故減。試較之：濕熱下注者，重而灼，不論其時；血瘀者，痛有定處而如刺。當問其<b>時</b>——所費一問而所別甚多者，鮮矣。"},
+ {q:"Is anything actually coming down that you can feel?",cq:"下部有無實可覺之物下垂？",good:1,
+  a:"Yes. By the end of a long day there is something there. It goes back if I lie down.",ca:"有。忙了一整天，那裡就覺得有東西。躺下就回去。",
+  clue:{en:"Prolapse that appears with the day and reduces on lying down",zh:"日暮見脫垂，臥則自復"},note:"Ask it directly, privately, and without embarrassment — patients almost never volunteer this, and it is the single most specific sign of sinking qi there is. Note what she says: it appears with the day and goes back on lying down, which is the same rhythm as the dragging and confirms the mechanism rather than adding a second problem. And say the obvious thing out loud: a prolapse deserves a gynaecological assessment as well, and the two kinds of care are not in competition. 當直問、私問，且勿露難色——病人幾不自言，而中氣下陷之最特異之證，莫過於此。當察其語：晝作而臥復，與其墜同一律，是證其機，非增一病。且當明言其所當明言者：脫垂宜並就婦科查之；二治不相妨。"},
+ {q:"Tell me about your energy and your appetite.",cq:"精神與納食何如？",good:1,
+  a:"Tired to the bone, worse the more I do. I eat little and I feel full after a few mouthfuls.",ca:"累到骨頭裡，做得越多越累。吃得少，幾口就飽脹。",
+  clue:{en:"Exhaustion worse on exertion; poor appetite with early fullness",zh:"倦怠，動則益甚；納少，食後即脹"},note:"The base layer under the sinking. Everything here is the ordinary qi-deficiency set — worse on exertion, poor appetite, early fullness — and it matters because it establishes that this is a shortage with a direction, not a separate disorder of the lower abdomen. Sinking always sits on top of deficiency; if you cannot find the deficiency, question the sinking. 陷之下所墊者也。此皆氣虛之常候：動則甚、納少、食後脹。其要在證此為「有向之虛」，而非下焦別為一病。凡陷必先有虛；若求虛而不得，則當疑其陷。"},
+ {q:"How is your voice at the end of the day? And do you sweat without moving?",cq:"日暮聲音何如？靜而汗出否？",good:1,
+  a:"It goes thin. And yes — I sweat sitting still, especially on my chest.",ca:"聲音就細了。汗也是——坐著不動也出，尤其胸前。",
+  clue:{en:"Voice thins with fatigue; spontaneous daytime sweating",zh:"倦則聲低；晝日自汗"},note:"Two more qi signs, and one of them is a check you should make routinely. Spontaneous daytime sweating at rest 自汗 belongs to qi failing to hold the pores closed — the same failure of holding that is letting things descend. When one mechanism explains four findings across four different parts of the body, you are almost certainly reading the case correctly. 二者俱氣虛之候，而其一宜每診必問。晝日靜而汗出者，氣不固腠理——與下墜者，同一「不固」也。一機而貫四證、遍四處，則所讀者多不誤矣。"},
+ {q:"Any bleeding that will not stop — heavy periods, or bleeding between them?",cq:"有無出血不止？經量過多？或非時而下？",good:1,
+  a:"My periods run long. Eight or nine days, light at the end but it will not finish.",ca:"月經拖得久，八九天，後頭量少，就是止不住。",
+  clue:{en:"Prolonged light menstrual bleeding that will not stop",zh:"經期延長，末量少而淋漓不止"},note:"Asked because it belongs to the same mechanism and is easy to miss. Qi holds the blood in the vessels — 氣攝血 — so qi that cannot hold produces bleeding that trickles rather than floods: prolonged periods, spotting between them, bleeding that is pale and thin rather than bright and clotted. It is the same failure again, seen in a third place. And as always: bleeding that is new, heavy, or between periods deserves a medical assessment alongside whatever pattern you name. 此問所以及其同機而易遺者。氣能攝血，不攝則血漏而不崩：經期延長、非時淋漓，其色淡而質稀，非鮮紅有塊。是同一不固，見於第三處。且如常：出血若為新起、量多，或非時而下者，不論所辨何證，皆當並就醫查之。"},
+ {q:"What does a working day look like for you?",cq:"君之一日，作息何如？",good:1,
+  a:"Up at four, at the tub by five, standing until dark. Three children. I eat when there is time.",ca:"四更起，五更到盆前，站到天黑。三個孩子。有空才吃。",
+  clue:{en:"Eighteen-hour standing work, meals irregular, six years",zh:"日立十八時而作，飲食無時，已六年"},note:"The question that decides whether the treatment holds after you stop. Qi is made from food and rest and spent by standing and working; six years of that arithmetic is the case. The prescription that does not mention a stool to sit on has treated the pattern and left the cause standing at the tub. Say the practical thing in words she can act on: sit for ten minutes every hour, and eat something warm at a fixed time. 此問所以定其治之能否久。氣生於穀與息，耗於立與作；六年之算，即其病也。方而不及一凳者，治其證而遺其因，其因猶立於盆前。當以其能行之語告之：每一時辰坐十刻，且定時進一溫食。"}
+],
+    look: [
+ {t:"Pale with tooth marks at the edges, thin white coat",c:"舌淡，邊有齒痕，苔薄白",ok:1,clue:{en:"Pale toothmarked tongue, thin white coat",zh:"舌淡有齒痕，苔薄白"},
+  note:"Correct, and the tooth marks are the detail worth learning. A tongue that is <b>pale</b> is short of qi or blood. A tongue that presses hard enough against the teeth to keep their impression is <b>swollen and slack</b> — the muscle is not holding its own shape, which is the same failure of holding as everything else in this case, written on the tongue. Thin white coat says no pathogen and no heat. Look at the <i>edges</i> in any suspected qi deficiency; they answer faster than the coat. 是，而所當學者在其齒痕。<b>舌淡</b>者，氣血不足。舌能久壓於齒而留其印者，其體<b>胖而弛</b>——舌肌不能自持其形，即通案之「不固」，書於舌上者也。苔薄白，則無邪無熱。凡疑氣虛，先觀其<b>邊</b>：其答捷於觀苔。"},
+ {t:"Red with a greasy yellow coat",c:"舌紅，苔黃膩",ok:0,
+  note:"Damp-heat pouring downward — the excess pattern that also produces heaviness below, and the one this must be distinguished from. That patient has burning, yellow discharge, dark urine and a slippery rapid pulse, and her heaviness does not care what time of day it is. 濕熱下注：亦見下部重墜，而為實證，正當與此相辨。彼者灼熱、帶下色黃、溲赤、脈滑數，且其重不隨晝夜而異。"},
+ {t:"Dark purple with stasis spots",c:"舌紫暗有瘀點",ok:0,
+  note:"Blood stasis — fixed stabbing pain, worse at night, worse with pressure. Hers is a dull dragging that lying down relieves. 血瘀：痛如針刺、有定處、夜甚、拒按。此則綿綿下墜而臥則減。"},
+ {t:"Red with no coating",c:"舌紅無苔",ok:0,
+  note:"Yin depletion with empty heat. Her coat is present, thin and white, and she has no heat signs anywhere. 陰虛內熱。今其苔在而薄白，通身無熱候。"}
+],
+    pulse: [
+ {t:"Weak, and weaker on deep pressure 弱，重按益虛",ok:1,clue:{en:"Weak pulse that fades under pressure",zh:"脈弱，重按益虛"},
+  note:"Correct, and the second half is the part to practise. Everyone can feel that a pulse is weak; fewer people press deliberately harder to find out what is underneath. A pulse with root 有根 firms up or at least holds when you press toward the bone. One that fades further has no reserve behind it. In a deficiency case this single manoeuvre tells you how deep the shortage runs, and it takes two extra seconds. 是，而所當習者在其後半。脈弱，人皆能覺；肯重按以探其下者則少。脈之<b>有根</b>者，重取而堅，或至少不減；重取而益虛者，其後無所儲也。虛證之診，但此一按，即知其虧之淺深，而所費不過二息。"},
+ {t:"Wiry 弦",ok:0,
+  note:"Liver constraint or ascending yang — a pulse with force that pushes back. Hers yields and then yields further. 肝鬱或肝陽上亢，其脈有力而抗指。今其脈應手即陷，重按益陷。"},
+ {t:"Slippery and rapid 滑數",ok:0,
+  note:"Damp-heat with something substantial accumulated. There is nothing full here at all. 濕熱而有形之邪積。本案通身無實。"},
+ {t:"Deep and slow 沉遲",ok:0,
+  note:"Interior cold. Slow says cold, and she has no cold limbs, no aversion to cold, no clear copious urine. Qi deficiency and yang deficiency differ by exactly that: whether cold has been added. 裡寒之脈。遲者主寒，而其人無肢冷、不畏寒、小便不清長。氣虛與陽虛之別，正在此一「寒」字之有無。"}
+],
+    dx: [
+ {ask:'Step 1 — she has a heaviness bearing down. Is it full or empty?<br><small class="zh" style="color:var(--ink-soft)">第一步：下部重墜，其屬實乎？虛乎？</small>',
+  opts:[{t:"Empty — it worsens through the day, worsens with standing and tiredness, and lying down relieves it",c:"虛 — 日暮則甚、久立與勞則甚、臥則減",ok:1,
+         note:"Correct, and the rhythm is what settles it. <b>Empty heaviness</b> follows effort: better in the morning, worse by evening, worse for standing, relieved by rest — because the qi that holds things up is being spent. <b>Full heaviness</b> — damp, damp-heat, stasis — does not follow the clock: it is there in the morning, it comes with burning or discharge or fixed pain, and resting does not much change it. Ask when it is worst before you ask anything else; the answer sorts the two families in one sentence. 是，而決之者其律也。<b>虛</b>之重墜隨勞而消長：晨輕暮重、久立則甚、得息則減——所以固之之氣，日耗故也。<b>實</b>之重墜——濕、濕熱、瘀——不隨時而異：晨亦有之，多兼灼熱、帶下或定痛，得息亦不甚減。凡診，先問其何時最甚：一語而二家分焉。"},
+        {t:"Full — damp-heat pouring downward",c:"實 — 濕熱下注",ok:0,
+         note:"The pattern to exclude, and it is excluded on evidence: no burning, no yellow discharge, no dark urine, no greasy yellow coat, no slippery rapid pulse. And her heaviness obeys the clock, which damp-heat does not. 此正當排除者，而其排除有據：無灼熱、無黃帶、溲不赤、苔不黃膩、脈不滑數。且其墜隨時而異，濕熱則不然。"},
+        {t:"Full — blood stasis in the lower burner",c:"實 — 下焦血瘀",ok:0,
+         note:"Stasis is fixed and stabbing, worse at night, worse with pressure, with a purple tongue and a choppy pulse. Hers is a dull dragging that lying down relieves within minutes. 瘀者痛如針刺、有定處、夜甚、拒按，舌紫脈澀。此則綿綿下墜，臥數刻即減。"},
+        {t:"Both together",c:"虛實夾雜",ok:0,
+         note:"Mixed patterns exist and are common in long cases — but mixed means finding evidence of both, and there is not a single excess sign here. Naming a mixture without evidence is a way of not deciding. 虛實夾雜誠有之，久病尤多。然「夾雜」者，必二者俱有其據；本案無一實候。無據而言夾雜者，避決而已。"}]},
+ {ask:'Step 2 — it is a deficiency. But is it plain qi deficiency, or has it gone further?<br><small class="zh" style="color:var(--ink-soft)">第二步：其屬虛矣。然為單純氣虛？抑更進一層？</small>',
+  opts:[{t:"Further — this is sinking 氣陷: prolapse, bearing-down, chronic loose stools and prolonged bleeding, on top of the ordinary qi signs",c:"更進一層，為氣陷：脫垂、下墜、久瀉、經期淋漓，而氣虛諸證俱在其下",ok:1,
+         note:"Correct, and the distinction is a stage rather than a different illness. <b>Qi deficiency</b> is the base: tired, worse on exertion, low voice, poor appetite, spontaneous sweating, pale toothmarked tongue, weak pulse. <b>Qi sinking</b> 氣陷 is that same shortage once the holding function has failed, and it is named by direction: bearing-down heaviness worse by evening, organ prolapse, chronic diarrhoea running years, bleeding that trickles and will not stop. She has the base list entire and three items from the second. Naming the stage matters because it adds a whole half to the treatment. 是，而其別在階而不在病。<b>氣虛</b>者其基：倦、動則甚、聲低、納少、自汗、舌淡有齒痕、脈弱。<b>氣陷</b>者，同一虛而固攝已失，其名取於其向：下墜日暮而甚、臟器脫垂、久瀉經年、血漏淋漓不止。今其人備前列之全，而後列得其三。定其階者，所以增其治之一半也。"},
+        {t:"Plain qi deficiency, nothing more",c:"但屬氣虛，別無他",ok:0,
+         note:"Then you will supplement and stop, and the prescription will be half right — which is exactly what the two-star ending in this chapter is. The prolapse, the bearing-down and the years of loose stools are all telling you about direction, and direction needs its own herbs. 若然，則但補而止，其方得半——本章二星之結，正為此設。脫垂、下墜、久瀉數年，三者皆言其向；而向者，自有其藥。"},
+        {t:"Blood deficiency",c:"血虛",ok:0,
+         note:"Blood deficiency gives dull lustreless pallor, dizziness on standing, dry hair and nails, dream-disturbed sleep and a thin pulse. Her pulse is weak rather than thin, and none of that list is here. 血虛者面淡白無華、起則頭眩、髮爪枯、多夢、脈細。今其脈弱而非細，前列諸證皆無。"},
+        {t:"Yang deficiency",c:"陽虛",ok:0,
+         note:"Yang deficiency is qi deficiency plus cold — cold limbs, aversion to cold, clear copious urine, a slow pulse. She has none of the cold. Stop at qi, and add warmth only if the evidence appears. 陽虛者，氣虛而兼寒：肢冷、畏寒、小便清長、脈遲。今其人無一寒候。當止於氣；俟寒證見而後加溫。"}]},
+ {ask:'Step 3 — the treatment has two halves. What is the order, and why?<br><small class="zh" style="color:var(--ink-soft)">第三步：其治有二端。孰先孰後？何以然？</small>',
+  opts:[{t:"Supplement first, then lift — the lifting herbs are assistants, not sovereigns",c:"先補而後升：升藥為佐使，非為君",ok:1,
+         note:"Correct, and Buzhong Yiqi Tang is the argument in a bottle. Astragalus is the sovereign and Ginseng, Baizhu and Gancao fill alongside it; Sheng Ma and Bupleurum come in small doses and do one thing — give the direction. The reason is plain once said: lifting an empty sack lifts nothing, and a formula weighted the other way makes a depleted patient feel light-headed and worse. On the table it is the same order — moxa and reinforcing at ST36 and CV6 for the filling, then Baihui GV20 for the lift. Fill, then aim. 是。補中益氣湯即此論之實物：黃耆為君，人參、白朮、甘草與之同填；升麻、柴胡量少而所司惟一——予其向耳。其理一言可盡：舉空囊者無所舉；方而反其重輕，則大虛之人服之頭暈而益憊。針亦同序：足三里、氣海補而灸之以填其虛，而後百會以升之。先填，而後指其所向。"},
+        {t:"Lift first, then supplement",c:"先升而後補",ok:0,
+         note:"This is the mistake the one-star ending is written for. Ascending herbs in a patient with nothing to raise scatter what little qi there is; the classical warning is that she will feel light-headed and more tired, not better. 一星之結，正為此誤而設。無可舉而先升之，則散其僅存之氣；古之所戒，正謂其人服後頭暈而益倦，非愈也。"},
+        {t:"Only supplement — the lifting is unnecessary",c:"但補足矣，不必升",ok:0,
+         note:"Better than the reverse, and still short. Supplementing rebuilds the qi but leaves it where it fell; the bearing-down improves slowly and incompletely, which is the two-star ending. The direction is a real half of the treatment, not a flourish. 勝於其反，而猶未足。補則氣復而仍在其下；下墜緩減而不能盡，即二星之結。「向」者，治之實半，非為文飾。"},
+        {t:"Only lift — the supplementing can wait",c:"但升可也，補之可俟",ok:0,
+         note:"The same error stated more confidently. There is nothing to lift until there is something there. 同誤而言之益篤耳。未有所實，則無所舉。"}]}
+],
+    rx: [
+ {id:"ST36",t:"Z&#250;s&#257;nl&#464; ST36 足三里",ok:1,note:"The Sea and Lower Sea point of the Stomach and the first point in the book for building qi — reinforcing method, with moxa. This is the filling half, and it goes first. You used it in your first month for a plain weak Spleen; the point is the same and the case has moved one stage on, which is a useful thing to have felt rather than read. 胃之合穴、下合穴，補氣第一穴，宜補法加灸。此為填補之半，且當先行。初旬曾取之以治單純脾虛；穴同而證進一階——此當親歷，勝於讀之。"},
+ {id:"CV6",t:"Q&#236;h&#462;i CV6 氣海",ok:1,note:"On the midline, 1.5 cun below the navel — the Sea of Qi by name and by use. Moxa here is one of the oldest treatments for sinking qi and for prolapse, and it is well suited to a patient who is depleted with no heat anywhere. 臍下一寸五分正中，其名其用俱為「氣海」。灸此為治氣陷、脫垂之古法，而通身無熱之虛人尤宜。"},
+ {id:"GV20",t:"B&#462;ihu&#236; GV20 百會",ok:1,note:"At the vertex, where all the yang channels meet — the point that supplies the direction. Needled or moxaed here it raises what has descended, and it is the needle equivalent of the Sheng Ma and Bupleurum in the formula. Use it <i>after</i> the tonifying points, for the same reason those herbs come after the sovereign. 巔頂，諸陽之會，予其向者也。針或灸之以升其下陷，於方則升麻、柴胡之任。當<b>後</b>於補穴而用之，其故與彼二藥之列於君後者同。"},
+ {id:"SP9",t:"Y&#299;nl&#237;ngqu&#225;n SP9 陰陵泉",ok:0,note:"The great damp-draining point, and the answer if this heaviness were damp. It is not: no greasy coat, no discharge, no slippery pulse. Draining an empty patient removes what little is holding her up. 利濕之要穴，若其重為濕則是。今非也：苔不膩、無帶下、脈不滑。虛而利之，是奪其僅存之所恃。"},
+ {id:"LR3",t:"T&#224;ich&#333;ng LR3 太衝",ok:0,note:"Courses the Liver and subdues rising yang. There is no constraint and nothing is rising — the whole complaint is that things are going down. 疏肝、平肝潛陽。本案無鬱，亦無上亢者——其病正在「下」。"},
+ {id:"HT7",t:"Sh&#233;nm&#233;n HT7 神門",ok:0,note:"Settles the spirit. She is exhausted, not agitated, and sleep is not among her complaints. 安神之穴。其人倦而不躁，且不以寐為病。"}
+],
+    tech: [
+ {t:"Reinforcing method with moxa, and needle the tonifying points before the lifting one",c:"補法加灸；先針補穴，後針升穴",ok:1,
+  note:"<b>Correct, and the order is the whole chapter.</b> Reinforcing, because every finding is empty and nothing refuses the hand. Moxa, because there is no heat anywhere to forbid it and gentle warmth helps a depleted middle use what you are supplying. And the sequence: fill at ST36 and CV6 first, then give the direction at GV20 — the same argument as the herbs, made with needles. Few needles, retained gently, and stop before she is tired; treating a depleted person too vigorously is its own kind of harm. 是，而其序即本章之全旨。補者，通案皆虛而無拒按。灸者，通身無熱以禁之，而溫和之火能助其中焦運所補之物。至於其序：先填於足三里、氣海，而後予向於百會——與方藥同一論，特以針為之耳。宜少針、輕留，未疲而止：大虛之人，過治亦傷。"},
+ {t:"Reinforcing method, but no moxa",c:"補法，然禁灸",ok:0,
+  note:"Moxa is withheld where there is heat, dryness or yin depletion with empty heat. She has none of those — no night sweats, no five-palm heat, no peeled tongue, no rapid pulse. Withholding the treatment the pattern is asking for is not caution, it is a habit. 灸之所禁在熱、在燥、在陰虛內熱。今其人俱無：無盜汗、無五心煩熱、舌不剝、脈不數。證之所求而不予者，非慎也，習耳。"},
+ {t:"Reducing method to move the heaviness out",c:"瀉法以去其重墜",ok:0,
+  note:"The heaviness is not a thing sitting there; it is a hold that has failed. Reducing removes more of what was holding, and she will be worse by that evening. 其重非有物在焉，乃固攝之失。瀉之則益去其所恃，當夕即劇。"},
+ {t:"Strong stimulation at Baihui to lift hard",c:"百會重刺激，強行提舉",ok:0,
+  note:"Force is not direction. Strong stimulation disperses, and dispersing at the vertex in a depleted patient is how a treatment ends with light-headedness. The lift is a small, late, gentle part of a treatment that is mostly filling. 力非即向。重刺激者主散；大虛之人而散其巔頂，治後頭暈由此而生。升者，一治之中，小而後、且輕之一端耳；其大半在填。"}
+]
+  }
+
 };

@@ -1242,4 +1242,54 @@ window.AG_HERBSTORY = [
           zh:"清熱化痰除煩、降逆止嘔。胃寒作嘔者不宜。"} }
 
 
+,
+
+  /* ══════ 柴胡 · one root, three jobs, three famous formulas ══════ */
+  { id:"chaihu",
+    beats:[
+      {en:"A thin, tough, pale root stands up on the counter and waits, like someone who has been asked the same question in three different rooms.<br><b>Bupleurum:</b> \"Bitter, acrid, slightly cold. Liver, Gallbladder, Triple Burner, Pericardium.\"",
+       zh:"一條瘦硬色淡的根立於檯上而待，像個在三個房間裡被問過同一句話的人。<br><b>柴胡：</b>「苦、辛、微寒，歸肝膽三焦心包。」"},
+      {en:"<b>Bupleurum:</b> \"Ask what I do and you will get three answers, and all three are true. First: I harmonise Shaoyang. Alternating chills and fever, bitter mouth, dry throat, fullness under the ribs — that is Xiao Chai Hu Tang, and I am its chief.\"",
+       zh:"<b>柴胡：</b>「問我何功，得三答，而三者俱真。其一：和解少陽。寒熱往來、口苦、咽乾、胸脅苦滿——小柴胡湯是也，我為其君。」"},
+      {en:"<b>Bupleurum:</b> \"Second: I course the Liver and loosen constraint. Rib-side fullness, sighing, a chest that will not open, a wiry pulse. Xiao Yao San.\"",
+       zh:"<b>柴胡：</b>「其二：疏肝解鬱。脅脹、太息、胸中不開、脈弦。逍遙散是也。」"},
+      {en:"<b>Bupleurum:</b> \"Third, and the one students forget: I <i>lift</i>. Where things have sunk — a middle that has dropped, a prolapse, a diarrhoea that has run for years — I rise, and Sheng Ma rises with me. But note the arrangement in Buzhong Yiqi Tang: Astragalus and Ginseng do the filling, and we two only give the direction. Lifting an empty sack lifts nothing.\"",
+       zh:"<b>柴胡：</b>「其三，學者每忘之：我能<i>升</i>。凡有下陷者——中氣下墜、臟器脫垂、久瀉不止——我升，升麻與我同升。然當察補中益氣湯之布置：黃耆、人參主其填，我二者惟予其向耳。舉一空囊，無所舉也。」"},
+      {en:"It leans back a fraction.<br><b>Bupleurum:</b> \"And because I rise and I am acrid — keep me away from yang that is already rising. A red face, a throbbing head, a wiry forceful pulse: I would only push it higher.\"",
+       zh:"它稍稍後傾。<br><b>柴胡：</b>「且我性升而辛——陽已上亢者，勿近我。面赤、頭脹痛、脈弦有力者，我惟益其升耳。」"}
+    ],
+    qs:[
+      {q:"Which formula uses Bupleurum as its chief herb for alternating chills and fever?",
+       cq:"寒熱往來，何方以柴胡為君？",
+       opts:[
+        {t:"Xiao Chai Hu Tang 小柴胡湯", c:"小柴胡湯", ok:1,
+         note:"<b>Correct.</b> The Shaoyang formula: alternating chills and fever, bitter mouth, dry throat, dizzy vision, fullness under the ribs, no appetite, nausea, a wiry pulse.<span class=\"zh\">少陽之方：寒熱往來、口苦、咽乾、目眩、胸脅苦滿、默默不欲飲食、心煩喜嘔、脈弦。</span>"},
+        {t:"Si Wu Tang 四物湯", c:"四物湯", ok:0,
+         note:"The blood-nourishing base formula — no Bupleurum in it at all.<span class=\"zh\">補血之基礎方，方中無柴胡。</span>"},
+        {t:"Liu Wei Di Huang Wan 六味地黃丸", c:"六味地黃丸", ok:0,
+         note:"Liver and Kidney yin — the opposite kind of formula, and Bupleurum would be wrong in it.<span class=\"zh\">滋補肝腎之陰，其方之性與此相反，柴胡不當在其中。</span>"}]},
+      {q:"In Buzhong Yiqi Tang, what is Bupleurum actually doing?",
+       cq:"補中益氣湯中，柴胡所司為何？",
+       opts:[
+        {t:"Raising sunken yang qi, alongside Sheng Ma — while Astragalus and Ginseng do the supplementing",
+         c:"與升麻同升下陷之陽氣；其補則在黃耆、人參", ok:1,
+         note:"<b>Correct, and the division of labour is the lesson.</b> Lifting and filling are two different jobs. A formula that only lifts has nothing to lift; a formula that only fills leaves the qi where it fell.<span class=\"zh\">升與補，二事也。徒升則無所舉，徒補則氣仍在下。此方之布置，正在其分工。</span>"},
+        {t:"Harmonising Shaoyang", c:"和解少陽", ok:0,
+         note:"That is its job in a different formula. The same herb serves different roles depending on what it is put beside.<span class=\"zh\">此其在他方之職。一藥所任，隨其所配而異。</span>"},
+        {t:"Clearing heat from the blood", c:"清熱涼血", ok:0,
+         note:"Not one of its functions.<span class=\"zh\">非其功。</span>"}]},
+      {q:"When should Bupleurum be used with caution?",
+       cq:"何時當慎用柴胡？",
+       opts:[
+        {t:"Where Liver yang is already rising, or yin is depleted with heat", c:"肝陽上亢，或陰虛火旺者",
+         ok:1, note:"<b>Correct.</b> It is acrid and it ascends. In a patient whose yang is already pushing upward — red face, throbbing headache, wiry forceful pulse — it adds to exactly the wrong thing.<span class=\"zh\">其性辛而升。陽方上迫者——面赤、頭脹痛、脈弦有力——投之則益其所不當益。</span>"},
+        {t:"Where there is rib-side fullness and sighing", c:"脅脹太息者", ok:0,
+         note:"That is one of its clearest indications.<span class=\"zh\">此正其主治。</span>"},
+        {t:"Where chills and fever alternate", c:"寒熱往來者", ok:0,
+         note:"Also an indication — this is the Shaoyang pattern it is famous for.<span class=\"zh\">亦其主治：少陽證，柴胡之所以名者。</span>"}]}
+    ],
+    card:{en:"Harmonises Shaoyang and resolves alternating chills and fever; courses the Liver and relieves constraint; raises sunken yang qi. Acrid and ascending — cautious where Liver yang rises or yin is depleted with heat.",
+          zh:"和解少陽、疏肝解鬱、升舉陽氣。辛升之品，肝陽上亢、陰虛火旺者慎用。"} }
+
+
 ];

@@ -29,7 +29,7 @@ window.AG_VOLUMES = [
     blurb:{ en:"Stasis, damp-heat lodged in a joint, and pain that names its own channel by where it sits.",
             zh:"血瘀、濕熱著於關節，與能以其部自名其經之痛。" } },
 
-  { id:"4", from:"21", to:"26",
+  { id:"4", from:"21", to:"27",
     en:"The Deep Stores", zh:"深虛",
     blurb:{ en:"Depletion that reaches the root — and the questions you ask before you are allowed to name a pattern at all.",
             zh:"虛及根本者。而辨證之先，尚有所必問。" } }

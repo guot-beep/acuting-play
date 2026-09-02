@@ -64,7 +64,7 @@ window.AG_CALIB = [
            zh:"腕橫紋上二寸，掌長肌腱與橈側腕屈肌腱之間。"} },
 
   { id:"ST36", cun:13, zh:"足三里", py:"Zúsānlǐ", img:"art/body-leg-anterior.jpg", w:434, h:1159,
-    x:180, y:337, chs:["04"], verified:false,
+    x:180, y:337, chs:["04","27"], verified:false,
     where:{en:"3 cun below ST35 Dubi, one middle-finger breadth lateral to the anterior crest of the tibia.",
            zh:"犢鼻下三寸，脛骨前緣外一橫指（中指）。"} },
 
