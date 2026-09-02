@@ -184,5 +184,53 @@ window.AG_HERBS = [
     nature:"Acrid, bitter, warm · Spleen, Lung",
     natureZh:"辛、苦、溫 · 歸脾肺經",
     fact:"Regulates qi in the middle burner, dries damp and transforms phlegm. Added to tonifying formulas so that supplementing does not turn into stagnation — the older the peel, the better it is said to be.",
-    factZh:"理氣健脾、燥濕化痰。補方中常佐之，使補而不滯。陳久者良。" }
+    factZh:"理氣健脾、燥濕化痰。補方中常佐之，使補而不滯。陳久者良。" },
+
+  /* ── added with chapters 21–25 ─────────────────────────────────────
+     Portraits for these five are printed drawer-labels, not paintings:
+     art/herb-<id>.jpg comes from tools/mkherbseal.py until a real
+     portrait replaces it. Ting's rule, kept literally —
+     「寧可先用文字印版，也不要教錯本草。」 Dropping a painted portrait
+     in at the same filename and re-running mkherbcard.py is the whole
+     upgrade path; no data changes, no code changes. */
+
+  { id:"huangqi", en:"Astragalus Root", py:"Huáng Qí", zh:"黃耆",
+    img:"art/herb-huangqi.jpg",
+    plate:"art/card-huangqi.jpg",
+    nature:"Sweet, slightly warm · Spleen, Lung",
+    natureZh:"甘、微溫 · 歸脾肺經",
+    fact:"Tonifies qi and raises the yang, secures the exterior and stops sweating, moves water and reduces swelling, and supports the closing of chronic sores. Unusual among qi tonics in that it works at the surface as well as the centre — which is why it appears in formulas for spontaneous daytime sweating. Not used alone while an exterior pathogen is still unresolved, or where heat is from excess.",
+    factZh:"補氣升陽、固表止汗、利水消腫、托毒生肌。補氣藥中兼能達表者，故治自汗。表邪未解、實熱者不宜單用。" },
+
+  { id:"zhizi", en:"Gardenia Fruit", py:"Zhī Zǐ", zh:"梔子",
+    img:"art/herb-zhizi.jpg",
+    plate:"art/card-zhizi.jpg",
+    nature:"Bitter, cold · Heart, Lung, Stomach, Triple Burner",
+    natureZh:"苦、寒 · 歸心肺胃三焦經",
+    fact:"Drains fire and relieves restlessness, clears heat and drains damp, cools blood and stops bleeding. Its particular talent is direction: it carries heat downward and out through the urine, which is why it colours the urine and why it sits beside Yinchenhao in the classic jaundice formula. Bitter and cold, so it is avoided where the Spleen is cold with loose stools.",
+    factZh:"瀉火除煩、清熱利濕、涼血止血。善導熱下行，從小便而出，故能退黃，為茵陳蒿湯之臣。苦寒傷中，脾虛便溏者忌。" },
+
+  { id:"shudihuang", en:"Prepared Rehmannia", py:"Shú Dì Huáng", zh:"熟地黃",
+    img:"art/herb-shudihuang.jpg",
+    plate:"art/card-shudihuang.jpg",
+    nature:"Sweet, slightly warm · Liver, Kidney",
+    natureZh:"甘、微溫 · 歸肝腎經",
+    fact:"Nourishes blood and enriches yin, supplements essence and fills the marrow. The anchor of both Liu Wei Di Huang Wan and Si Wu Tang, and the reason those formulas reach as deep as they do. Rich and cloying by nature, so it is habitually paired with a moving herb such as Chenpi or Sharen; used cautiously where the Spleen is weak with damp, epigastric fullness or loose stools.",
+    factZh:"養血滋陰、補精填髓。六味地黃丸、四物湯之君藥。其性滋膩，每配陳皮、砂仁以行之；脾虛濕滯、脘悶便溏者慎用。" },
+
+  { id:"maidong", en:"Ophiopogon Tuber", py:"Mài Mén Dōng", zh:"麥門冬",
+    img:"art/herb-maidong.jpg",
+    plate:"art/card-maidong.jpg",
+    nature:"Sweet, slightly bitter, slightly cold · Heart, Lung, Stomach",
+    natureZh:"甘、微苦、微寒 · 歸心肺胃經",
+    fact:"Moistens the Lung and nourishes yin, benefits the Stomach and generates fluids, clears Heart heat and settles restlessness. For the dry cough with a little sticky phlegm, the parched mouth left behind by a fever, and the thin sleeplessness of depleted yin. Being moistening and slightly cold, it is not the herb for a cough from wind-cold or from damp-phlegm.",
+    factZh:"潤肺養陰、益胃生津、清心除煩。主燥咳痰少而黏、熱病後津傷口乾、陰虛心煩不寐。性潤微寒，風寒咳嗽、痰濕者不宜。" },
+
+  { id:"rougui", en:"Cinnamon Bark", py:"Ròu Guì", zh:"肉桂",
+    img:"art/herb-rougui.jpg",
+    plate:"art/card-rougui.jpg",
+    nature:"Acrid, sweet, very hot · Kidney, Spleen, Heart, Liver",
+    natureZh:"辛、甘、大熱 · 歸腎脾心肝經",
+    fact:"Supplements the fire of the gate of vitality, warms the channels and disperses cold, stops cold pain, and leads fire back down to its source. For deep yang depletion: cold limbs, a weak aching low back and knees, a deep slow pulse. Note that it is the bark and not the twig — Guizhi releases the exterior, Rougui warms the interior. Very hot and dispersing, so it is contraindicated in yin deficiency with heat, in active bleeding, and in pregnancy.",
+    factZh:"補火助陽、溫經散寒、散寒止痛、引火歸元。主腎陽虛衰：畏寒肢冷、腰膝痠軟、脈沉遲。桂枝為枝以解表，肉桂為皮以溫裡，勿混。大熱之品，陰虛火旺、出血、孕婦忌用。" }
 ];

@@ -27,5 +27,7 @@ window.AG_CHAPTER_INDEX = [
  {id:"17", title:"The Thread She Cannot See", titleZh:"看不見的線", pattern:"Heart and Liver Blood Deficiency 心肝血虛"},
  {id:"18", title:"The Stone in His Chest", titleZh:"胸中的石頭", pattern:"Heart Blood Stasis 心血瘀阻"},
  {id:"19", title:"The Knee in the Wet Season", titleZh:"梅雨裡的膝", pattern:"Damp-Heat Obstructing the Channels 濕熱痹阻"},
- {id:"20", title:"The Side of His Head", titleZh:"頭之一側", pattern:"Blood Stasis Headache on the Shaoyang Channel 瘀血頭痛 · 少陽經"}
+ {id:"20", title:"The Side of His Head", titleZh:"頭之一側", pattern:"Blood Stasis Headache on the Shaoyang Channel 瘀血頭痛 · 少陽經"},
+ {id:"21", title:"The Voice That Ran Out", titleZh:"聲音用完了", pattern:"Heart and Lung Qi Deficiency 心肺氣虛"},
+ {id:"25", title:"The Cold That Would Not End", titleZh:"過不完的冬", pattern:"Heart and Kidney Yang Deficiency 心腎陽虛"}
 ];

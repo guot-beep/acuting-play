@@ -959,4 +959,240 @@ window.AG_HERBSTORY = [
   card:{en:"Invigorates blood and dispels stasis — fixed stabbing pain, purple tongue, dark clots. Small dose harmonises, larger dose breaks. Contraindicated in pregnancy; care with bleeding and anticoagulants.",
         zh:"活血祛瘀：刺痛有定處、舌紫、血塊色黑。少用和血，多用破血。孕婦禁用；出血或服抗凝藥者當慎。"} }
 
+,
+
+  /* ══════ 黃耆 · the qi tonic that also works at the surface ══════ */
+  { id:"huangqi",
+    beats:[
+      {en:"A tall dry slice of root is leaning against the drawer like a gate-guard on a slow afternoon. It does not swagger. It simply does not move.<br><b>Astragalus:</b> \"Sweet, slightly warm. Spleen and Lung.\"",
+       zh:"一片瘦長乾燥的根倚在藥櫃邊，像午後守門的老兵。它不張揚，只是不動。<br><b>黃耆：</b>「甘、微溫，歸脾肺。」"},
+      {en:"<b>Astragalus:</b> \"Ginseng fills the deep reserve. I do something narrower and more useful day to day — I tonify qi and I <i>raise</i> it. Things that have sagged: the middle, the voice, an organ that has dropped, a wound that will not close.\"",
+       zh:"<b>黃耆：</b>「人參補的是元氣那一層。我做的事更窄，卻更日常——我補氣，而且<i>升</i>氣。凡是垂下去的：中氣、聲音、下陷之臟、久不收口之瘡。」"},
+      {en:"<b>Astragalus:</b> \"And I hold the border. Sweating all day without moving, catching every wind that passes — that is a surface with no guard on it. Most qi tonics cannot reach out that far. I can.\"",
+       zh:"<b>黃耆：</b>「我還守邊。整天不動也汗出、風一過就病——那是衛表無人把守。多數補氣藥達不到那麼外面，我可以。」"},
+      {en:"It tips its head toward the door.<br><b>Astragalus:</b> \"But if the enemy is already inside the gate, do not reinforce the gate. An exterior pathogen that has not been released yet — send it out first. Shut me in with it and I keep it in.\"",
+       zh:"它朝門口偏了偏頭。<br><b>黃耆：</b>「可是敵人若已進門，就別再加固門閂。表邪未解者，先解其表。把我和邪一起關在裡面，我只會替它留門。」"}
+    ],
+    qs:[
+      {q:"Astragalus and Ginseng are both qi tonics. What does Astragalus do that Ginseng does not?",
+       cq:"黃耆與人參同為補氣藥，黃耆能而人參不專者為何？",
+       opts:[
+        {t:"It raises sunken yang qi and secures the exterior", c:"升舉下陷之陽氣，並能固表",
+         ok:1, note:"<b>Correct.</b> Tonify <i>and</i> raise, tonify <i>and</i> guard the surface — that pairing is what makes Astragalus the chief in Buzhong Yiqi Tang and in Yu Ping Feng San.<span class=\"zh\">補而能升、補而能固表。此其所以為補中益氣湯與玉屏風散之君。</span>"},
+        {t:"It greatly tonifies original qi in collapse", c:"大補元氣，救脫",
+         ok:0, note:"That is Ginseng's territory, and the distinction matters in an emergency.<span class=\"zh\">此人參之長，危急之際不可混。</span>"},
+        {t:"It nourishes yin and generates fluids", c:"滋陰生津",
+         ok:0, note:"Astragalus is warm and moves upward and outward. It is not a yin herb.<span class=\"zh\">黃耆性溫升散，非滋陰之品。</span>"}]},
+      {q:"A clerk sweats through his robe sitting still at his desk, catches cold four times a winter, and has a pale tongue with a weak pulse. Which reading fits?",
+       cq:"文書終日靜坐而汗透衣衫，一冬感冒四次，舌淡脈弱。當作何解？",
+       opts:[
+        {t:"Qi deficiency failing to secure the exterior — wei qi is not holding the border",
+         c:"氣虛不固表，衛氣不能司開闔", ok:1,
+         note:"<b>Correct.</b> Sweating at rest 自汗 plus repeated invasions is the classic picture; Yu Ping Feng San is built for exactly it.<span class=\"zh\">自汗而反覆外感，正玉屏風散所主。</span>"},
+        {t:"Yin deficiency with heat pushing fluids out at night",
+         c:"陰虛內熱，迫津外泄而盜汗", ok:0,
+         note:"Night sweating 盜汗 with heat signs would say yin deficiency. This man sweats in the daytime, at rest, and is pale.<span class=\"zh\">盜汗兼熱象方屬陰虛。此人晝日靜而汗出，舌淡，非是。</span>"},
+        {t:"Damp-heat steaming outward through the skin",
+         c:"濕熱蒸騰外達肌表", ok:0,
+         note:"There is no heat and no damp here — only weakness.<span class=\"zh\">本案無熱無濕，惟虛而已。</span>"}]},
+      {q:"When should Astragalus not be used alone?",
+       cq:"何時不宜單用黃耆？",
+       opts:[
+        {t:"While an exterior pathogen is still unresolved, or where there is excess heat",
+         c:"表邪未解，或實熱內盛", ok:1,
+         note:"<b>Correct.</b> Securing the exterior before the pathogen has left traps it inside — 閉門留寇. It is also warm, so it feeds excess heat.<span class=\"zh\">邪未去而先固表，是謂閉門留寇。其性又溫，實熱者益甚。</span>"},
+        {t:"In anyone over sixty", c:"年過六十者", ok:0,
+         note:"Age is not a contraindication. The pattern is.<span class=\"zh\">禁忌在證不在年。</span>"},
+        {t:"Whenever the patient is sweating", c:"凡見汗出者", ok:0,
+         note:"The opposite — sweating from qi deficiency is one of its main indications. What matters is <i>why</i> the sweat is there.<span class=\"zh\">正相反。氣虛自汗本為其主治。當辨汗之所由。</span>"}]}
+    ],
+    card:{en:"Tonifies qi and raises the yang; secures the exterior and stops spontaneous sweating. Withheld while an exterior pathogen is unresolved, or where heat is from excess.",
+          zh:"補氣升陽、固表止汗。表邪未解、實熱者不宜單用。"} },
+
+  /* ══════ 梔子 · heat with a direction ══════ */
+  { id:"zhizi",
+    beats:[
+      {en:"A small hard fruit the colour of a lantern rolls forward and stops.<br><b>Gardenia:</b> \"Bitter. Cold. Heart, Lung, Stomach, and all three Burners — which is a way of saying: top to bottom.\"",
+       zh:"一枚燈籠色的小硬果滾了過來，停住。<br><b>梔子：</b>「苦、寒，歸心肺胃與三焦——說得白些，就是從上到下。」"},
+      {en:"<b>Gardenia:</b> \"Most cooling herbs simply lower the temperature. My work has a direction. I take heat <i>downward</i>, and out through the urine. You will see the urine change colour. That is not a side effect; that is the mechanism.\"",
+       zh:"<b>梔子：</b>「多數寒藥只是降其溫。我行事有方向：導熱<i>下行</i>，從小便而出。小便會變色——那不是副作用，那正是機轉。」"},
+      {en:"<b>Gardenia:</b> \"Which is why, when a body turns yellow, they send for me. Yinchenhao leads, I follow, and rhubarb closes the door behind us.\"",
+       zh:"<b>梔子：</b>「所以身黃者召我。茵陳為君，我為臣，大黃殿後。」"},
+      {en:"It cools a degree further.<br><b>Gardenia:</b> \"Bitter and cold injures the middle. A person whose stools are already loose and whose belly is already cold does not need me. Fire is my business. Emptiness is not.\"",
+       zh:"它又冷了一分。<br><b>梔子：</b>「苦寒傷中。便已溏、腹已冷者，不須用我。我治火，不治虛。」"}
+    ],
+    qs:[
+      {q:"What is distinctive about how Gardenia clears heat?",
+       cq:"梔子清熱，特異在何處？",
+       opts:[
+        {t:"It drains fire downward and out through the urine", c:"導熱下行，從小便而出",
+         ok:1, note:"<b>Correct.</b> Direction, not just temperature — this is why it treats jaundice and why it is a chief herb for damp-heat in the lower burner.<span class=\"zh\">重在導引之向而非徒清其溫，故能退黃，亦主下焦濕熱。</span>"},
+        {t:"It pushes heat out through the surface as sweat", c:"發汗解表以散熱",
+         ok:0, note:"That is an exterior-releasing herb. Gardenia works from the inside downward.<span class=\"zh\">此解表藥之事。梔子由內下行。</span>"},
+        {t:"It cools blood only, and does not touch qi-level heat", c:"專涼血分，不及氣分",
+         ok:0, note:"It does cool blood and stop bleeding, but relieving restlessness 除煩 is qi-level work.<span class=\"zh\">梔子固能涼血止血，然除煩即氣分之功。</span>"}]},
+      {q:"A patient after a febrile illness cannot sleep, tosses, feels a hot vexation in the chest, and has a red tongue tip. Which classical formula names Gardenia as chief?",
+       cq:"熱病後不寐、輾轉、胸中煩熱、舌尖紅。何方以梔子為君？",
+       opts:[
+        {t:"Zhi Zi Chi Tang 梔子豉湯", c:"梔子豉湯", ok:1,
+         note:"<b>Correct.</b> Gardenia with prepared soybean for the lingering vexation in the chest after a fever — 虛煩不得眠.<span class=\"zh\">梔子配淡豆豉，主熱病後虛煩不得眠、心中懊憹。</span>"},
+        {t:"Si Wu Tang 四物湯", c:"四物湯", ok:0,
+         note:"That is the blood-nourishing base formula, a different axis entirely.<span class=\"zh\">四物湯為補血基礎方，與此無涉。</span>"},
+        {t:"Li Zhong Wan 理中丸", c:"理中丸", ok:0,
+         note:"That warms a cold middle burner — the opposite direction.<span class=\"zh\">理中丸溫中焦虛寒，方向相反。</span>"}]},
+      {q:"Who should not be given Gardenia?",
+       cq:"何人不宜服梔子？",
+       opts:[
+        {t:"Someone with Spleen deficiency and loose stools", c:"脾虛便溏者",
+         ok:1, note:"<b>Correct.</b> Bitter and cold herbs injure the middle burner; in a cold, loose, weak digestion they make the problem worse.<span class=\"zh\">苦寒之品傷中。中焦虛寒便溏者，服之更甚。</span>"},
+        {t:"Someone with a red tongue and a rapid pulse", c:"舌紅脈數者", ok:0,
+         note:"That is a heat picture — which is exactly when it is indicated.<span class=\"zh\">此正熱象，乃其所主。</span>"},
+        {t:"Someone with dark scanty urine", c:"小便短赤者", ok:0,
+         note:"Also an indication, not a contraindication.<span class=\"zh\">亦其主治，非禁忌。</span>"}]}
+    ],
+    card:{en:"Drains fire and relieves restlessness; clears damp-heat and moves it out through the urine; cools blood. Bitter and cold — avoided in Spleen deficiency with loose stools.",
+          zh:"瀉火除煩、清利濕熱從小便出、涼血。苦寒，脾虛便溏者忌。"} },
+
+  /* ══════ 熟地黃 · the herb that is deliberately heavy ══════ */
+  { id:"shudihuang",
+    beats:[
+      {en:"Something dark and glossy and unexpectedly heavy is set on the counter. It smells of wine and long steaming.<br><b>Prepared Rehmannia:</b> \"Sweet. Slightly warm. Liver and Kidney. I was steamed nine times to become this.\"",
+       zh:"一塊黝黑油亮、沉得出乎意料的東西被放上檯面，帶著酒氣與久蒸之味。<br><b>熟地黃：</b>「甘、微溫，歸肝腎。我是九蒸九曬才成這樣的。」"},
+      {en:"<b>Prepared Rehmannia:</b> \"Raw, I was cold, and I cooled blood. Cooked, I am warm, and I <i>fill</i>. Blood, yin, essence, marrow — the deep stores that empty slowly and refill slowly.\"",
+       zh:"<b>熟地黃：</b>「生時性寒，主涼血；熟則性溫，主<i>填補</i>。血、陰、精、髓——那些慢慢空掉、也只能慢慢補回的東西。」"},
+      {en:"<b>Prepared Rehmannia:</b> \"I am the chief in Liu Wei Di Huang Wan and in Si Wu Tang. When a formula needs to reach the Kidney and stay there, it sends me.\"",
+       zh:"<b>熟地黃：</b>「六味地黃丸、四物湯，皆以我為君。方欲入腎而留，則遣我去。」"},
+      {en:"It settles, and does not apologise.<br><b>Prepared Rehmannia:</b> \"I am cloying. I know. A weak Spleen finds me hard work — fullness, poor appetite, loose stools. So the old formulas never send me alone. Chenpi, or Sharen, walks beside me and keeps me moving.\"",
+       zh:"它沉下來，並不致歉。<br><b>熟地黃：</b>「我滋膩，我知道。脾弱者受我不動——脘悶、納差、便溏。故古方從不使我獨行，必以陳皮或砂仁佐之，使補而不滯。」"}
+    ],
+    qs:[
+      {q:"What changes when raw Rehmannia is prepared into Shu Di Huang?",
+       cq:"生地黃製為熟地黃，所變者何？",
+       opts:[
+        {t:"Cold turns to slightly warm; cooling blood turns to nourishing blood and filling essence",
+         c:"由寒轉微溫，由涼血轉為養血填精", ok:1,
+         note:"<b>Correct.</b> Same plant, opposite job — this pair is a standard exam contrast.<span class=\"zh\">同物異用，生熟功異，考試常辨。</span>"},
+        {t:"It becomes an exterior-releasing herb", c:"轉為解表之藥", ok:0,
+         note:"Neither form releases the exterior.<span class=\"zh\">生熟俱不解表。</span>"},
+        {t:"It becomes stronger at draining damp", c:"利濕之力更強", ok:0,
+         note:"The opposite — preparation makes it richer and more cloying, not more draining.<span class=\"zh\">正相反。製後益滋膩，非增其利。</span>"}]},
+      {q:"Why is Prepared Rehmannia so often paired with Chenpi or Sharen?",
+       cq:"熟地黃何以每配陳皮、砂仁？",
+       opts:[
+        {t:"Because it is rich and cloying and can stagnate the middle burner",
+         c:"因其滋膩，易礙中焦運化", ok:1,
+         note:"<b>Correct.</b> 補而不滯 — supplement without clogging. The aromatic moving herb is insurance, not decoration.<span class=\"zh\">補而不滯。佐以芳香行氣之品，非為妝點。</span>"},
+        {t:"Because it is toxic without them", c:"因其有毒，非此不解", ok:0,
+         note:"It is not toxic. The pairing is about digestion, not safety from poisoning.<span class=\"zh\">熟地無毒，配伍為運化計，非解毒。</span>"},
+        {t:"Because they make it taste acceptable", c:"為改其味", ok:0,
+         note:"Taste is not the reason a classical pairing survives a thousand years.<span class=\"zh\">古方配伍傳世千年，不為口味。</span>"}]},
+      {q:"In which patient is Prepared Rehmannia used with caution?",
+       cq:"何等病人用熟地黃當慎？",
+       opts:[
+        {t:"Spleen weak with damp — epigastric fullness, poor appetite, loose stools",
+         c:"脾虛濕滯：脘悶、納差、便溏", ok:1,
+         note:"<b>Correct.</b> The middle burner has to process it. If it cannot, a tonic becomes a burden.<span class=\"zh\">補藥須賴中焦運化。中焦不運，補反為累。</span>"},
+        {t:"Anyone with a pale tongue", c:"凡舌淡者", ok:0,
+         note:"A pale tongue often points toward blood deficiency — an indication.<span class=\"zh\">舌淡多屬血虛，正其所主。</span>"},
+        {t:"Anyone with low back soreness", c:"凡腰痠者", ok:0,
+         note:"Also frequently an indication, when it comes from Kidney depletion.<span class=\"zh\">腰痠屬腎虛者，亦其所主。</span>"}]}
+    ],
+    card:{en:"Nourishes blood and enriches yin; supplements essence and fills marrow. Rich and cloying — paired with a moving herb, and used cautiously in Spleen weakness with damp.",
+          zh:"養血滋陰、補精填髓。性滋膩，宜配行氣之品；脾虛濕滯者慎用。"} },
+
+  /* ══════ 麥門冬 · moisture without heaviness ══════ */
+  { id:"maidong",
+    beats:[
+      {en:"A pale translucent tuber, plump as a small bead, rests on the cloth. It has the look of something that is holding water.<br><b>Ophiopogon:</b> \"Sweet, slightly bitter, slightly cold. Heart, Lung, Stomach.\"",
+       zh:"一枚淡而半透明的塊根，飽滿如小珠，臥於布上，像含著水。<br><b>麥門冬：</b>「甘、微苦、微寒，歸心肺胃。」"},
+      {en:"<b>Ophiopogon:</b> \"Three dry places, three jobs. A Lung that is dry coughs without producing anything, or brings up a little sticky phlegm it cannot part with. A Stomach that is dry after a fever leaves the mouth parched and the tongue bare.\"",
+       zh:"<b>麥門冬：</b>「三處乾，三事做。肺燥則乾咳無痰，或痰少而黏難出；胃燥於熱病之後，則口乾舌光少苔。」"},
+      {en:"<b>Ophiopogon:</b> \"And a Heart that is dry cannot rest. Thin, restless, four-in-the-morning sleeplessness — not the racing kind, the parched kind. I moisten it and the restlessness settles.\"",
+       zh:"<b>麥門冬：</b>「心燥則不寧。那種淺薄、四更即醒的煩，不是躁動，是乾。潤之，則煩自定。」"},
+      {en:"It draws back a little from the door, where the wind comes in.<br><b>Ophiopogon:</b> \"I moisten. So keep me away from a cough that is wet — wind-cold with clear phlegm, or damp-phlegm with a thick greasy coat. Adding water to those is not kindness.\"",
+       zh:"它從有風的門邊退開一些。<br><b>麥門冬：</b>「我主潤。故濕痰之咳勿用我——風寒痰清，或痰濕苔厚膩者，加水非仁也。」"}
+    ],
+    qs:[
+      {q:"Which cough is Ophiopogon for?",
+       cq:"麥門冬主何種咳嗽？",
+       opts:[
+        {t:"A dry cough with little sticky phlegm, from Lung yin depletion",
+         c:"肺陰不足之乾咳，痰少而黏", ok:1,
+         note:"<b>Correct.</b> Dry mouth, dry throat, a red tongue with scant coat — moisten, do not disperse.<span class=\"zh\">口乾咽燥、舌紅少苔。當潤而不當散。</span>"},
+        {t:"A loud wet cough with copious clear phlegm", c:"痰多清稀之咳", ok:0,
+         note:"That is damp or cold. Moistening it makes it worse.<span class=\"zh\">此屬寒濕，潤之更甚。</span>"},
+        {t:"A new cough with chills and no sweating", c:"新咳惡寒無汗", ok:0,
+         note:"That is an exterior wind-cold pattern, which needs releasing, not moistening.<span class=\"zh\">此表寒證，當解表而非滋潤。</span>"}]},
+      {q:"Ophiopogon enters the Heart as well as the Lung and Stomach. What does it do there?",
+       cq:"麥門冬兼入心經，其功為何？",
+       opts:[
+        {t:"Clears Heart heat and settles the restlessness of depleted yin",
+         c:"清心除煩，安陰虛之不寧", ok:1,
+         note:"<b>Correct.</b> It appears in Sheng Mai San and in Tian Wang Bu Xin Dan for exactly this.<span class=\"zh\">生脈散、天王補心丹皆用之，正取此意。</span>"},
+        {t:"Strongly sedates the spirit with heavy mineral weight",
+         c:"重鎮安神", ok:0,
+         note:"That is the job of heavy minerals such as Long Gu or Ci Shi. Ophiopogon works by moistening.<span class=\"zh\">重鎮乃龍骨、磁石之屬。麥冬以潤取效。</span>"},
+        {t:"Warms Heart yang", c:"溫通心陽", ok:0,
+         note:"It is slightly cold. Warming Heart yang is a different family of herbs.<span class=\"zh\">麥冬微寒，溫心陽者非其類。</span>"}]},
+      {q:"When is Ophiopogon inappropriate?",
+       cq:"何時不宜用麥門冬？",
+       opts:[
+        {t:"In cough from wind-cold or from damp-phlegm", c:"風寒咳嗽或痰濕壅盛",
+         ok:1, note:"<b>Correct.</b> A moistening, slightly cold herb in a wet or cold pattern deepens the problem.<span class=\"zh\">潤而微寒之品，投於寒濕，反助其邪。</span>"},
+        {t:"In dry mouth after a fever", c:"熱病後口乾", ok:0,
+         note:"That is one of its clearest indications.<span class=\"zh\">此其正治。</span>"},
+        {t:"In a red tongue with scant coating", c:"舌紅少苔", ok:0,
+         note:"Also an indication — that tongue is asking for fluids.<span class=\"zh\">亦其所主。此舌正求津液。</span>"}]}
+    ],
+    card:{en:"Moistens the Lung, benefits the Stomach and generates fluids, clears Heart heat and settles restlessness. Not for cough from wind-cold or damp-phlegm.",
+          zh:"潤肺養陰、益胃生津、清心除煩。風寒或痰濕咳嗽不宜。"} },
+
+  /* ══════ 肉桂 · fire returned to its own hearth ══════ */
+  { id:"rougui",
+    beats:[
+      {en:"A curl of thick bark, oily and dark, gives off a warmth you can feel before you touch it.<br><b>Cinnamon Bark:</b> \"Acrid, sweet, and very hot. Kidney, Spleen, Heart, Liver.\"",
+       zh:"一卷厚實油亮的樹皮，未觸手已覺其熱。<br><b>肉桂：</b>「辛、甘、大熱，歸腎脾心肝。」"},
+      {en:"<b>Cinnamon Bark:</b> \"First, know which part of the tree I am. Guizhi is the twig — thin, outward, it releases the exterior. I am the bark of the trunk — thick, inward, downward. I warm the interior. Students lose marks on this every year.\"",
+       zh:"<b>肉桂：</b>「先辨我是樹之何處。桂枝為枝，細而外達，主解表；我為幹皮，厚而內沉，主溫裡。此處年年有人失分。」"},
+      {en:"<b>Cinnamon Bark:</b> \"I supplement the fire of the gate of vitality. Cold limbs that will not warm, a low back and knees that ache and give way, a pulse that is deep and slow. Not tiredness — coldness from the root.\"",
+       zh:"<b>肉桂：</b>「我補命門之火。手足冷而不溫、腰膝痠軟無力、脈沉而遲。此非倦，乃根本之寒。」"},
+      {en:"<b>Cinnamon Bark:</b> \"And one strange trick: when the root is so cold that fire is driven upward — a flushed face and a cold body at once — a small dose of me leads that fire back down to where it belongs. 引火歸元. Used wrongly, in real yin deficiency with heat, I am simply pouring oil. Not in pregnancy, and not where there is bleeding.\"",
+       zh:"<b>肉桂：</b>「另有一奇：下元虛冷而虛陽上浮者——面赤而身反冷——少用我，可引此火歸於本位，是謂引火歸元。若誤用於真陰虛火旺，則如以油澆火。孕婦忌，出血者忌。」"}
+    ],
+    qs:[
+      {q:"What is the difference between Rou Gui and Gui Zhi?",
+       cq:"肉桂與桂枝有何分別？",
+       opts:[
+        {t:"Rou Gui is the trunk bark and warms the interior; Gui Zhi is the twig and releases the exterior",
+         c:"肉桂為幹皮，溫裡；桂枝為嫩枝，解表", ok:1,
+         note:"<b>Correct.</b> Same tree, different part, different direction — thick and downward versus thin and outward.<span class=\"zh\">同樹異部，趨向亦異：厚而下沉，細而外達。</span>"},
+        {t:"They are the same herb under two names", c:"一物二名", ok:0,
+         note:"They are not interchangeable, and substituting one for the other changes what a formula does.<span class=\"zh\">二者不可互代，易之則方義全變。</span>"},
+        {t:"Rou Gui is the leaf and Gui Zhi is the root", c:"肉桂為葉，桂枝為根", ok:0,
+         note:"Neither. Bark of the trunk, and young twig.<span class=\"zh\">皆非。一為幹皮，一為嫩枝。</span>"}]},
+      {q:"A man has a flushed face but a cold body, cold feet, a deep weak pulse at the third position, and worsens with cooling herbs. What is happening?",
+       cq:"面赤而身冷、足冷、尺脈沉弱，服寒藥反劇。此何故？",
+       opts:[
+        {t:"Deficient yang floating upward from a cold root — treat by leading fire back to its source",
+         c:"下元虛冷，虛陽上浮，當引火歸元", ok:1,
+         note:"<b>Correct.</b> True cold with a false heat sign 真寒假熱. The face misleads; the feet and the deep pulse tell the truth.<span class=\"zh\">真寒假熱。面赤者假，足冷尺沉者真。</span>"},
+        {t:"Excess fire in the Stomach channel", c:"胃經實火", ok:0,
+         note:"Excess fire does not come with cold feet and a deep weak pulse, and it would not worsen with cooling herbs.<span class=\"zh\">實火不當見足冷、尺脈沉弱，亦不當服寒藥而劇。</span>"},
+        {t:"Wind-heat in the exterior", c:"風熱表證", ok:0,
+         note:"An exterior pattern is new, floating and short-lived. This is a root pattern.<span class=\"zh\">表證新起、脈浮而暫。此屬本虛。</span>"}]},
+      {q:"Who must not take Cinnamon Bark?",
+       cq:"何人忌服肉桂？",
+       opts:[
+        {t:"Someone pregnant, someone bleeding, and anyone with yin deficiency and heat",
+         c:"孕婦、出血者、陰虛火旺者", ok:1,
+         note:"<b>Correct.</b> Very hot and moving — it stirs blood, and it feeds a fire that is already burning in an empty vessel.<span class=\"zh\">大熱而行，動血助火。虛熱者益燥，孕者當禁。</span>"},
+        {t:"Anyone who feels cold", c:"凡畏寒者", ok:0,
+         note:"That is the pattern it is for.<span class=\"zh\">此正其所主。</span>"},
+        {t:"Anyone with a deep slow pulse", c:"凡脈沉遲者", ok:0,
+         note:"Also an indication — deep and slow is a cold pulse.<span class=\"zh\">沉遲為寒脈，亦其所主。</span>"}]}
+    ],
+    card:{en:"Supplements the fire of the gate of vitality, warms the channels and stops cold pain, and leads floating fire back to its source. The bark, not the twig. Contraindicated in pregnancy, in bleeding, and in yin deficiency with heat.",
+          zh:"補火助陽、溫經散寒止痛、引火歸元。是皮非枝。孕婦、出血、陰虛火旺者忌。"} }
+
+
 ];
