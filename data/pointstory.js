@@ -2493,5 +2493,250 @@ window.AG_POINTSTORY = [
   card:{en:"Spring point and Fire point of the Liver. Drains Liver fire — red painful eyes, throbbing temples, bitter mouth, flaring temper. Not for a Liver that is depleted rather than hot.",
         zh:"肝之滎穴、火穴。清瀉肝火：目赤腫痛、顳脹、口苦、暴怒。肝虛而非肝熱者不宜。"} }
 
+,
+
+{ id:"BL12", region:"trunk",
+  beats:[
+   {en:"A man arrives two days into a cold — sneezing, a stiff neck and upper back, chilled through, and a cough that has only just started.",
+    zh:"一男子外感二日而來：噴嚏、項背強、通身惡寒，咳嗽方起。"},
+   {en:"Shen Yi does not needle his throat or his chest. She finds the second thoracic vertebra and moves out a thumb and a half, then cups it.",
+    zh:"沈醫師不取咽喉，不取胸中。數至第二胸椎，旁開一寸五分，於此拔罐。"},
+   {en:"\"Wind comes in at the nape and the upper back,\" she says. \"This is the door it uses. Catch it here on day two and there is no day five.\"",
+    zh:"「風從項背而入，」她說。「此其所由之門。二日而截之於此，則無第五日。」"}
+  ],
+  qs:[
+   {q:"What does the name Fengmen tell you about the point?",
+    cq:"「風門」之名，於此穴何所告？",
+    opts:[
+     {t:"It is the gate wind enters by — used at the start of a wind invasion", c:"風之門戶：外風初客時取之", ok:1,
+      note:"<b>Correct.</b> Chills, stiff nape and upper back, sneezing, the first cough. Also used preventively in someone who catches cold repeatedly.<span class=\"zh\">惡寒、項背強、噴嚏、初咳。素易感冒者，亦可預為之。</span>"},
+     {t:"It treats internal wind such as tremor and dizziness", c:"主內風：震顫、眩暈", ok:0,
+      note:"Internal wind is a different family — Liver points and GV20 lead there.<span class=\"zh\">內風別為一家，多取肝經諸穴與百會。</span>"},
+     {t:"It is named for a formula", c:"以方名穴", ok:0,
+      note:"It is named for the mechanism, which is the useful kind of name.<span class=\"zh\">以機為名，此名之有用者。</span>"}]},
+   {q:"Why treat the upper back for a cold rather than the throat?",
+    cq:"外感而治上背，何以不治咽喉？",
+    opts:[
+     {t:"Because the pathogen is still on the surface at the nape and upper back — meet it where it is", c:"邪尚在表，客於項背，當迎之於其所在",
+      ok:1, note:"<b>Correct.</b> Early external patterns are treated by releasing the exterior where the wind sits, not by chasing the loudest symptom.<span class=\"zh\">表證初起，當於邪之所在解其表，不當逐其最著之症。</span>"},
+     {t:"Because the throat cannot be needled", c:"咽喉不可針", ok:0,
+      note:"Throat points exist and are used. The choice here is about stage, not about what is allowed.<span class=\"zh\">咽喉自有其穴而可用。此擇在病之階段，非在可否。</span>"},
+     {t:"Because cupping only works on the back", c:"拔罐惟可施於背", ok:0,
+      note:"Cupping is used elsewhere too. The back is chosen because that is where the wind is.<span class=\"zh\">拔罐非獨施於背。取背者，風在焉。</span>"}]},
+   {q:"What is the needling caution on the upper back?",
+    cq:"上背下針，當戒何事？",
+    opts:[
+     {t:"Oblique toward the spine and shallow — the lung is beneath", c:"向脊斜刺而淺——其下為肺", ok:1,
+      note:"<b>Correct, and it is the same caution at every point on the upper back.</b> Perpendicular deep needling here is how a pneumothorax happens.<span class=\"zh\">上背諸穴，其戒皆同。直刺而深者，氣胸所由生也。</span>"},
+     {t:"There is no caution on the back", c:"背部無所戒", ok:0,
+      note:"The upper back carries the strictest depth caution in the whole body.<span class=\"zh\">上背之深淺，為一身諸部之最嚴者。</span>"},
+     {t:"It may only be cupped", c:"惟可拔罐", ok:0,
+      note:"It is needled, obliquely and shallowly. Cupping is an option, not a substitute.<span class=\"zh\">可針，宜斜宜淺。拔罐為一法，非其代也。</span>"}]}],
+  card:{en:"The Gate of Wind. Releases the exterior at the start of a wind invasion; also used preventively. Oblique and shallow only — the lung is beneath.",
+        zh:"風之門戶。外風初客時解其表，亦可預為之。惟宜斜刺而淺——其下為肺。"} },
+
+{ id:"SI11", region:"trunk",
+  beats:[
+   {en:"A woodcarver cannot lift his right arm above his shoulder and points vaguely behind himself when asked where it hurts.",
+    zh:"一雕工右臂不能高舉過肩，問其痛處，惟向身後含糊一指。"},
+   {en:"Shen Yi presses the middle of his shoulder blade. He comes off the stool.",
+    zh:"沈醫師按其肩胛中央。其人自凳上彈起。"},
+   {en:"\"There,\" she says. \"You do not need me to describe it now. Press before you needle — if the patient jumps, you have the point and the diagnosis in the same second.\"",
+    zh:"「在此，」她說。「今不待我言矣。未針先按：病人若應手而動，則穴與證一時俱得。」"}
+  ],
+  qs:[
+   {q:"What is Tianzong SI11 chiefly used for?",
+    cq:"天宗之主治為何？",
+    opts:[
+     {t:"Shoulder and upper-back pain and restricted arm movement", c:"肩背疼痛、上肢舉動不利", ok:1,
+      note:"<b>Correct.</b> The workhorse of the scapula, and it also unbinds the chest and regulates qi.<span class=\"zh\">肩胛之要穴，兼能理氣寬胸。</span>"},
+     {t:"Headache and dizziness", c:"頭痛眩暈", ok:0,
+      note:"Those belong to the head and neck points.<span class=\"zh\">此頭頸諸穴之所主。</span>"},
+     {t:"Digestive complaints", c:"脾胃之病", ok:0,
+      note:"Not among its indications.<span class=\"zh\">非其主治。</span>"}]},
+   {q:"Why press the point before needling it?",
+    cq:"何以未針而先按？",
+    opts:[
+     {t:"Tenderness confirms both the point and its relevance at once", c:"壓痛一時而證其穴與其相關", ok:1,
+      note:"<b>Correct.</b> A point that is markedly tender when the pattern says it should be is a point you have located and confirmed in the same movement.<span class=\"zh\">證所當痛而按之果痛者，一按而定位與驗證俱得。</span>"},
+     {t:"To warn the patient", c:"為警其人", ok:0,
+      note:"Telling the patient what you are about to do is good practice, and it is not the reason for palpating.<span class=\"zh\">未行先告，誠為良法，然非按診之由。</span>"},
+     {t:"It is a formality", c:"儀節而已", ok:0,
+      note:"Palpation is examination. It is often the fastest examination available.<span class=\"zh\">按者診也，且每為諸診之最捷者。</span>"}]},
+   {q:"How is SI11 needled?",
+    cq:"天宗當如何下針？",
+    opts:[
+     {t:"Perpendicular or oblique to a moderate depth", c:"直刺或斜刺，深淺適中", ok:1,
+      note:"<b>Correct.</b> The scapula gives some protection, but the caution against deep needling near the chest still applies at its edges.<span class=\"zh\">肩胛骨尚有所蔽，然近胸之緣，深刺之戒仍在。</span>"},
+     {t:"As deep as possible for a strong sensation", c:"愈深愈佳以求強得氣", ok:0,
+      note:"Depth is never the goal, and near the chest it is the risk.<span class=\"zh\">深非所求，而近胸則為其險。</span>"},
+     {t:"It is not needled", c:"此穴不針", ok:0,
+      note:"It is one of the most routinely needled points on the shoulder.<span class=\"zh\">肩部諸穴，此最常針者之一。</span>"}]}],
+  card:{en:"The workhorse of the scapula — shoulder and upper-back pain, restricted arm movement. Press before you needle; tenderness confirms the point and the pattern together.",
+        zh:"肩胛之要穴：肩背痛、上肢不舉。未針先按——壓痛一時而穴與證俱得。"} },
+
+{ id:"GB24", region:"trunk",
+  beats:[
+   {en:"The wine-shop keeper is back, still yellow, still bitter in the mouth, and still holding his right side.",
+    zh:"酒坊掌櫃復來，身猶黃，口猶苦，猶自按其右脅。"},
+   {en:"Shen Yi counts down one rib space below Qimen and needles obliquely, almost flat against the skin.",
+    zh:"沈醫師自期門下數一肋，斜刺，幾與膚平。"},
+   {en:"\"His Gallbladder&#39;s qi gathers here on the front of him,\" she says. \"Front-Mu on the chest, Lower Sea point at the knee. One near, one far, both the same organ.\"",
+    zh:"「其膽之腑氣，結聚於身前此處，」她說。「募在胸，下合在膝。一近一遠，而所治同為一腑。」"}
+  ],
+  qs:[
+   {q:"What kind of point is Riyue GB24?",
+    cq:"日月屬何類穴？",
+    opts:[
+     {t:"The Front-Mu point of the Gallbladder", c:"膽之募穴", ok:1,
+      note:"<b>Correct.</b> Front-Mu points are where an organ&#39;s qi gathers on the front of the body, so they treat that organ directly.<span class=\"zh\">募者，腑氣結聚於身前之處，故能直治其腑。</span>"},
+     {t:"The Back-Shu point of the Gallbladder", c:"膽之背俞", ok:0,
+      note:"That is Danshu BL19, on the back.<span class=\"zh\">膽之背俞為膽俞，在背。</span>"},
+     {t:"The Lower Sea point of the Gallbladder", c:"膽之下合穴", ok:0,
+      note:"That is Yanglingquan GB34, at the knee — the pairing partner, not the same point.<span class=\"zh\">膽之下合為陽陵泉，在膝：其配也，非其身也。</span>"}]},
+   {q:"Which pairing does GB24 belong to?",
+    cq:"日月與何穴相配？",
+    opts:[
+     {t:"With Yanglingquan GB34 — Front-Mu near, Lower Sea far, both treating the Gallbladder", c:"配陽陵泉：募近下合遠，同治其腑",
+      ok:1, note:"<b>Correct.</b> 合治內腑 — the fu organs are treated at their Lower Sea points, and the Front-Mu adds the local half.<span class=\"zh\">「合治內腑」：六腑取其下合，而募穴補其局部之半。</span>"},
+     {t:"With Hegu LI4", c:"配合谷", ok:0,
+      note:"A different family of pairings entirely.<span class=\"zh\">別為一類之配。</span>"},
+     {t:"It has no standard partner", c:"無定配", ok:0,
+      note:"Front-Mu with Lower Sea, or Front-Mu with Back-Shu, are both standard for a fu organ.<span class=\"zh\">募配下合，或募配背俞，皆治腑之常法。</span>"}]},
+   {q:"How is GB24 needled?",
+    cq:"日月當如何下針？",
+    opts:[
+     {t:"Oblique or transverse and shallow — never perpendicular", c:"斜刺或平刺而淺，切忌直刺", ok:1,
+      note:"<b>Correct.</b> It sits in an intercostal space with the pleura and the liver beneath. Every intercostal point carries this caution.<span class=\"zh\">位在肋間，其下為胸膜與肝。凡肋間之穴，其戒皆同。</span>"},
+     {t:"Perpendicular, deeply", c:"直刺而深", ok:0,
+      note:"Exactly what the caution forbids at an intercostal point.<span class=\"zh\">肋間之穴，此正所禁。</span>"},
+     {t:"It may only be moxaed", c:"惟可灸", ok:0,
+      note:"It is needled — obliquely. And in a damp-heat pattern moxa would be the wrong direction anyway.<span class=\"zh\">可針，宜斜刺。且濕熱之證，灸之其向亦非。</span>"}]}],
+  card:{en:"Front-Mu of the Gallbladder. Courses the Liver and Gallbladder, resolves damp-heat, stops vomiting. Oblique or transverse only — an intercostal point.",
+        zh:"膽之募穴。疏肝利膽、清利濕熱、降逆止嘔。惟宜斜刺或平刺——肋間之穴。"} }
+
+,
+
+{ id:"KI2", region:"leg",
+  beats:[
+   {en:"A student comes in with a mouth and throat that are dry and hot, night sweats, and a tongue that has almost no coat left on it.",
+    zh:"一學子來，口咽乾熱，夜有盜汗，舌上幾無苔。"},
+   {en:"Shen Yi finds the bony bump on the inside of his foot and needles just below it — not at Taixi, which is where the herb boy expected her to go.",
+    zh:"沈醫師尋其足內側之骨突，於其下方下針——非取太谿，而藥童本以為當取太谿。"},
+   {en:"\"Same channel, different job,\" she says. \"Taixi fills. This one clears. When a Kidney patient is hot rather than cold, you move down one point.\"",
+    zh:"「同經而異用，」她說。「太谿主填，此穴主清。腎病之見熱而不見寒者，下移一穴。」"}
+  ],
+  qs:[
+   {q:"What kind of point is Rangu KI2?",
+    cq:"然谷屬何類穴？",
+    opts:[
+     {t:"The Spring point of the Kidney, and its Fire point", c:"腎之滎穴，亦其火穴", ok:1,
+      note:"<b>Correct.</b> 滎主身熱 — Spring points clear heat. KI2 clears empty heat from the Kidney channel and cools blood.<span class=\"zh\">滎主身熱。然谷清腎經之虛熱，兼能涼血。</span>"},
+     {t:"The Source point of the Kidney", c:"腎之原穴", ok:0,
+      note:"That is Taixi KI3, and it supplements rather than clears.<span class=\"zh\">腎之原為太谿，其功在補不在清。</span>"},
+     {t:"A confluent point of the eight vessels", c:"八脈交會穴", ok:0,
+      note:"On this channel that is Zhaohai KI6.<span class=\"zh\">此經之八脈交會者，照海也。</span>"}]},
+   {q:"When do you choose KI2 over KI3?",
+    cq:"何時取然谷而不取太谿？",
+    opts:[
+     {t:"When Kidney yin depletion has produced empty fire — dry hot mouth and throat, night sweats, a red tongue with no coat",
+      c:"腎陰虧而虛火上炎：口咽乾熱、盜汗、舌紅無苔", ok:1,
+      note:"<b>Correct.</b> KI3 supplements the organ; KI2 clears the heat that depletion has let loose. Most cases want both, weighted by which is louder.<span class=\"zh\">太谿補其臟，然谷清其虛所縱之火。多數之案二者並取，而權其孰著。</span>"},
+     {t:"When the patient has cold limbs and a slow pulse", c:"肢冷脈遲者", ok:0,
+      note:"That is Kidney yang depletion. Clearing it makes the cold worse.<span class=\"zh\">此腎陽虛。清之則其寒益甚。</span>"},
+     {t:"Whenever KI3 is tender", c:"凡太谿有壓痛者", ok:0,
+      note:"Tenderness confirms a point; it does not choose between two with opposite actions.<span class=\"zh\">壓痛能證其穴，不能擇二穴之相反者。</span>"}]},
+   {q:"When is KI2 the wrong choice?",
+    cq:"何時不當取然谷？",
+    opts:[
+     {t:"In Kidney yang depletion — the patient needs warming, not cooling", c:"腎陽虛：當溫而不當清", ok:1,
+      note:"<b>Correct.</b> Same organ, opposite half. The tongue separates them in one glance: pale, swollen and wet, versus red and peeled.<span class=\"zh\">同臟而異其半。一望其舌即判：淡胖而滑，與紅而剝，二者迥異。</span>"},
+     {t:"In night sweats", c:"盜汗者", ok:0,
+      note:"That is one of its indications.<span class=\"zh\">此其主治。</span>"},
+     {t:"In a dry throat", c:"咽乾者", ok:0,
+      note:"Also an indication, when it comes from depleted yin.<span class=\"zh\">陰虛而咽乾者，亦其所主。</span>"}]}],
+  card:{en:"Spring point and Fire point of the Kidney. Clears empty heat from the channel, cools blood. Taixi fills, Rangu clears — the wrong choice in yang depletion.",
+        zh:"腎之滎穴、火穴。清腎經虛熱、涼血。太谿主填，然谷主清；陽虛者非其選。"} },
+
+{ id:"KI6", region:"leg",
+  beats:[
+   {en:"An embroiderer has had a dry throat for months. It is not sore the way an infection is sore — it is dry, and her voice has gone thin by evening.",
+    zh:"一繡娘咽乾數月。其痛非外感之痛，惟乾而已；入夜聲細。"},
+   {en:"Shen Yi needles a point a thumb below the inner ankle bone, and then a second one at the wrist that the embroiderer already knows.",
+    zh:"沈醫師於內踝下一寸取穴，復取腕上一穴——此穴繡娘已識之。"},
+   {en:"\"You met Lieque in your first fortnight,\" she says. \"These two are a pair. Together they govern the chest, the lung and the throat, and that is exactly the road her illness has taken.\"",
+    zh:"「列缺，你初旬即識之，」她說。「此二穴相配，共主胸、肺、咽喉——正是其病所行之路。」"}
+  ],
+  qs:[
+   {q:"Which confluent pairing does Zhaohai KI6 belong to?",
+    cq:"照海屬八脈交會之何配？",
+    opts:[
+     {t:"With Lieque LU7 — Ren mai and Yin Qiao, for the chest, lung and throat", c:"配列缺，通任脈與陰蹻，主胸、肺、咽喉",
+      ok:1, note:"<b>Correct.</b> Learn all four as a block: LU7+KI6 chest, lung, throat · PC6+SP4 heart, chest, stomach · SI3+BL62 inner canthus, neck, ear, shoulder · TE5+GB41 outer canthus, cheek, ear, shoulder.<span class=\"zh\">四配當作一組而記：列缺配照海主胸肺咽喉；內關配公孫主心胸胃；後谿配申脈主目內眥、頸項、耳、肩；外關配足臨泣主目外眥、頰、耳、肩。</span>"},
+     {t:"With Neiguan PC6", c:"配內關", ok:0,
+      note:"PC6 pairs with Gongsun SP4, for the heart, chest and stomach.<span class=\"zh\">內關配公孫，主心、胸、胃。</span>"},
+     {t:"With Houxi SI3", c:"配後谿", ok:0,
+      note:"SI3 pairs with Shenmai BL62 — both yang vessels, a different territory.<span class=\"zh\">後谿配申脈，二者俱屬陽脈，所主之部亦異。</span>"}]},
+   {q:"Why does a dry throat get treated at the ankle?",
+    cq:"咽乾而治於踝，何故？",
+    opts:[
+     {t:"The dryness comes from depleted Kidney yin, and KI6 enriches it while benefiting the throat", c:"其乾出於腎陰之虧；照海滋腎陰而利咽",
+      ok:1, note:"<b>Correct.</b> Treat where the shortage is, not only where the symptom is. A throat dry from depletion and a throat sore from an infection want opposite treatments.<span class=\"zh\">治其所虧，不獨治其所見。陰虛之咽乾，與外感之咽痛，其治相反。</span>"},
+     {t:"Because the throat cannot be needled", c:"咽喉不可針", ok:0,
+      note:"It can. The choice is about mechanism.<span class=\"zh\">咽喉可針。此擇在其機。</span>"},
+     {t:"Because all distal points treat the head", c:"凡遠道之穴皆治頭面", ok:0,
+      note:"Too broad to be useful. The channel and the pattern decide.<span class=\"zh\">言之太泛。決之者經與證也。</span>"}]},
+   {q:"When would KI6 be the wrong direction?",
+    cq:"何時照海之向為非？",
+    opts:[
+     {t:"Where damp is heavy and the coat is thick and greasy — it enriches, and enriching feeds damp", c:"濕重而苔厚膩者：其功在滋，滋則助濕",
+      ok:1, note:"<b>Correct.</b> Enriching points are cloying. In a damp pattern they add to exactly the wrong thing.<span class=\"zh\">滋潤之穴其性膩。濕證用之，適益其所不當益。</span>"},
+     {t:"In insomnia", c:"不寐者", ok:0,
+      note:"Insomnia from yin depletion is one of its indications.<span class=\"zh\">陰虛不寐，正其主治。</span>"},
+     {t:"In a hoarse voice", c:"聲嘶者", ok:0,
+      note:"Also an indication, when the cause is depletion.<span class=\"zh\">因虛而聲嘶者，亦其所主。</span>"}]}],
+  card:{en:"Confluent point opening the Yin Qiao mai. Enriches Kidney yin, clears empty heat, benefits the throat. Pairs with Lieque LU7 for the chest, lung and throat.",
+        zh:"八脈交會，通陰蹻脈。滋腎陰、清虛熱、利咽喉。配列缺，主胸、肺、咽喉。"} },
+
+{ id:"PC5", region:"hand",
+  beats:[
+   {en:"A man is brought in by his brother. He has not slept properly in weeks, he startles at the door, and his speech runs ahead of itself and doubles back.",
+    zh:"一男子由其兄送來。數週不能安寐，聞門聲即驚，言語急促而反覆。"},
+   {en:"Shen Yi looks at his tongue — thick, greasy, yellow — and needles three cun above the wrist crease, between the two tendons.",
+    zh:"沈醫師視其舌，厚膩而黃，遂於腕橫紋上三寸、兩筋之間下針。"},
+   {en:"\"Neiguan is one cun below this, and it is the point for nausea and palpitations,\" she says. \"This one is for when the phlegm has reached the spirit. One cun apart, and the difference is what the phlegm is doing.\"",
+    zh:"「內關在此下一寸，主嘔惡心悸，」她說。「此穴主痰已擾神。相去一寸，所別者痰之所至耳。」"}
+  ],
+  qs:[
+   {q:"What is Jianshi PC5 particularly used for?",
+    cq:"間使之特長為何？",
+    opts:[
+     {t:"Phlegm obstructing the orifices of the Heart — disordered speech, agitation, being easily startled", c:"痰迷心竅：語言錯亂、躁擾、易驚",
+      ok:1, note:"<b>Correct.</b> One of the few points whose classical indications name phlegm and the spirit in the same line, which is what makes it specific.<span class=\"zh\">古之主治明言痰與神於一語之中者，穴中不多，故其指最確。</span>"},
+     {t:"Low back pain", c:"腰痛", ok:0,
+      note:"Wrong region and wrong channel.<span class=\"zh\">部與經俱非。</span>"},
+     {t:"Cold limbs from yang depletion", c:"陽虛肢冷", ok:0,
+      note:"That is warmed at CV4, CV6 and the Kidney points.<span class=\"zh\">此當溫關元、氣海與腎家諸穴。</span>"}]},
+   {q:"How does PC5 differ from PC6?",
+    cq:"間使與內關何異？",
+    opts:[
+     {t:"PC6 for nausea, palpitations and the chest; PC5 when phlegm has reached the spirit", c:"內關主嘔惡、心悸、胸滿；間使主痰已擾神",
+      ok:1, note:"<b>Correct.</b> One cun apart on the same line. Learn adjacent points by what separates them, not by what they share.<span class=\"zh\">同線而相去一寸。學鄰穴者，當記其所別，不記其所同。</span>"},
+     {t:"They are the same point", c:"一穴二名", ok:0,
+      note:"Two points, one cun apart, with different classical indications.<span class=\"zh\">二穴相去一寸，古之主治各異。</span>"},
+     {t:"PC5 is a confluent point", c:"間使為八脈交會穴", ok:0,
+      note:"That is PC6, which pairs with Gongsun SP4.<span class=\"zh\">八脈交會者內關也，配公孫。</span>"}]},
+   {q:"What should you do if the patient feels a sharp electric sensation running into the hand?",
+    cq:"若病人覺電麻竄手，當如何？",
+    opts:[
+     {t:"Withdraw slightly and redirect — the median nerve runs in this region", c:"稍退針而改其向：此處有正中神經",
+      ok:1, note:"<b>Correct.</b> A sharp electric sensation is not deqi and should not be pushed through. Withdraw, change the angle, and needle between the tendons rather than into them.<span class=\"zh\">電麻非得氣，不可強進。當退針、易其角度，且刺於兩筋之間而不刺其筋。</span>"},
+     {t:"Push deeper — that is a strong deqi", c:"更深入之，此得氣之強者", ok:0,
+      note:"It is not deqi. Pushing on through a nerve sensation is how a lasting injury happens.<span class=\"zh\">此非得氣。犯神經而強進者，久損由是而生。</span>"},
+     {t:"Ignore it", c:"置之不理", ok:0,
+      note:"A patient reporting an electric sensation is giving you information. Act on it.<span class=\"zh\">病人言其電麻，是以所知告你。當即應之。</span>"}]}],
+  card:{en:"River point of the Pericardium. Transforms phlegm and opens the Heart orifices — disordered speech, agitation, easy startling. Needle between the tendons; a sharp electric sensation means withdraw and redirect.",
+        zh:"心包之經穴。化痰開心竅：語亂、躁擾、易驚。當刺兩筋之間；覺電麻者，退針改向。"} }
+
 
 ];
