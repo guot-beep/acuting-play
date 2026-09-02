@@ -2161,5 +2161,337 @@ window.AG_POINTSTORY = [
   ],
   card:{en:"Ximen PC4, five cun above the wrist crease between the tendons. Cleft point of the Pericardium, for sudden severe chest pain and palpitations. Cleft points: the acute and the painful — and on yin channels, blood.",
         zh:"郄門，腕橫紋上五寸，兩筋之間。心包之郄穴，主心胸暴痛、心悸。郄穴主急主痛；陰經之郄，兼主血。"} }
+,
+
+/* ══════ the front midline, the back-shu and the vertex ══════
+   Fifteen points were prescribed inside chapters with no entry in the hall to
+   look them up in. These are the eight the chapters actually lean on. */
+
+{ id:"CV17", region:"trunk",
+  beats:[
+   {en:"A singer comes in with a chest that feels bound. Nothing hurts. She says it is as though a hand were resting on her breastbone and would not lift.",
+    zh:"一位歌者來，胸中如束。無所痛。她說彷彿有一隻手按在胸骨上，不肯移開。"},
+   {en:"Shen Yi does not needle yet. She presses one finger to the middle of the woman&#39;s breastbone, level with the fourth rib space, and asks her to breathe out.",
+    zh:"沈醫師未即下針，以一指按其胸骨之中、平第四肋間，令其呼氣。"},
+   {en:"\"Qi gathers here,\" she says. \"Not the qi that moves your legs — the qi made in the chest from the air you take in and the food your Spleen sends up. When it is stuck, the chest feels held. When it is short, the breath does.\"",
+    zh:"「氣會於此，」她說。「非行於四肢之氣，乃胸中所成之宗氣——肺所吸之清氣，與脾所升之穀氣，合而為之。滯則胸如所束，虛則息不能長。」"}
+  ],
+  qs:[
+   {q:"Why is Danzhong CV17 the point for a chest that feels bound?",
+    cq:"胸中如束，何以取膻中？",
+    opts:[
+     {t:"It is the Influential point of qi, and it sits where gathering qi collects", c:"氣會之穴，其位正當宗氣所聚",
+      ok:1, note:"<b>Correct.</b> One of the eight Influential points, and the one that gathers qi. It regulates qi and unbinds the chest, so it suits fullness, breathlessness and rebellious qi alike.<span class=\"zh\">八會之氣會。理氣寬胸，故胸滿、氣短、氣逆俱可取之。</span>"},
+     {t:"It is the Source point of the Heart", c:"心之原穴", ok:0,
+      note:"The Heart&#39;s Source point is Shenmen HT7, on the wrist. CV17 is the Front-Mu of the Pericardium, a different role.<span class=\"zh\">心之原穴為神門，在腕。膻中乃心包之募穴，其職不同。</span>"},
+     {t:"It is a Back-Shu point", c:"背俞穴", ok:0,
+      note:"Back-Shu points are on the back, beside the spine. CV17 is on the front midline.<span class=\"zh\">背俞在背，夾脊而列。膻中在前正中線。</span>"}]},
+   {q:"Which of the eight Influential points is this?",
+    cq:"八會之中，此為何會？",
+    opts:[
+     {t:"The Influential point of qi", c:"氣會", ok:1,
+      note:"<b>Correct.</b> Learn the set: qi 膻中, blood 膈俞, sinews 陽陵泉, vessels 太淵, bones 大杼, marrow 懸鐘, zang 章門, fu 中脘.<span class=\"zh\">八會宜全記：氣會膻中、血會膈俞、筋會陽陵泉、脈會太淵、骨會大杼、髓會懸鐘、臟會章門、腑會中脘。</span>"},
+     {t:"The Influential point of blood", c:"血會", ok:0,
+      note:"That is Geshu BL17, on the back.<span class=\"zh\">血會膈俞，在背。</span>"},
+     {t:"The Influential point of the vessels", c:"脈會", ok:0,
+      note:"That is Taiyuan LU9, at the wrist — where you can feel the artery.<span class=\"zh\">脈會太淵，在腕，指下可覺動脈。</span>"}]},
+   {q:"How is CV17 needled?",
+    cq:"膻中當如何下針？",
+    opts:[
+     {t:"Transversely or obliquely and shallowly — never perpendicular, never deep", c:"平刺或斜刺，宜淺；忌直刺、深刺",
+      ok:1, note:"<b>Correct, and this is the half to remember.</b> The sternum lies directly beneath and the lung beside it. Angle and depth are the whole safety answer here.<span class=\"zh\">其下即胸骨，其旁為肺。此穴之安全，全在角度與深淺二字。</span>"},
+     {t:"Perpendicular, one cun, for a strong sensation", c:"直刺一寸以求得氣", ok:0,
+      note:"Perpendicular and deep over the sternum is exactly what the classical caution forbids.<span class=\"zh\">胸骨之上直刺而深，正古戒之所禁。</span>"},
+     {t:"It is not needled at all, only moxaed", c:"不針，惟灸", ok:0,
+      note:"It is needled — transversely. Shenque CV8, at the navel, is the point that is moxaed and not needled.<span class=\"zh\">此穴可針，惟宜平刺。不針而惟灸者，臍中神闕也。</span>"}]}],
+  card:{en:"Influential point of qi. Regulates qi and unbinds the chest. Transverse or oblique needling only — the sternum is under it.",
+        zh:"八會之氣會。理氣寬胸。惟宜平刺或斜刺——其下為胸骨。"} },
+
+{ id:"CV6", region:"trunk",
+  beats:[
+   {en:"An old carpenter is brought in by his son. He is not ill in any way he can name. He is simply used up — pale, quiet, cold to the touch, thinner than last winter.",
+    zh:"一位老木匠由其子扶來。問其何病，不能名。惟覺其人已耗盡：面白、寡言、手冷、較去冬更瘦。"},
+   {en:"Shen Yi warms her hands, measures a thumb and a half below his navel, and lights the moxa there rather than reaching for a needle.",
+    zh:"沈醫師先溫其手，量臍下一寸五分，於此燃艾，而未取針。"},
+   {en:"\"When there is nothing to drain and nothing to move,\" she says, \"stop looking for a clever point. Sea of Qi, warmth, and time. The oldest answer is usually the oldest because it works.\"",
+    zh:"「無可瀉、無可行之時，」她說，「便不必再尋巧穴。氣海，加以溫，加以時日。書上最古之法，其所以最古者，多因其有用。」"}
+  ],
+  qs:[
+   {q:"What is Qihai CV6 chiefly used for?",
+    cq:"氣海之主治為何？",
+    opts:[
+     {t:"Tonifying original qi and raising sunken qi", c:"補元氣、升舉下陷", ok:1,
+      note:"<b>Correct.</b> Exhaustion that does not lift, bearing-down and prolapse, chronic loose stools — and with generous moxa, collapse of yang.<span class=\"zh\">倦怠不復、下墜脫垂、久瀉；重灸則回陽固脫。</span>"},
+     {t:"Clearing heat from the lower burner", c:"清下焦之熱", ok:0,
+      note:"Its direction is supplementing and warming, not clearing.<span class=\"zh\">其向在補在溫，不在清。</span>"},
+     {t:"Dispelling wind from the exterior", c:"疏散表風", ok:0,
+      note:"That is the business of points on the surface, not the lower abdomen.<span class=\"zh\">此表部諸穴之事，非下腹之穴所主。</span>"}]},
+   {q:"Why moxa rather than needling in a case like the carpenter&#39;s?",
+    cq:"如老木匠之案，何以灸而不針？",
+    opts:[
+     {t:"Deep depletion with no heat anywhere — warmth supplements what needling alone cannot", c:"大虛而通身無熱，溫能補其針所不能補",
+      ok:1, note:"<b>Correct.</b> Moxa is the treatment of choice in yang and qi depletion with no heat signs. Where there is heat, dryness or yin depletion with empty heat, it is withheld.<span class=\"zh\">陽虛氣虛而無熱者，灸為正治。若有熱、有燥，或陰虛內熱者，則當禁之。</span>"},
+     {t:"Because needling the abdomen is forbidden", c:"腹部禁針", ok:0,
+      note:"It is not forbidden; it is needled with care and an empty bladder. Depth is the caution, not the act.<span class=\"zh\">腹非禁針，惟當謹慎，且先排空小便。所戒在深，不在針。</span>"},
+     {t:"Because moxa works faster", c:"灸見效較速", ok:0,
+      note:"Speed is not why. Depletion is rebuilt over weeks either way; moxa is chosen for its direction.<span class=\"zh\">非以其速。虛損之復，皆以週計；取灸者，取其向耳。</span>"}]},
+   {q:"What must you check before needling the lower abdomen?",
+    cq:"針下腹之前，必先問何事？",
+    opts:[
+     {t:"That the bladder is empty, and that the patient is not pregnant", c:"小便已排空，且非妊娠",
+      ok:1, note:"<b>Correct.</b> Both are standard, both are one question each, and both are the kind of thing that is only ever skipped once.<span class=\"zh\">二者俱為常規，各不過一問；而此類事，人惟略之一次而已。</span>"},
+     {t:"That the patient has eaten", c:"病人已進食", ok:0,
+      note:"Worth knowing in a faint-prone patient, and not the specific caution for this region.<span class=\"zh\">於易暈針者宜問，然非此部之專戒。</span>"},
+     {t:"Nothing in particular", c:"別無所須問", ok:0,
+      note:"Two questions, five seconds, and they are the difference between routine and a serious mistake.<span class=\"zh\">二問而費五息，然常規與重失之別，正在於此。</span>"}]}],
+  card:{en:"Sea of Qi. Tonifies original qi and raises what has sunk; moxa in depletion with no heat. Empty the bladder; avoid in pregnancy.",
+        zh:"氣海。補元氣、升下陷；虛而無熱者宜灸。針前排空小便；孕婦忌。"} }
+
+,
+
+{ id:"CV4", region:"trunk",
+  beats:[
+   {en:"A woman in her thirties has been cold since her last winter illness — cold hands, a cold low back, and periods that have gone late and pale.",
+    zh:"一位三十餘歲之婦人，自去冬病後常冷：手冷、腰冷，經期延後而色淡。"},
+   {en:"Shen Yi measures four fingers below the navel and holds the moxa there a long time without speaking.",
+    zh:"沈醫師量臍下四橫指，於此持艾良久，默然不語。"},
+   {en:"\"Three leg yin channels cross the Ren mai here — Liver, Spleen, Kidney, all at one point. That is why the old books go here for the deepest cold, and why this is the point they name for the womb.\"",
+    zh:"「足三陰與任脈交會於此——肝、脾、腎，同會一穴。故古籍治深寒必歸於此，言胞宮亦必及之。」"}
+  ],
+  qs:[
+   {q:"What makes Guanyuan CV4 reach so many organs at once?",
+    cq:"關元何以一穴而及數臟？",
+    opts:[
+     {t:"The three leg yin channels meet the Ren mai here", c:"足三陰與任脈交會於此", ok:1,
+      note:"<b>Correct.</b> Liver, Spleen and Kidney all cross the Ren mai at CV4 — which is why one point serves patterns in all three.<span class=\"zh\">肝、脾、腎三經與任脈交會於關元，故一穴而能兼治三經之證。</span>"},
+     {t:"It is the Front-Mu of the Kidney", c:"腎之募穴", ok:0,
+      note:"The Kidney&#39;s Front-Mu is Jingmen GB25. CV4 is the Front-Mu of the Small Intestine.<span class=\"zh\">腎之募為京門。關元乃小腸之募。</span>"},
+     {t:"It is an Influential point", c:"八會之一", ok:0,
+      note:"Not one of the eight. Its reach comes from being a crossing point.<span class=\"zh\">非八會之一。其所以廣者，以其為交會穴。</span>"}]},
+   {q:"CV6 and CV4 are both moxaed for depletion. How do they differ in emphasis?",
+    cq:"氣海與關元俱可灸以治虛。其偏重何異？",
+    opts:[
+     {t:"CV6 leans toward qi and raising; CV4 toward yang, original qi and the womb", c:"氣海偏於氣與升舉；關元偏於陽、元氣與胞宮",
+      ok:1, note:"<b>Correct, and they are constantly used together.</b> Sinking qi leads with CV6; deep yang depletion or a menstrual pattern leads with CV4.<span class=\"zh\">二穴常相須而用。氣陷者以氣海為主；陽虛之極或經帶之病，以關元為主。</span>"},
+     {t:"They are interchangeable", c:"二者可以互代", ok:0,
+      note:"Close enough to pair, distinct enough to choose between. The emphasis is why you learn both.<span class=\"zh\">近可相配，異可相擇。學之者，正在辨其偏重。</span>"},
+     {t:"CV4 clears heat and CV6 warms", c:"關元主清，氣海主溫", ok:0,
+      note:"Both warm. Neither is a heat-clearing point.<span class=\"zh\">二者俱主溫，皆非清熱之穴。</span>"}]},
+   {q:"When is CV4 avoided?",
+    cq:"關元何時當避？",
+    opts:[
+     {t:"In pregnancy", c:"妊娠期間", ok:1,
+      note:"<b>Correct.</b> A standard pregnancy contraindication, along with the lower abdominal and sacral points and the strong blood-moving points.<span class=\"zh\">妊娠之常禁，與下腹、骶部及強力活血諸穴同列。</span>"},
+     {t:"In anyone over sixty", c:"年過六十者", ok:0,
+      note:"Age is not the contraindication; an older depleted patient is close to the ideal candidate for moxa here.<span class=\"zh\">禁在證不在年。老而虛者，正灸此之所宜。</span>"},
+     {t:"In cold limbs", c:"四肢厥冷者", ok:0,
+      note:"That is one of its clearest indications.<span class=\"zh\">此正其主治。</span>"}]}],
+  card:{en:"Where original qi is stored. Warms and supplements Kidney yang, regulates the womb; three leg yin channels cross the Ren mai here. Avoided in pregnancy.",
+        zh:"元氣所藏。溫補腎陽、調理胞宮；足三陰與任脈交會於此。孕婦禁用。"} },
+
+{ id:"BL23", region:"trunk",
+  beats:[
+   {en:"A porter puts both hands on his low back as he sits down — the gesture people make without noticing they are making it.",
+    zh:"一位腳夫坐下時，兩手自按其腰——人作此狀而不自知。"},
+   {en:"Shen Yi counts down the spine to the second lumbar vertebra and moves out a thumb and a half on each side.",
+    zh:"沈醫師循脊而下，數至第二腰椎，左右各旁開一寸五分。"},
+   {en:"\"The low back is the house of the Kidney,\" she says. \"When someone holds their back like that and there was no injury, ask about their knees, their ears, and how they sleep. The back is telling you which organ to ask about.\"",
+    zh:"「腰為腎之府，」她說。「若無外傷而自按其腰者，當問其膝、其耳、其寐。腰之所言，正告你當問何臟。」"}
+  ],
+  qs:[
+   {q:"What kind of point is Shenshu BL23?",
+    cq:"腎俞屬何類穴？",
+    opts:[
+     {t:"The Back-Shu point of the Kidney", c:"腎之背俞穴", ok:1,
+      note:"<b>Correct.</b> Back-Shu points are where an organ&#39;s qi infuses at the back, and they treat that organ directly — for depletion especially.<span class=\"zh\">背俞者，臟氣輸注於背之處，能直治其臟，尤宜於虛證。</span>"},
+     {t:"A Front-Mu point", c:"募穴", ok:0,
+      note:"Front-Mu points are on the front. Pairing Back-Shu with Front-Mu — BL23 with CV4 — treats the organ from both sides.<span class=\"zh\">募在腹前。俞募相配，如腎俞配關元，前後夾治其臟。</span>"},
+     {t:"A Cleft point", c:"郄穴", ok:0,
+      note:"Cleft points are on the limbs and are used for acute and painful conditions.<span class=\"zh\">郄穴在四肢，主急證痛證。</span>"}]},
+   {q:"A patient is breathless, worse on inhaling, with a weak low back and a deep weak chi pulse. Why does BL23 belong in the prescription?",
+    cq:"其人喘而吸為難，腰膝痠軟，尺脈沉弱。何以取腎俞？",
+    opts:[
+     {t:"The Kidney grasps qi — breathlessness worse on inhaling is a Kidney pattern", c:"腎主納氣：吸入為難者，病在腎",
+      ok:1, note:"<b>Correct.</b> The Lung governs the breath going out; the Kidney grasps it coming in. Asking which half of the breath is difficult names the organ.<span class=\"zh\">肺主呼，腎主納。但問呼吸孰難，而臟自見。</span>"},
+     {t:"Because all breathlessness is treated on the back", c:"凡喘皆治於背", ok:0,
+      note:"Not so. The pattern decides the point, not the symptom.<span class=\"zh\">不然。定穴者證也，非症也。</span>"},
+     {t:"Because BL23 clears heat from the Lung", c:"腎俞能清肺熱", ok:0,
+      note:"It supplements the Kidney; it is not a heat-clearing point.<span class=\"zh\">其功在補腎，非清熱之穴。</span>"}]},
+   {q:"What is the caution when needling BL23?",
+    cq:"針腎俞當戒何事？",
+    opts:[
+     {t:"Depth — oblique toward the spine, or perpendicular only to a moderate depth", c:"深淺：宜向脊斜刺，或直刺而不過深",
+      ok:1, note:"<b>Correct.</b> The kidney itself lies beneath the lumbar region. As with the chest points, the whole safety answer is angle and depth.<span class=\"zh\">腰部之下即腎。與胸部諸穴同：其安全全在角度與深淺。</span>"},
+     {t:"It must never be moxaed", c:"絕不可灸", ok:0,
+      note:"Moxa here is standard for Kidney yang depletion. It is withheld where there is yin depletion with heat.<span class=\"zh\">腎陽虛者灸此為常法。惟陰虛內熱者當避。</span>"},
+     {t:"There is no particular caution", c:"別無所戒", ok:0,
+      note:"There is, and it is depth. Points over an organ always carry one.<span class=\"zh\">有之，在深。凡穴之下有臟者，必有其戒。</span>"}]}],
+  card:{en:"Back-Shu of the Kidney. Tonifies the Kidney, strengthens the low back and knees, helps the Kidney grasp qi. Watch the depth — the kidney lies beneath.",
+        zh:"腎之背俞。補腎、強腰膝、助納氣。當戒其深——其下即腎。"} }
+
+,
+
+{ id:"GV20", region:"head",
+  beats:[
+   {en:"Two patients in one morning. The first cannot stop things descending — a dragging heaviness, worse by evening. The second has a head that throbs and a face that flushes by mid-afternoon.",
+    zh:"一晨兩診。其一者，物皆下墜，日暮尤甚；其二者，頭脹而痛，午後面赤。"},
+   {en:"Shen Yi needles the same point on the crown of both heads, and the herb boy asks, carefully, whether she has made a mistake.",
+    zh:"沈醫師於二人巔頂取同一穴。藥童小心問曰：師父莫非誤乎？"},
+   {en:"\"All the yang channels meet at the top of the head,\" she says. \"Traffic passes both ways. On her I lift, and on him I settle. The point does not decide which — the pattern does, and the way my hand moves does.\"",
+    zh:"「諸陽會於巔頂，」她說。「往來皆由此過。於彼則升，於此則潛。決之者非穴也——證決之，而吾手之法決之。」"}
+  ],
+  qs:[
+   {q:"How can Baihui GV20 both raise and subdue?",
+    cq:"百會何以既能升，又能潛？",
+    opts:[
+     {t:"All the yang channels meet there, so it regulates what passes through in either direction", c:"諸陽之會，能調其往來，升降皆可",
+      ok:1, note:"<b>Correct.</b> For sinking qi it raises — used after the tonifying points. For rising Liver yang it settles. The rest of the pattern decides which.<span class=\"zh\">氣陷者升之，當後於補穴而用；肝陽上亢者潛之。孰升孰潛，決於通案之證。</span>"},
+     {t:"Because it is a Cleft point", c:"以其為郄穴", ok:0,
+      note:"It is not. Cleft points are on the limbs.<span class=\"zh\">非也。郄穴在四肢。</span>"},
+     {t:"Because it is on the Ren mai", c:"以其在任脈", ok:0,
+      note:"GV20 is on the Du mai, which governs the yang channels. The Ren mai runs up the front.<span class=\"zh\">百會在督脈，督總督諸陽。任脈行於身前。</span>"}]},
+   {q:"In a sinking-qi case, when do you needle GV20?",
+    cq:"氣陷之證，百會當於何時取之？",
+    opts:[
+     {t:"After the tonifying points — fill first, then give the direction", c:"後於補穴：先填而後予其向",
+      ok:1, note:"<b>Correct, and it is the same argument as the formula.</b> In Buzhong Yiqi Tang the lifting herbs come after the sovereign. Lifting an empty sack lifts nothing.<span class=\"zh\">與方藥同一論：補中益氣湯之升藥列於君後。舉空囊者無所舉。</span>"},
+     {t:"First, before anything else", c:"最先，居諸穴之前", ok:0,
+      note:"Ascending treatment in a patient with nothing to raise scatters what little there is — the classical result is light-headedness and more fatigue.<span class=\"zh\">無可舉而先升之，散其僅存；古之所見，其人服後頭暈而益倦。</span>"},
+     {t:"It is not used for sinking qi at all", c:"氣陷不取百會", ok:0,
+      note:"It is the standard point for it — it is simply not the first one.<span class=\"zh\">此正氣陷之常穴，特不居其先耳。</span>"}]},
+   {q:"What is the needling caution at GV20?",
+    cq:"百會之針法當戒何事？",
+    opts:[
+     {t:"Transverse insertion only, and avoided entirely in infants whose fontanelle has not closed", c:"惟宜平刺；小兒囟門未合者禁用",
+      ok:1, note:"<b>Correct on both counts.</b> The skull is directly beneath, and in an infant the vertex is not yet closed.<span class=\"zh\">其下即顱骨；小兒之囟，未合則不可犯。</span>"},
+     {t:"Perpendicular, deeply, for a strong sensation", c:"直刺而深以求得氣", ok:0,
+      note:"Never perpendicular on the vertex.<span class=\"zh\">巔頂之穴，絕不可直刺。</span>"},
+     {t:"It may only be moxaed", c:"惟可灸而不可針", ok:0,
+      note:"Both are used. Transverse needling is standard, and moxa here is a classical treatment for sinking qi.<span class=\"zh\">針灸俱可。平刺為常法，而灸此以治氣陷，亦古法也。</span>"}]}],
+  card:{en:"Where all the yang channels meet. Raises what has sunk and settles what is rising — the pattern decides which. Transverse needling only; avoided in infants.",
+        zh:"諸陽之會。能升下陷，能潛上亢——決之在證。惟宜平刺；小兒囟門未合者禁。"} },
+
+{ id:"SP10", region:"leg",
+  beats:[
+   {en:"A woman has been scratching her forearms raw for a month. There is no rash worth the name — just heat, an itch that moves, and skin she cannot leave alone.",
+    zh:"一婦人搔其前臂逾月，皮已破。其疹不足名，惟覺熱、癢而遊走，手不能停。"},
+   {en:"Shen Yi looks at her arms briefly and then needles a point two cun above the inner corner of her kneecap.",
+    zh:"沈醫師略視其臂，即於髕骨內上緣上二寸取穴下針。"},
+   {en:"\"Treat the wind by treating the blood,\" she says. \"When the blood moves, the wind puts itself out. That line is a thousand years old, and it is why a point on the thigh answers an itch on the arm.\"",
+    zh:"「治風先治血，血行風自滅，」她說。「此語千年，而股上一穴所以能治臂上之癢者，正在於此。」"}
+  ],
+  qs:[
+   {q:"Why is Xuehai SP10 used for itchy skin?",
+    cq:"皮膚瘙癢，何以取血海？",
+    opts:[
+     {t:"治風先治血，血行風自滅 — treat the blood and the wind settles itself", c:"治風先治血，血行風自滅",
+      ok:1, note:"<b>Correct.</b> A classical line with a practical consequence: for itching that moves and will not settle, treat the blood rather than the skin. SP10 invigorates and cools blood.<span class=\"zh\">古語而有實用：癢而遊走不定者，治其血而不治其膚。血海活血、涼血。</span>"},
+     {t:"Because it is close to the skin of the thigh", c:"以其近股之皮膚", ok:0,
+      note:"Proximity is not the reason. The itch is on the arm.<span class=\"zh\">非以其近。其癢在臂。</span>"},
+     {t:"Because it clears the exterior", c:"以其能解表", ok:0,
+      note:"It is not an exterior-releasing point.<span class=\"zh\">非解表之穴。</span>"}]},
+   {q:"What else is SP10 used for?",
+    cq:"血海尚主何病？",
+    opts:[
+     {t:"Irregular or painful periods, and amenorrhoea", c:"月經不調、痛經、經閉", ok:1,
+      note:"<b>Correct.</b> The Sea of Blood, used for most patterns where the blood is stuck or hot.<span class=\"zh\">名曰血海，凡血滯血熱之證多取之。</span>"},
+     {t:"Chronic cough", c:"久咳", ok:0,
+      note:"Not among its indications.<span class=\"zh\">非其主治。</span>"},
+     {t:"Tinnitus", c:"耳鳴", ok:0,
+      note:"That belongs to the Kidney and Gallbladder points.<span class=\"zh\">此腎與膽諸穴之所主。</span>"}]},
+   {q:"When is SP10 used with caution?",
+    cq:"血海何時當慎？",
+    opts:[
+     {t:"In pregnancy — it moves blood", c:"妊娠期間：其功在行血", ok:1,
+      note:"<b>Correct.</b> Strong blood-moving points are a standard pregnancy caution.<span class=\"zh\">強力活血諸穴，為妊娠之常戒。</span>"},
+     {t:"In anyone with an itch", c:"凡見瘙癢者", ok:0,
+      note:"That is what it is for.<span class=\"zh\">此正其所主。</span>"},
+     {t:"There is no caution", c:"別無所慎", ok:0,
+      note:"Any point that moves blood carries the pregnancy caution.<span class=\"zh\">凡行血之穴，皆有妊娠之戒。</span>"}]}],
+  card:{en:"Sea of Blood. Invigorates and cools blood, regulates menstruation, relieves itching — treat the blood and the wind settles. Cautious in pregnancy.",
+        zh:"血海。活血涼血、調經、止癢——治風先治血。孕婦慎用。"} }
+
+,
+
+{ id:"LI11", region:"hand",
+  beats:[
+   {en:"A child is brought in hot, flushed and miserable, with a throat too sore to swallow.",
+    zh:"一小兒發熱面赤，苦不堪言，咽痛而不能嚥。"},
+   {en:"Shen Yi bends his elbow, finds the outer end of the crease, and needles there — nowhere near the throat at all.",
+    zh:"沈醫師屈其肘，取肘橫紋外側端下針——與咽喉全不相近。"},
+   {en:"\"The Sea point of the Large Intestine,\" she says. \"Sea points treat the fu organ, and this one clears heat wherever it is. With Hegu it is the pair for heat on the surface — when the whole child is hot, not one part of him.\"",
+    zh:"「大腸之合穴，」她說。「合治內腑，而此穴所清者為通身之熱。配合谷，為表熱之常法——熱在其身之全，而不在其一處者。」"}
+  ],
+  qs:[
+   {q:"What kind of point is Quchi LI11?",
+    cq:"曲池屬何類穴？",
+    opts:[
+     {t:"The Sea point of the Large Intestine", c:"大腸之合穴", ok:1,
+      note:"<b>Correct.</b> One of the great heat-clearing points, used for heat anywhere in the body rather than in one organ.<span class=\"zh\">清熱之要穴，所主為通身之熱，而非一臟之熱。</span>"},
+     {t:"The Source point of the Large Intestine", c:"大腸之原穴", ok:0,
+      note:"That is Hegu LI4, in the hand.<span class=\"zh\">大腸之原為合谷，在手。</span>"},
+     {t:"A Back-Shu point", c:"背俞穴", ok:0,
+      note:"Back-Shu points are beside the spine.<span class=\"zh\">背俞夾脊而列。</span>"}]},
+   {q:"LI11 pairs with two different points for two different kinds of heat. Which with which?",
+    cq:"曲池配二穴而主二熱。孰配孰？",
+    opts:[
+     {t:"With Hegu LI4 for heat on the surface; with Xuehai SP10 for heat in the blood that itches", c:"配合谷治表熱；配血海治血熱之癢",
+      ok:1, note:"<b>Correct.</b> Learning a point&#39;s partners is learning what kind of problem it is being asked to solve.<span class=\"zh\">記其配伍，即記其所主之病為何屬。</span>"},
+     {t:"With Zusanli for surface heat", c:"配足三里以治表熱", ok:0,
+      note:"ST36 supplements; it is not the partner for surface heat.<span class=\"zh\">足三里主補，非表熱之配。</span>"},
+     {t:"It has no standard pairings", c:"無定配", ok:0,
+      note:"It has several, and they are worth learning as a set.<span class=\"zh\">其配非一，宜作一組而記。</span>"}]},
+   {q:"What is worth remembering about using LI11 in a depleted patient?",
+    cq:"虛人用曲池，當記何事？",
+    opts:[
+     {t:"Strong reduction here disperses — use it moderately", c:"重瀉則散，虛人宜緩", ok:1,
+      note:"<b>Correct.</b> A clearing point in an empty patient takes away more than the heat.<span class=\"zh\">清瀉之穴，用於虛人，所去者不止其熱。</span>"},
+     {t:"It should never be used in a depleted patient", c:"虛人絕不可用", ok:0,
+      note:"Too absolute. Heat in a depleted patient still needs clearing — gently.<span class=\"zh\">言之太絕。虛人有熱，猶當清之，特宜緩耳。</span>"},
+     {t:"It should always be moxaed", c:"必當加灸", ok:0,
+      note:"Moxa on a heat-clearing point in a hot pattern works against the reason you chose it.<span class=\"zh\">熱證而灸清熱之穴，適與其取之之意相違。</span>"}]}],
+  card:{en:"Sea point of the Large Intestine. Clears heat anywhere in the body, dispels wind and relieves itching, frees the elbow and shoulder. Reduce moderately in the depleted.",
+        zh:"大腸合穴。清通身之熱、疏風止癢、通利肘肩。虛人瀉之宜緩。"} },
+
+{ id:"LR2", region:"leg",
+  beats:[
+   {en:"A man comes in with red, aching eyes, a headache at both temples, and a temper he apologises for twice before he has finished describing it.",
+    zh:"一男子來，目赤而痛，兩顳脹痛，言未及半而兩度為其易怒致歉。"},
+   {en:"Shen Yi needles between his first and second toes rather than anywhere near his head, and uses a draining technique.",
+    zh:"沈醫師不取頭部，而於第一、二趾間下針，行瀉法。"},
+   {en:"\"Taichong courses and regulates. This one drains,\" she says. \"When constraint has already become fire, regulating it is too polite. Spring points clear heat — and this is the Fire point of the Liver, so draining the child drains the mother.\"",
+    zh:"「太衝主疏調，此穴主清瀉，」她說。「鬱既化火，但疏之則失之太緩。滎主身熱——而此為肝之火穴，亦其子穴：實則瀉其子。」"}
+  ],
+  qs:[
+   {q:"How does Xingjian LR2 differ from Taichong LR3?",
+    cq:"行間與太衝何異？",
+    opts:[
+     {t:"LR3 courses and regulates Liver qi; LR2 drains Liver fire", c:"太衝疏肝理氣，行間清瀉肝火", ok:1,
+      note:"<b>Correct.</b> Same channel, adjacent points, different jobs. Constraint takes LR3; constraint that has become fire — red eyes, throbbing head, bitter mouth, flaring temper — takes LR2.<span class=\"zh\">同經而鄰穴，其職各異。氣鬱取太衝；鬱而化火者——目赤、頭脹、口苦、暴怒——取行間。</span>"},
+     {t:"They are the same point under two names", c:"一穴二名", ok:0,
+      note:"Two points, adjacent on the foot, chosen for different stages of the same problem.<span class=\"zh\">二穴相鄰於足，所治為一病之二階段。</span>"},
+     {t:"LR2 supplements Liver blood", c:"行間補肝血", ok:0,
+      note:"It drains. For Liver blood deficiency you would nourish, not drain.<span class=\"zh\">其法為瀉。肝血虛者當養，不當瀉。</span>"}]},
+   {q:"實則瀉其子 — draining the child. How does that apply here?",
+    cq:"「實則瀉其子」，於此何解？",
+    opts:[
+     {t:"The Liver is Wood and its child is Fire; LR2 is the Liver&#39;s Fire point, so draining it drains Liver excess", c:"肝屬木，木之子為火；行間為肝之火穴，瀉之即瀉肝之實",
+      ok:1, note:"<b>Correct.</b> The five-phase rule with an actual point attached — this is what the theory is for.<span class=\"zh\">五行之法而有實穴可指，理之所以為用者，正在於此。</span>"},
+     {t:"It means treating the patient&#39;s children", c:"謂治其人之子女", ok:0,
+      note:"Child here means the phase a channel generates.<span class=\"zh\">此「子」謂五行所生之次，非謂人之子。</span>"},
+     {t:"It means using a smaller dose", c:"謂用量宜小", ok:0,
+      note:"It is a point-selection rule, not a dosing one.<span class=\"zh\">此取穴之法，非用量之法。</span>"}]},
+   {q:"When is LR2 the wrong choice?",
+    cq:"何時不當取行間？",
+    opts:[
+     {t:"When the Liver is depleted rather than hot — dry eyes, pallor, a thin pulse", c:"肝虛而非肝熱者：目乾、面白、脈細",
+      ok:1, note:"<b>Correct.</b> Draining a depleted Liver takes away what little blood is there. Dry eyes want nourishing; red painful eyes want draining.<span class=\"zh\">肝虛而瀉之，是奪其僅存之血。目乾者當養，目赤腫痛者當瀉。</span>"},
+     {t:"When the eyes are red and painful", c:"目赤腫痛者", ok:0,
+      note:"That is precisely its indication.<span class=\"zh\">此正其主治。</span>"},
+     {t:"When the pulse is wiry and rapid", c:"脈弦數者", ok:0,
+      note:"Also an indication — that is the pulse of Liver fire.<span class=\"zh\">亦其所主：此肝火之脈。</span>"}]}],
+  card:{en:"Spring point and Fire point of the Liver. Drains Liver fire — red painful eyes, throbbing temples, bitter mouth, flaring temper. Not for a Liver that is depleted rather than hot.",
+        zh:"肝之滎穴、火穴。清瀉肝火：目赤腫痛、顳脹、口苦、暴怒。肝虛而非肝熱者不宜。"} }
+
 
 ];
