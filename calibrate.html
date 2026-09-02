@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>定位校正 · 杏林行</title>
+<!--
+  Point calibration 定位校正
+
+  Not part of the game. A private workbench for Ting: it shows every
+  needling coordinate the game uses beside its textbook definition, and
+  she taps where the point actually belongs. Two stages — a rough tap on
+  the whole limb, then a magnified tap to place it exactly — because a
+  fingertip is forty pixels wide and an acupoint is not.
+
+  Nothing here writes to the game. It writes a block of text that I paste
+  into data/chapters.js after she has confirmed it. Progress is kept in
+  localStorage under its own key, so it survives closing the tab and never
+  touches the player's save.
+-->
+<style>
+  :root{
+    --paper:#F3EDE0; --card:#FBF7EE; --ink:#3A322A; --ink-soft:#6B6153;
+    --ink-faint:#948A79; --line:#DED3BE; --sage:#6E8B57; --terra:#B4562F;
+    --gold:#B08D3E;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Noto Serif TC",Georgia,"Songti TC",serif}
+  body{min-height:100svh;padding:14px 14px 28px;max-width:560px;margin:0 auto}
+  h1{font-size:19px;margin:2px 0 2px}
+  .sub{font-size:12.5px;color:var(--ink-faint);margin:0 0 12px;line-height:1.6}
+  .bar{height:5px;background:var(--line);border-radius:3px;overflow:hidden;margin:10px 0 14px}
+  .bar > i{display:block;height:100%;background:var(--sage);width:0;transition:width .25s}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:14px;margin-bottom:12px}
+  .name{font-size:22px;font-weight:700;letter-spacing:.5px}
+  .name small{font-size:13px;color:var(--ink-faint);font-weight:400;margin-left:8px}
+  .where{font-size:14px;line-height:1.8;margin:8px 0 0;color:var(--ink-soft)}
+  .where b{color:var(--terra)}
+  .where .en{display:block;font-size:12.5px;color:var(--ink-faint);margin-top:4px;line-height:1.6}
+  .used{font-size:12px;color:var(--ink-faint);margin-top:6px}
+  .flag{display:inline-block;background:var(--terra);color:#FBF7EE;font-size:11px;
+    padding:2px 8px;border-radius:20px;margin-left:6px;vertical-align:3px}
+  .newp{background:var(--gold)}
+
+  .stagehint{font-size:13px;color:var(--terra);margin:0 0 8px;font-weight:700}
+  .stage{position:relative;background:#EFE7D6;border-radius:12px;overflow:hidden;
+    border:1px solid var(--line);touch-action:manipulation}
+  .stage img{display:block;width:100%;image-rendering:auto}
+  .mark{position:absolute;width:22px;height:22px;margin:-11px 0 0 -11px;
+    border-radius:50%;pointer-events:none}
+  .mark::before,.mark::after{content:"";position:absolute;background:currentColor}
+  .mark::before{left:50%;top:0;width:1.5px;height:100%;margin-left:-.75px}
+  .mark::after{top:50%;left:0;height:1.5px;width:100%;margin-top:-.75px}
+  .mark i{position:absolute;inset:6px;border:1.5px solid currentColor;border-radius:50%}
+  .m-old{color:#7A93B8}
+  .m-new{color:var(--terra)}
+  .tag{position:absolute;font-size:10px;padding:1px 5px;border-radius:8px;
+    transform:translate(14px,-8px);white-space:nowrap;color:#FBF7EE}
+  .t-old{background:#7A93B8}
+  .t-new{background:var(--terra)}
+
+  .row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+  button{font-family:inherit;font-size:14.5px;padding:11px 12px;border-radius:11px;
+    border:1px solid var(--line);background:#fff;color:var(--ink);flex:1;min-width:96px;
+    min-height:46px;cursor:pointer}
+  button.go{background:var(--sage);border-color:var(--sage);color:#fff;font-weight:700}
+  button.warn{background:var(--terra);border-color:var(--terra);color:#fff}
+  button.ghost{background:transparent;color:var(--ink-soft)}
+  button:disabled{opacity:.4}
+  .nudge{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}
+  .nudge button{min-width:0;font-size:16px;padding:9px 0;min-height:42px}
+  .m-a,.m-b{color:var(--gold)}
+  .t-a,.t-b{background:var(--gold)}
+  .guide{position:absolute;left:0;right:0;height:0;border-top:1.5px dashed var(--gold);
+    pointer-events:none}
+  .guide span{position:absolute;right:4px;top:-16px;font-size:10px;color:var(--gold);
+    background:var(--card);padding:0 4px;border-radius:6px}
+  .tick{position:absolute;left:0;height:0;border-top:1px solid rgba(176,141,62,.35);
+    width:14px;pointer-events:none}
+  .lockrow{display:flex;gap:9px;align-items:flex-start;font-size:13px;color:var(--ink-soft);
+    background:#FFF9EC;border:1px solid #E8DCBE;border-radius:11px;padding:10px 12px;
+    margin-top:10px;line-height:1.6}
+  .lockrow input{width:20px;height:20px;margin:1px 0 0;flex:none}
+  .coords{font-family:ui-monospace,"Courier New",monospace;font-size:12.5px;
+    color:var(--ink-faint);margin-top:8px;text-align:center}
+  textarea{width:100%;height:230px;font-family:ui-monospace,"Courier New",monospace;
+    font-size:12px;line-height:1.6;padding:10px;border-radius:11px;border:1px solid var(--line);
+    background:#fff;color:var(--ink)}
+  .done{text-align:center;padding:20px 6px}
+  .done h2{font-size:20px;margin:0 0 6px}
+  [hidden]{display:none !important}
+</style>
+</head>
+<body>
+
+<h1>定位校正 <span style="font-size:13px;color:var(--ink-faint);font-weight:400">Point calibration</span></h1>
+<p class="sub">一個穴一張圖。先看定位敘述，再在圖上點出<b>正確的位置</b>。<br>
+藍色 = 現在遊戲裡用的位置。紅色 = 你點的位置。</p>
+
+<div class="bar"><i id="bar"></i></div>
+
+<div id="lm" hidden>
+  <div class="card">
+    <div class="name" id="lmTitle"></div>
+    <p class="where" id="lmWhere"></p>
+    <p class="used" id="lmNote"></p>
+  </div>
+  <p class="stagehint" id="lmHint"></p>
+  <div class="stage" id="lmStage">
+    <img id="lmPlate" alt="">
+    <div class="mark m-a" id="mA" hidden><i></i><span class="tag t-a">A</span></div>
+    <div class="mark m-b" id="mB" hidden><i></i><span class="tag t-b">B</span></div>
+    <div class="mark m-new" id="mL" hidden><i></i><span class="tag t-new">你點的</span></div>
+  </div>
+  <div class="coords" id="lmCoords"></div>
+  <div class="nudge" id="lmNudge" hidden>
+    <button data-d="-1,0">&#8592;</button>
+    <button data-d="0,-1">&#8593;</button>
+    <button data-d="0,1">&#8595;</button>
+    <button data-d="1,0">&#8594;</button>
+  </div>
+  <div class="row">
+    <button class="go" id="lmUse" disabled>就是這裡</button>
+    <button class="ghost" id="lmBack" hidden>回上一步（重點）</button>
+  </div>
+  <div class="row">
+    <button class="ghost" id="lmSkip">這張圖跳過尺度，直接點穴</button>
+  </div>
+</div>
+
+<div id="work">
+  <div class="card">
+    <div class="name" id="pName"></div>
+    <p class="where" id="pWhere"></p>
+    <p class="used" id="pUsed"></p>
+  </div>
+
+  <p class="stagehint" id="hint"></p>
+  <div class="stage" id="stage">
+    <img id="plate" alt="">
+    <div class="mark m-old" id="mOld" hidden><i></i><span class="tag t-old">現在</span></div>
+    <div class="mark m-new" id="mNew" hidden><i></i><span class="tag t-new">你點的</span></div>
+  </div>
+  <div class="coords" id="coords"></div>
+
+  <div class="nudge" id="nudgeBox" hidden>
+    <button data-d="-1,0">←</button>
+    <button data-d="0,-1">↑</button>
+    <button data-d="0,1">↓</button>
+    <button data-d="1,0">→</button>
+  </div>
+
+  <label class="lockrow" id="lockRow" hidden>
+    <input type="checkbox" id="lock" checked>
+    <span>高度用尺子算好的（<b id="lockCun"></b>）— 我只要點左右</span>
+  </label>
+
+  <div class="row">
+    <button class="go" id="bUse" disabled>用我點的位置</button>
+    <button id="bSame">現在的就是對的</button>
+  </div>
+  <div class="row">
+    <button class="ghost" id="bBack" hidden>回上一步（重點）</button>
+    <button class="ghost" id="bSkip">跳過，之後再說</button>
+    <button class="warn" id="bBad">這張底圖不能用</button>
+  </div>
+  <div class="row">
+    <button class="ghost" id="bPrev">← 上一個</button>
+    <button class="ghost" id="bOut">看目前結果</button>
+  </div>
+</div>
+
+<div id="out" hidden>
+  <div class="card done">
+    <h2 id="outTitle">目前結果</h2>
+    <p class="sub" id="outSub"></p>
+  </div>
+  <textarea id="outText" readonly></textarea>
+  <div class="row">
+    <button class="go" id="bCopy">複製全部</button>
+    <button id="bResume">回去繼續</button>
+  </div>
+  <div class="row">
+    <button class="ghost" id="bReset">全部清除，重新開始</button>
+  </div>
+</div>
+
+<script src="data/calib.js?v=86"></script>
+<script>
+const KEY  = "apricot-calib";
+const P    = window.AG_CALIB || [];
+const RULE = window.AG_CALIB_PLATES || {};
+const $    = id => document.getElementById(id);
+
+let store = {};
+try { store = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { store = {}; }
+store.pts   = store.pts   || {};      // point id -> answer
+store.marks = store.marks || {};      // plate path -> {a:{x,y}, b:{x,y}} or {skip:true}
+const persist = () => { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) {} };
+
+let i = 0, stage = 1, pick = null, crop = null;
+let lmPlate = null, lmWhich = "a", lmStage = 1, lmPick = null, lmCrop = null;
+
+i = P.findIndex(p => !store.pts[p.id]); if (i < 0) i = 0;
+const cur = () => P[i];
+
+/* ── geometry shared by both screens ─────────────────────────────── */
+function cropFor(p, pt) {
+  const half = 100;
+  return { x: Math.max(0, Math.min(p.w - half * 2, pt.x - half)),
+           y: Math.max(0, Math.min(p.h - half * 2, pt.y - half)),
+           w: half * 2, h: half * 2 };
+}
+function layout(stageEl, imgEl, p, c) {
+  const box = stageEl.clientWidth;
+  if (!c) { imgEl.style.width = "100%"; imgEl.style.marginLeft = "0";
+            imgEl.style.marginTop = "0"; stageEl.style.height = ""; return box / p.w; }
+  const s = box / c.w;
+  imgEl.style.width = (p.w * s) + "px";
+  imgEl.style.marginLeft = (-c.x * s) + "px";
+  imgEl.style.marginTop  = (-c.y * s) + "px";
+  stageEl.style.height = (c.h * s) + "px";
+  return s;
+}
+function screenOf(stageEl, p, c, x, y) {
+  const box = stageEl.clientWidth;
+  if (!c) { const s = box / p.w; return [x * s, y * s]; }
+  const s = box / c.w; return [(x - c.x) * s, (y - c.y) * s];
+}
+function plateOf(stageEl, p, c, px, py) {
+  const box = stageEl.clientWidth;
+  if (!c) { const s = box / p.w; return { x: Math.round(px / s), y: Math.round(py / s) }; }
+  const s = box / c.w;
+  return { x: Math.round(c.x + px / s), y: Math.round(c.y + py / s) };
+}
+function put(el, stageEl, p, c, x, y) {
+  const [sx, sy] = screenOf(stageEl, p, c, x, y);
+  const h = stageEl.clientHeight || 1, w = stageEl.clientWidth;
+  if (sx < -24 || sy < -24 || sx > w + 24 || sy > h + 24) { el.hidden = true; return; }
+  el.hidden = false; el.style.left = sx + "px"; el.style.top = sy + "px";
+}
+
+/* ── the cun ruler: where does k cun from landmark A land? ──────── */
+function guideFor(p) {
+  const def = RULE[p.img], m = store.marks[p.img];
+  if (!def || !m || m.skip || p.cun === undefined) return null;
+  const t = p.cun / def.cun;
+  return { x: Math.round(m.a.x + (m.b.x - m.a.x) * t),
+           y: Math.round(m.a.y + (m.b.y - m.a.y) * t),
+           cun: p.cun, def: def };
+}
+
+/* ══════════ landmark screen ══════════ */
+function needLandmarks() {
+  const p = cur(), def = RULE[p.img];
+  return !!def && !store.marks[p.img] && p.cun !== undefined;
+}
+function openLandmarks(img) {
+  lmPlate = img; lmWhich = "a"; lmStage = 1; lmPick = null; lmCrop = null;
+  $("lm").hidden = false; $("work").hidden = true; $("out").hidden = true;
+  drawLm();
+}
+function drawLm() {
+  const def = RULE[lmPlate];
+  const p = P.find(q => q.img === lmPlate);
+  const L = lmWhich === "a" ? def.a : def.b;
+  $("lmTitle").innerHTML = '這張圖的尺度 <small>' + (lmWhich === "a" ? "標誌 A" : "標誌 B") + '</small>';
+  $("lmWhere").innerHTML = '請點出 <b>' + L.zh + '</b><span class="en">' + L.en + '</span>';
+  $("lmNote").textContent = def.note + "　定好之後，這張圖上每個穴的高度都會自動算出來。";
+
+  const img = $("lmPlate");
+  if (img.getAttribute("src") !== lmPlate) img.src = lmPlate;
+  lmCrop = lmStage === 1 ? null : cropFor(p, lmPick);
+  layout($("lmStage"), img, p, lmCrop);
+  $("lmHint").textContent = lmStage === 1 ? "① 先大致點一下" : "② 放大了。點準一點，或用箭頭微調";
+  $("lmBack").hidden  = lmStage === 1;
+  $("lmNudge").hidden = lmStage === 1;
+  paintLm();
+}
+function paintLm() {
+  const p = P.find(q => q.img === lmPlate), m = store.marks[lmPlate] || {};
+  m.a ? put($("mA"), $("lmStage"), p, lmCrop, m.a.x, m.a.y) : ($("mA").hidden = true);
+  m.b ? put($("mB"), $("lmStage"), p, lmCrop, m.b.x, m.b.y) : ($("mB").hidden = true);
+  lmPick ? put($("mL"), $("lmStage"), p, lmCrop, lmPick.x, lmPick.y) : ($("mL").hidden = true);
+  $("lmUse").disabled = !lmPick;
+  $("lmCoords").textContent = lmPick ? lmPick.x + "," + lmPick.y : "";
+}
+$("lmStage").addEventListener("click", ev => {
+  const p = P.find(q => q.img === lmPlate), r = $("lmStage").getBoundingClientRect();
+  const hit = plateOf($("lmStage"), p, lmCrop, ev.clientX - r.left, ev.clientY - r.top);
+  if (lmStage === 1) { lmPick = hit; lmStage = 2; drawLm(); } else { lmPick = hit; paintLm(); }
+});
+$("lmNudge").addEventListener("click", ev => {
+  const b = ev.target.closest("button"); if (!b || !lmPick) return;
+  const [dx, dy] = b.dataset.d.split(",").map(Number);
+  lmPick = { x: lmPick.x + dx, y: lmPick.y + dy }; paintLm();
+});
+$("lmBack").onclick = () => { lmPick = null; lmStage = 1; drawLm(); };
+$("lmSkip").onclick = () => { store.marks[lmPlate] = { skip: true }; persist(); $("lm").hidden = true; render(); };
+$("lmUse").onclick  = () => {
+  const m = store.marks[lmPlate] || {};
+  m[lmWhich] = { x: lmPick.x, y: lmPick.y };
+  store.marks[lmPlate] = m; persist();
+  if (lmWhich === "a") { lmWhich = "b"; lmStage = 1; lmPick = null; drawLm(); }
+  else { $("lm").hidden = true; render(); }
+};
+
+/* ══════════ point screen ══════════ */
+function render() {
+  if (needLandmarks()) return openLandmarks(cur().img);
+  const p = cur();
+  $("work").hidden = false; $("out").hidden = true; $("lm").hidden = true;
+
+  const done = P.filter(q => store.pts[q.id]).length;
+  $("bar").style.width = (done / P.length * 100) + "%";
+
+  $("pName").innerHTML = p.zh + ' <small>' + p.id.replace(/b$/, "") + ' · ' + p.py + '</small>'
+    + (p.flagged ? '<span class="flag">你說這個不對</span>' : "")
+    + (p.isNew   ? '<span class="flag newp">新的，還沒上線</span>' : "");
+  $("pWhere").innerHTML = p.where.zh + '<span class="en">' + p.where.en + '</span>';
+  $("pUsed").textContent = (p.chs && p.chs.length)
+    ? "用在第 " + p.chs.join("、") + " 章" : "還沒有章節用到它";
+
+  const g = guideFor(p);
+  $("lockRow").hidden = !g;
+  if (g) $("lockCun").textContent = g.def.a.zh + (p.cun >= 0 ? "上 " : "下 ") + Math.abs(p.cun) + " 寸";
+  drawStage();
+}
+function drawStage() {
+  const p = cur(), img = $("plate");
+  if (img.getAttribute("src") !== p.img) img.src = p.img;
+  crop = stage === 1 ? null : cropFor(p, pick);
+  layout($("stage"), img, p, crop);
+  $("hint").textContent = stage === 1
+    ? "① 先在整張圖上，大致點一下位置"
+    : "② 放大了。點準一點，或用箭頭微調";
+  $("bBack").hidden  = stage === 1;
+  $("nudgeBox").hidden = stage === 1;
+  paintGuides();
+  placeMarks();
+}
+function paintGuides() {
+  const p = cur(), g = guideFor(p);
+  document.querySelectorAll("#stage .guide, #stage .tick").forEach(n => n.remove());
+  const m = store.marks[p.img];
+  if (m && !m.skip && RULE[p.img]) {
+    const def = RULE[p.img];
+    for (let k = 0; k <= def.cun; k++) {
+      const t = k / def.cun;
+      const y = m.a.y + (m.b.y - m.a.y) * t, x = m.a.x + (m.b.x - m.a.x) * t;
+      const [, sy] = screenOf($("stage"), p, crop, x, y);
+      if (sy < 0 || sy > ($("stage").clientHeight || 1)) continue;
+      const t2 = document.createElement("div");
+      t2.className = "tick"; t2.style.top = sy + "px";
+      $("stage").appendChild(t2);
+    }
+  }
+  if (!g) return;
+  const [, sy] = screenOf($("stage"), p, crop, g.x, g.y);
+  const el = document.createElement("div");
+  el.className = "guide"; el.style.top = sy + "px";
+  el.innerHTML = '<span>' + (p.cun >= 0 ? "" : "下") + Math.abs(p.cun) + ' 寸</span>';
+  $("stage").appendChild(el);
+}
+function placeMarks() {
+  const p = cur();
+  put($("mOld"), $("stage"), p, crop, p.x, p.y);
+  if (pick) put($("mNew"), $("stage"), p, crop, pick.x, pick.y); else $("mNew").hidden = true;
+  $("bUse").disabled = !pick;
+  const prev = store.pts[p.id];
+  $("coords").textContent = "現在 " + p.x + "," + p.y
+    + (pick ? "   →   你點的 " + pick.x + "," + pick.y
+            : (prev && prev.x != null ? "   →   你定的 " + prev.x + "," + prev.y : ""));
+}
+$("stage").addEventListener("click", ev => {
+  const p = cur(), r = $("stage").getBoundingClientRect();
+  let hit = plateOf($("stage"), p, crop, ev.clientX - r.left, ev.clientY - r.top);
+  const g = guideFor(p);
+  if (g && $("lock").checked) hit.y = g.y;          // the ruler owns the height
+  if (stage === 1) { pick = hit; stage = 2; drawStage(); } else { pick = hit; paintGuides(); placeMarks(); }
+});
+$("lock").addEventListener("change", () => { if (pick) { const g = guideFor(cur());
+  if (g && $("lock").checked) { pick = { x: pick.x, y: g.y }; placeMarks(); } } });
+$("nudgeBox").addEventListener("click", ev => {
+  const b = ev.target.closest("button"); if (!b || !pick) return;
+  const [dx, dy] = b.dataset.d.split(",").map(Number);
+  if (dy && $("lock").checked && guideFor(cur())) $("lock").checked = false;   // nudging up/down unlocks
+  pick = { x: pick.x + dx, y: pick.y + dy }; placeMarks();
+});
+
+function record(v) { store.pts[cur().id] = v; persist(); next(); }
+function next() { pick = null; stage = 1; if (i < P.length - 1) { i++; render(); } else showOut(true); }
+
+$("bUse").onclick   = () => record({ x: pick.x, y: pick.y, ok: "moved" });
+$("bSame").onclick  = () => record({ x: cur().x, y: cur().y, ok: "confirmed" });
+$("bBad").onclick   = () => record({ ok: "bad-plate" });
+$("bSkip").onclick  = () => { pick = null; stage = 1; if (i < P.length - 1) { i++; render(); } else showOut(true); };
+$("bBack").onclick  = () => { pick = null; stage = 1; drawStage(); };
+$("bPrev").onclick  = () => { pick = null; stage = 1; i = Math.max(0, i - 1); render(); };
+$("bOut").onclick   = () => showOut(false);
+$("bResume").onclick= () => { const n = P.findIndex(q => !store.pts[q.id]); i = n < 0 ? i : n; pick = null; stage = 1; render(); };
+$("bReset").onclick = () => { store = { pts: {}, marks: {} }; persist(); i = 0; pick = null; stage = 1; render(); };
+
+$("bCopy").onclick = async () => {
+  const t = $("outText");
+  try { await navigator.clipboard.writeText(t.value); $("bCopy").textContent = "已複製 ✓"; }
+  catch (e) { t.removeAttribute("readonly"); t.select(); document.execCommand("copy"); $("bCopy").textContent = "已複製 ✓"; }
+  setTimeout(() => { $("bCopy").textContent = "複製全部"; }, 1600);
+};
+
+function showOut(finished) {
+  $("work").hidden = true; $("lm").hidden = true; $("out").hidden = false;
+  const done = P.filter(q => store.pts[q.id]).length;
+  $("outTitle").textContent = finished ? "全部看完了" : "目前結果";
+  $("outSub").innerHTML = done + " / " + P.length + " 個已經有答案。<br>按「複製全部」，然後貼給我，我就照這個改。";
+
+  const L = ["AG_CALIB RESULT  " + new Date().toISOString().slice(0, 16).replace("T", " "),
+             "verified by Ting against her textbook", ""];
+  Object.keys(store.marks).forEach(k => {
+    const m = store.marks[k], d = RULE[k];
+    L.push("RULER " + k.replace("art/body-", "").replace(".jpg", "").padEnd(16)
+      + (m.skip ? "skipped" : "A " + m.a.x + "," + m.a.y + "   B " + m.b.x + "," + m.b.y + "   = " + d.cun + " cun"));
+  });
+  L.push("");
+  P.forEach(p => {
+    const s = store.pts[p.id];
+    const tag = p.id.padEnd(6) + p.zh.padEnd(5) + p.img.replace("art/body-", "").replace(".jpg", "").padEnd(16);
+    if (!s) L.push(tag + "SKIPPED");
+    else if (s.ok === "bad-plate") L.push(tag + "BAD PLATE - needs a different drawing");
+    else if (s.ok === "confirmed") L.push(tag + "OK   " + p.x + "," + p.y);
+    else L.push(tag + "MOVE " + p.x + "," + p.y + "  ->  " + s.x + "," + s.y);
+  });
+  L.push("", "JSON " + JSON.stringify(store));
+  $("outText").value = L.join("\n");
+}
+
+window.addEventListener("resize", () => { if (!$("work").hidden) drawStage(); else if (!$("lm").hidden) drawLm(); });
+$("plate").addEventListener("load", () => { paintGuides(); placeMarks(); });
+$("lmPlate").addEventListener("load", paintLm);
+render();
+</script>
+</body>
+</html>

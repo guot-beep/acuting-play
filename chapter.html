@@ -358,10 +358,10 @@
     padding:8px;margin-top:4px}
   .disclaimer{font-size:10.5px;color:var(--ink-soft);opacity:.7;line-height:1.6;margin-top:8px}
 </style>
-<link rel="stylesheet" href="desktop.css?v=83">
-<script src="state.js?v=83"></script>
-<script src="data/herbs.js?v=83"></script>
-<script src="hud.js?v=83"></script>
+<link rel="stylesheet" href="desktop.css?v=86">
+<script src="state.js?v=86"></script>
+<script src="data/herbs.js?v=86"></script>
+<script src="hud.js?v=86"></script>
 <script>
 /* One chapter, not ten. document.write is deliberate here: it keeps the load
    synchronous and ordered, so the 1300 lines of engine below still find
@@ -369,7 +369,7 @@
    script is same-origin, so Chrome's document.write intervention does not
    apply to it. Falls back to the whole file if the id is not one we generated. */
 (function(){
-  var v = "?v=83";
+  var v = "?v=86";
   var id = (new URLSearchParams(location.search).get("ch") || "01").replace(/[^0-9]/g, "");
   if (!/^\d{2}$/.test(id)) id = "01";
   document.write('<scr' + 'ipt src="data/chapters/' + id + '.js' + v + '"></scr' + 'ipt>');
@@ -380,7 +380,7 @@
     + 'document.write(\'<scr\'+\'ipt src="data/chapters.js' + v + '"></scr\'+\'ipt>\');</scr' + 'ipt>');
 })();
 </script>
-<script src="data/drills.js?v=83"></script>
+<script src="data/drills.js?v=86"></script>
 </head>
 <body data-page="chapter">
 <div id="app">
@@ -583,8 +583,9 @@
       <!-- Asking for money is the last thing on the screen and the easiest to
            dismiss. It is hidden entirely until AG.SUPPORT_LINK is a real link. -->
       <div class="support-cta" id="supportCta" hidden>
-        <p class="support-ask">Enjoying Apricot Grove?<span class="zh"> 喜歡杏林行嗎？</span></p>
-        <button class="cta ghost" id="supportBtn">Support the next chapter 🌿<span class="zh"> 支持下一章</span></button>
+        <p class="support-ask">Apricot Grove is free, and it stays free.<br>If it helped you today, a coffee helps the next chapter get written.
+          <span class="zh" style="display:block;margin-top:5px">杏林行是免費的，以後也會是。如果它今天幫到你，一杯咖啡的心意，就能推著下一章寫下去。</span></p>
+        <button class="cta ghost" id="supportBtn">Buy me a coffee ☕<span class="zh"> 請我喝杯咖啡</span></button>
         <button class="cta ghost dim" id="supportDismiss">Maybe later<span class="zh"> 之後再說</span></button>
       </div>
       <button class="cta" id="againBtn">Play chapter again</button>
@@ -1259,15 +1260,32 @@ function ending(){
   $("stars").innerHTML="★".repeat(n)+`<span class="off">${"★".repeat(3-n)}</span>`;
   $("endTitle").textContent=CH.endings.titles[3-n];
 /* 支持杏林行 · shown only once Ting has set a real link in state.js, and only
-   after a chapter has actually been finished — never mid-lesson. */
+   after a chapter has actually been finished — never mid-lesson.
+
+   Three more rules on top of that, because asking for money every single time
+   is how a warm game starts to feel like a billboard:
+     · never on someone's first finished chapter — earn it first;
+     · "Maybe later" means later, not "ask again in ninety seconds";
+     · once someone has actually gone to Ko-fi, stay quiet for a season.
+   The snooze is a day number in flags, so it survives reloads like everything
+   else, and a Reset clears it along with the rest of the save. */
 (function(){
   var url=(AG && AG.SUPPORT_LINK)||"", box=$("supportCta");
   if(!box) return;
   if(!url || url.indexOf("REPLACE")>=0) return;      // stays hidden
+
+  var F = AG.state.flags || {};
+  var today = AG.review.dayNumber(AG.gameDayKey());
+  var finished = Object.keys(F).filter(function(k){ return /^chapter\d+Done$/.test(k); }).length;
+
+  function snooze(days){ F.supportSnooze = today + days; AG.state.flags = F; AG.save(); }
+
+  if (finished < 2) return;                          // too early to ask
+  if (F.supportSnooze && today < F.supportSnooze) return;   // asked recently
+
   box.hidden=false;
-  $("supportBtn").onclick=function(){ global_open(url); };
-  $("supportDismiss").onclick=function(){ box.hidden=true; };
-  function global_open(u){ window.open(u,"_blank","noopener"); }
+  $("supportBtn").onclick=function(){ snooze(90); window.open(url,"_blank","noopener"); };
+  $("supportDismiss").onclick=function(){ snooze(14); box.hidden=true; };
 })();
   const txt=n===3?CH.endings.three:n===2?CH.endings.two:CH.endings.one;
   $("endText").innerHTML=txt[0]+`<span class="zh" style="display:block;margin-top:8px">${txt[1]}</span>`;

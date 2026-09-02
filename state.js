@@ -10,11 +10,12 @@
   var KEY = "apricot-grove";
 
   /* ── support link ─────────────────────────────────────────────────
-     TING FILLS THIS IN. One place, read by hud.js and chapter.html.
+     Ko-fi, set 2026-08. One place, read by hud.js and chapter.html.
      Leave it empty (or leave the REPLACE placeholder in) and every
      "Support" button hides itself — a donate button that 404s costs
-     more trust than no button at all. Same rule as the 催更 form. */
-  var SUPPORT_LINK = "";
+     more trust than no button at all. Same rule as the 催更 form.
+     If the page ever moves, change this one line and nothing else. */
+  var SUPPORT_LINK = "https://ko-fi.com/acuting";
   var VERSION = 2;
 
   /* ── skill axes ── */
