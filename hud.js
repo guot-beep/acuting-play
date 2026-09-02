@@ -641,18 +641,45 @@
       glyph:"穴", t:"Ten points learned", z:"已識十穴", s:"The Point Hall is starting to fill." , zs:"點穴堂漸有其形。"},
     { key:"pts25",  test:function(S){ return (S.points||[]).length >= 25; },
       glyph:"穴", t:"Twenty-five points", z:"二十五穴", s:"More than half the hall.", zs:"堂中過半矣。"},
-    { key:"ptsAll", test:function(S){ return (S.points||[]).length >= ((global.AG_POINTS||[]).length || 39); },
+    /* No hardcoded totals. The roster grows, and a "you have them all" that
+       fires at 39 of 42 is a lie the player can check. If the data is not
+       loaded on this page, the milestone simply does not fire here. */
+    { key:"ptsAll", test:function(S){ var t=(global.AG_POINTS||[]).length;
+        return t > 0 && (S.points||[]).length >= t; },
       glyph:"堂", t:"Every point in the hall", z:"點穴堂圓滿", s:"You have visited all of them.", zs:"諸穴皆已親歷。"},
     { key:"herb5",  test:function(S){ return (S.cards||[]).length >= 5; },
       glyph:"草", t:"Five herbs in the bag", z:"囊中五味", s:"The codex is opening.", zs:"本草漸開。"},
-    { key:"herbAll",test:function(S){ return (S.cards||[]).length >= ((global.AG_HERBS||[]).length || 20); },
+    { key:"herbAll",test:function(S){ var t=(global.AG_HERBS||[]).length;
+        return t > 0 && (S.cards||[]).length >= t; },
       glyph:"囊", t:"The whole materia medica", z:"本草圓滿", s:"Every herb has spoken to you.", zs:"諸藥皆已與你言。"},
     { key:"ch03",   test:function(S){ return chapterCount(S) >= 3; },
       glyph:"卷", t:"Three chapters closed", z:"三章已了", s:"The schools are opening behind you.", zs:"諸流派次第開啟。"},
     { key:"ch07",   test:function(S){ return chapterCount(S) >= 7; },
       glyph:"卷", t:"Seven chapters closed", z:"七章已了", s:"Single-organ patterns are behind you.", zs:"單臟之證，已在身後。"},
     { key:"chAll",  test:function(S){ return chapterCount(S) >= chapterTotal(); },
-      glyph:"醫", t:"Every chapter closed", z:"全卷已了", s:"Master Shen has nothing left to set you.", zs:"參師父再無案可付。"}
+      glyph:"醫", t:"Every chapter closed", z:"全卷已了", s:"Master Shen has nothing left to set you.", zs:"參師父再無案可付。"},
+
+    /* Coming back is the hardest part of learning anything, and until now the
+       game noticed everything except that. These fire on the day the streak
+       reaches the number, inside whatever activity earned it. */
+    { key:"streak3",  test:function(S){ return (S.streak||0) >= 3; },
+      glyph:"續", t:"Three days running", z:"連續三日", s:"The beginning of a habit.", zs:"習之始也。"},
+    { key:"streak7",  test:function(S){ return (S.streak||0) >= 7; },
+      glyph:"續", t:"Seven days running", z:"連續七日", s:"A week without missing. That is the hard part.", zs:"一旬未間。難者正在於此。"},
+    { key:"streak30", test:function(S){ return (S.streak||0) >= 30; },
+      glyph:"恆", t:"Thirty days running", z:"連續三十日", s:"A month. Most of what you know now, you learned in small pieces.", zs:"一月矣。今之所知，多由積寸而成。"},
+    { key:"streak100",test:function(S){ return (S.streak||0) >= 100; },
+      glyph:"恆", t:"A hundred days", z:"百日不斷", s:"A hundred days is how long the old apprenticeships counted their first season.", zs:"古之從師，首季即以百日計。"},
+
+    { key:"dc10",  test:function(S){ return ((S.dc||{}).solved||0) >= 10; },
+      glyph:"榜", t:"Ten cases on the roster", z:"診榜十案", s:"Ten patients you had never seen before.", zs:"十位素未謀面之病人。"},
+    { key:"dc30",  test:function(S){ return ((S.dc||{}).solved||0) >= 30; },
+      glyph:"榜", t:"Thirty cases", z:"診榜三十案", s:"A month of mornings.", zs:"三十個清晨。"},
+
+    { key:"round1",   test:function(S){ return ((S.rounds||{}).done||0) >= 1; },
+      glyph:"考", t:"First round sat", z:"初應旬考", s:"Ten days from now there will be another one.", zs:"十日之後，復有一場。"},
+    { key:"roundTop", test:function(S){ return ((S.rounds||{}).best||0) >= 10; },
+      glyph:"甲", t:"A clean round", z:"旬考全中", s:"Ten out of ten, on everything you had studied.", zs:"十問俱中，所考者皆平日所學。"}
   ];
   function chapterTotal(){
     var idx = global.AG_CHAPTER_INDEX;
