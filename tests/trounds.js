@@ -127,9 +127,17 @@ const playThrough = async (p, howToAnswer) => {
 
   /* 6 · the endgame. With every chapter finished the story button must point at
         something live — a round, a due review, today's case — not at a replay. */
+  /* Read the chapter count from the index rather than typing it. A hardcoded
+     26 stopped being true the moment chapter 27 shipped, and a stale number in
+     a test does not fail honestly — it fails as if the product broke. */
+  const fs = require('fs'), vm = require('vm');
+  const sbx = {window:{}};
+  vm.runInNewContext(fs.readFileSync('/home/claude/site/data/chapter-index.js','utf8'), sbx);
+  const ALL_CH = sbx.window.AG_CHAPTER_INDEX.map(c => c.id);
+
   const finished = (roundsJson, dcLast, revJson) => `(() => {
     const flags={prologueDone:true};
-    for(let i=1;i<=26;i++) flags['chapter'+String(i).padStart(2,'0')+'Done']=true;
+    ${JSON.stringify(ALL_CH)}.forEach(id => flags['chapter'+id+'Done']=true);
     try{ localStorage.setItem('apricot-grove', JSON.stringify(
       {v:2,char:'yan',mode:'student',flags,review:${revJson},rounds:${roundsJson},
        dc:{last:'${dcLast}',streak:0,solved:0,results:{}}})); }catch(e){}

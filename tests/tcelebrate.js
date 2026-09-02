@@ -2,6 +2,7 @@
    without the page opting in — and must never block the button underneath it. */
 const {chromium}=require(process.env.PW||'playwright');
 const B='file:///home/claude/site/';
+const BASE=B;
 (async()=>{
 const b=await chromium.launch({executablePath:process.env.CHROME||'/opt/pw-browsers/chromium'});
 let fail=0; const ok=(c,m)=>{console.log((c?'  ✅ ':'  ✗ ')+m);if(!c)fail++};
@@ -86,6 +87,47 @@ await p.waitForTimeout(500);
 r=await p.evaluate(()=>document.querySelector('.ag-cel').textContent);
 ok(/point/i.test(r),'completing the Point Hall is marked: "'+r.replace(/\s+/g,' ').slice(0,60)+'"');
 await p.close();
+
+
+
+/* 8 · coming back is celebrated too, and a completion milestone may never fire
+       early. The totals used to be hardcoded (20 herbs, 39 points); the roster
+       grew past both, so "you have them all" would have fired at 20 of 27. */
+{
+  const pg2 = await b.newPage({viewport:{width:390,height:844}});
+  const e2 = []; pg2.on('pageerror', e => e2.push(String(e)));
+  const yesterday = new Date(Date.now() - 864e5).toISOString().slice(0, 10);
+  await pg2.addInitScript(y => { try { localStorage.setItem('apricot-grove', JSON.stringify(
+    {v:2, char:'yan', mode:'student', streak:6, lastDay:y, flags:{prologueDone:true}})); } catch(e){} }, yesterday);
+  await pg2.goto(BASE + 'index.html'); await pg2.waitForTimeout(400);
+  const fired = await pg2.evaluate(() => {
+    AG.complete({activity:'t_streak', completed:false, xpEarned:1});
+    return Object.keys(AG.state.flags).filter(k => k.indexOf('mile_streak') === 0);
+  });
+  ok(fired.indexOf('mile_streak7') >= 0, 'a seven-day streak is celebrated (' + fired.join(', ') + ')');
+
+  /* herbroom.html loads the herb roster, so the total is real there */
+  await pg2.goto(BASE + 'herbroom.html'); await pg2.waitForTimeout(500);
+  const early = await pg2.evaluate(() => {
+    const total = (window.AG_HERBS || []).length;
+    AG.state.cards = Array.from({length: Math.max(0, total - 1)}, (_, i) => ({id: 'x' + i}));
+    delete AG.state.flags.mile_herbAll;
+    AG.complete({activity:'t_herb', completed:false, xpEarned:1});
+    return {total, fired: !!AG.state.flags.mile_herbAll};
+  });
+  ok(early.total > 0 && !early.fired,
+     'one short of the full codex does not fire "the whole materia medica" (' + (early.total - 1) + ' of ' + early.total + ')');
+  const done = await pg2.evaluate(() => {
+    const total = (window.AG_HERBS || []).length;
+    AG.state.cards = Array.from({length: total}, (_, i) => ({id: 'y' + i}));
+    delete AG.state.flags.mile_herbAll;
+    AG.complete({activity:'t_herb2', completed:false, xpEarned:1});
+    return !!AG.state.flags.mile_herbAll;
+  });
+  ok(done, 'the full codex does fire it');
+  ok(e2.length === 0, 'streak and completion milestones throw nothing' + (e2[0] ? ': ' + e2[0] : ''));
+  await pg2.close();
+}
 
 await b.close();
 console.log(fail?('\n'+fail+' FAILURES'):'\nprogress is visible when it happens and silent when it does not');
