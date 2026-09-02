@@ -301,19 +301,46 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
 .gitem .gt b{font-size:14.5px;display:block}
 .gitem .gt small{font-size:11.5px;color:var(--ink-soft);display:block;margin-top:2px;line-height:1.5}
 .gitem .go{font-size:12px;color:var(--terra-ink);font-family:"Courier New",monospace;letter-spacing:.1em}
+.vhead{margin:16px 2px 8px;display:block}
+.vhead:first-child{margin-top:2px}
+.vhead b{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--terra-ink)}
+.vhead b .zh{text-transform:none;letter-spacing:0;color:var(--ink-soft)}
+.vhead i{float:right;font-style:normal;font-size:11.5px;color:var(--ink-faint);
+  font-family:"Courier New",monospace;padding-top:2px}
+.vhead small{display:block;font-size:11.5px;color:var(--ink-faint);line-height:1.65;margin-top:3px}
+.vhead small .zh{display:block;margin-top:1px}
 .gitem.locked{opacity:.5;pointer-events:none}
 .gitem.locked .go{color:var(--ink-faint)}
+.season{display:flex;align-items:center;gap:11px;width:100%;background:var(--white);
+  border:1.5px solid rgba(51,47,40,.1);border-radius:13px;padding:11px 13px;margin-bottom:12px;
+  box-shadow:var(--sh-s);font-family:inherit;text-align:left;cursor:pointer;transition:transform .15s}
+.season:active{transform:scale(.985)}
+.season .sg{width:34px;height:34px;border-radius:9px;flex:none;display:flex;align-items:center;
+  justify-content:center;font-size:18px;background:var(--paper2);color:var(--sage-deep,#4E5D46)}
+.season .st{flex:1;min-width:0}
+.season .st b{font-size:14.5px;display:block}
+.season .st small{font-size:11.5px;color:var(--ink-faint);display:block;margin-top:2px;line-height:1.5}
+.season .sq{font-size:19px;color:var(--ink-faint);flex:none}
+.jq{background:var(--white);border:1px solid rgba(51,47,40,.1);border-radius:12px;
+  padding:12px 13px;margin-bottom:9px}
+.jq h5{margin:0 0 5px;font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--terra-ink)}
+.jq p{margin:0;font-size:13.5px;line-height:1.75;color:var(--ink-soft)}
+.jq p .zh{display:block;margin-top:4px;color:var(--ink-faint)}
+.jq.care{border-left:3px solid var(--sage-deep,#4E5D46)}
+.jq.warn{border-left:3px solid var(--terra-ink,#C26D4E);background:#FFFAF4}
 .note{font-size:11px;color:var(--ink-faint);text-align:center;line-height:1.7;margin-top:10px}
 .toast{position:absolute;left:50%;bottom:calc(26px + env(safe-area-inset-bottom));transform:translate(-50%,12px);
   background:var(--ink);color:var(--white);font-size:13px;padding:10px 18px;border-radius:99px;opacity:0;
   transition:.3s var(--ease);z-index:80;pointer-events:none}
 .toast.on{opacity:.95;transform:translate(-50%,0)}
 </style>
-<link rel="stylesheet" href="desktop.css?v=86">
-<script src="state.js?v=86"></script>
-<script src="data/herbs.js?v=86"></script>
-<script src="data/chapter-index.js?v=86"></script>
-<script src="hud.js?v=86"></script>
+<link rel="stylesheet" href="desktop.css?v=100">
+<script src="state.js?v=100"></script>
+<script src="data/herbs.js?v=100"></script>
+<script src="data/chapter-index.js?v=100"></script>
+<script src="data/volumes.js?v=100"></script>
+<script src="data/jieqi.js?v=100"></script>
+<script src="hud.js?v=100"></script>
 </head>
 <body data-page="hub">
 <div id="app">
@@ -398,6 +425,15 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
       <div class="stat"><b id="hubDay">1</b><small>DAY</small></div>
     </div>
 
+    <!-- The one thing in the town that changes without anyone writing new
+         content: the calendar moves, the term turns about every fifteen days,
+         and this band says something else. Twenty-four states, round forever. -->
+    <button class="season" id="seasonBand" hidden>
+      <span class="sg" id="seasonGlyph"></span>
+      <span class="st"><b id="seasonName"></b><small id="seasonWhen"></small></span>
+      <span class="sq">›</span>
+    </button>
+
     <div class="panel">
       <h3>Physician's Compass<span class="zh"> 醫者五軸</span></h3>
       <div class="radar-wrap">
@@ -452,6 +488,7 @@ h1.title{font-size:38px;letter-spacing:.2em;text-align:center;font-weight:700;li
     <button class="btn" id="storyBtn"><span id="storyLabel">Prologue ▸</span><span style="display:block;font-size:11.5px;letter-spacing:.1em;opacity:.85;margin-top:2px" id="storySub">The First Lesson<span class="zh"> · 第一課</span></span></button>
     <button class="btn ghost" id="chapBtn" style="margin-top:9px;min-height:44px;font-size:14px">Chapter index<span class="zh"> · 章回目錄</span></button>
     <button class="btn ghost" id="rvBtn" style="margin-top:9px;min-height:44px;font-size:14px" hidden>Review<span class="zh"> · 溫故</span></button>
+    <button class="btn ghost" id="rdBtn" style="margin-top:9px;min-height:44px;font-size:14px" hidden>Rounds<span class="zh"> · 旬考</span></button>
     <button class="btn ghost" id="recBtn" style="margin-top:9px;min-height:44px;font-size:14px">Your record<span class="zh"> · 修習錄</span></button>
   </section>
 
@@ -574,7 +611,8 @@ const SCHOOLS={
   games:[{ic:"🎯",t:"Point Tap 點穴",d:"Find each point on the body. Accuracy beats speed.",go:"PLAY",open:1,file:"acuting-play.html"},
          {ic:"🪡",t:"The Point Hall 點穴堂",d:"Not just where a point is — why you would reach for it, and when you would not.",go:"PLAY",open:1,file:"pointroom.html"},
          {ic:"⚡",t:"Special Points 特定穴",d:"Five Shu, Source, Connecting, Cleft and the Eight Meeting points.",go:"PLAY",open:1,file:"practice.html?d=tedingxue"},
-         {ic:"〰️",t:"Channel Flow 經絡流注",d:"The twelve channels in order, and the four directions they run.",go:"PLAY",open:1,file:"practice.html?d=jingluo"}]},
+         {ic:"〰️",t:"Channel Flow 經絡流注",d:"The twelve channels in order, and the four directions they run.",go:"PLAY",open:1,file:"practice.html?d=jingluo"},
+         {ic:"🛡️",t:"Needling Safety 針刺安全",d:"Angle, depth, the points that need care, and what to do when something goes wrong.",go:"PLAY",open:1,file:"practice.html?d=anquan"}]},
  theory:{key:"theory",glyph:"理",school:"Foundations 醫理根基",mentor:"Shū Chī · 書癡",sprite:"shu",
   quote:'"Everyone wants to needle. Nobody wants to know why it works. Sit down."',
   quoteZh:"「人人都想扎針，沒人想知道為什麼有效。坐下。」",
@@ -589,7 +627,9 @@ const SCHOOLS={
   games:[{ic:"📋",t:"Daily Case 今日病例",d:"One new case a day, the same one for every player.",go:"PLAY",open:1,file:"dailycase.html"},
          {ic:"💗",t:"Pulse Reading 脈象判讀",d:"Depth, rate, width, force, shape — five questions, one finger.",go:"PLAY",open:1,file:"practice.html?d=pulse"},
          {ic:"👅",t:"Tongue Reading 舌象判讀",d:"Body before coating. Colour, thickness, moisture, shape.",go:"PLAY",open:1,file:"practice.html?d=tongue"},
-         {ic:"⚖️",t:"Eight Principles 八綱辨證",d:"Exterior/interior, cold/heat, deficiency/excess.",go:"PLAY",open:1,file:"practice.html?d=bagang"}]},
+         {ic:"⚖️",t:"Eight Principles 八綱辨證",d:"Exterior/interior, cold/heat, deficiency/excess.",go:"PLAY",open:1,file:"practice.html?d=bagang"},
+         {ic:"🧬",t:"Combined Patterns 複合臟腑病證",d:"Two organs at once — and which one came first.",go:"PLAY",open:1,file:"practice.html?d=fuhe"},
+         {ic:"🌡️",t:"Three Kinds of Heat 三種熱",d:"Full, empty, damp-heat — same word, three patterns, three opposite prescriptions.",go:"PLAY",open:1,file:"sort.html?s=heat_three"}]},
  daoyin:{key:"daoyin",glyph:"導",school:"Cultivation 導引養生",mentor:"Xióng Shī · 熊師",sprite:"xiong",
   quote:'"Hua Tuo was a physician, and he invented the Five Animal Frolics. Movement is medicine you can take before you are ill."',
   quoteZh:"「華佗是醫家，五禽戲是他創的。動作是一種藥——在你還沒生病之前就能吃的藥。」",
@@ -603,7 +643,8 @@ const SCHOOLS={
          {ic:"👑",t:"Formula Architecture 君臣佐使",d:"How a formula is built, and how two herbs change each other.",go:"PLAY",open:1,file:"practice.html?d=junchen"},
          {ic:"🍲",t:"Seasonal Kitchen 節氣食療",d:"Eating with the season — gently, and without overclaiming.",go:"PLAY",open:1,file:"practice.html?d=jieqi"},
          {ic:"🔥",t:"Warm, Cool or Neutral 藥性歸類",d:"Sort familiar herbs by their nature.",go:"PLAY",open:1,file:"sort.html?s=herb_nature"},
-         {ic:"🗂️",t:"Court of a Formula 君臣佐使歸類",d:"Sort each office by what it does in the pot.",go:"PLAY",open:1,file:"sort.html?s=formula_roles"}]}
+         {ic:"🗂️",t:"Court of a Formula 君臣佐使歸類",d:"Sort each office by what it does in the pot.",go:"PLAY",open:1,file:"sort.html?s=formula_roles"},
+         {ic:"⚖️",t:"Herbs Easily Confused 本草辨異",d:"Pairs that share a name, a plant, or a job — and part company in clinic.",go:"PLAY",open:1,file:"practice.html?d=bencao"}]}
 };
 const AXES=[["needle","Needle<span class=\"zh\"> 針道</span>","#7B8B6F"],["theory","Theory<span class=\"zh\"> 醫理</span>","#B08D3E"],
             ["dx","Diagnosis<span class=\"zh\"> 四診</span>","#C26D4E"],["herb","Herbs<span class=\"zh\"> 本草</span>","#8E9E82"],
@@ -703,6 +744,44 @@ function openSheet(key){
 /* ── chapter index ──
    Reuses the same sheet as the mentors. A chapter opens once the one before it
    is finished; finished chapters stay open so a case can be replayed. */
+/* ══════════ 二十四節氣 ══════════ */
+const JQ = (window.AG_JIEQI && window.AG_JIEQI_AT) ? window.AG_JIEQI_AT(new Date()) : null;
+const JQN = JQ ? window.AG_JIEQI_NEXT(new Date()) : null;
+if (JQ) {
+  $("seasonBand").hidden = false;
+  $("seasonGlyph").textContent = JQ.zh.charAt(0);
+  $("seasonName").innerHTML = JQ.en + '<span class="zh"> · ' + JQ.zh + '</span>';
+  const days = JQN.days;
+  /* A Chinese sentence with an Arabic numeral dropped into it reads as a
+     translation rather than as writing. Two-digit terms only ever go to 24. */
+  const cn = n => { const D="零一二三四五六七八九";
+    return n < 10 ? D[n] : n === 10 ? "十" : n < 20 ? "十"+D[n%10]
+         : D[Math.floor(n/10)] + "十" + (n%10 ? D[n%10] : ""); };
+  $("seasonWhen").innerHTML =
+    'Solar term ' + JQ.n + ' of 24 · ' + (days <= 1 ? 'turns tomorrow' : days + ' days to go')
+    + '<span class="zh">二十四節氣之' + cn(JQ.n) + ' · ' + (days <= 1 ? '明日交節' : '尚餘' + cn(days) + '日') + '</span>';
+  $("seasonBand").onclick = openSeason;
+}
+function openSeason(){
+  $("mSchool").textContent = JQ.en + " " + JQ.zh;
+  $("mName").innerHTML = "The season · " + JQ.organ.en + '<span class="zh"> 時令 · ' + JQ.organ.zh + '</span>';
+  $("mQuote").innerHTML = JQ.note.en + '<span class="zh">' + JQ.note.zh + '</span>';
+  canvases.length = 0; reg($("hubCv"), S.char); reg($("mCv"), "yao");
+  $("mGames").innerHTML =
+      '<div class="jq"><h5>On the table<span class="zh"> 飲食</span></h5><p>' + JQ.eat.en
+    + '<span class="zh">' + JQ.eat.zh + '</span></p></div>'
+    + '<div class="jq care"><h5>Daily care<span class="zh"> 起居</span></h5><p>' + JQ.care.en
+    + '<span class="zh">' + JQ.care.zh + '</span></p></div>'
+    + '<div class="jq warn"><h5>Worth knowing<span class="zh"> 注意</span></h5><p>' + JQ.caution.en
+    + '<span class="zh">' + JQ.caution.zh + '</span></p></div>';
+  $("mNote").innerHTML = 'Next term: <b>' + JQN.term.en + '</b>, on or about '
+    + JQN.term.m + '/' + JQN.term.d + '.<br>Seasonal self-care, not treatment — and never a reason to delay care you need.'
+    + '<span class="zh">下一節氣：' + JQN.term.zh + '，約在' + JQN.term.m + '月' + JQN.term.d + '日。<br>'
+    + '此為節氣養生，非醫療處置；亦不當因此而延誤該就之醫。</span>';
+  $("scrim").classList.add("on"); $("sheet").classList.add("on");
+  AG.applyLang();
+}
+
 function openChapters(){
   $("mSchool").textContent="The Story 主線";
   $("mName").textContent="Master Shen 參師父";
@@ -710,7 +789,18 @@ function openChapters(){
     +'<span class="zh">「這裡每一個病人，都是你日後還會再遇到的證。想回去看哪一個都可以。」</span>';
   canvases.length=0;reg($("hubCv"),S.char);reg($("mCv"),"shen");
   let openNext=true;
-  $("mGames").innerHTML=CH_IDS.map(id=>{
+  /* Grouped by volume so twenty-plus chapters read as a journey rather than a
+     scroll. A chapter that falls outside every declared range still appears,
+     under the last volume — the list must never silently drop a chapter
+     because data/volumes.js was not updated alongside a new chapter. */
+  const VOLS=window.AG_VOLUMES||[];
+  const volOf=id=>{
+    for(let i=0;i<VOLS.length;i++){
+      if(id>=VOLS[i].from && id<=VOLS[i].to) return i;
+    }
+    return VOLS.length?VOLS.length-1:-1;
+  };
+  const rowFor=id=>{
     const c=CH_BY_ID[id]||{};
     const done=chDone(id);
     const open=done||openNext;
@@ -720,7 +810,24 @@ function openChapters(){
       +'<div class="gt"><b>'+chLabel(id)+'</b><small>'+chSub(id)
       +(c.pattern?'<br><span style="color:var(--gold-ink)">'+c.pattern+'</span>':"")+'</small></div>'
       +'<div class="go">'+(done?"REPLAY":open?"PLAY":"LOCKED")+' ▸</div></button>';
-  }).join("");
+  };
+  if(!VOLS.length){
+    $("mGames").innerHTML=CH_IDS.map(rowFor).join("");
+  }else{
+    let html="",shown=-1;
+    CH_IDS.forEach(id=>{
+      const v=volOf(id);
+      if(v!==shown){
+        shown=v;
+        const V=VOLS[v],ids=CH_IDS.filter(x=>volOf(x)===v),d=ids.filter(chDone).length;
+        html+='<div class="vhead"><b>'+V.en+'<span class="zh"> · '+V.zh+'</span></b>'
+             +'<i>'+d+' / '+ids.length+'</i>'
+             +'<small>'+V.blurb.en+'<span class="zh">'+V.blurb.zh+'</span></small></div>';
+      }
+      html+=rowFor(id);
+    });
+    $("mGames").innerHTML=html;
+  }
   $("mGames").querySelectorAll(".gitem").forEach(btn=>{
     btn.onclick=()=>{location.href="chapter.html?ch="+btn.dataset.ch};
   });
@@ -786,7 +893,10 @@ const CH_INDEX=window.AG_CHAPTER_INDEX||[];
 const CH_BY_ID={};CH_INDEX.forEach(c=>{CH_BY_ID[c.id]=c});
 const CH_IDS=CH_INDEX.map(c=>c.id);
 const WORD=["","One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten",
-            "Eleven","Twelve","Thirteen","Fourteen","Fifteen"];
+            "Eleven","Twelve","Thirteen","Fourteen","Fifteen","Sixteen","Seventeen",
+            "Eighteen","Nineteen","Twenty","Twenty-One","Twenty-Two","Twenty-Three",
+            "Twenty-Four","Twenty-Five","Twenty-Six","Twenty-Seven","Twenty-Eight",
+            "Twenty-Nine","Thirty"];
 const chDone=id=>!!S.flags["chapter"+id+"Done"];
 function chLabel(id){const n=+id;return "Chapter "+(WORD[n]||n)}
 function chSub(id){const c=CH_BY_ID[id]||{};
@@ -796,6 +906,19 @@ function nextChapter(){
   for(const id of CH_IDS){
     if(!chDone(id))return{href:"chapter.html?ch="+id,label:chLabel(id)+" ▸",sub:chSub(id)};
   }
+  /* Every chapter finished. "Replay chapter 26" is a dead end dressed as a
+     next step, so point at whatever is genuinely live today — a round, a due
+     review, the daily case — and fall back to a replay only if none of them
+     is. This is the endgame the long players actually live in. */
+  var open=false; try{ open=AG.rounds && AG.rounds.open(); }catch(e){}
+  if(open) return{href:"review.html?m=rounds",label:"Sit the rounds ▸",
+    sub:'Ten questions on everything so far<span class="zh"> · 旬考 · 十問，考平日所學</span>'};
+  var due=0; try{ due=AG.review.counts().due; }catch(e){}
+  if(due) return{href:"review.html",label:"Review "+due+" ▸",
+    sub:'Questions due today<span class="zh"> · 溫故 · 今日待溫</span>'};
+  var dcDone=S.dc && S.dc.last===AG.gameDayKey();
+  if(!dcDone) return{href:"dailycase.html",label:"Today's case ▸",
+    sub:'A new patient every day<span class="zh"> · 今日診榜 · 每日一人</span>'};
   const last=CH_IDS[CH_IDS.length-1]||"01";
   return{href:"chapter.html?ch="+last,label:"Replay "+chLabel(last)+" ▸",
     sub:'Every chapter is open below<span class="zh"> · 下方可回任一章</span>'};
@@ -814,6 +937,22 @@ $("recBtn").onclick=()=>{location.href="progress.html"};
   b.hidden=false;
   b.innerHTML='Review '+due+'<span class="zh"> · 溫故 '+due+' 題</span>';
   b.onclick=function(){ location.href="review.html"; };
+})();
+
+/* 旬考 · the ten-day examination. Same rule as Review: the button appears only
+   when a round is actually open, which needs both a new ten-day block and
+   enough studied material to draw ten honest questions from. */
+(function(){
+  var b=$("rdBtn"); if(!b || !AG.rounds) return;
+  var open=false; try{ open=AG.rounds.open(); }catch(e){}
+  if(!open) return;
+  var best=(S.rounds&&S.rounds.best)||0, done=(S.rounds&&S.rounds.done)||0;
+  b.hidden=false;
+  b.innerHTML='Rounds are open<span class="zh"> · 旬考已開</span>'
+    + '<span style="display:block;font-size:11px;letter-spacing:.06em;opacity:.75;margin-top:2px">'
+    + (done ? 'Ten questions · best so far ' + best + ' / 10' : 'Ten questions on everything so far')
+    + '<span class="zh">' + (done ? '十問 · 最佳 ' + best + ' / 10' : '十問，考平日所學') + '</span></span>';
+  b.onclick=function(){ location.href="review.html?m=rounds"; };
 })();
 
 /* resume */

@@ -50,6 +50,7 @@
       points: [],               // point ids learned in the Point Hall 點穴堂
       mastery: {},              // pointId -> repetitions, for the Lung point-tap game
       review: {},               // review queue 溫故 — see the review block below
+      rounds: {},               // 旬考 — the ten-day examination: last, best, done, log
       streak: 0, lastDay: "",   // overall play streak
       dc: { streak: 0, last: "", solved: 0, results: {} }   // daily case
     };
@@ -72,7 +73,7 @@
     // shallow merge known top-level keys
     Object.keys(s).forEach(function (k) {
       if (raw[k] === undefined) return;
-      if (k === "stats" || k === "skillXp" || k === "flags" || k === "best" || k === "unlocks" || k === "dc" || k === "review") {
+      if (k === "stats" || k === "skillXp" || k === "flags" || k === "best" || k === "unlocks" || k === "dc" || k === "review" || k === "rounds") {
         if (raw[k] && typeof raw[k] === "object") s[k] = Object.assign(s[k], raw[k]);
       } else s[k] = raw[k];
     });
@@ -325,6 +326,48 @@
   }
 
   /* when does the next item come back? null if nothing is scheduled. */
+  /* Everything the player has ever answered, sampled the same way for
+     everyone on a given round. The Tang academies examined every ten days —
+     旬考 — and the point of it was breadth: not what is due, but whether the
+     whole of what you have studied is still there. Deterministic from the
+     seed so the round is the same exam worldwide, like the daily case. */
+  function reviewAll(n, seed) {
+    var keys = Object.keys(state.review).sort();
+    if (!keys.length) return [];
+    var s0 = (seed >>> 0) || 1, i, j, t;
+    function rnd() {                       // xorshift32 — small, seeded, enough
+      s0 ^= s0 << 13; s0 >>>= 0;
+      s0 ^= s0 >>> 17;
+      s0 ^= s0 << 5;  s0 >>>= 0;
+      return s0 / 4294967296;
+    }
+    for (i = keys.length - 1; i > 0; i--) {   // Fisher-Yates with the seeded source
+      j = Math.floor(rnd() * (i + 1));
+      t = keys[i]; keys[i] = keys[j]; keys[j] = t;
+    }
+    return keys.slice(0, n).map(function (k) {
+      var m = state.review[k] || {};
+      return { key: k, n: m.n || 0, lbl: m.lbl, sub: m.sub, href: m.href };
+    });
+  }
+
+  /* Which ten-day round are we in, and has this one been sat yet? */
+  var ROUND_DAYS = 10;
+  function roundNumber() { return Math.floor(dayNumber(gameDayKey()) / ROUND_DAYS); }
+  function roundOpen() {
+    var r = state.rounds || {};
+    return Object.keys(state.review).length >= 12 && r.last !== roundNumber();
+  }
+  function roundRecord(score, total) {
+    var r = state.rounds || (state.rounds = {});
+    r.last = roundNumber();
+    r.done = (r.done || 0) + 1;
+    r.best = Math.max(r.best || 0, score);
+    r.log = (r.log || []).concat([{ r: r.last, s: score, t: total, d: gameDayKey() }]).slice(-24);
+    save();
+    return r;
+  }
+
   function reviewNextDay() {
     var r = state.review || {}, best = null;
     Object.keys(r).forEach(function (k) {
@@ -356,6 +399,7 @@
     complete: complete, axisLevel: axisLevel, rank: rank,
     unlocked: function (k) { return !!state.unlocks[k]; },
     review: { mark: reviewMark, due: reviewDue, counts: reviewCounts, slot: reviewSlot,
-              nextDay: reviewNextDay, dayNumber: dayNumber, STEPS: REVIEW_STEPS }
+              nextDay: reviewNextDay, dayNumber: dayNumber, STEPS: REVIEW_STEPS, all: reviewAll },
+    rounds: { number: roundNumber, open: roundOpen, record: roundRecord, DAYS: ROUND_DAYS }
   };
 })(window);

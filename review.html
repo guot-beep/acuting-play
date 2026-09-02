@@ -174,9 +174,9 @@ body.nozh .slot .c{display:none}
 .rvempty{background:var(--white);border-radius:15px;padding:18px 16px;text-align:center;
   font-size:13.5px;line-height:1.8;color:var(--ink-soft);box-shadow:var(--sh-s)}
 </style>
-<link rel="stylesheet" href="desktop.css?v=86">
-<script src="state.js?v=86"></script>
-<script src="hud.js?v=86"></script>
+<link rel="stylesheet" href="desktop.css?v=100">
+<script src="state.js?v=100"></script>
+<script src="hud.js?v=100"></script>
 </head>
 <body data-page="review">
 <div id="app">
@@ -221,8 +221,8 @@ body.nozh .slot .c{display:none}
   </section>
 </div>
 
-<script src="data/chapter-index.js?v=86"></script>
-<script src="data/practice-index.js?v=86"></script>
+<script src="data/chapter-index.js?v=100"></script>
+<script src="data/practice-index.js?v=100"></script>
 <script>
 /* ══════════════════════════════════════════════════════════════
    Review 溫故 — the second meeting
@@ -244,6 +244,18 @@ const $ = id => document.getElementById(id);
 const zh = t => t ? '<span class="zh">' + t + "</span>" : "";
 AG.applyLang && AG.applyLang();
 AG.bindLangButton && AG.bindLangButton($("langBtn"));
+
+/* ── two modes, one engine ──────────────────────────────────────
+   review  (default) — the spaced queue: what is due today.
+   rounds  (?m=rounds) — 旬考, the ten-day examination. Same machinery,
+   different selection: ten questions drawn from EVERYTHING the player has
+   ever answered, seeded on the round number so the exam is the same one
+   worldwide, the way the daily case is. No spacing, no mercy, a grade at
+   the end and a line in the record. The Tang academies really did examine
+   every ten days, and they called it this. */
+const MODE = (new URLSearchParams(location.search).get("m") === "rounds") ? "rounds" : "review";
+const ROUND_N = AG.rounds ? AG.rounds.number() : 0;
+const ROUND_LEN = 10;
 
 const CHIDX = window.AG_CHAPTER_INDEX || {};
 const PRIDX = window.AG_PRACTICE_INDEX || {};
@@ -337,6 +349,7 @@ async function rebuild(entry){
 let QUEUE = [], LINKS = [], idx = 0, right = 0;
 
 async function boot(){
+  if (MODE === "rounds") return bootRounds();
   const due = AG.review.due(24);
   const built = [];
   for (const e of due){
@@ -371,6 +384,59 @@ function nextLine(){
   return "Nothing is due today. The next question comes back "
     + (days <= 1 ? "tomorrow" : "in " + days + " days") + "."
     + zh("今日無題。下一題於" + (days <= 1 ? "明日" : days + "日後") + "復見。");
+}
+
+/* ── 旬考 ── */
+async function bootRounds(){
+  document.title = "Rounds 旬考 · Apricot Grove";
+  /* Over-draw and keep the first ten that can honestly be rebuilt, so a few
+     sequencing or multi-select items in the pool do not shorten the exam. */
+  const pool = AG.review.all(ROUND_LEN * 3, ROUND_N * 2654435761);
+  const built = [];
+  for (const e of pool){
+    if (built.length >= ROUND_LEN) break;
+    let q = null;
+    try { q = await rebuild(e); } catch (err) { q = null; }
+    if (q) built.push(q);
+  }
+  QUEUE = built;
+
+  const sat = AG.state.rounds && AG.state.rounds.last === ROUND_N;
+  $("dueN").textContent = QUEUE.length;
+  $("dueLine").innerHTML = "questions in this round" + zh("本旬應考之數");
+
+  $("how").innerHTML = sat
+    ? "<b>You have already sat this round.</b> The next one opens in "
+      + daysToNextRound() + " day" + (daysToNextRound() === 1 ? "" : "s")
+      + ". You may sit it again for practice — only the first attempt was recorded."
+      + zh("本旬已考。下一旬於" + daysToNextRound() + "日後開啟。可再試以為練習，然所錄者惟首次。")
+    : "<b>Ten questions, drawn from everything you have studied.</b> No hints, no going back, "
+      + "and the same ten for every player this round. It is graded, and the grade goes in your record."
+      + zh("十問，出於平日所學。無提示，不可回頭；本旬之題，天下同之。此為考，其等第錄於修習錄。");
+
+  $("go").hidden = QUEUE.length === 0;
+  if (QUEUE.length) $("go").innerHTML = "Sit the round ▸<small>" + QUEUE.length + " questions · 應考</small>";
+  if (!QUEUE.length)
+    $("how").innerHTML = "<b>Not enough studied yet.</b> Rounds draw on questions you have already met. "
+      + "Play a chapter or a practice deck and come back."
+      + zh("所學未足。旬考出於曾遇之題。且先走一章或練一副牌，再來。");
+  $("linkouts").innerHTML = "";
+}
+
+function daysToNextRound(){
+  const d = AG.review.dayNumber(AG.gameDayKey());
+  return ROUND_LEN - (d % ROUND_LEN);
+}
+
+/* 甲乙丙丁 — the grade a Tang student would have been given, and the
+   plain-English line that says what it actually means for revision. */
+function grade(score, total){
+  const pct = total ? score / total : 0;
+  if (pct >= 1)    return {mk:"甲上", en:"Excellent",  note:"All ten. Nothing in this round needs revisiting.", zh:"十問俱中。本旬無所待補。"};
+  if (pct >= 0.8)  return {mk:"甲",   en:"Strong",     note:"Solid. The one or two you missed are back in the queue for tomorrow.", zh:"其功已固。所失一二，明日復見於溫故。"};
+  if (pct >= 0.6)  return {mk:"乙",   en:"Passing",    note:"Passing, with gaps. Look at what you missed rather than at the score.", zh:"及格而有闕。當察其所失，勿徒觀其數。"};
+  if (pct >= 0.4)  return {mk:"丙",   en:"Shaky",      note:"Shaky. This is information, not a verdict — every miss is now scheduled to come back.", zh:"未穩。此乃所得之知，非所加之評。凡所失者，皆已排期復見。"};
+  return               {mk:"丁",   en:"Re-read",    note:"Go back and re-read rather than pushing on. The queue will bring all of these back.", zh:"宜回頭復讀，不宜強進。所失諸題，溫故自當復見。"};
 }
 
 function paintLinks(){
@@ -443,6 +509,7 @@ function render(){
 $("next").onclick = () => { idx++; if (idx >= QUEUE.length) finish(); else render(); };
 
 function finish(){
+  if (MODE === "rounds") return finishRound();
   const c = AG.review.counts();
   $("doneN").textContent = right + " / " + QUEUE.length;
   $("doneLine").innerHTML = "answered correctly" + zh("答對之數");
@@ -454,6 +521,23 @@ function finish(){
     + "<br><br>Tracked: " + c.tracked + " · still shaky: " + c.shaky + " · retired: " + c.retired
     + zh("已錄 " + c.tracked + " 題 · 未穩 " + c.shaky + " 題 · 已熟 " + c.retired + " 題");
   $("again").hidden = AG.review.counts().due === 0;
+  show("s3");
+}
+
+function finishRound(){
+  const g = grade(right, QUEUE.length);
+  const first = !(AG.state.rounds && AG.state.rounds.last === ROUND_N);
+  const rec = first ? AG.rounds.record(right, QUEUE.length) : (AG.state.rounds || {});
+  $("doneN").innerHTML = g.mk;
+  $("doneLine").innerHTML = right + " / " + QUEUE.length + " · " + g.en + zh("答對之數");
+  $("doneNote").innerHTML =
+    "<b>" + g.en + ".</b> " + g.note + zh(g.zh)
+    + "<br><br>Rounds sat: " + (rec.done || 1)
+    + " · best: " + (rec.best || right) + " / " + QUEUE.length
+    + (first ? "" : " · this attempt was practice and was not recorded")
+    + zh("已考 " + (rec.done || 1) + " 次 · 最佳 " + (rec.best || right)
+         + " / " + QUEUE.length + (first ? "" : " · 本次為練習，未計入"));
+  $("again").hidden = true;
   show("s3");
 }
 

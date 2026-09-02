@@ -125,11 +125,12 @@ body.nozh .zh{display:none !important}
   transition:.3s var(--ease);z-index:80;pointer-events:none}
 .toast.on{opacity:.95;transform:translate(-50%,0)}
 </style>
-<link rel="stylesheet" href="desktop.css?v=86">
-<script src="state.js?v=86"></script>
-<script src="data/herbs.js?v=86"></script>
-<script src="hud.js?v=86"></script>
-<script src="data/daily-cases.js?v=86"></script>
+<link rel="stylesheet" href="desktop.css?v=100">
+<script src="state.js?v=100"></script>
+<script src="data/herbs.js?v=100"></script>
+<script src="hud.js?v=100"></script>
+<script src="data/daily-cases.js?v=100"></script>
+<script src="data/jieqi.js?v=100"></script>
 </head>
 <body data-page="daily">
 <div id="app">
@@ -215,7 +216,13 @@ const dayKey=AG.gameDayKey();
 const dayNum=AG.gameDayNumber();
 const caseIdx=((dayNum%CASES.length)+CASES.length)%CASES.length;
 $("caseNo").textContent="CASE #"+(dayNum+1);
-$("dateStr").textContent=dayKey;
+/* The date line carries the solar term too. The daily case is the habit and
+   the term is the season; a player who never opens the seasonal band still
+   sees the year turning under the thing they open every morning. */
+(function(){
+  var t = window.AG_JIEQI_AT && window.AG_JIEQI_AT(new Date());
+  $("dateStr").innerHTML = dayKey + (t ? '  ·  ' + t.en + '<span class="zh"> ' + t.zh + '</span>' : "");
+})();
 
 /* ═════ intro ═════ */
 function renderIntro(){

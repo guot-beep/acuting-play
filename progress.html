@@ -105,13 +105,13 @@ body.nozh .sec h2 .zh{display:none}
 .btn:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(51,47,40,.13)}
 .note{font-size:10.5px;color:var(--ink-faint);line-height:1.7;text-align:center;margin:10px 0 4px}
 </style>
-<link rel="stylesheet" href="desktop.css?v=86">
-<script src="state.js?v=86"></script>
-<script src="data/points.js?v=86"></script>
-<script src="data/herbs.js?v=86"></script>
-<script src="data/chapter-index.js?v=86"></script>
-<script src="data/practice-index.js?v=86"></script>
-<script src="hud.js?v=86"></script>
+<link rel="stylesheet" href="desktop.css?v=100">
+<script src="state.js?v=100"></script>
+<script src="data/points.js?v=100"></script>
+<script src="data/herbs.js?v=100"></script>
+<script src="data/chapter-index.js?v=100"></script>
+<script src="data/practice-index.js?v=100"></script>
+<script src="hud.js?v=100"></script>
 </head>
 <body data-page="progress">
 <div id="app">
@@ -232,6 +232,31 @@ html+='<div class="sec"><h2><span>The Five Axes'+zh("醫者五軸")+'</span><em>
   html += sec("Review","溫故", c.retired, c.tracked, inner,
     c.due ? "Wrong today, back tomorrow. Right today, back in 1, 3, 7 then 16 days."
           : "Everything you have met is scheduled. Nothing is waiting right now.");
+})();
+
+/* 旬考 · the ten-day examination — the one record with a grade attached, so it
+   is the one that gives the long game a shape. Hidden entirely until a first
+   round has been sat: an empty exam record reads as a reproach. */
+(function(){
+  const R = S.rounds || {};
+  if (!R.done) return;
+  const MK = (sc, t) => { const p = t ? sc/t : 0;
+    return p >= 1 ? "甲上" : p >= .8 ? "甲" : p >= .6 ? "乙" : p >= .4 ? "丙" : "丁"; };
+  /* The stored round number counts ten-day blocks since 1970 — true, and
+     meaningless to a player. Number them from their own first round. */
+  const raw = (R.log || []);
+  const base = raw.length ? Math.min.apply(null, raw.map(e => e.r)) : 0;
+  const log = raw.slice().reverse();
+  const inner = '<div class="rows">'
+    + log.map(e =>
+        '<div class="row"><span class="tick'+(e.s === e.t ? "" : " off")+'">'+MK(e.s, e.t)+'</span>'
+        + '<span class="t">Round '+(e.r - base + 1)+zh("第 "+(e.r - base + 1)+" 旬")
+        + "<small>"+e.d+"</small></span>"
+        + '<span class="st">'+e.s+" / "+e.t+"</span></div>").join("")
+    + '</div>';
+  html += sec("Rounds","旬考", R.best || 0, 10, inner,
+    "Ten questions every ten days, drawn from everything you have studied. Best so far: "
+    + (R.best||0) + " / 10 across " + R.done + " round" + (R.done===1?"":"s") + ".");
 })();
 
 /* story */
