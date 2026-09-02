@@ -7,7 +7,12 @@ const BASE='file:///home/claude/site/';
   const errs=[]; pg.on('pageerror',e=>errs.push(String(e)));
   pg.on('console',m=>{if(m.type()==='error')errs.push('console: '+m.text())});
   let fail=0; const ok=(c,m)=>{console.log((c?'  ✅ ':'  ✗ ')+m);if(!c)fail++};
-  const sets=['five_elements','zangfu_match','herb_nature','formula_roles'];
+  /* Read the set list from the data, never from a list typed here. A
+     hand-written list does not go red when a new drill is added — it
+     quietly stops testing it, which is the worst failure a test has. */
+  const fs=require('fs'), vm=require('vm');
+  const sb={window:{}}; vm.runInNewContext(fs.readFileSync('/home/claude/site/data/sorts.js','utf8'), sb);
+  const sets=Object.keys(sb.window.AG_SORTS);
   for(const s of sets){
     errs.length=0;
     await pg.goto(BASE+'sort.html?s='+s); await pg.waitForTimeout(220);

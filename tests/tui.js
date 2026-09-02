@@ -53,7 +53,17 @@ const BASE='file:///home/claude/site/';
   await pg.evaluate(()=>enterHub()); await pg.waitForTimeout(120);
   await pg.click('#chapBtn'); await pg.waitForTimeout(150);
   ok(await pg.$$eval('#mGames .gitem.locked',n=>n.length===0),'finished chapters are all replayable');
-  ok(await pg.$eval('#storyLabel',e=>e.textContent.startsWith('Replay')),'story button offers a replay once finished');
+  /* Once every chapter is finished the story button must point at something
+     still live — a round, a due review, today's case — and only fall back to a
+     replay when none of those is. "Replay chapter 26" is a dead end dressed as
+     a next step; tests/trounds.js checks each branch individually. */
+  const step = await pg.evaluate(()=>nextChapter());
+  ok(/review\.html|dailycase\.html|chapter\.html/.test(step.href),
+     'finished players are pointed somewhere live: '+step.label+' \u2192 '+step.href);
+  ok(!/^Replay/.test(step.label) || !(await pg.evaluate(()=>{
+       try { return AG.rounds.open() || AG.review.counts().due > 0; } catch(e){ return false; }
+     })),
+     'a replay is offered only when nothing else is waiting');
 
   /* ── 5 · every school offers 3+ playable items ── */
   const counts=await pg.evaluate(()=>{const o={};
@@ -66,7 +76,13 @@ const BASE='file:///home/claude/site/';
   const fs=require('fs');
   const bad=files.filter(f=>!fs.existsSync('/home/claude/site/'+f.split('?')[0]));
   ok(bad.length===0,'every linked game page exists'+(bad.length?': missing '+bad.join(', '):''));
-  const drillIds=await pg.evaluate(()=>Object.keys(window.AG_PRACTICE||{}));
+  /* index.html does not load data/practice.js — it only loads the index — so
+     reading window.AG_PRACTICE here found an empty object and the check passed
+     for free, orphan or no orphan. Read the source file instead, the way the
+     sorting-set check below already does. */
+  const vm0=require('vm'); const psb={window:{}};
+  vm0.runInNewContext(fs.readFileSync('/home/claude/site/data/practice.js','utf8'), psb);
+  const drillIds=Object.keys(psb.window.AG_PRACTICE||{});
   const linked=files.filter(f=>f.startsWith('practice.html')).map(f=>f.split('d=')[1]);
   const unlinked=drillIds.filter(id=>linked.indexOf(id)<0);
   ok(unlinked.length===0,'every practice deck is reachable from the town'+(unlinked.length?': orphaned '+unlinked.join(', '):''));
