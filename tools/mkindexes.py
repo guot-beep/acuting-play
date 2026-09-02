@@ -46,9 +46,14 @@ HEAD = ("/* ══════════════════════�
         "   ═══════════════════════════════════════════════════════════════ */\n")
 
 # ── chapters ────────────────────────────────────────────────────────
+# A chapter carrying hold:true is finished writing but not cleared to ship —
+# in practice, its needling coordinate has not been checked against a textbook
+# yet. It stays in data/chapters.js so nothing is lost, and it is simply absent
+# from the index, so the town never offers a door that teaches a wrong location.
 rows = read("chapters.js",
             "(function(C){var ids=Object.keys(C).sort(function(a,b){return (+a)-(+b)});"
-            "return ids.map(function(id){return {id:id,title:C[id].title,titleZh:C[id].titleZh,"
+            "return ids.filter(function(id){return !C[id].hold})"
+            ".map(function(id){return {id:id,title:C[id].title,titleZh:C[id].titleZh,"
             "pattern:C[id].pattern||''}})})(window.AG_CHAPTERS)")
 out = [HEAD % ("chapter-index.js", "data/chapters.js",
                "Just the spine of each chapter, so the town and the progress\n"
@@ -116,8 +121,11 @@ def split(src, glob_name, out_dir, keys_expr, item_expr, global_name, head_note)
           % (out_dir, len(keys), total // 1024,
              max(os.path.getsize(os.path.join(d, f)) for f in os.listdir(d)) // 1024))
 
+# Held chapters get no file of their own either. Leaving one on the host would
+# mean chapter.html?ch=22 still played a chapter we deliberately withheld —
+# absent from the town list is not the same as unreachable.
 split("chapters.js", None, "chapters",
-      "Object.keys(window.AG_CHAPTERS)",
+      "Object.keys(window.AG_CHAPTERS).filter(function(k){return !window.AG_CHAPTERS[k].hold})",
       "window.AG_CHAPTERS[k]", "AG_CHAPTERS",
       "chapter.html loads only the one it was asked for")
 split("practice.js", None, "practice",
